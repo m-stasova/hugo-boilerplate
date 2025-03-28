@@ -1,0 +1,73 @@
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $padding := .padding | default "py-24 sm:py-32" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Meet our leadership" }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
+
+{{/* Team members */}}
+{{ $nameColor := .nameColor | default "text-gray-900" }}
+{{ $roleColor := .roleColor | default "text-gray-600" }}
+{{ $bioColor := .bioColor | default "text-gray-600" }}
+{{ $teamMembers := .teamMembers | default (slice 
+  (dict 
+    "name" "Leonard Krasner" 
+    "role" "Senior Designer"
+    "image" "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Quia illum aut in beatae. Possimus dolores aliquid accusantium aut in ut non assumenda. Enim iusto molestias aut deleniti eos aliquid magnam molestiae. At et non possimus ab. Magni labore molestiae nulla qui."
+  )
+  (dict 
+    "name" "Floyd Miles" 
+    "role" "Principal Designer"
+    "image" "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Consectetur adipiscing elit duis tristique sollicitudin nibh sit. Eu non diam phasellus vestibulum lorem sed risus ultricies. Massa tincidunt dui ut ornare lectus sit amet est placerat."
+  )
+  (dict 
+    "name" "Emily Selman" 
+    "role" "VP, User Experience"
+    "image" "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Enim nulla aliquet porttitor lacus luctus accumsan tortor. Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Viverra nam libero justo laoreet sit amet cursus sit amet."
+  )
+  (dict 
+    "name" "Kristin Watson" 
+    "role" "VP, Human Resources"
+    "image" "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Nunc eget lorem dolor sed viverra ipsum nunc aliquet. Consectetur a erat nam at lectus urna duis convallis convallis. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue."
+  )
+  (dict 
+    "name" "Emma Dorsey" 
+    "role" "Senior Developer"
+    "image" "https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Praesentium iure error aliquam voluptas ut libero. Commodi placeat sit iure nulla officiis. Ut ex sit repellat tempora. Qui est accusamus exercitationem natus ut voluptas. Officiis velit eos ducimus."
+  )
+  (dict 
+    "name" "Michael Foster" 
+    "role" "Co-Founder / CTO"
+    "image" "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
+    "bio" "Ullam laboriosam est voluptatem maxime ut mollitia commodi. Et dignissimos suscipit perspiciatis. Id et eos maiores corporis similique voluptatem. Iure fugiat reprehenderit ea nostrum non voluptatem."
+  )
+) }}
+
+<div class="{{ $bgColor }} {{ $padding }}">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl sm:text-center">
+      <h2 class="text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <p class="mt-6 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+    </div>
+    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-20 sm:grid-cols-2 lg:max-w-4xl lg:gap-x-8 xl:max-w-none">
+      {{ range $teamMembers }}
+      <li class="flex flex-col gap-6 xl:flex-row">
+        <img class="aspect-4/5 w-52 flex-none rounded-2xl object-cover" src="{{ .image }}" alt="{{ .name }}">
+        <div class="flex-auto">
+          <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+          <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
+          <p class="mt-6 text-base/7 {{ $bioColor }}">{{ .bio }}</p>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>

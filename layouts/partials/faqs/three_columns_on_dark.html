@@ -1,0 +1,57 @@
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Frequently asked questions" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $supportingText := .supportingText | default "Have a different question and can't find the answer you're looking for? Reach out to our support team by <a href=\"#\" class=\"font-semibold text-indigo-400 hover:text-indigo-300\">sending us an email</a> and we'll get back to you as soon as we can." }}
+{{ $supportingTextColor := .supportingTextColor | default "text-gray-300" }}
+{{ $supportingTextLinkColor := .supportingTextLinkColor | default "text-indigo-400" }}
+{{ $supportingTextLinkHoverColor := .supportingTextLinkHoverColor | default "text-indigo-300" }}
+
+{{/* FAQ items */}}
+{{ $questionColor := .questionColor | default "text-white" }}
+{{ $answerColor := .answerColor | default "text-gray-300" }}
+{{ $faqs := .faqs | default (slice 
+  (dict 
+    "question" "What's the best thing about Switzerland?" 
+    "answer" "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "How do you make holy water?" 
+    "answer" "You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "What do you call someone with no body and no nose?" 
+    "answer" "Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "Why do you never see elephants hiding in trees?" 
+    "answer" "Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "How many tickles does it take to make an octopus laugh?" 
+    "answer" "Ten tickles. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "What's the difference between a poorly dressed man on a trampoline and a well-dressed man on a trampoline?" 
+    "answer" "Attire. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+) }}
+
+<div class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
+    <h2 class="text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+    <p class="mt-6 max-w-2xl text-base/7 {{ $supportingTextColor }}">{{ $supportingText | safeHTML }}</p>
+    <div class="mt-20">
+      <dl class="space-y-16 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:space-y-0 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-10">
+        {{ range $faqs }}
+        <div>
+          <dt class="text-base/7 font-semibold {{ $questionColor }}">{{ .question }}</dt>
+          <dd class="mt-2 text-base/7 {{ $answerColor }}">{{ .answer }}</dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+  </div>
+</div>

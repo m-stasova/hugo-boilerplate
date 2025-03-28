@@ -1,0 +1,90 @@
+{{/* Configurable variables */}}
+{{ $bgColor := .bgColor | default "bg-gray-900" }}
+
+{{/* Heading section */}}
+{{ $heading := .heading | default "Frequently asked questions" }}
+{{ $headingColor := .headingColor | default "text-white" }}
+
+{{/* FAQ items */}}
+{{ $questionColor := .questionColor | default "text-white" }}
+{{ $answerColor := .answerColor | default "text-gray-300" }}
+{{ $dividerColor := .dividerColor | default "divide-white/10" }}
+{{ $faqs := .faqs | default (slice 
+  (dict 
+    "question" "What's the best thing about Switzerland?" 
+    "answer" "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "How do you make holy water?" 
+    "answer" "You boil the hell out of it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "What do you call someone with no body and no nose?" 
+    "answer" "Nobody knows. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "Why do you never see elephants hiding in trees?" 
+    "answer" "Because they're so good at it. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+  (dict 
+    "question" "How many tickles does it take to make an octopus laugh?" 
+    "answer" "Ten tickles. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat."
+  )
+) }}
+
+<div class="{{ $bgColor }}">
+  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+    <div class="mx-auto max-w-4xl">
+      <h2 class="text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+      <dl class="mt-16 divide-y {{ $dividerColor }}">
+        {{ range $index, $faq := $faqs }}
+        <div class="py-6 first:pt-0 last:pb-0">
+          <dt>
+            <!-- Expand/collapse question button -->
+            <button type="button" class="flex w-full items-start justify-between text-left {{ $questionColor }}" 
+                    aria-controls="faq-dark-{{ $index }}" 
+                    aria-expanded="false"
+                    onclick="toggleFAQDark(this, 'faq-dark-{{ $index }}')">
+              <span class="text-base/7 font-semibold">{{ .question }}</span>
+              <span class="ml-6 flex h-7 items-center">
+                <!-- Icon when question is collapsed -->
+                <svg class="size-6 plus-icon-dark" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+                <!-- Icon when question is expanded -->
+                <svg class="hidden size-6 minus-icon-dark" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                </svg>
+              </span>
+            </button>
+          </dt>
+          <dd class="mt-2 pr-12 hidden" id="faq-dark-{{ $index }}">
+            <p class="text-base/7 {{ $answerColor }}">{{ .answer }}</p>
+          </dd>
+        </div>
+        {{ end }}
+      </dl>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleFAQDark(button, id) {
+    // Get the answer element
+    const answer = document.getElementById(id);
+    
+    // Toggle visibility
+    answer.classList.toggle('hidden');
+    
+    // Toggle aria-expanded
+    const expanded = answer.classList.contains('hidden') ? 'false' : 'true';
+    button.setAttribute('aria-expanded', expanded);
+    
+    // Toggle icons
+    const plusIcon = button.querySelector('.plus-icon-dark');
+    const minusIcon = button.querySelector('.minus-icon-dark');
+    
+    plusIcon.classList.toggle('hidden');
+    minusIcon.classList.toggle('hidden');
+  }
+</script>
