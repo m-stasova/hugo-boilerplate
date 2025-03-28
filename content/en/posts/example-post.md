@@ -1,0 +1,30 @@
+---
+title: "Example Post"
+date: 2025-03-28T10:41:11+01:00
+draft: false
+tags: ["example", "first"]
+categories: ["demo"]
+---
+
+# Welcome to Hugo Boilerplate
+
+This is an example post demonstrating various features of Hugo and Markdown.
+
+## Features
+
+1. **Markdown Support**
+2. *Responsive Design*
+3. `Code highlighting`
+
+### Code Example
+
+```python
+def hello_world():
+    print("Hello, Hugo!")
+```
+
+### Quote Example
+
+> Hugo is one of the most popular open-source static site generators.
+
+For more information, visit [Hugo's website](https://gohugo.io).

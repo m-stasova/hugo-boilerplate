@@ -1,0 +1,64 @@
+baseURL = 'http://localhost:1313/'
+languageCode = 'en-us'
+title = 'Hugo Boilerplate'
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+theme = 'boilerplate'
+
+# Site parameters
+[params]
+  description = "A clean Hugo boilerplate"
+  author = "Your Name"
+  mainSections = ["posts"]
+  dateFormat = "January 2, 2006"
+
+# Language configuration
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "English Site Title"
+    weight = 1
+    baseURL = "https://example.com"
+    [languages.en.params]
+      description = "English site description"
+    [[languages.en.menu.main]]
+      identifier = "home"
+      name = "Home"
+      url = "/"
+      weight = 1
+    [[languages.en.menu.main]]
+      identifier = "posts"
+      name = "Posts"
+      url = "/posts/"
+      weight = 2
+
+  [languages.de]
+    languageName = "Deutsch"
+    title = "German Site Title"
+    weight = 2
+    baseURL = "https://example.de"
+    [languages.de.params]
+      description = "Deutsche Seitenbeschreibung"
+    [[languages.de.menu.main]]
+      identifier = "home"
+      name = "Startseite"
+      url = "/"
+      weight = 1
+    [[languages.de.menu.main]]
+      identifier = "posts"
+      name = "Beiträge"
+      url = "/posts/"
+      weight = 2
+
+# Taxonomies
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+# Build settings
+[build]
+  writeStats = true
+
+# Multilingual settings
+[sitemap]
+  filename = "sitemap.xml"

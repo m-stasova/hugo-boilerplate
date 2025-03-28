@@ -1,0 +1,6 @@
+keywords:
+  - keyword: "keyword1"
+    url: "/"
+    exact: false
+    priority: 1
+    title: "Visit our homepage"
