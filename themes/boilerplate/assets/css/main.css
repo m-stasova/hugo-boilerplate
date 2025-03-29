@@ -2,4 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import lazy loading CSS */
+@import './lazy-images.css';
+@import './lazy-videos.css';
+
 /* Custom styles can be added below */

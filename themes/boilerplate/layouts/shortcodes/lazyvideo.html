@@ -1,0 +1,13 @@
+{{ $videoID := (.Get 0) }}
+{{ $title := (.Get 1) | default "YouTube Video" }}
+{{ $class := (.Get 2) | default "" }}
+{{ $width := (.Get 3) | default "100%" }}
+{{ $height := (.Get 4) | default "auto" }}
+
+{{ partial "lazyvideo.html" (dict 
+  "videoID" $videoID 
+  "title" $title 
+  "class" $class
+  "width" $width
+  "height" $height
+) }}

@@ -21,6 +21,8 @@
   class="lazy-video-container {{ with $class }}{{ . }}{{ end }}"
   data-video-id="{{ $videoID }}"
   data-video-title="{{ $title }}"
+  data-video-width="{{ $width }}"
+  data-video-height="{{ $height }}"
   {{ with $id }}id="{{ . }}"{{ end }}
 >
   <div class="lazy-video-thumbnail">
@@ -32,6 +34,8 @@
       data-video-id="{{ $videoID }}"
       loading="lazy"
       decoding="async"
+      width="{{ $width }}"
+      height="{{ $height }}"
       onload="this.onload=null; if(this.dataset.src === this.src) findBestThumbnail(this);"
     />
     <div class="lazy-video-play-button">
@@ -94,6 +98,58 @@
   
   // Initialize lazy loading for images if not already done
   document.addEventListener('DOMContentLoaded', function() {
+    // Add click event listeners to all video thumbnails
+    const videoThumbnails = document.querySelectorAll('.lazy-video-thumbnail');
+    videoThumbnails.forEach(function(thumbnail) {
+      thumbnail.addEventListener('click', function() {
+        const container = thumbnail.closest('.lazy-video-container');
+        const videoId = container.getAttribute('data-video-id');
+        const iframeContainer = container.querySelector('.lazy-video-iframe-container');
+        const videoWidth = container.getAttribute('data-video-width');
+        const videoHeight = container.getAttribute('data-video-height');
+        
+        // Set fixed dimensions on the container
+        iframeContainer.style.width = videoWidth;
+        iframeContainer.style.height = videoHeight !== "auto" ? videoHeight : "0";
+        iframeContainer.style.paddingBottom = videoHeight === "auto" ? "56.25%" : "0";
+        
+        // Remove the default positioning styles to use natural dimensions
+        iframeContainer.style.position = "relative";
+        
+        // Get the thumbnail image to match exact dimensions
+        const thumbImg = thumbnail.querySelector('img');
+        const thumbWidth = thumbImg ? thumbImg.offsetWidth : null;
+        const thumbHeight = thumbImg ? thumbImg.offsetHeight : null;
+          
+        if (thumbWidth && thumbHeight) {
+            // Use the actual rendered dimensions of the thumbnail
+            iframeContainer.style.width = thumbWidth + 'px';
+            iframeContainer.style.height = thumbHeight + 'px';
+            iframeContainer.style.paddingBottom = '0';
+        }
+        
+        // Create and insert the iframe
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        iframe.title = container.getAttribute('data-video-title');
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.className = 'lazy-video-iframe';
+        
+        iframe.style.position = "relative";
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        
+        // Clear the container and add the iframe
+        iframeContainer.innerHTML = '';
+        iframeContainer.appendChild(iframe);
+        
+        // Show the iframe container and hide the thumbnail
+        iframeContainer.style.display = 'block';
+        thumbnail.style.display = 'none';
+      });
+    });
+
     if (typeof initLazyImages !== 'function') {
       // Define the lazy loading function if it doesn't exist yet
       window.initLazyImages = function() {
