@@ -19,6 +19,7 @@ theme = 'boilerplate'
     title = "English Site Title"
     weight = 1
     baseURL = "https://example.com"
+    bcp47Lang = "en-us"
     [languages.en.params]
       description = "English site description"
     [[languages.en.menu.main]]
@@ -37,6 +38,7 @@ theme = 'boilerplate'
     title = "German Site Title"
     weight = 2
     baseURL = "https://example.de"
+    bcp47Lang = "de"
     [languages.de.params]
       description = "Deutsche Seitenbeschreibung"
     [[languages.de.menu.main]]

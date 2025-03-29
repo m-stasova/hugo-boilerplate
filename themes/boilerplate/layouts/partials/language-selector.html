@@ -1,0 +1,67 @@
+{{/* Language Selector Partial */}}
+<div class="language-selector">
+  <div class="flex flex-wrap items-center justify-center gap-3">
+    {{ if .Translations }}
+      {{ $currentPage := . }}
+      {{ range .Translations }}
+        {{ $isCurrentLang := eq $.Site.Language.Lang .Language.Lang }}
+        {{ $langCode := .Language.Lang }}
+        
+        {{ $bcp47Lang := "" }}
+        {{ if eq $langCode "en" }}
+          {{ $bcp47Lang = "en-us" }}
+        {{ else }}
+          {{ $bcp47Lang = $langCode }}
+        {{ end }}
+        
+        <a href="{{ .Permalink }}" 
+           class="inline-flex items-center {{ if $isCurrentLang }}ring-2 ring-indigo-500{{ end }}" 
+           title="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}">
+          <img src="{{ (printf "flags/%s.png" $bcp47Lang) | relURL }}" 
+               alt="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}" 
+               class="w-6 h-4 hover:opacity-75 transition-opacity">
+        </a>
+      {{ end }}
+      
+      <!-- Add current language -->
+      {{ $langCode := $.Site.Language.Lang }}
+      {{ $bcp47Lang := "" }}
+      {{ if eq $langCode "en" }}
+        {{ $bcp47Lang = "en-us" }}
+      {{ else }}
+        {{ $bcp47Lang = $langCode }}
+      {{ end }}
+      
+      <a href="{{ .Permalink }}" 
+         class="inline-flex items-center ring-2 ring-indigo-500" 
+         title="{{ $.Site.Language.LanguageName }} - {{ $.Site.BaseURL | replaceRE "https?://" "" }}">
+        <img src="{{ (printf "flags/%s.png" $bcp47Lang) | relURL }}" 
+             alt="{{ $.Site.Language.LanguageName }} - {{ $.Site.BaseURL | replaceRE "https?://" "" }}" 
+             class="w-6 h-4 hover:opacity-75 transition-opacity">
+      </a>
+    {{ else }}
+      <!-- Fallback to all translations if page translations aren't available -->
+      {{ with site.Home.AllTranslations }}
+        {{ range . }}
+          {{ $isCurrentLang := eq $.Site.Language.Lang .Language.Lang }}
+          {{ $langCode := .Language.Lang }}
+          
+          {{ $bcp47Lang := "" }}
+          {{ if eq $langCode "en" }}
+            {{ $bcp47Lang = "en-us" }}
+          {{ else }}
+            {{ $bcp47Lang = $langCode }}
+          {{ end }}
+          
+          <a href="{{ .Permalink }}" 
+             class="inline-flex items-center {{ if $isCurrentLang }}ring-2 ring-indigo-500{{ end }}" 
+             title="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}">
+            <img src="{{ (printf "flags/%s.png" $bcp47Lang) | relURL }}" 
+                 alt="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}" 
+                 class="w-6 h-4 hover:opacity-75 transition-opacity">
+          </a>
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </div>
+</div>

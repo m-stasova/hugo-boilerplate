@@ -1,0 +1,12 @@
+{{/* Base footer partial that can be included in all footer types */}}
+{{ $footerType := .footerType | default "4-column_with_call-to-action_on_dark" }}
+
+{{ if eq $footerType "4-column_with_call-to-action_on_dark" }}
+  {{ partial "footers/4-column_with_call-to-action_on_dark" . }}
+{{ else if eq $footerType "simple" }}
+  {{ partial "footers/simple" . }}
+{{ else if eq $footerType "centered" }}
+  {{ partial "footers/centered" . }}
+{{ else }}
+  {{ partial "footers/4-column_with_call-to-action_on_dark" . }}
+{{ end }}

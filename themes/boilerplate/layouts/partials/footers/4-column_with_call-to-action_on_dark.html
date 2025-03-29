@@ -72,6 +72,9 @@
 {{ $copyrightText := .copyrightText | default "&copy; 2024 Your Company, Inc. All rights reserved." }}
 {{ $copyrightColor := .copyrightColor | default "text-gray-400" }}
 
+{{ $showLanguageSelector := .showLanguageSelector | default true }}
+{{ $languageSelectorTitle := .languageSelectorTitle | default (i18n "language_selector_title") }}
+
 <footer class="{{ $bgColor }}">
   <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
     <div class="mx-auto max-w-2xl text-center">
@@ -130,6 +133,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="language-selector mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
+      <p class="text-sm/6 font-semibold {{ $headingColor }} mb-4">{{ $languageSelectorTitle }}</p>
+      {{ partial "language-selector.html" $.Page }}
     </div>
     <div class="mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <div class="flex gap-x-6 md:order-2">
