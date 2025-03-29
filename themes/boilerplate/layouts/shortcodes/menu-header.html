@@ -1,0 +1,112 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-header 
+    logoUrl="/images/logo.svg"
+    logoAlt="Company Logo"
+    logoHeight="h-8"
+    siteTitle="Your Company"
+    ctaText="Sign up"
+    ctaUrl="/signup"
+    ctaBgColor="bg-indigo-600"
+    ctaHoverBgColor="hover:bg-indigo-500"
+    ctaTextColor="text-white"
+    loginText="Log in"
+    loginUrl="/login"
+  >}}
+  
+  Note: This shortcode uses predefined menu items with various dropdown types.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $logoUrl := .Get "logoUrl" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" -}}
+{{- $logoAlt := .Get "logoAlt" | default "Company Logo" -}}
+{{- $logoHeight := .Get "logoHeight" | default "h-8" -}}
+{{- $siteTitle := .Get "siteTitle" | default "Your Company" -}}
+{{- $ctaText := .Get "ctaText" | default "Sign up" -}}
+{{- $ctaUrl := .Get "ctaUrl" | default "#" -}}
+{{- $ctaBgColor := .Get "ctaBgColor" | default "bg-indigo-600" -}}
+{{- $ctaHoverBgColor := .Get "ctaHoverBgColor" | default "hover:bg-indigo-500" -}}
+{{- $ctaTextColor := .Get "ctaTextColor" | default "text-white" -}}
+{{- $loginText := .Get "loginText" | default "Log in" -}}
+{{- $loginUrl := .Get "loginUrl" | default "#" -}}
+
+{{- $menuItems := slice 
+  (dict 
+    "title" "Products" 
+    "url" "#" 
+    "dropdown" "flyout_menu_two_column"
+    "buttonText" "Products"
+    "menuItems" (slice 
+      (dict "title" "Analytics" "description" "Get a better understanding of your traffic" "url" "#" "icon" "chart-pie")
+      (dict "title" "Engagement" "description" "Speak directly to your customers" "url" "#" "icon" "sparkles")
+      (dict "title" "Security" "description" "Your customers' data will be safe and secure" "url" "#" "icon" "fingerprint")
+      (dict "title" "Integrations" "description" "Connect with third-party tools" "url" "#" "icon" "squares-2x2")
+      (dict "title" "Automations" "description" "Build strategic funnels that will convert" "url" "#" "icon" "arrows-rotate")
+      (dict "title" "Reports" "description" "Edit and manage your data" "url" "#" "icon" "document")
+    )
+    "footerTitle" "Enterprise"
+    "footerTag" "New"
+    "footerDescription" "Empower your entire team with even more advanced tools."
+  )
+  (dict 
+    "title" "Solutions" 
+    "url" "#" 
+    "dropdown" "flyout_menu_simple_with_descriptions"
+    "buttonText" "Solutions"
+    "menuItems" (slice 
+      (dict "title" "Blog" "description" "Learn about tips, product updates and company culture" "url" "#")
+      (dict "title" "Help center" "description" "Get all of your questions answered" "url" "#")
+      (dict "title" "Guides" "description" "Learn how to maximize our platform" "url" "#")
+      (dict "title" "Events" "description" "Check out webinars with experts" "url" "#")
+      (dict "title" "Security" "description" "Understand how we take your privacy seriously" "url" "#")
+    )
+  )
+  (dict 
+    "title" "Resources" 
+    "url" "#" 
+    "dropdown" "flyout_menu_stacked_with_footer_actions"
+    "buttonText" "Resources"
+    "menuItems" (slice 
+      (dict "title" "Documentation" "description" "Start integrating products and tools" "url" "#" "icon" "book-open")
+      (dict "title" "API Reference" "description" "A complete API reference guide" "url" "#" "icon" "code-bracket")
+      (dict "title" "Playground" "description" "Test our products in our playground" "url" "#" "icon" "beaker")
+      (dict "title" "Pricing" "description" "View our pricing plans for all products" "url" "#" "icon" "currency-dollar")
+    )
+    "footerActions" (slice 
+      (dict "text" "Watch demo" "url" "#" "icon" "play")
+      (dict "text" "Contact sales" "url" "#" "icon" "phone")
+    )
+  )
+  (dict 
+    "title" "Company" 
+    "url" "#" 
+    "dropdown" "flyout_menu_full_width"
+    "buttonText" "Company"
+    "menuItems" (slice 
+      (dict "title" "About" "description" "Learn about our story and our mission statement" "url" "#" "icon" "information-circle")
+      (dict "title" "Customers" "description" "See how our customers are succeeding with our products" "url" "#" "icon" "users")
+      (dict "title" "Press" "description" "Read the latest press releases and news coverage" "url" "#" "icon" "newspaper")
+      (dict "title" "Careers" "description" "Join our team and help us build a better future" "url" "#" "icon" "briefcase")
+    )
+    "footerLinks" (slice 
+      (dict "text" "Meet our leadership" "url" "#" "icon" "user-group")
+      (dict "text" "Values" "url" "#" "icon" "heart")
+      (dict "text" "Investor relations" "url" "#" "icon" "chart-bar")
+    )
+  )
+-}}
+
+{{ partial "menus/header_menu" (dict 
+  "logoUrl" $logoUrl
+  "logoAlt" $logoAlt
+  "logoHeight" $logoHeight
+  "siteTitle" $siteTitle
+  "ctaText" $ctaText
+  "ctaUrl" $ctaUrl
+  "ctaBgColor" $ctaBgColor
+  "ctaHoverBgColor" $ctaHoverBgColor
+  "ctaTextColor" $ctaTextColor
+  "loginText" $loginText
+  "loginUrl" $loginUrl
+  "menuItems" $menuItems
+) }}

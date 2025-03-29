@@ -1,0 +1,92 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-flyout-full-width 
+    buttonText="Solutions"
+    buttonTextColor="text-gray-900"
+    iconBgColor="bg-gray-50"
+    iconColor="text-gray-600"
+    iconHoverColor="text-indigo-600"
+    titleColor="text-gray-900"
+    descriptionColor="text-gray-600"
+    footerBgColor="bg-gray-50"
+    footerLinkColor="text-gray-900"
+    footerLinkHoverBgColor="hover:bg-gray-100"
+    footerLinkIconColor="text-gray-400"
+  >}}
+  
+  Note: This shortcode uses predefined menu items and footer links.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $buttonText := .Get "buttonText" | default "Solutions" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-gray-900" -}}
+{{- $iconBgColor := .Get "iconBgColor" | default "bg-gray-50" -}}
+{{- $iconColor := .Get "iconColor" | default "text-gray-600" -}}
+{{- $iconHoverColor := .Get "iconHoverColor" | default "text-indigo-600" -}}
+{{- $titleColor := .Get "titleColor" | default "text-gray-900" -}}
+{{- $descriptionColor := .Get "descriptionColor" | default "text-gray-600" -}}
+{{- $footerBgColor := .Get "footerBgColor" | default "bg-gray-50" -}}
+{{- $footerLinkColor := .Get "footerLinkColor" | default "text-gray-900" -}}
+{{- $footerLinkHoverBgColor := .Get "footerLinkHoverBgColor" | default "hover:bg-gray-100" -}}
+{{- $footerLinkIconColor := .Get "footerLinkIconColor" | default "text-gray-400" -}}
+
+{{- $menuItems := slice 
+  (dict 
+    "title" "Analytics" 
+    "description" "Get a better understanding of where your traffic is coming from" 
+    "url" "#" 
+    "icon" "chart-pie"
+  )
+  (dict 
+    "title" "Engagement" 
+    "description" "Speak directly to your customers with our engagement tool" 
+    "url" "#" 
+    "icon" "sparkles"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Your customers' data will be safe and secure" 
+    "url" "#" 
+    "icon" "fingerprint"
+  )
+  (dict 
+    "title" "Integrations" 
+    "description" "Connect with third-party tools that you're already using" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+-}}
+
+{{- $footerLinks := slice 
+  (dict 
+    "text" "Watch demo" 
+    "url" "#" 
+    "icon" "play-circle"
+  )
+  (dict 
+    "text" "Contact sales" 
+    "url" "#" 
+    "icon" "phone"
+  )
+  (dict 
+    "text" "View all products" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+-}}
+
+{{ partial "menus/flyout_menu_full_width" (dict 
+  "buttonText" $buttonText
+  "buttonTextColor" $buttonTextColor
+  "menuItems" $menuItems
+  "footerLinks" $footerLinks
+  "iconBgColor" $iconBgColor
+  "iconColor" $iconColor
+  "iconHoverColor" $iconHoverColor
+  "titleColor" $titleColor
+  "descriptionColor" $descriptionColor
+  "footerBgColor" $footerBgColor
+  "footerLinkColor" $footerLinkColor
+  "footerLinkHoverBgColor" $footerLinkHoverBgColor
+  "footerLinkIconColor" $footerLinkIconColor
+) }}

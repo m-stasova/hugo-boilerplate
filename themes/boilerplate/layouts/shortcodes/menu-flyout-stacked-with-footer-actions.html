@@ -1,0 +1,99 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-flyout-stacked-with-footer-actions 
+    buttonText="Solutions"
+    menuWidth="max-w-md"
+    buttonTextColor="text-gray-900"
+    hoverBackgroundColor="hover:bg-gray-50"
+    iconBackgroundColor="bg-gray-50"
+    iconColor="text-gray-600"
+    iconHoverColor="text-indigo-600"
+    titleColor="text-gray-900"
+    descriptionColor="text-gray-600"
+    footerBackgroundColor="bg-gray-50"
+    footerTextColor="text-gray-900"
+    footerIconColor="text-gray-400"
+    footerHoverColor="hover:bg-gray-100"
+  >}}
+  
+  Note: This shortcode uses predefined menu items and footer actions.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $buttonText := .Get "buttonText" | default "Solutions" -}}
+{{- $menuWidth := .Get "menuWidth" | default "max-w-md" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-gray-900" -}}
+{{- $hoverBackgroundColor := .Get "hoverBackgroundColor" | default "hover:bg-gray-50" -}}
+{{- $iconBackgroundColor := .Get "iconBackgroundColor" | default "bg-gray-50" -}}
+{{- $iconColor := .Get "iconColor" | default "text-gray-600" -}}
+{{- $iconHoverColor := .Get "iconHoverColor" | default "text-indigo-600" -}}
+{{- $titleColor := .Get "titleColor" | default "text-gray-900" -}}
+{{- $descriptionColor := .Get "descriptionColor" | default "text-gray-600" -}}
+{{- $footerBackgroundColor := .Get "footerBackgroundColor" | default "bg-gray-50" -}}
+{{- $footerTextColor := .Get "footerTextColor" | default "text-gray-900" -}}
+{{- $footerIconColor := .Get "footerIconColor" | default "text-gray-400" -}}
+{{- $footerHoverColor := .Get "footerHoverColor" | default "hover:bg-gray-100" -}}
+
+{{- $menuItems := slice 
+  (dict 
+    "title" "Analytics" 
+    "description" "Get a better understanding of your traffic" 
+    "url" "#" 
+    "icon" "chart-pie"
+  )
+  (dict 
+    "title" "Engagement" 
+    "description" "Speak directly to your customers" 
+    "url" "#" 
+    "icon" "cursor-arrow-rays"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Your customers' data will be safe and secure" 
+    "url" "#" 
+    "icon" "fingerprint"
+  )
+  (dict 
+    "title" "Integrations" 
+    "description" "Connect with third-party tools" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+  (dict 
+    "title" "Automations" 
+    "description" "Build strategic funnels that will convert" 
+    "url" "#" 
+    "icon" "arrow-path"
+  )
+-}}
+
+{{- $footerActions := slice 
+  (dict 
+    "text" "Watch demo" 
+    "url" "#" 
+    "icon" "play-circle"
+  )
+  (dict 
+    "text" "Contact sales" 
+    "url" "#" 
+    "icon" "phone"
+  )
+-}}
+
+{{ partial "menus/flyout_menu_stacked_with_footer_actions" (dict 
+  "buttonText" $buttonText
+  "menuItems" $menuItems
+  "footerActions" $footerActions
+  "menuWidth" $menuWidth
+  "buttonTextColor" $buttonTextColor
+  "hoverBackgroundColor" $hoverBackgroundColor
+  "iconBackgroundColor" $iconBackgroundColor
+  "iconColor" $iconColor
+  "iconHoverColor" $iconHoverColor
+  "titleColor" $titleColor
+  "descriptionColor" $descriptionColor
+  "footerBackgroundColor" $footerBackgroundColor
+  "footerTextColor" $footerTextColor
+  "footerIconColor" $footerIconColor
+  "footerHoverColor" $footerHoverColor
+) }}

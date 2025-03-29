@@ -1,0 +1,41 @@
+{{- /*
+  Usage: partial "banners/privacy_notice_centered" (dict 
+    "message" "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious."
+    "policyText" "cookie policy"
+    "policyUrl" "#"
+    "acceptText" "Accept all"
+    "rejectText" "Reject all"
+    "backgroundColor" "bg-white"
+    "textColor" "text-gray-900"
+    "linkColor" "text-indigo-600"
+    "acceptButtonBackgroundColor" "bg-gray-900"
+    "acceptButtonTextColor" "text-white"
+    "acceptButtonHoverColor" "hover:bg-gray-700"
+    "acceptButtonFocusColor" "focus-visible:outline-gray-900"
+    "rejectButtonTextColor" "text-gray-900"
+  )
+*/ -}}
+
+{{- $message := .message | default "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious." -}}
+{{- $policyText := .policyText | default "cookie policy" -}}
+{{- $policyUrl := .policyUrl | default "#" -}}
+{{- $acceptText := .acceptText | default "Accept all" -}}
+{{- $rejectText := .rejectText | default "Reject all" -}}
+{{- $backgroundColor := .backgroundColor | default "bg-white" -}}
+{{- $textColor := .textColor | default "text-gray-900" -}}
+{{- $linkColor := .linkColor | default "text-indigo-600" -}}
+{{- $acceptButtonBackgroundColor := .acceptButtonBackgroundColor | default "bg-gray-900" -}}
+{{- $acceptButtonTextColor := .acceptButtonTextColor | default "text-white" -}}
+{{- $acceptButtonHoverColor := .acceptButtonHoverColor | default "hover:bg-gray-700" -}}
+{{- $acceptButtonFocusColor := .acceptButtonFocusColor | default "focus-visible:outline-gray-900" -}}
+{{- $rejectButtonTextColor := .rejectButtonTextColor | default "text-gray-900" -}}
+
+<div class="pointer-events-none fixed inset-x-0 bottom-0 px-6 pb-6">
+  <div class="pointer-events-auto mx-auto max-w-xl rounded-xl {{ $backgroundColor }} p-6 ring-1 shadow-lg ring-gray-900/10">
+    <p class="text-sm/6 {{ $textColor }}">{{ $message }} See our <a href="{{ $policyUrl }}" class="font-semibold {{ $linkColor }}">{{ $policyText }}</a>.</p>
+    <div class="mt-4 flex items-center gap-x-5">
+      <button type="button" class="rounded-md {{ $acceptButtonBackgroundColor }} px-3 py-2 text-sm font-semibold {{ $acceptButtonTextColor }} shadow-xs {{ $acceptButtonHoverColor }} focus-visible:outline-2 focus-visible:outline-offset-2 {{ $acceptButtonFocusColor }}">{{ $acceptText }}</button>
+      <button type="button" class="text-sm/6 font-semibold {{ $rejectButtonTextColor }}">{{ $rejectText }}</button>
+    </div>
+  </div>
+</div>

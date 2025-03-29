@@ -1,0 +1,109 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-flyout-two-column 
+    buttonText="Solutions"
+    buttonTextColor="text-gray-900"
+    menuMaxWidth="max-w-md lg:max-w-3xl"
+    iconBgColor="bg-gray-50"
+    iconColor="text-gray-600"
+    iconHoverColor="text-indigo-600"
+    titleColor="text-gray-900"
+    descriptionColor="text-gray-600"
+    footerBgColor="bg-gray-50"
+    footerTitleColor="text-gray-900"
+    footerTagBgColor="bg-indigo-600/10"
+    footerTagTextColor="text-indigo-600"
+    footerTitle="Enterprise"
+    footerTag="New"
+    footerDescription="Empower your entire team with even more advanced tools."
+  >}}
+  
+  Note: This shortcode uses predefined menu items.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $buttonText := .Get "buttonText" | default "Solutions" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-gray-900" -}}
+{{- $menuWidth := .Get "menuWidth" | default "w-screen" -}}
+{{- $menuMaxWidth := .Get "menuMaxWidth" | default "max-w-md lg:max-w-3xl" -}}
+{{- $menuBgColor := .Get "menuBgColor" | default "bg-white" -}}
+{{- $menuRingColor := .Get "menuRingColor" | default "ring-gray-900/5" -}}
+{{- $menuShadowColor := .Get "menuShadowColor" | default "shadow-lg" -}}
+{{- $itemHoverBgColor := .Get "itemHoverBgColor" | default "hover:bg-gray-50" -}}
+{{- $iconBgColor := .Get "iconBgColor" | default "bg-gray-50" -}}
+{{- $iconColor := .Get "iconColor" | default "text-gray-600" -}}
+{{- $iconHoverColor := .Get "iconHoverColor" | default "text-indigo-600" -}}
+{{- $titleColor := .Get "titleColor" | default "text-gray-900" -}}
+{{- $descriptionColor := .Get "descriptionColor" | default "text-gray-600" -}}
+{{- $footerBgColor := .Get "footerBgColor" | default "bg-gray-50" -}}
+{{- $footerTitleColor := .Get "footerTitleColor" | default "text-gray-900" -}}
+{{- $footerTagBgColor := .Get "footerTagBgColor" | default "bg-indigo-600/10" -}}
+{{- $footerTagTextColor := .Get "footerTagTextColor" | default "text-indigo-600" -}}
+{{- $footerDescriptionColor := .Get "footerDescriptionColor" | default "text-gray-600" -}}
+{{- $footerTitle := .Get "footerTitle" | default "Enterprise" -}}
+{{- $footerTag := .Get "footerTag" | default "New" -}}
+{{- $footerDescription := .Get "footerDescription" | default "Empower your entire team with even more advanced tools." -}}
+
+{{- $menuItems := slice 
+  (dict 
+    "title" "Analytics" 
+    "description" "Get a better understanding of your traffic" 
+    "url" "#" 
+    "icon" "chart-pie"
+  )
+  (dict 
+    "title" "Integrations" 
+    "description" "Connect with third-party tools and find out expectations" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+  (dict 
+    "title" "Engagement" 
+    "description" "Speak directly to your customers with our engagement tool" 
+    "url" "#" 
+    "icon" "sparkles"
+  )
+  (dict 
+    "title" "Automations" 
+    "description" "Build strategic funnels that will convert" 
+    "url" "#" 
+    "icon" "arrows-rotate"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Your customers' data will be safe and secure" 
+    "url" "#" 
+    "icon" "fingerprint"
+  )
+  (dict 
+    "title" "Reports" 
+    "description" "Edit, manage and create newly informed decisions" 
+    "url" "#" 
+    "icon" "document"
+  )
+-}}
+
+{{ partial "menus/flyout_menu_two_column" (dict 
+  "buttonText" $buttonText
+  "buttonTextColor" $buttonTextColor
+  "menuItems" $menuItems
+  "menuWidth" $menuWidth
+  "menuMaxWidth" $menuMaxWidth
+  "menuBgColor" $menuBgColor
+  "menuRingColor" $menuRingColor
+  "menuShadowColor" $menuShadowColor
+  "itemHoverBgColor" $itemHoverBgColor
+  "iconBgColor" $iconBgColor
+  "iconColor" $iconColor
+  "iconHoverColor" $iconHoverColor
+  "titleColor" $titleColor
+  "descriptionColor" $descriptionColor
+  "footerBgColor" $footerBgColor
+  "footerTitleColor" $footerTitleColor
+  "footerTagBgColor" $footerTagBgColor
+  "footerTagTextColor" $footerTagTextColor
+  "footerDescriptionColor" $footerDescriptionColor
+  "footerTitle" $footerTitle
+  "footerTag" $footerTag
+  "footerDescription" $footerDescription
+) }}

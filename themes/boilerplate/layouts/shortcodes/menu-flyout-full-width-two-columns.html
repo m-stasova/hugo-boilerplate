@@ -1,0 +1,120 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-flyout-full-width-two-columns 
+    buttonText="Solutions"
+    buttonTextColor="text-gray-900"
+    sectionHeadingColor="text-gray-500"
+    linkTextColor="text-gray-900"
+    linkIconColor="text-gray-400"
+    blogDateColor="text-gray-600"
+    blogCategoryBgColor="bg-gray-50"
+    blogCategoryTextColor="text-gray-600"
+    blogCategoryHoverColor="hover:bg-gray-100"
+    blogTitleColor="text-gray-900"
+    blogDescriptionColor="text-gray-600"
+  >}}
+  
+  Note: This shortcode uses predefined menu items, links, and blog posts.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $buttonText := .Get "buttonText" | default "Solutions" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-gray-900" -}}
+{{- $sectionHeadingColor := .Get "sectionHeadingColor" | default "text-gray-500" -}}
+{{- $linkTextColor := .Get "linkTextColor" | default "text-gray-900" -}}
+{{- $linkIconColor := .Get "linkIconColor" | default "text-gray-400" -}}
+{{- $blogDateColor := .Get "blogDateColor" | default "text-gray-600" -}}
+{{- $blogCategoryBgColor := .Get "blogCategoryBgColor" | default "bg-gray-50" -}}
+{{- $blogCategoryTextColor := .Get "blogCategoryTextColor" | default "text-gray-600" -}}
+{{- $blogCategoryHoverColor := .Get "blogCategoryHoverColor" | default "hover:bg-gray-100" -}}
+{{- $blogTitleColor := .Get "blogTitleColor" | default "text-gray-900" -}}
+{{- $blogDescriptionColor := .Get "blogDescriptionColor" | default "text-gray-600" -}}
+
+{{- $engagementLinks := slice 
+  (dict 
+    "title" "About" 
+    "url" "#" 
+    "icon" "information-circle"
+  )
+  (dict 
+    "title" "Customers" 
+    "url" "#" 
+    "icon" "users"
+  )
+  (dict 
+    "title" "Press" 
+    "url" "#" 
+    "icon" "newspaper"
+  )
+  (dict 
+    "title" "Careers" 
+    "url" "#" 
+    "icon" "briefcase"
+  )
+  (dict 
+    "title" "Privacy" 
+    "url" "#" 
+    "icon" "shield-check"
+  )
+-}}
+
+{{- $resourceLinks := slice 
+  (dict 
+    "title" "Community" 
+    "url" "#" 
+    "icon" "user-group"
+  )
+  (dict 
+    "title" "Partners" 
+    "url" "#" 
+    "icon" "globe-alt"
+  )
+  (dict 
+    "title" "Guides" 
+    "url" "#" 
+    "icon" "book-open"
+  )
+  (dict 
+    "title" "Webinars" 
+    "url" "#" 
+    "icon" "video-camera"
+  )
+-}}
+
+{{- $blogPosts := slice 
+  (dict 
+    "title" "Boost your conversion rate" 
+    "description" "Et et dolore officia quis nostrud esse aute cillum irure do esse. Eiusmod ad deserunt cupidatat est magna Lorem." 
+    "url" "#" 
+    "image" "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
+    "date" "2023-03-16"
+    "category" "Marketing"
+    "categoryUrl" "#"
+  )
+  (dict 
+    "title" "How to use search engine optimization to drive sales" 
+    "description" "Optio cum necessitatibus dolor voluptatum provident commodi et." 
+    "url" "#" 
+    "image" "https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80"
+    "date" "2023-03-10"
+    "category" "Sales"
+    "categoryUrl" "#"
+  )
+-}}
+
+{{ partial "menus/flyout_menu_full_width_two_columns" (dict 
+  "buttonText" $buttonText
+  "engagementLinks" $engagementLinks
+  "resourceLinks" $resourceLinks
+  "blogPosts" $blogPosts
+  "buttonTextColor" $buttonTextColor
+  "sectionHeadingColor" $sectionHeadingColor
+  "linkTextColor" $linkTextColor
+  "linkIconColor" $linkIconColor
+  "blogDateColor" $blogDateColor
+  "blogCategoryBgColor" $blogCategoryBgColor
+  "blogCategoryTextColor" $blogCategoryTextColor
+  "blogCategoryHoverColor" $blogCategoryHoverColor
+  "blogTitleColor" $blogTitleColor
+  "blogDescriptionColor" $blogDescriptionColor
+) }}

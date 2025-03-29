@@ -1,0 +1,71 @@
+{{- /*
+  Usage in markdown:
+  {{< menu-flyout-simple-with-descriptions 
+    buttonText="Solutions"
+    buttonTextColor="text-gray-900"
+    menuWidth="w-screen"
+    menuMaxWidth="max-w-sm"
+    menuBgColor="bg-white"
+    menuRingColor="ring-gray-900/5"
+    menuShadowColor="shadow-lg"
+    itemHoverBgColor="hover:bg-gray-50"
+    titleColor="text-gray-900"
+    descriptionColor="text-gray-600"
+  >}}
+  
+  Note: This shortcode uses predefined menu items.
+  To customize these items, use the partial directly in your template.
+*/ -}}
+
+{{- $buttonText := .Get "buttonText" | default "Solutions" -}}
+{{- $buttonTextColor := .Get "buttonTextColor" | default "text-gray-900" -}}
+{{- $menuWidth := .Get "menuWidth" | default "w-screen" -}}
+{{- $menuMaxWidth := .Get "menuMaxWidth" | default "max-w-sm" -}}
+{{- $menuBgColor := .Get "menuBgColor" | default "bg-white" -}}
+{{- $menuRingColor := .Get "menuRingColor" | default "ring-gray-900/5" -}}
+{{- $menuShadowColor := .Get "menuShadowColor" | default "shadow-lg" -}}
+{{- $itemHoverBgColor := .Get "itemHoverBgColor" | default "hover:bg-gray-50" -}}
+{{- $titleColor := .Get "titleColor" | default "text-gray-900" -}}
+{{- $descriptionColor := .Get "descriptionColor" | default "text-gray-600" -}}
+
+{{- $menuItems := slice 
+  (dict 
+    "title" "Blog" 
+    "description" "Learn about tips, product updates and company culture" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Help center" 
+    "description" "Get all of your questions answered in our forums or contact support" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Guides" 
+    "description" "Learn how to maximize our platform to get the most out of it" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Events" 
+    "description" "Check out webinars with experts and learn about our annual conference" 
+    "url" "#"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Understand how we take your privacy seriously" 
+    "url" "#"
+  )
+-}}
+
+{{ partial "menus/flyout_menu_simple_with_descriptions" (dict 
+  "buttonText" $buttonText
+  "buttonTextColor" $buttonTextColor
+  "menuItems" $menuItems
+  "menuWidth" $menuWidth
+  "menuMaxWidth" $menuMaxWidth
+  "menuBgColor" $menuBgColor
+  "menuRingColor" $menuRingColor
+  "menuShadowColor" $menuShadowColor
+  "itemHoverBgColor" $itemHoverBgColor
+  "titleColor" $titleColor
+  "descriptionColor" $descriptionColor
+) }}

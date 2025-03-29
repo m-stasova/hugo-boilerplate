@@ -1,19 +1,13 @@
-{{ partial "hero/split_with_screenshot" (dict 
-    "logo" "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-    "badge" (dict
-        "text" "What's new"
-        "version" "Just shipped v1.0"
-    )
-    "heading" "Data-driven insights for your business"
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-    "cta" (dict 
-        "primary" (dict "text" "Get started" "url" "#")
-        "secondary" (dict "text" "Learn more" "url" "#")
-    )
-    "screenshot" (dict
-        "url" "https://tailwindui.com/img/component-images/mobile-app-screenshot.png"
-        "alt" "App screenshot"
-        "width" "2432"
-        "height" "1442"
-    )
+{{ partial "menus/header_menu" (dict 
+    "logoUrl" "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+    "logoAlt" "Company Logo"
+    "logoHeight" "h-8"
+    "siteTitle" "Your Company"
+    "ctaText" "Get started"
+    "ctaUrl" "#"
+    "ctaBgColor" "bg-indigo-600"
+    "ctaHoverBgColor" "hover:bg-indigo-500"
+    "ctaTextColor" "text-white"
+    "loginText" "Log in"
+    "loginUrl" "#"
 ) }}
