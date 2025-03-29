@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{ if eq .File.ContentBaseName "test" }}
+    <!-- Include the partials directly for the test page without extra wrappers -->
+    {{ partial "headers/simple" (dict 
+        "heading" "Testing Partials"
+        "description" "This is a test page to ensure that Tailwind CSS is properly applied to our partials."
+    ) }}
+
+    {{ partial "stats/simple" (dict 
+        "stats" (slice 
+            (dict 
+                "value" "100%"
+                "label" "Tailwind CSS Working"
+            )
+            (dict 
+                "value" "Fast"
+                "label" "Page Loading"
+            )
+            (dict 
+                "value" "Beautiful"
+                "label" "Design"
+            )
+        )
+    ) }}
+  {{ else }}
+    <!-- Regular content for other pages -->
+    <article>
+      <h1>{{ .Title }}</h1>
+      <time>{{ .Date.Format "January 2, 2006" }}</time>
+      {{ .Content }}
+    </article>
+  {{ end }}
+{{ end }}
