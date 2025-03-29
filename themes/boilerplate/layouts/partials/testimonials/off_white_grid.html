@@ -73,17 +73,7 @@
               <p>"{{ $testimonial.quote }}"</p>
             </blockquote>
             <figcaption class="mt-6 flex items-center gap-x-4">
-              {{ if $testimonial.personImage }}
-                {{ if hasPrefix $testimonial.personImage "http" }}
-                  <img class="size-10 rounded-full bg-gray-50" src="{{ $testimonial.personImage }}" alt="{{ $testimonial.personName }}">
-                {{ else }}
-                  {{ partial "lazyimg" (dict 
-                    "src" $testimonial.personImage 
-                    "alt" $testimonial.personName
-                    "class" "size-10 rounded-full bg-gray-50"
-                  ) }}
-                {{ end }}
-              {{ end }}
+              {{ partial "lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 rounded-full bg-gray-50") }}
               <div>
                 <div class="font-semibold text-gray-900">{{ $testimonial.personName }}</div>
                 <div class="text-gray-600">{{ $testimonial.personHandle }}</div>

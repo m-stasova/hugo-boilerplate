@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="relative mt-16 h-80 lg:mt-8">
-        <img class="absolute top-0 left-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10" src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+        {{ partial "lazyimg.html" (dict "src" $screenshot.url "alt" $screenshot.alt "width" $screenshot.width "height" $screenshot.height "class" "absolute top-0 left-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10") }}
       </div>
     </div>
   </div>

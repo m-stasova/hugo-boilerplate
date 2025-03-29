@@ -52,7 +52,7 @@
             </div>
             <div class="@container relative min-h-[30rem] w-full grow max-lg:mx-auto max-lg:max-w-sm">
               <div class="absolute inset-x-10 top-10 bottom-0 overflow-hidden rounded-t-[12cqw] border-x-[3cqw] border-t-[3cqw] border-gray-700 bg-gray-900 shadow-2xl">
-                <img class="size-full object-cover object-top" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+                {{ partial "lazyimg.html" (dict "src" $card.image "alt" $card.imageAlt "class" "size-full object-cover object-top") }}
               </div>
             </div>
           </div>
@@ -67,7 +67,7 @@
               <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">{{ $card.description }}</p>
             </div>
             <div class="flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
-              <img class="w-full max-lg:max-w-xs" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+              {{ partial "lazyimg.html" (dict "src" $card.image "alt" $card.imageAlt "class" "w-full max-lg:max-w-xs") }}
             </div>
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>
@@ -81,7 +81,7 @@
               <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">{{ $card.description }}</p>
             </div>
             <div class="@container flex flex-1 items-center max-lg:py-6 lg:pb-2">
-              <img class="h-[min(152px,40cqw)] object-cover" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+              {{ partial "lazyimg.html" (dict "src" $card.image "alt" $card.imageAlt "class" "h-[min(152px,40cqw)] object-cover") }}
             </div>
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
