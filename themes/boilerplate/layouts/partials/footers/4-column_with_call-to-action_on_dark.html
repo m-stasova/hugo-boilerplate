@@ -74,6 +74,7 @@
 
 {{ $showLanguageSelector := .showLanguageSelector | default true }}
 {{ $languageSelectorTitle := .languageSelectorTitle | default (i18n "language_selector_title") }}
+{{ $hasMultipleLanguages := gt (len site.Home.AllTranslations) 1 }}
 
 <footer class="{{ $bgColor }}">
   <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
@@ -134,10 +135,12 @@
         </div>
       </div>
     </div>
+    {{ if and $showLanguageSelector $hasMultipleLanguages }}
     <div class="language-selector mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <p class="text-sm/6 font-semibold {{ $headingColor }} mb-4">{{ $languageSelectorTitle }}</p>
       {{ partial "language-selector.html" $.Page }}
     </div>
+    {{ end }}
     <div class="mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <div class="flex gap-x-6 md:order-2">
         {{ range $socialLinks }}

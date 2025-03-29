@@ -2,7 +2,7 @@ baseURL = 'http://localhost:1313/'
 languageCode = 'en-us'
 title = 'Hugo Boilerplate'
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = true
+defaultContentLanguageInSubdir = false
 theme = 'boilerplate'
 
 # Site parameters
@@ -18,6 +18,7 @@ theme = 'boilerplate'
     languageName = "English"
     title = "English Site Title"
     weight = 1
+    contentDir = "content/en"
     baseURL = "https://example.com"
     bcp47Lang = "en-us"
     [languages.en.params]
@@ -35,8 +36,9 @@ theme = 'boilerplate'
 
   [languages.de]
     languageName = "Deutsch"
-    title = "German Site Title"
+    title = "Deutsche Site Title"
     weight = 2
+    contentDir = "content/de"
     baseURL = "https://example.de"
     bcp47Lang = "de"
     [languages.de.params]

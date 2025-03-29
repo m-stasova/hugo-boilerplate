@@ -1,4 +1,7 @@
 ---
-title: "Deutsche Test Page for Partials"
+title: "Test-Seite für Partials"
 ---
-Deutsche Test Page for Partials
+
+Dies ist eine Test-Seite, um Tailwind CSS-Partials zu demonstrieren.
+
+Die Partials werden automatisch von der single.html-Vorlage gerendert.
