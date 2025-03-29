@@ -18,9 +18,10 @@
         <a href="{{ .Permalink }}" 
            class="inline-flex items-center" 
            title="{{ .Language.LanguageName }}">
-          <img src="{{ (printf "flags/%s.png" $flagCode) | relURL }}" 
-               alt="{{ .Language.LanguageName }}" 
-               class="w-6 h-4 hover:opacity-75 transition-opacity">
+          {{ partial "lazyimg.html" (dict 
+               "src" (printf "flags/%s.png" $flagCode | relURL) 
+               "alt" .Language.LanguageName 
+               "class" "w-6 h-4 hover:opacity-75 transition-opacity") }}
         </a>
       {{ end }}
     {{ else }}
@@ -38,9 +39,10 @@
           <a href="{{ .Permalink }}" 
              class="inline-flex items-center" 
              title="{{ .Language.LanguageName }}">
-            <img src="{{ (printf "flags/%s.png" $flagCode) | relURL }}" 
-                 alt="{{ .Language.LanguageName }}" 
-                 class="w-6 h-4 hover:opacity-75 transition-opacity">
+            {{ partial "lazyimg.html" (dict 
+                 "src" (printf "flags/%s.png" $flagCode | relURL) 
+                 "alt" .Language.LanguageName 
+                 "class" "w-6 h-4 hover:opacity-75 transition-opacity") }}
           </a>
         {{ end }}
       {{ end }}

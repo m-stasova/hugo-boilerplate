@@ -81,30 +81,14 @@
             </blockquote>
             <figcaption class="flex flex-wrap items-center gap-x-4 gap-y-4 border-t border-gray-900/10 px-6 py-4 sm:flex-nowrap">
               {{ if $testimonial.personImage }}
-                {{ if hasPrefix $testimonial.personImage "http" }}
-                  <img class="size-10 flex-none rounded-full bg-gray-50" src="{{ $testimonial.personImage }}" alt="{{ $testimonial.personName }}">
-                {{ else }}
-                  {{ partial "lazyimg" (dict 
-                    "src" $testimonial.personImage 
-                    "alt" $testimonial.personName
-                    "class" "size-10 flex-none rounded-full bg-gray-50"
-                  ) }}
-                {{ end }}
+                {{ partial "lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 flex-none rounded-full bg-gray-50") }}
               {{ end }}
               <div class="flex-auto">
                 <div class="font-semibold">{{ $testimonial.personName }}</div>
                 <div class="text-gray-600">{{ $testimonial.personHandle }}</div>
               </div>
               {{ if $testimonial.companyLogo }}
-                {{ if hasPrefix $testimonial.companyLogo "http" }}
-                  <img class="h-10 w-auto flex-none" src="{{ $testimonial.companyLogo }}" alt="{{ $testimonial.companyLogoAlt }}">
-                {{ else }}
-                  {{ partial "lazyimg" (dict 
-                    "src" $testimonial.companyLogo 
-                    "alt" $testimonial.companyLogoAlt
-                    "class" "h-10 w-auto flex-none"
-                  ) }}
-                {{ end }}
+                {{ partial "lazyimg.html" (dict "src" $testimonial.companyLogo "alt" $testimonial.companyLogoAlt "class" "h-10 w-auto flex-none") }}
               {{ end }}
             </figcaption>
           </figure>
@@ -130,15 +114,7 @@
             </blockquote>
             <figcaption class="mt-6 flex items-center gap-x-4">
               {{ if $testimonial.personImage }}
-                {{ if hasPrefix $testimonial.personImage "http" }}
-                  <img class="size-10 rounded-full bg-gray-50" src="{{ $testimonial.personImage }}" alt="{{ $testimonial.personName }}">
-                {{ else }}
-                  {{ partial "lazyimg" (dict 
-                    "src" $testimonial.personImage 
-                    "alt" $testimonial.personName
-                    "class" "size-10 rounded-full bg-gray-50"
-                  ) }}
-                {{ end }}
+                {{ partial "lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 rounded-full bg-gray-50") }}
               {{ end }}
               <div>
                 <div class="font-semibold">{{ $testimonial.personName }}</div>

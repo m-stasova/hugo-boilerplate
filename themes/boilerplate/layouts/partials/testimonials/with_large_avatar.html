@@ -37,15 +37,7 @@
       </div>
       <div class="col-end-1 w-16 lg:row-span-4 lg:w-72">
         {{ if $personImage }}
-          {{ if hasPrefix $personImage "http" }}
-            <img class="rounded-xl {{ $personImageBg }} lg:rounded-3xl" src="{{ $personImage }}" alt="{{ $personImageAlt }}">
-          {{ else }}
-            {{ partial "lazyimg" (dict 
-              "src" $personImage 
-              "alt" $personImageAlt
-              "class" "rounded-xl {{ $personImageBg }} lg:rounded-3xl"
-            ) }}
-          {{ end }}
+          {{ partial "lazyimg.html" (dict "src" $personImage "alt" $personImageAlt "class" "rounded-xl {{ $personImageBg }} lg:rounded-3xl") }}
         {{ end }}
       </div>
       <figcaption class="text-base lg:col-start-1 lg:row-start-3">

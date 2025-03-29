@@ -36,15 +36,7 @@
     <div class="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="flex flex-col pb-10 sm:pb-16 lg:pr-8 lg:pb-0 xl:pr-20">
         {{ if $firstLogo }}
-          {{ if hasPrefix $firstLogo "http" }}
-            <img class="{{ $firstLogoHeight }} self-start" src="{{ $firstLogo }}" alt="{{ $firstLogoAlt }}">
-          {{ else }}
-            {{ partial "lazyimg" (dict 
-              "src" $firstLogo 
-              "alt" $firstLogoAlt
-              "class" "{{ $firstLogoHeight }} self-start"
-            ) }}
-          {{ end }}
+          {{ partial "lazyimg.html" (dict "src" $firstLogo "alt" $firstLogoAlt "class" "{{ $firstLogoHeight }} self-start") }}
         {{ end }}
         <figure class="mt-10 flex flex-auto flex-col justify-between">
           <blockquote class="text-lg/8 {{ $firstQuoteColor }}">
@@ -52,15 +44,7 @@
           </blockquote>
           <figcaption class="mt-10 flex items-center gap-x-6">
             {{ if $firstPersonImage }}
-              {{ if hasPrefix $firstPersonImage "http" }}
-                <img class="size-14 rounded-full {{ $firstPersonImageBg }}" src="{{ $firstPersonImage }}" alt="{{ $firstPersonImageAlt }}">
-              {{ else }}
-                {{ partial "lazyimg" (dict 
-                  "src" $firstPersonImage 
-                  "alt" $firstPersonImageAlt
-                  "class" "size-14 rounded-full {{ $firstPersonImageBg }}"
-                ) }}
-              {{ end }}
+              {{ partial "lazyimg.html" (dict "src" $firstPersonImage "alt" $firstPersonImageAlt "class" "size-14 rounded-full {{ $firstPersonImageBg }}") }}
             {{ end }}
             <div class="text-base">
               <div class="font-semibold {{ $firstPersonNameColor }}">{{ $firstPersonName }}</div>
@@ -71,15 +55,7 @@
       </div>
       <div class="flex flex-col border-t border-l-0 {{ $borderColor }} pt-10 sm:pt-16 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8 xl:pl-20">
         {{ if $secondLogo }}
-          {{ if hasPrefix $secondLogo "http" }}
-            <img class="{{ $secondLogoHeight }} self-start" src="{{ $secondLogo }}" alt="{{ $secondLogoAlt }}">
-          {{ else }}
-            {{ partial "lazyimg" (dict 
-              "src" $secondLogo 
-              "alt" $secondLogoAlt
-              "class" "{{ $secondLogoHeight }} self-start"
-            ) }}
-          {{ end }}
+          {{ partial "lazyimg.html" (dict "src" $secondLogo "alt" $secondLogoAlt "class" "{{ $secondLogoHeight }} self-start") }}
         {{ end }}
         <figure class="mt-10 flex flex-auto flex-col justify-between">
           <blockquote class="text-lg/8 {{ $secondQuoteColor }}">
@@ -87,15 +63,7 @@
           </blockquote>
           <figcaption class="mt-10 flex items-center gap-x-6">
             {{ if $secondPersonImage }}
-              {{ if hasPrefix $secondPersonImage "http" }}
-                <img class="size-14 rounded-full {{ $secondPersonImageBg }}" src="{{ $secondPersonImage }}" alt="{{ $secondPersonImageAlt }}">
-              {{ else }}
-                {{ partial "lazyimg" (dict 
-                  "src" $secondPersonImage 
-                  "alt" $secondPersonImageAlt
-                  "class" "size-14 rounded-full {{ $secondPersonImageBg }}"
-                ) }}
-              {{ end }}
+              {{ partial "lazyimg.html" (dict "src" $secondPersonImage "alt" $secondPersonImageAlt "class" "size-14 rounded-full {{ $secondPersonImageBg }}") }}
             {{ end }}
             <div class="text-base">
               <div class="font-semibold {{ $secondPersonNameColor }}">{{ $secondPersonName }}</div>
