@@ -2,12 +2,15 @@
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $borderColor := .borderColor | default "border-white/10" }}
 
+{{ $hasMultipleLanguages := gt (len site.Home.AllTranslations) 1 }}
+{{ $currentPage := .currentPage | default . }}
+
 {{/* CTA Section */}}
 {{ $ctaTagline := .ctaTagline | default "Get started" }}
 {{ $ctaTaglineColor := .ctaTaglineColor | default "text-indigo-400" }}
 {{ $ctaHeading := .ctaHeading | default "Boost your productivity. Start using our app today." }}
 {{ $ctaHeadingColor := .ctaHeadingColor | default "text-white" }}
-{{ $ctaDescription := .ctaDescription | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $ctaDescription := .ctaDescription | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident commodo do ea." }}
 {{ $ctaDescriptionColor := .ctaDescriptionColor | default "text-gray-400" }}
 {{ $ctaButtonText := .ctaButtonText | default "Get started" }}
 {{ $ctaButtonUrl := .ctaButtonUrl | default "#" }}
@@ -21,10 +24,6 @@
 {{ $logoAlt := .logoAlt | default "Company name" }}
 
 {{/* Navigation columns */}}
-{{ $headingColor := .headingColor | default "text-white" }}
-{{ $linkColor := .linkColor | default "text-gray-400" }}
-{{ $linkHoverColor := .linkHoverColor | default "text-white" }}
-
 {{ $column1Title := .column1Title | default "Solutions" }}
 {{ $column1Links := .column1Links | default (slice 
   (dict "text" "Marketing" "url" "#")
@@ -56,6 +55,10 @@
   (dict "text" "License" "url" "#")
 ) }}
 
+{{ $headingColor := .headingColor | default "text-white" }}
+{{ $linkColor := .linkColor | default "text-gray-400" }}
+{{ $linkHoverColor := .linkHoverColor | default "text-white" }}
+
 {{/* Social links */}}
 {{ $socialLinks := .socialLinks | default (slice 
   (dict "name" "Facebook" "url" "#" "icon" "facebook")
@@ -74,7 +77,6 @@
 
 {{ $showLanguageSelector := .showLanguageSelector | default true }}
 {{ $languageSelectorTitle := .languageSelectorTitle | default (i18n "language_selector_title") }}
-{{ $hasMultipleLanguages := gt (len site.Home.AllTranslations) 1 }}
 
 <footer class="{{ $bgColor }}">
   <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
@@ -138,7 +140,7 @@
     {{ if and $showLanguageSelector $hasMultipleLanguages }}
     <div class="language-selector mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <p class="text-sm/6 font-semibold {{ $headingColor }} mb-4">{{ $languageSelectorTitle }}</p>
-      {{ partial "language-selector.html" $.Page }}
+      {{ partial "language-selector.html" $currentPage }}
     </div>
     {{ end }}
     <div class="mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
@@ -168,7 +170,7 @@
           </svg>
           {{ else if eq .icon "youtube" }}
           <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 011.772 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 01 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd" />
           </svg>
           {{ end }}
         </a>

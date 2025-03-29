@@ -5,48 +5,43 @@
 <div class="language-selector">
   <div class="flex flex-wrap items-center justify-center gap-3">
     {{ if .Translations }}
-      {{ $currentPage := . }}
+      <!-- Use page translations when available -->
       {{ range .Translations }}
         {{ $langCode := .Language.Lang }}
         
-        {{ $bcp47Lang := "" }}
+        <!-- Default to language code if BCP47 not available -->
+        {{ $flagCode := $langCode }}
         {{ if eq $langCode "en" }}
-          {{ $bcp47Lang = "en-us" }}
-        {{ else }}
-          {{ $bcp47Lang = $langCode }}
+          {{ $flagCode = "en-us" }}
         {{ end }}
         
         <a href="{{ .Permalink }}" 
            class="inline-flex items-center" 
-           title="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}">
-          <img src="{{ (printf "flags/%s.png" $bcp47Lang) | relURL }}" 
-               alt="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}" 
+           title="{{ .Language.LanguageName }}">
+          <img src="{{ (printf "flags/%s.png" $flagCode) | relURL }}" 
+               alt="{{ .Language.LanguageName }}" 
                class="w-6 h-4 hover:opacity-75 transition-opacity">
         </a>
       {{ end }}
     {{ else }}
-      <!-- Fallback to all translations if page translations aren't available -->
-      {{ with site.Home.AllTranslations }}
-        {{ range . }}
-          {{ $isCurrentLang := eq $.Site.Language.Lang .Language.Lang }}
-          {{ if not $isCurrentLang }}
-            {{ $langCode := .Language.Lang }}
-            
-            {{ $bcp47Lang := "" }}
-            {{ if eq $langCode "en" }}
-              {{ $bcp47Lang = "en-us" }}
-            {{ else }}
-              {{ $bcp47Lang = $langCode }}
-            {{ end }}
-            
-            <a href="{{ .Permalink }}" 
-               class="inline-flex items-center" 
-               title="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}">
-              <img src="{{ (printf "flags/%s.png" $bcp47Lang) | relURL }}" 
-                   alt="{{ .Language.LanguageName }} - {{ .Site.BaseURL | replaceRE "https?://" "" }}" 
-                   class="w-6 h-4 hover:opacity-75 transition-opacity">
-            </a>
+      <!-- Fallback to all site languages -->
+      {{ range .Site.Home.AllTranslations }}
+        {{ if ne .Language.Lang $.Site.Language.Lang }}
+          {{ $langCode := .Language.Lang }}
+          
+          <!-- Default to language code if BCP47 not available -->
+          {{ $flagCode := $langCode }}
+          {{ if eq $langCode "en" }}
+            {{ $flagCode = "en-us" }}
           {{ end }}
+          
+          <a href="{{ .Permalink }}" 
+             class="inline-flex items-center" 
+             title="{{ .Language.LanguageName }}">
+            <img src="{{ (printf "flags/%s.png" $flagCode) | relURL }}" 
+                 alt="{{ .Language.LanguageName }}" 
+                 class="w-6 h-4 hover:opacity-75 transition-opacity">
+          </a>
         {{ end }}
       {{ end }}
     {{ end }}
