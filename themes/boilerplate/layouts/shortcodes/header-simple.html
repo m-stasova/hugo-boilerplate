@@ -1,0 +1,18 @@
+{{/* Simple Header Shortcode */}}
+{{ $heading := (.Get 0) | default "Support center" }}
+{{ $description := (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat." }}
+{{ $bgColor := (.Get 2) | default "bg-white" }}
+{{ $padding := (.Get 3) | default "py-24 sm:py-32" }}
+{{ $headingColor := (.Get 4) | default "text-gray-900" }}
+{{ $descriptionColor := (.Get 5) | default "text-gray-500" }}
+{{ $maxWidth := (.Get 6) | default "max-w-2xl" }}
+
+{{ partial "headers/simple.html" (dict 
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "padding" $padding
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "maxWidth" $maxWidth
+) }}

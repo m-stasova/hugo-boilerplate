@@ -1,0 +1,20 @@
+{{/* Simple Logos with Heading Shortcode */}}
+{{ $heading := (.Get 0) | default "Trusted by the world's most innovative teams" }}
+{{ $bgColor := (.Get 1) | default "bg-white" }}
+{{ $padding := (.Get 2) | default "py-24 sm:py-32" }}
+{{ $headingColor := (.Get 3) | default "text-gray-900" }}
+{{ $logoColor := (.Get 4) | default "gray-900" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default logos from the partial.
+  In a real-world implementation, you might want to allow passing in custom logos
+  through a structured data file.
+*/}}
+
+{{ partial "logos/simple_with_heading.html" (dict 
+  "heading" $heading
+  "bgColor" $bgColor
+  "padding" $padding
+  "headingColor" $headingColor
+  "logoColor" $logoColor
+) }}

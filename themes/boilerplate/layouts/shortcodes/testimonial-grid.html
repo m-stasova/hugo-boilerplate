@@ -1,0 +1,34 @@
+{{/* Testimonials Grid Shortcode */}}
+{{ $headingTag := (.Get 0) | default "Testimonials" }}
+{{ $heading := (.Get 1) | default "We have worked with thousands of amazing people" }}
+{{ $bgColor := (.Get 2) | default "bg-white" }}
+{{ $padding := (.Get 3) | default "pt-24 pb-32 sm:pt-32" }}
+{{ $cardBgColor := (.Get 4) | default "bg-white" }}
+{{ $cardRingColor := (.Get 5) | default "ring-gray-900/5" }}
+{{ $cardShadow := (.Get 6) | default "shadow-lg" }}
+{{ $headingTagColor := (.Get 7) | default "text-indigo-600" }}
+{{ $headingColor := (.Get 8) | default "text-gray-900" }}
+{{ $gradientFrom := (.Get 9) | default "#ff80b5" }}
+{{ $gradientTo := (.Get 10) | default "#9089fc" }}
+{{ $showHeading := (.Get 11) | default "true" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default testimonials from the partial.
+  In a real-world implementation, you might want to allow passing in custom testimonials
+  through a structured data file.
+*/}}
+
+{{ partial "testimonials/grid.html" (dict 
+  "headingTag" $headingTag
+  "heading" $heading
+  "bgColor" $bgColor
+  "padding" $padding
+  "cardBgColor" $cardBgColor
+  "cardRingColor" $cardRingColor
+  "cardShadow" $cardShadow
+  "headingTagColor" $headingTagColor
+  "headingColor" $headingColor
+  "gradientFrom" $gradientFrom
+  "gradientTo" $gradientTo
+  "showHeading" (eq $showHeading "true")
+) }}

@@ -1,0 +1,30 @@
+{{/* Four Column Simple Footer Shortcode */}}
+{{ $bgColor := (.Get 0) | default "bg-white" }}
+{{ $logoUrl := (.Get 1) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $logoAlt := (.Get 2) | default "Company name" }}
+{{ $logoHeight := (.Get 3) | default "h-9" }}
+{{ $headingColor := (.Get 4) | default "text-gray-900" }}
+{{ $linkColor := (.Get 5) | default "text-gray-600" }}
+{{ $linkHoverColor := (.Get 6) | default "text-gray-900" }}
+{{ $column1Title := (.Get 7) | default "Solutions" }}
+{{ $column2Title := (.Get 8) | default "Support" }}
+{{ $column3Title := (.Get 9) | default "Company" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default navigation links from the partial.
+  In a real-world implementation, you might want to allow passing in custom links
+  through a structured data file.
+*/}}
+
+{{ partial "footers/4-column_simple.html" (dict 
+  "bgColor" $bgColor
+  "logoUrl" $logoUrl
+  "logoAlt" $logoAlt
+  "logoHeight" $logoHeight
+  "headingColor" $headingColor
+  "linkColor" $linkColor
+  "linkHoverColor" $linkHoverColor
+  "column1Title" $column1Title
+  "column2Title" $column2Title
+  "column3Title" $column3Title
+) }}

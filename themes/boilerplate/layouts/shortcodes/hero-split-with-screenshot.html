@@ -1,0 +1,38 @@
+{{/* Split Hero with Screenshot Shortcode */}}
+{{ $logo := (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := (.Get 1) | default "Deploy to the cloud with confidence" }}
+{{ $description := (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $primaryCtaText := (.Get 3) | default "Get started" }}
+{{ $primaryCtaUrl := (.Get 4) | default "#" }}
+{{ $secondaryCtaText := (.Get 5) | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get 6) | default "#" }}
+{{ $screenshotUrl := (.Get 7) | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
+{{ $screenshotAlt := (.Get 8) | default "App screenshot" }}
+{{ $badgeText := (.Get 9) | default "What's new" }}
+{{ $badgeVersion := (.Get 10) | default "Just shipped v1.0" }}
+
+{{ $badge := dict
+  "text" $badgeText
+  "version" $badgeVersion
+}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
+  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
+}}
+
+{{ $screenshot := dict
+  "url" $screenshotUrl
+  "alt" $screenshotAlt
+  "width" "2432"
+  "height" "1442"
+}}
+
+{{ partial "hero/split_with_screenshot.html" (dict 
+  "logo" $logo
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "badge" $badge
+  "screenshot" $screenshot
+) }}

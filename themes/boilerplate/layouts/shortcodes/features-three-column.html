@@ -1,0 +1,34 @@
+{{/* Features Three Column with Large Icons Shortcode */}}
+{{ $heading := (.Get 0) | default "Stay on top of customer support" }}
+{{ $description := (.Get 1) | default "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam." }}
+
+{{/* Default features - these would typically be overridden with real content */}}
+{{ $features := slice
+  (dict 
+    "icon" "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z\" />"
+    "title" "Unlimited inboxes"
+    "description" "Non quo aperiam repellendus quas est est. Eos aut dolore aut ut sit nesciunt. Ex tempora quia. Sit nobis consequatur dolores incidunt."
+    "link" (dict "text" "Learn more" "url" "#")
+  )
+  (dict 
+    "icon" "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z\" />"
+    "title" "Contacts"
+    "description" "Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae."
+    "link" (dict "text" "Learn more" "url" "#")
+  )
+  (dict 
+    "icon" "<path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5\" />"
+    "title" "Scheduling"
+    "description" "Quis sed voluptatem nisi sit sit assumenda autem. Ut accusantium cumque quasi. Voluptas perspiciatis placeat."
+    "link" (dict "text" "Learn more" "url" "#")
+  )
+}}
+
+{{/* Note: In a real-world implementation, you might want to allow overriding individual features */}}
+{{/* This is a simplified version for the shortcode */}}
+
+{{ partial "features/simple_three_column_with_large_icons.html" (dict 
+  "heading" $heading
+  "description" $description
+  "features" $features
+) }}

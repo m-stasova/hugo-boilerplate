@@ -1,0 +1,21 @@
+{{ $src := (.Get 0) }}
+{{ $alt := (.Get 1) | default "" }}
+{{ $class := (.Get 2) | default "" }}
+{{ $id := (.Get 3) | default "" }}
+{{ $width := (.Get 4) | default "" }}
+{{ $height := (.Get 5) | default "" }}
+{{ $sizes := (.Get 6) | default "(min-width: 1024px) 1024px, (min-width: 400px) 400px, 100px" }}
+{{ $dataImage := (.Get 7) | default $src }}
+{{ $isGallery := (.Get 8) | default false }}
+
+{{ partial "lazyimg.html" (dict 
+  "src" $src 
+  "alt" $alt 
+  "class" $class
+  "id" $id
+  "width" $width
+  "height" $height
+  "sizes" $sizes
+  "dataImage" $dataImage
+  "isGallery" $isGallery
+) }}

@@ -1,0 +1,32 @@
+{{/* Split with Image Content Shortcode */}}
+{{ $eyebrow := (.Get 0) | default "Deploy faster" }}
+{{ $heading := (.Get 1) | default "A better workflow" }}
+{{ $description := (.Get 2) | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
+{{ $image := (.Get 3) | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
+{{ $imageAlt := (.Get 4) | default "Featured image" }}
+{{ $bgColor := (.Get 5) | default "bg-white" }}
+{{ $eyebrowColor := (.Get 6) | default "text-indigo-600" }}
+{{ $headingColor := (.Get 7) | default "text-gray-900" }}
+{{ $descriptionColor := (.Get 8) | default "text-gray-700" }}
+{{ $contentColor := (.Get 9) | default "text-gray-700" }}
+{{ $imageBgColor := (.Get 10) | default "bg-gray-50" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default paragraphs from the partial.
+  In a real-world implementation, you might want to allow passing in custom content
+  through a structured data file or inner content.
+*/}}
+
+{{ partial "content/split_with_image.html" (dict 
+  "eyebrow" $eyebrow
+  "heading" $heading
+  "description" $description
+  "image" $image
+  "imageAlt" $imageAlt
+  "bgColor" $bgColor
+  "eyebrowColor" $eyebrowColor
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "contentColor" $contentColor
+  "imageBgColor" $imageBgColor
+) }}

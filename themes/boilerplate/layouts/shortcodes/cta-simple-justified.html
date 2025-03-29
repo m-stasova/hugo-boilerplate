@@ -1,0 +1,26 @@
+{{/* Simple Justified CTA Shortcode */}}
+{{ $heading := (.Get 0) | default "Ready to dive in? <br>Start your free trial today." }}
+{{ $primaryCtaText := (.Get 1) | default "Get started" }}
+{{ $primaryCtaUrl := (.Get 2) | default "#" }}
+{{ $secondaryCtaText := (.Get 3) | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get 4) | default "#" }}
+{{ $primaryCtaColor := (.Get 5) | default "indigo-600" }}
+{{ $primaryCtaHoverColor := (.Get 6) | default "indigo-500" }}
+
+{{ $primaryCta := dict 
+  "text" $primaryCtaText
+  "url" $primaryCtaUrl
+}}
+
+{{ $secondaryCta := dict 
+  "text" $secondaryCtaText
+  "url" $secondaryCtaUrl
+}}
+
+{{ partial "ctas/simple_justified.html" (dict 
+  "heading" $heading
+  "primaryCta" $primaryCta
+  "secondaryCta" $secondaryCta
+  "primaryCtaColor" $primaryCtaColor
+  "primaryCtaHoverColor" $primaryCtaHoverColor
+) }}

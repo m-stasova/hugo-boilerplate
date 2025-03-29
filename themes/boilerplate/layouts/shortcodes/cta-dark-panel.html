@@ -1,0 +1,30 @@
+{{/* Centered CTA on Dark Panel Shortcode */}}
+{{ $heading := (.Get 0) | default "Boost your productivity today" }}
+{{ $description := (.Get 1) | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $primaryCtaText := (.Get 2) | default "Get started" }}
+{{ $primaryCtaUrl := (.Get 3) | default "#" }}
+{{ $secondaryCtaText := (.Get 4) | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get 5) | default "#" }}
+{{ $gradientStartColor := (.Get 6) | default "#7775D6" }}
+{{ $gradientEndColor := (.Get 7) | default "#E935C1" }}
+{{ $gradientId := (.Get 8) | default "827591b1-ce8c-4110-b064-7cb85a0b1217" }}
+
+{{ $primaryCta := dict 
+  "text" $primaryCtaText
+  "url" $primaryCtaUrl
+}}
+
+{{ $secondaryCta := dict 
+  "text" $secondaryCtaText
+  "url" $secondaryCtaUrl
+}}
+
+{{ partial "ctas/centered_on_dark_panel.html" (dict 
+  "heading" $heading
+  "description" $description
+  "primaryCta" $primaryCta
+  "secondaryCta" $secondaryCta
+  "gradientStartColor" $gradientStartColor
+  "gradientEndColor" $gradientEndColor
+  "gradientId" $gradientId
+) }}

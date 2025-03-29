@@ -1,0 +1,28 @@
+{{/* Simple Centered CTA Shortcode */}}
+{{ $heading := (.Get 0) | default "Boost your productivity. Start using our app today." }}
+{{ $description := (.Get 1) | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $primaryCtaText := (.Get 2) | default "Get started" }}
+{{ $primaryCtaUrl := (.Get 3) | default "#" }}
+{{ $secondaryCtaText := (.Get 4) | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get 5) | default "#" }}
+{{ $primaryCtaColor := (.Get 6) | default "indigo-600" }}
+{{ $primaryCtaHoverColor := (.Get 7) | default "indigo-500" }}
+
+{{ $primaryCta := dict 
+  "text" $primaryCtaText
+  "url" $primaryCtaUrl
+}}
+
+{{ $secondaryCta := dict 
+  "text" $secondaryCtaText
+  "url" $secondaryCtaUrl
+}}
+
+{{ partial "ctas/simple_centered.html" (dict 
+  "heading" $heading
+  "description" $description
+  "primaryCta" $primaryCta
+  "secondaryCta" $secondaryCta
+  "primaryCtaColor" $primaryCtaColor
+  "primaryCtaHoverColor" $primaryCtaHoverColor
+) }}

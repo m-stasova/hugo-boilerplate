@@ -1,0 +1,26 @@
+{{/* Simple Centered Footer Shortcode */}}
+{{ $bgColor := (.Get 0) | default "bg-white" }}
+{{ $linkColor := (.Get 1) | default "text-gray-600" }}
+{{ $linkHoverColor := (.Get 2) | default "text-gray-900" }}
+{{ $socialLinkColor := (.Get 3) | default "text-gray-500" }}
+{{ $socialLinkHoverColor := (.Get 4) | default "text-gray-700" }}
+{{ $copyrightText := (.Get 5) | default "&copy; 2025 Your Company, Inc. All rights reserved." }}
+{{ $copyrightColor := (.Get 6) | default "text-gray-500" }}
+{{ $showSocial := (.Get 7) | default "true" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default navigation and social links from the partial.
+  In a real-world implementation, you might want to allow passing in custom links
+  through a structured data file.
+*/}}
+
+{{ partial "footers/simple_centered.html" (dict 
+  "bgColor" $bgColor
+  "linkColor" $linkColor
+  "linkHoverColor" $linkHoverColor
+  "socialLinkColor" $socialLinkColor
+  "socialLinkHoverColor" $socialLinkHoverColor
+  "copyrightText" $copyrightText
+  "copyrightColor" $copyrightColor
+  "showSocial" (eq $showSocial "true")
+) }}

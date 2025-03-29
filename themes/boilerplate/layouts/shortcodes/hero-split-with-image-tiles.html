@@ -1,0 +1,24 @@
+{{/* Split Hero with Image Tiles Shortcode */}}
+{{ $heading := (.Get 0) | default "We're changing the way people connect" }}
+{{ $description := (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt." }}
+{{ $primaryCtaText := (.Get 2) | default "Get started" }}
+{{ $primaryCtaUrl := (.Get 3) | default "#" }}
+{{ $secondaryCtaText := (.Get 4) | default "Live demo" }}
+{{ $secondaryCtaUrl := (.Get 5) | default "#" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default images from the partial.
+  In a real-world implementation, you might want to allow passing in custom images
+  through a structured data file.
+*/}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
+  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
+}}
+
+{{ partial "hero/split_with_image_tiles.html" (dict 
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+) }}

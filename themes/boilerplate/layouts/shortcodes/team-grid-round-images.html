@@ -1,0 +1,26 @@
+{{/* Team Grid with Round Images Shortcode */}}
+{{ $heading := (.Get 0) | default "Our team" }}
+{{ $description := (.Get 1) | default "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients." }}
+{{ $bgColor := (.Get 2) | default "bg-white" }}
+{{ $padding := (.Get 3) | default "py-24 sm:py-32" }}
+{{ $headingColor := (.Get 4) | default "text-gray-900" }}
+{{ $descriptionColor := (.Get 5) | default "text-gray-600" }}
+{{ $nameColor := (.Get 6) | default "text-gray-900" }}
+{{ $roleColor := (.Get 7) | default "text-gray-600" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default team members from the partial.
+  In a real-world implementation, you might want to allow passing in custom team members
+  through a structured data file.
+*/}}
+
+{{ partial "team/grid_with_round_images.html" (dict 
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "padding" $padding
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "nameColor" $nameColor
+  "roleColor" $roleColor
+) }}

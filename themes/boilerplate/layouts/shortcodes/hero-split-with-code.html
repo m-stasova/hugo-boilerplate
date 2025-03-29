@@ -1,0 +1,34 @@
+{{/* Split Hero with Code Example Shortcode */}}
+{{ $logo := (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := (.Get 1) | default "Supercharge your web app" }}
+{{ $description := (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." }}
+{{ $primaryCtaText := (.Get 3) | default "Documentation" }}
+{{ $primaryCtaUrl := (.Get 4) | default "#" }}
+{{ $secondaryCtaText := (.Get 5) | default "View on GitHub" }}
+{{ $secondaryCtaUrl := (.Get 6) | default "#" }}
+{{ $badgeText := (.Get 7) | default "What's new" }}
+{{ $badgeVersion := (.Get 8) | default "Just shipped v0.1.0" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default code example from the partial.
+  In a real-world implementation, you might want to allow passing in custom code
+  through a structured data file or inner content.
+*/}}
+
+{{ $badge := dict
+  "text" $badgeText
+  "version" $badgeVersion
+}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
+  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
+}}
+
+{{ partial "hero/split_with_code_example.html" (dict 
+  "logo" $logo
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "badge" $badge
+) }}

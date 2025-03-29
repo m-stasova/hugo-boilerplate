@@ -1,0 +1,24 @@
+{{/* Three Tiers Pricing Shortcode */}}
+{{ $tagline := (.Get 0) | default "Pricing" }}
+{{ $heading := (.Get 1) | default "Pricing that grows with you" }}
+{{ $description := (.Get 2) | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
+{{ $backgroundColor := (.Get 3) | default "white" }}
+{{ $taglineColor := (.Get 4) | default "indigo-600" }}
+{{ $headingColor := (.Get 5) | default "gray-900" }}
+{{ $descriptionColor := (.Get 6) | default "gray-600" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default pricing tiers from the partial.
+  In a real-world implementation, you might want to allow passing in custom pricing tiers
+  through a structured data file.
+*/}}
+
+{{ partial "pricing/three_tiers.html" (dict 
+  "tagline" $tagline
+  "heading" $heading
+  "description" $description
+  "backgroundColor" $backgroundColor
+  "taglineColor" $taglineColor
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+) }}

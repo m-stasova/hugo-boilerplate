@@ -1,0 +1,40 @@
+{{/* Split Hero with Image Shortcode */}}
+{{ $heading := (.Get 0) | default "Data to enrich your business" }}
+{{ $description := (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $imageUrl := (.Get 2) | default "https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80" }}
+{{ $imageAlt := (.Get 3) | default "Hero image" }}
+{{ $primaryCTAText := (.Get 4) | default "Get started" }}
+{{ $primaryCTAUrl := (.Get 5) | default "#" }}
+{{ $secondaryCTAText := (.Get 6) | default "Learn more" }}
+{{ $secondaryCTAUrl := (.Get 7) | default "#" }}
+{{ $logo := (.Get 8) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $announcementEnabled := (.Get 9) | default "true" }}
+{{ $announcementText := (.Get 10) | default "Anim aute id magna aliqua ad ad non deserunt sunt." }}
+{{ $announcementLinkText := (.Get 11) | default "Read more" }}
+{{ $announcementLinkUrl := (.Get 12) | default "#" }}
+
+{{ $announcement := dict 
+  "enabled" (eq $announcementEnabled "true")
+  "text" $announcementText
+  "linkText" $announcementLinkText
+  "linkUrl" $announcementLinkUrl
+}}
+
+{{ $cta := dict 
+  "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)
+  "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)
+}}
+
+{{ $image := dict
+  "url" $imageUrl
+  "alt" $imageAlt
+}}
+
+{{ partial "hero/split_with_image.html" (dict 
+  "logo" $logo
+  "announcement" $announcement
+  "heading" $heading
+  "description" $description
+  "cta" $cta
+  "image" $image
+) }}

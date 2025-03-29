@@ -1,0 +1,28 @@
+{{/* Simple Grid Stats Shortcode */}}
+{{ $heading := (.Get 0) | default "Trusted by creators worldwide" }}
+{{ $description := (.Get 1) | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
+{{ $bgColor := (.Get 2) | default "bg-white" }}
+{{ $padding := (.Get 3) | default "py-24 sm:py-32" }}
+{{ $statBgColor := (.Get 4) | default "bg-gray-400/5" }}
+{{ $statPadding := (.Get 5) | default "p-8" }}
+{{ $headingColor := (.Get 6) | default "text-gray-900" }}
+{{ $descriptionColor := (.Get 7) | default "text-gray-600" }}
+{{ $showHeading := (.Get 8) | default "true" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default stats from the partial.
+  In a real-world implementation, you might want to allow passing in custom stats
+  through a structured data file.
+*/}}
+
+{{ partial "stats/simple_grid.html" (dict 
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "padding" $padding
+  "statBgColor" $statBgColor
+  "statPadding" $statPadding
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "showHeading" (eq $showHeading "true")
+) }}

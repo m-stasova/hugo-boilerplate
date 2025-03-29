@@ -1,0 +1,28 @@
+{{/* Centered Content Shortcode */}}
+{{ $eyebrow := (.Get 0) | default "Introducing" }}
+{{ $heading := (.Get 1) | default "JavaScript for beginners" }}
+{{ $description := (.Get 2) | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
+{{ $bgColor := (.Get 3) | default "bg-white" }}
+{{ $padding := (.Get 4) | default "px-6 py-32 lg:px-8" }}
+{{ $eyebrowColor := (.Get 5) | default "text-indigo-600" }}
+{{ $headingColor := (.Get 6) | default "text-gray-900" }}
+{{ $descriptionColor := (.Get 7) | default "text-gray-700" }}
+{{ $contentColor := (.Get 8) | default "text-gray-700" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default paragraphs and featured image from the partial.
+  In a real-world implementation, you might want to allow passing in custom content
+  through a structured data file or inner content.
+*/}}
+
+{{ partial "content/centered.html" (dict 
+  "eyebrow" $eyebrow
+  "heading" $heading
+  "description" $description
+  "bgColor" $bgColor
+  "padding" $padding
+  "eyebrowColor" $eyebrowColor
+  "headingColor" $headingColor
+  "descriptionColor" $descriptionColor
+  "contentColor" $contentColor
+) }}

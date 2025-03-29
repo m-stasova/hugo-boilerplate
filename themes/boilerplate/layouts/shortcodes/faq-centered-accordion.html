@@ -1,0 +1,22 @@
+{{/* Centered Accordion FAQ Shortcode */}}
+{{ $heading := (.Get 0) | default "Frequently asked questions" }}
+{{ $bgColor := (.Get 1) | default "bg-white" }}
+{{ $headingColor := (.Get 2) | default "text-gray-900" }}
+{{ $questionColor := (.Get 3) | default "text-gray-900" }}
+{{ $answerColor := (.Get 4) | default "text-gray-600" }}
+{{ $dividerColor := (.Get 5) | default "divide-gray-900/10" }}
+
+{{/* 
+  Note: For this shortcode, we're using the default FAQs from the partial.
+  In a real-world implementation, you might want to allow passing in custom FAQs
+  through a structured data file or inner content.
+*/}}
+
+{{ partial "faqs/centered_accordion.html" (dict 
+  "heading" $heading
+  "bgColor" $bgColor
+  "headingColor" $headingColor
+  "questionColor" $questionColor
+  "answerColor" $answerColor
+  "dividerColor" $dividerColor
+) }}

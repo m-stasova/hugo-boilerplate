@@ -1,0 +1,15 @@
+{{ $src := (.Get 0) }}
+{{ $alt := (.Get 1) | default "" }}
+{{ $class := (.Get 2) | default "" }}
+{{ $width := (.Get 3) | default "" }}
+{{ $height := (.Get 4) | default "" }}
+{{ $id := (.Get 5) | default "" }}
+
+{{ partial "lazysvg.html" (dict 
+  "src" $src 
+  "alt" $alt 
+  "class" $class
+  "width" $width
+  "height" $height
+  "id" $id
+) }}
