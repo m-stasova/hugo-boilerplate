@@ -5,6 +5,22 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 theme = 'boilerplate'
 
+# Output formats configuration
+[outputs]
+  home = ["HTML", "RSS"]
+
+[mediaTypes]
+  [mediaTypes."text/plain"]
+    suffixes = ["txt"]
+
+[outputFormats]
+  [outputFormats.ROBOTS]
+    mediaType = "text/plain"
+    baseName = "robots"
+    isPlainText = true
+    notAlternative = true
+    permalinkable = true
+
 # Site parameters
 [params]
   description = "A clean Hugo boilerplate"
