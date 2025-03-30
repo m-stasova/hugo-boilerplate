@@ -2,16 +2,18 @@ baseURL = 'http://localhost:1313/'
 languageCode = 'en-us'
 title = 'Hugo Boilerplate'
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
 theme = 'boilerplate'
 
 # Output formats configuration
 [outputs]
-  home = ["HTML", "RSS"]
+  home = ["HTML", "RSS", "SITEMAP"]
 
 [mediaTypes]
   [mediaTypes."text/plain"]
     suffixes = ["txt"]
+  [mediaTypes."application/xml"]
+    suffixes = ["xml"]
 
 [outputFormats]
   [outputFormats.ROBOTS]
@@ -20,6 +22,13 @@ theme = 'boilerplate'
     isPlainText = true
     notAlternative = true
     permalinkable = true
+  [outputFormats.SITEMAP]
+    mediaType = "application/xml"
+    baseName = "sitemap"
+    isPlainText = false
+    isHTML = false
+    noUgly = true
+    rel = "sitemap"
 
 # Site parameters
 [params]
