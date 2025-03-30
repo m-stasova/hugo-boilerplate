@@ -20,11 +20,11 @@ The video above should only load when it comes into view, improving page perform
 
 ### Lazy-loaded SVG
 
-{{< lazysvg "/images/example.svg" "Example of a lazy-loaded SVG" >}}
+{{< lazysvg "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/AJ_Digital_Camera.svg" "Example of a lazy-loaded SVG" >}}
 
 ### Picture Element
 
-{{< picture "/images/example.jpg" "Example of a responsive picture element" >}}
+{{< picture "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg" "Example of a responsive picture element" >}}
 
 ## Banner Components
 
