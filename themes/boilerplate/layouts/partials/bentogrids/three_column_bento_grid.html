@@ -106,33 +106,29 @@
                   {{ if $card.codeContent }}
                     {{ $card.codeContent | safeHTML }}
                   {{ else }}
-                  <pre class="text-sm text-gray-300"><code>function NotificationSetting() {
+                  <pre class="text-sm text-gray-300"><code>function NotificationSetting() &#123;
   const [enabled, setEnabled] = useState(true)
   
   return (
-    <div className="space-y-2">
-      <div className="flex items-center">
-        <Switch
-          checked={enabled}
-          onChange={setEnabled}
-          className={`${
-            enabled ? 'bg-indigo-600' : 'bg-gray-200'
-          } relative inline-flex h-6 w-11 items-center rounded-full`}
-        >
-          <span className="sr-only">Enable notifications</span>
-          <span
-            className={`${
-              enabled ? 'translate-x-6' : 'translate-x-1'
-            } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-          />
-        </Switch>
-        <span className="ml-3 text-sm font-medium text-white">
+    &lt;div className="space-y-2"&gt;
+      &lt;div className="flex items-center"&gt;
+        &lt;Switch
+          checked=&#123;enabled&#125;
+          onChange=&#123;setEnabled&#125;
+          className=&#123;enabled ? "bg-indigo-600" : "bg-gray-200" + " relative inline-flex h-6 w-11 items-center rounded-full"&#125;
+        &gt;
+          &lt;span className="sr-only"&gt;Enable notifications&lt;/span&gt;
+          &lt;span
+            className=&#123;enabled ? "translate-x-6" : "translate-x-1" + " inline-block h-4 w-4 transform rounded-full bg-white transition"&#125;
+          /&gt;
+        &lt;/Switch&gt;
+        &lt;span className="ml-3 text-sm font-medium text-white"&gt;
           Enable push notifications
-        </span>
-      </div>
-    </div>
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
   )
-}</code></pre>
+&#125;</code></pre>
                   {{ end }}
                 </div>
               </div>

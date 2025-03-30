@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (image.dataset.src) {
               image.src = image.dataset.src;
               
+              // Add onload event to add the 'loaded' class
+              image.onload = function() {
+                image.classList.add('loaded');
+              };
+              
               // For YouTube thumbnails, find the best quality after loading the initial image
               if (image.classList.contains('lazy-video-thumb-img') && image.dataset.videoId) {
                 image.addEventListener('load', function() {
@@ -47,6 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (img.offsetTop < (window.innerHeight + scrollTop)) {
               if (img.dataset.src) {
                 img.src = img.dataset.src;
+                
+                // Add onload event to add the 'loaded' class
+                img.onload = function() {
+                  img.classList.add('loaded');
+                };
               }
             }
           });
