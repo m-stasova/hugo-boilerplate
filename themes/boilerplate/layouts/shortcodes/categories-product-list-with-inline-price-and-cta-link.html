@@ -1,0 +1,62 @@
+{{/* 
+  Categories shortcode with product list with inline price and CTA link
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Customers also viewed")
+  - viewAllText: Text for the "View all" link (default: "View all")
+  - viewAllUrl: URL for the "View all" link (default: "#")
+  - ctaText: Text for the CTA button that appears on hover (default: "View Product")
+  
+  The products are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Customers also viewed" }}
+{{ $viewAllText := .Get "viewAllText" | default "View all" }}
+{{ $viewAllUrl := .Get "viewAllUrl" | default "#" }}
+{{ $ctaText := .Get "ctaText" | default "View Product" }}
+
+{{ $products := slice 
+  (dict 
+    "title" "Fusion"
+    "category" "UI Kit"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-01.jpg"
+    "imageAlt" "Payment application dashboard screenshot with transaction table, financial highlights, and main clients on colorful purple background."
+    "price" "$49"
+  )
+  (dict 
+    "title" "Organize"
+    "category" "App Template"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-02.jpg"
+    "imageAlt" "Organize app interface screenshot with folders, calendar, and activity feed."
+    "price" "$39"
+  )
+  (dict 
+    "title" "Commit"
+    "category" "Icon Set"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-03.jpg"
+    "imageAlt" "Collection of colorful coding and development icons on dark background."
+    "price" "$29"
+  )
+  (dict 
+    "title" "Struct"
+    "category" "UI Framework"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-04.jpg"
+    "imageAlt" "UI component library screenshot showing buttons, forms, and layout elements."
+    "price" "$59"
+  )
+}}
+
+{{ partial "categories/product_list_with_inline_price_and_cta_link.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "viewAllText" $viewAllText
+  "viewAllUrl" $viewAllUrl
+  "ctaText" $ctaText
+  "products" $products
+) }}

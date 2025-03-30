@@ -1,0 +1,34 @@
+{{/* 
+  Features shortcode with header, images, and descriptions
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - heading: Main heading text (default: "The Fine Details")
+  - description: Subheading text below the main heading
+  
+  The features are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $heading := .Get "heading" | default "The Fine Details" }}
+{{ $description := .Get "description" | default "Our patented padded snack sleeve construction protects your favorite treats from getting smooshed during all-day adventures, long shifts at work, and tough travel schedules." }}
+
+{{ $features := slice 
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg"
+    "imageAlt" "Drawstring top with elastic loop closure and textured interior padding."
+    "text" "The 20L model has enough space for 370 candy bars, 6 cylinders of chips, 1220 standard gumballs, or any combination of on-the-go treats that your heart desires. Yes, we did the math."
+  )
+  (dict 
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-02.jpg"
+    "imageAlt" "Front zipper pouch with included key ring."
+    "text" "Up your snack organization game with multiple compartment options. The quick-access stash pouch is ready for even the most unexpected snack attacks and sharing needs."
+  )
+}}
+
+{{ partial "features/with_header_images_and_descriptions.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "features" $features
+) }}

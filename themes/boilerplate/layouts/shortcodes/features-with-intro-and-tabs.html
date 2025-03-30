@@ -1,0 +1,64 @@
+{{/* 
+  Features shortcode with intro and tabs
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Description text below the main heading
+  
+  The tabs and their content are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Technical Specifications" }}
+{{ $description := .Get "description" | default "The Organize modular system offers endless options for arranging your favorite and most used items. Keep everything at reach and in its place, while dressing up your workspace." }}
+
+{{ $tabs := slice 
+  (dict 
+    "id" "design"
+    "title" "Design"
+    "content" (dict
+      "title" "Adaptive and modular"
+      "description" "The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup."
+      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-01.jpg"
+      "imageAlt" "Maple organizer base with slots, supporting white polycarbonate trays of various sizes."
+    )
+  )
+  (dict 
+    "id" "material"
+    "title" "Material"
+    "content" (dict
+      "title" "Natural wood options"
+      "description" "Organize has options for rich walnut and bright maple base materials. Accent your desk with a contrasting material, or match similar woods for a calm and cohesive look. Every base is hand sanded and finished."
+      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-02.jpg"
+      "imageAlt" "Walnut organizer base with pen, sticky note, phone, and bin trays, next to modular drink coaster attachment."
+    )
+  )
+  (dict 
+    "id" "considerations"
+    "title" "Considerations"
+    "content" (dict
+      "title" "Helpful around the home"
+      "description" "Our customers use Organize throughout the house to bring efficiency to many daily routines. Enjoy Organize in your workspace, kitchen, living room, entry way, garage, and more. We can't wait to see how you'll use it!"
+      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-03.jpg"
+      "imageAlt" "Walnut organizer base with white polycarbonate trays in the kitchen with various kitchen utensils."
+    )
+  )
+  (dict 
+    "id" "included"
+    "title" "Included"
+    "content" (dict
+      "title" "Everything you'll need"
+      "description" "The Organize base set includes the pen, phone, small, and large trays to help you group all your essential items. Expand your set with the drink coaster and headphone stand add-ons."
+      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-04.jpg"
+      "imageAlt" "Walnut organizer system on black leather desk mat on top of white desk."
+    )
+  )
+}}
+
+{{ partial "features/with_intro_and_tabs.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "tabs" $tabs
+) }}

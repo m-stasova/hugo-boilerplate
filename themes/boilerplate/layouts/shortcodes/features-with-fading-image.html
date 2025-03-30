@@ -1,0 +1,54 @@
+{{/* 
+  Features shortcode with fading image
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - imageUrl: URL to the header image (default: product feature image)
+  - imageAlt: Alt text for the header image
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Subheading text below the main heading
+  
+  The specifications are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $imageUrl := .Get "imageUrl" | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-02-full-width.jpg" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $heading := .Get "heading" | default "Technical Specifications" }}
+{{ $description := .Get "description" | default "Organize is a system to keep your desk tidy and photo-worthy all day long. Procrastinate your work while you meticulously arrange items into dedicated trays." }}
+
+{{ $specifications := slice 
+  (dict 
+    "title" "Origin"
+    "description" "Designed by Good Goods, Inc."
+  )
+  (dict 
+    "title" "Material"
+    "description" "Solid walnut base with rare earth magnets and polycarbonate add-ons."
+  )
+  (dict 
+    "title" "Dimensions"
+    "description" "15\" x 3.75\" x .75\""
+  )
+  (dict 
+    "title" "Finish"
+    "description" "Hand sanded and finished with natural oil"
+  )
+  (dict 
+    "title" "Includes"
+    "description" "Pen Tray, Phone Tray, Small Tray, Large Tray, Sticky Note Holder"
+  )
+  (dict 
+    "title" "Considerations"
+    "description" "Made from natural materials. Grain and color vary with each item."
+  )
+}}
+
+{{ partial "features/with_fading_image.html" (dict 
+  "backgroundColor" $backgroundColor
+  "imageUrl" $imageUrl
+  "imageAlt" $imageAlt
+  "heading" $heading
+  "description" $description
+  "specifications" $specifications
+) }}

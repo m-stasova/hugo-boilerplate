@@ -1,0 +1,68 @@
+{{/* 
+  Features shortcode with 4 images grid
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Technical Specifications")
+  - description: Subheading text below the main heading
+  
+  The specifications and images are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Technical Specifications" }}
+{{ $description := .Get "description" | default "The walnut wood card tray is precision milled to perfectly fit a stack of Focus cards. The powder coated steel divider separates active cards from new ones, or can be used to archive important task lists." }}
+
+{{ $specifications := slice 
+  (dict 
+    "title" "Origin"
+    "description" "Designed by Good Goods, Inc."
+  )
+  (dict 
+    "title" "Material"
+    "description" "Solid walnut base with rare earth magnets and powder coated steel card cover"
+  )
+  (dict 
+    "title" "Dimensions"
+    "description" "6.25\" x 3.55\" x 1.15\""
+  )
+  (dict 
+    "title" "Finish"
+    "description" "Hand sanded and finished with natural oil"
+  )
+  (dict 
+    "title" "Includes"
+    "description" "Wood card tray and 3 refill packs"
+  )
+  (dict 
+    "title" "Considerations"
+    "description" "Made from natural materials. Grain and color vary with each item."
+  )
+}}
+
+{{ $images := slice 
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-01.jpg"
+    "alt" "Walnut card tray with white powder coated steel divider and 3 punchout holes."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-02.jpg"
+    "alt" "Top down view of walnut card tray with embedded magnets and card groove."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-03.jpg"
+    "alt" "Side of walnut card tray with card groove and recessed card area."
+  )
+  (dict 
+    "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-03-detail-04.jpg"
+    "alt" "Walnut card tray filled with cards and card angled in dedicated groove."
+  )
+}}
+
+{{ partial "features/with_4_images_grid.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "specifications" $specifications
+  "images" $images
+) }}

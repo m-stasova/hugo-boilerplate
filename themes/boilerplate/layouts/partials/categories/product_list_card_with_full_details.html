@@ -1,0 +1,79 @@
+{{/* 
+  Categories partial with product list card with full details
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Products", sr-only by default)
+  - products: Array of product objects with the following structure:
+    - title: Product title
+    - description: Product description
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - variant: Product variant text (e.g., "8 colors", "Black")
+    - price: Product price
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Products" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Basic Tee 8-Pack"
+    "description" "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-01.jpg"
+    "imageAlt" "Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green."
+    "variant" "8 colors"
+    "price" "$256"
+  )
+  (dict 
+    "title" "Basic Tee"
+    "description" "Look like a visionary CEO and wear the same black t-shirt every day."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-02.jpg"
+    "imageAlt" "Front of plain black t-shirt."
+    "variant" "Black"
+    "price" "$32"
+  )
+  (dict 
+    "title" "Premium Hoodie"
+    "description" "Stay warm and stylish with our premium hoodie made from high-quality materials."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/category-page-02-image-card-03.jpg"
+    "imageAlt" "Front of gray hoodie with embroidered logo."
+    "variant" "Gray"
+    "price" "$75"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="sr-only">{{ $heading }}</h2>
+
+    <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3 lg:gap-x-8">
+      {{ range $products }}
+      <div class="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white">
+        {{ partial "lazyimg.html" (dict 
+          "src" .imageUrl
+          "alt" .imageAlt
+          "class" "aspect-3/4 w-full bg-gray-200 object-cover group-hover:opacity-75 sm:aspect-auto sm:h-96"
+        ) }}
+        <div class="flex flex-1 flex-col space-y-2 p-4">
+          <h3 class="text-sm font-medium text-gray-900">
+            <a href="{{ .url }}">
+              <span aria-hidden="true" class="absolute inset-0"></span>
+              {{ .title }}
+            </a>
+          </h3>
+          <p class="text-sm text-gray-500">{{ .description }}</p>
+          <div class="flex flex-1 flex-col justify-end">
+            <p class="text-sm text-gray-500 italic">{{ .variant }}</p>
+            <p class="text-base font-medium text-gray-900">{{ .price }}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

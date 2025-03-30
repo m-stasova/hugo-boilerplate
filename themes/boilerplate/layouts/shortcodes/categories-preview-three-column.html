@@ -1,0 +1,42 @@
+{{/* 
+  Categories shortcode with preview three-column layout
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-100")
+  - heading: Main heading text (default: "Collections")
+  
+  The categories are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-100" }}
+{{ $heading := .Get "heading" | default "Collections" }}
+
+{{ $categories := slice 
+  (dict 
+    "title" "Desk and Office"
+    "description" "Work from home accessories"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg"
+    "imageAlt" "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
+  )
+  (dict 
+    "title" "Self-Improvement"
+    "description" "Journals and note-taking"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-02.jpg"
+    "imageAlt" "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant."
+  )
+  (dict 
+    "title" "Travel"
+    "description" "Daily commute essentials"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-03.jpg"
+    "imageAlt" "Collection of four insulated travel bottles on wooden shelf."
+  )
+}}
+
+{{ partial "categories/preview_three_column.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "categories" $categories
+) }}

@@ -1,0 +1,42 @@
+{{/* 
+  3-column incentives shortcode with illustrations and centered heading
+  
+  Parameters:
+  - backgroundColor: Background color class for the outer container (default: "bg-white")
+  - innerBackgroundColor: Background color class for the inner container (default: "bg-gray-50")
+  - title: Main heading text (default: from partial)
+  
+  The incentives are predefined in the shortcode but can be customized with the parameters above
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $innerBackgroundColor := .Get "innerBackgroundColor" | default "bg-gray-50" }}
+{{ $title := .Get "title" | default "" }}
+
+{{ $incentives := slice 
+  (dict 
+    "title" "Free shipping" 
+    "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-shipping-simple.svg"
+    "iconAlt" "Shipping icon"
+  )
+  (dict 
+    "title" "10-year warranty" 
+    "description" "If it breaks in the first 10 years we'll replace it. After that you're on your own though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-warranty-simple.svg"
+    "iconAlt" "Warranty icon"
+  )
+  (dict 
+    "title" "Exchanges" 
+    "description" "If you don't like it, trade it to one of your friends for something of theirs. Don't send it here though." 
+    "iconUrl" "https://tailwindcss.com/plus-assets/img/ecommerce/icons/icon-exchange-simple.svg"
+    "iconAlt" "Exchange icon"
+  )
+}}
+
+{{ partial "incentives/3-column_with_illustrations_and_heading.html" (dict 
+  "backgroundColor" $backgroundColor
+  "innerBackgroundColor" $innerBackgroundColor
+  "title" $title
+  "incentives" $incentives
+) }}

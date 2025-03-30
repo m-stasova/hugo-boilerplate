@@ -1,0 +1,51 @@
+{{/* 
+  Categories shortcode with preview with image backgrounds
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-gray-50")
+  - heading: Main heading text (default: "Shop by Category")
+  - browseAllText: Text for the "Browse all" link (default: "Browse all categories")
+  - browseAllUrl: URL for the "Browse all" link (default: "#")
+  
+  The categories are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $heading := .Get "heading" | default "Shop by Category" }}
+{{ $browseAllText := .Get "browseAllText" | default "Browse all categories" }}
+{{ $browseAllUrl := .Get "browseAllUrl" | default "#" }}
+
+{{ $categories := slice 
+  (dict 
+    "title" "New Arrivals"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg"
+    "imageAlt" "Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
+    "isLarge" true
+  )
+  (dict 
+    "title" "Accessories"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-01.jpg"
+    "imageAlt" "Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
+    "isLarge" false
+  )
+  (dict 
+    "title" "Workspace"
+    "actionText" "Shop now"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-02.jpg"
+    "imageAlt" "Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
+    "isLarge" false
+  )
+}}
+
+{{ partial "categories/preview_with_image_backgrounds.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "browseAllText" $browseAllText
+  "browseAllUrl" $browseAllUrl
+  "categories" $categories
+) }}

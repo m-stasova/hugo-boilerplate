@@ -1,0 +1,96 @@
+{{/* 
+  Categories partial with product list with inline price and CTA link
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Customers also viewed")
+  - viewAllText: Text for the "View all" link (default: "View all")
+  - viewAllUrl: URL for the "View all" link (default: "#")
+  - ctaText: Text for the CTA button that appears on hover (default: "View Product")
+  - products: Array of product objects with the following structure:
+    - title: Product title
+    - category: Product category
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Customers also viewed" }}
+{{ $viewAllText := .viewAllText | default "View all" }}
+{{ $viewAllUrl := .viewAllUrl | default "#" }}
+{{ $ctaText := .ctaText | default "View Product" }}
+
+{{ $products := .products | default (slice 
+  (dict 
+    "title" "Fusion"
+    "category" "UI Kit"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-01.jpg"
+    "imageAlt" "Payment application dashboard screenshot with transaction table, financial highlights, and main clients on colorful purple background."
+    "price" "$49"
+  )
+  (dict 
+    "title" "Organize"
+    "category" "App Template"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-02.jpg"
+    "imageAlt" "Organize app interface screenshot with folders, calendar, and activity feed."
+    "price" "$39"
+  )
+  (dict 
+    "title" "Commit"
+    "category" "Icon Set"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-03.jpg"
+    "imageAlt" "Collection of colorful coding and development icons on dark background."
+    "price" "$29"
+  )
+  (dict 
+    "title" "Struct"
+    "category" "UI Framework"
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-05-related-product-04.jpg"
+    "imageAlt" "UI component library screenshot showing buttons, forms, and layout elements."
+    "price" "$59"
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <div class="flex items-center justify-between space-x-4">
+      <h2 class="text-lg font-medium text-gray-900">{{ $heading }}</h2>
+      <a href="{{ $viewAllUrl }}" class="text-sm font-medium whitespace-nowrap text-indigo-600 hover:text-indigo-500">
+        {{ $viewAllText }}
+        <span aria-hidden="true"> &rarr;</span>
+      </a>
+    </div>
+    <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
+      {{ range $products }}
+      <div class="group relative">
+        <div class="relative">
+          {{ partial "lazyimg.html" (dict 
+            "src" .imageUrl
+            "alt" .imageAlt
+            "class" "aspect-4/3 w-full rounded-lg bg-gray-100 object-cover"
+          ) }}
+          <div class="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100" aria-hidden="true">
+            <div class="w-full rounded-md bg-white/75 px-4 py-2 text-center text-sm font-medium text-gray-900 backdrop-blur-sm backdrop-filter">{{ $ctaText }}</div>
+          </div>
+        </div>
+        <div class="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900">
+          <h3>
+            <a href="{{ .url }}">
+              <span aria-hidden="true" class="absolute inset-0"></span>
+              {{ .title }}
+            </a>
+          </h3>
+          <p>{{ .price }}</p>
+        </div>
+        <p class="mt-1 text-sm text-gray-500">{{ .category }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>

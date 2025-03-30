@@ -1,0 +1,45 @@
+{{/* 
+  Categories shortcode with preview three-column with description
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Shop by Collection")
+  - description: Description text below the main heading
+  
+  The categories are predefined in the shortcode
+*/}}
+
+{{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
+{{ $heading := .Get "heading" | default "Shop by Collection" }}
+{{ $description := .Get "description" | default "Each season, we collaborate with world-class designers to create a collection inspired by the natural world." }}
+
+{{ $categories := slice 
+  (dict 
+    "title" "Handcrafted Collection"
+    "description" "Keep your phone, keys, and wallet together, so you can lose everything at once."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-01.jpg"
+    "imageAlt" "Brown leather key ring with brass metal loops and rivets on wood table."
+  )
+  (dict 
+    "title" "Organized Desk Collection"
+    "description" "The rest of the house will still be a mess, but your desk will look great."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-02.jpg"
+    "imageAlt" "Natural leather mouse pad on white desk next to porcelain mug and keyboard."
+  )
+  (dict 
+    "title" "Focus Collection"
+    "description" "Be more productive than enterprise project managers with a single piece of paper."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-03.jpg"
+    "imageAlt" "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad."
+  )
+}}
+
+{{ partial "categories/preview_three_column_with_description.html" (dict 
+  "backgroundColor" $backgroundColor
+  "heading" $heading
+  "description" $description
+  "categories" $categories
+) }}
