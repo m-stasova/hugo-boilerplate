@@ -21,6 +21,15 @@ faq = [
   }
 ]
 additionalImages = []
+
+# CTA Section Configuration (optional)
+showCTA = true
+ctaHeading = "Expand your knowledge with our resources"
+ctaDescription = "Explore our comprehensive library of articles, guides, and tutorials to deepen your understanding of key concepts and stay up-to-date with the latest developments."
+ctaPrimaryText = "Browse resources"
+ctaPrimaryURL = "/resources/"
+ctaSecondaryText = "Contact our experts"
+ctaSecondaryURL = "/contact/"
 +++
 
 Write the long description of the term here. This can include multiple paragraphs, lists, and other markdown formatting.

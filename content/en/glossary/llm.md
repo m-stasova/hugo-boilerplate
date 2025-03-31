@@ -16,6 +16,15 @@ additionalImages = [
   "/images/glossary/llm-comparison.jpg"
 ]
 
+# CTA Section Configuration
+showCTA = true
+ctaHeading = "Explore AI and LLM Solutions for Your Business"
+ctaDescription = "Discover how Large Language Models can transform your operations, enhance customer experiences, and drive innovation across your organization."
+ctaPrimaryText = "Request AI Consultation"
+ctaPrimaryURL = "/services/ai-consulting/"
+ctaSecondaryText = "View LLM Case Studies"
+ctaSecondaryURL = "/case-studies/ai-implementation/"
+
 [[faq]]
 question = "What is a Large Language Model (LLM)?"
 answer = "A Large Language Model (LLM) is a type of artificial intelligence system designed to understand and generate human language. These models are trained on massive datasets of text from the internet, books, and other sources, allowing them to recognize patterns in language and generate coherent, contextually relevant text responses."
@@ -30,7 +39,7 @@ answer = "Common examples include GPT (Generative Pre-trained Transformer) model
 
 [[faq]]
 question = "What are the limitations of LLMs?"
-answer = "LLMs have several limitations: they can generate plausible-sounding but incorrect information (hallucinations), they lack true understanding of the world, they can perpetuate biases present in their training data, they have limited reasoning capabilities for complex problems, and they typically have a knowledge cutoff date beyond which they don't have information."
+answer = "LLMs have several limitations: they can generate plausible-sounding but incorrect information (hallucinations), they lack true understanding of the world, they can perpetuate biases present in their training data, they have limited reasoning capabilities for complex problems, and they typically have knowledge cutoffs beyond which they don't have information."
 +++
 
 Large Language Models (LLMs) represent one of the most significant advancements in artificial intelligence in recent years. These sophisticated AI systems are trained on massive datasets of text and code to develop a deep statistical understanding of language patterns and relationships.
