@@ -24,6 +24,18 @@ keywords:
     exact: true
     priority: 1
     title: "Learn about FlowHunt"
+  - keyword: "LLMs"
+    url: "https://www.flowhunt.io/glossary/llm"
+    exact: true
+    priority: 1
+    title: "Learn about LLMs"
+  - keyword: "LLM"
+    url: "https://www.flowhunt.io/glossary/llm"
+    exact: true
+    priority: 1
+    title: "Learn about LLMs"
+    
+    
     
     
     

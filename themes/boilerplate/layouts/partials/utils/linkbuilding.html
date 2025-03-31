@@ -44,8 +44,6 @@
             {{ $pattern = printf `(?i)\b%s\b` $keyword }}
           {{ end }}
           
-          {{ $replacement := printf `<a href="%s" title="%s" class="text-indigo-600 font-medium hover:text-indigo-500 transition-colors duration-150 ease-in-out underline decoration-1 underline-offset-2 hover:decoration-2">%s</a>` $url $title $keyword }}
-          
           {{/* Skip if the keyword is already part of an HTML tag or link */}}
           {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}
           {{ $hasTag := findRE $skipPattern $content }}
@@ -64,7 +62,7 @@
             {{ end }}
           {{ else }}
             {{/* If no page context, check if link already exists in content */}}
-            {{ $linkPattern := printf `<a href="%s"[^>]*>%s</a>` $url $keyword }}
+            {{ $linkPattern := printf `<a href="%s"[^>]*>[^<]*</a>` $url }}
             {{ $hasLink := findRE $linkPattern $content }}
             {{ if $hasLink }}
               {{ $shouldProcess = false }}
@@ -74,27 +72,36 @@
           {{/* Process only if conditions are met */}}
           {{ if and (not $hasTag) $shouldProcess }}
             {{/* Find paragraphs or text blocks that contain the keyword */}}
-            {{ $paragraphPattern := printf `([^<>]{0,500}%s[^<>]{0,500})` $keyword }}
+            {{ $paragraphPattern := printf `(?i)([^<>]*\b%s\b[^<>]*)` $keyword }}
             {{ $paragraphs := findRE $paragraphPattern $content }}
             
             {{ range $paragraphs }}
               {{ $paragraph := . }}
               {{/* Only replace if paragraph is at least 30 characters long */}}
               {{ if gt (len $paragraph) 30 }}
-                {{ $newParagraph := replaceRE $pattern $replacement $paragraph }}
-                {{ if ne $newParagraph $paragraph }}
-                  {{ $content = replace $content $paragraph $newParagraph }}
+                {{/* Find the actual matched keyword with its original case */}}
+                {{ $keywordPattern := printf `(?i)\b%s\b` $keyword }}
+                {{ $matches := findRE $keywordPattern $paragraph 1 }}
+                
+                {{ if $matches }}
+                  {{ $matchedKeyword := index $matches 0 }}
+                  {{ $replacement := printf `<a href="%s" title="%s" class="text-indigo-600 font-medium hover:text-indigo-500 transition-colors duration-150 ease-in-out underline decoration-1 underline-offset-2 hover:decoration-2">%s</a>` $url $title $matchedKeyword }}
                   
-                  {{/* Track this keyword-URL combination if we have page context */}}
-                  {{ if $page }}
-                    {{ $linkKey := printf "%s-%s" $keyword $url }}
-                    {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
-                    {{ $newProcessed := $processedLinks | append $linkKey }}
-                    {{ $page.Scratch.Set "processedLinks" $newProcessed }}
+                  {{ $newParagraph := replaceRE $keywordPattern $replacement $paragraph 1 }}
+                  {{ if ne $newParagraph $paragraph }}
+                    {{ $content = replace $content $paragraph $newParagraph }}
+                    
+                    {{/* Track this keyword-URL combination if we have page context */}}
+                    {{ if $page }}
+                      {{ $linkKey := printf "%s-%s" $keyword $url }}
+                      {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
+                      {{ $newProcessed := $processedLinks | append $linkKey }}
+                      {{ $page.Scratch.Set "processedLinks" $newProcessed }}
+                    {{ end }}
+                    
+                    {{/* Break after first replacement to avoid multiple replacements */}}
+                    {{ break }}
                   {{ end }}
-                  
-                  {{/* Break after first replacement to avoid multiple replacements */}}
-                  {{ break }}
                 {{ end }}
               {{ end }}
             {{ end }}
