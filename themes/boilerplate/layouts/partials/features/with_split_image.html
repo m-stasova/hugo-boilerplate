@@ -11,6 +11,7 @@
   - features: Array of feature objects with the following structure:
     - title: Feature title
     - description: Feature description
+  - page: Page context for linkbuilding
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}
@@ -19,6 +20,9 @@
 {{ $subheading := .subheading | default "Leatherbound Daily Journal" }}
 {{ $heading := .heading | default "All in the Details" }}
 {{ $description := .description | default "We've obsessed over every detail of this handcrafted journal to bring you the best materials for daily use." }}
+
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
 
 {{ $features := .features | default (slice 
   (dict 
@@ -51,13 +55,13 @@
       <div class="lg:col-start-2">
         <h2 id="features-heading" class="font-medium text-gray-500">{{ $subheading }}</h2>
         <p class="mt-4 text-4xl font-bold tracking-tight text-gray-900">{{ $heading }}</p>
-        <p class="mt-4 text-gray-500">{{ partial "utils/linkbuilding" $description | safeHTML }}</p>
+        <p class="mt-4 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
 
         <dl class="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 text-sm sm:grid-cols-2">
           {{ range $features }}
           <div>
             <dt class="font-medium text-gray-900">{{ .title }}</dt>
-            <dd class="mt-2 text-gray-500">{{ partial "utils/linkbuilding" .description | safeHTML }}</dd>
+            <dd class="mt-2 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
           </div>
           {{ end }}
         </dl>

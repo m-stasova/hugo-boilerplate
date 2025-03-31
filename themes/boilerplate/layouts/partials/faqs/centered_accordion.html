@@ -5,6 +5,9 @@
 {{ $heading := .heading | default "Frequently asked questions" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
 
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
 {{/* FAQ items */}}
 {{ $questionColor := .questionColor | default "text-gray-900" }}
 {{ $answerColor := .answerColor | default "text-gray-600" }}
@@ -59,7 +62,9 @@
             </button>
           </dt>
           <dd class="mt-2 pr-12 hidden" id="faq-{{ $index }}">
-            <p class="text-base/7 {{ $answerColor }}">{{ partial "utils/linkbuilding" .answer | safeHTML }}</p>
+            <p class="text-base/7 {{ $answerColor }}">
+              {{ partial "utils/linkbuilding" (dict "content" .answer "page" $page) | safeHTML }}
+            </p>
           </dd>
         </div>
         {{ end }}

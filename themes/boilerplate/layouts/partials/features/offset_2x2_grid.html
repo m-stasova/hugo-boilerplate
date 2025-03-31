@@ -23,6 +23,8 @@
   )
 ) }}
 {{ $iconBgColor := .iconBgColor | default "indigo-600" }}
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
 
 <div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -39,7 +41,7 @@
             </div>
             {{ .title }}
           </dt>
-          <dd class="mt-1 text-base/7 text-gray-600">{{ partial "utils/linkbuilding" .description | safeHTML }}</dd>
+          <dd class="mt-1 text-base/7 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
         </div>
         {{ end }}
       </dl>

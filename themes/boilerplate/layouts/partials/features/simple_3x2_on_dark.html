@@ -37,13 +37,14 @@
 {{ $iconColor := .iconColor | default "indigo-500" }}
 {{ $taglineColor := .taglineColor | default "indigo-400" }}
 {{ $bgColor := .bgColor | default "gray-900" }}
+{{ $page := .page }}
 
 <div class="bg-{{ $bgColor }} py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:mx-0">
       <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
       <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">{{ $heading }}</p>
-      <p class="mt-6 text-lg/8 text-gray-300">{{ partial "utils/linkbuilding" $description | safeHTML }}</p>
+      <p class="mt-6 text-lg/8 text-gray-300">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
     </div>
     <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 text-base/7 text-gray-300 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-16">
       {{ range $features }}
@@ -54,7 +55,7 @@
           </svg>
           {{ .title }}
         </dt>
-        <dd class="inline">{{ partial "utils/linkbuilding" .description | safeHTML }}</dd>
+        <dd class="inline">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
       </div>
       {{ end }}
     </dl>

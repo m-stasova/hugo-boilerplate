@@ -4,13 +4,25 @@
   This partial processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml
   
   Parameters:
-  - content: The HTML content to process
+  - content: The HTML content to process (when called directly)
+  - or a dict with:
+    - content: The HTML content to process
+    - page: The page context for tracking processed links
   
   Usage:
   {{ $processedContent := partial "utils/linkbuilding" .Content }}
+  or
+  {{ $processedContent := partial "utils/linkbuilding" (dict "content" .Content "page" .) }}
 */}}
 
 {{ $content := . }}
+{{ $page := false }}
+
+{{ if reflect.IsMap . }}
+  {{ $content = .content }}
+  {{ $page = .page }}
+{{ end }}
+
 {{ $lang := site.Language.Lang | default "en" }}
 {{ $dataFile := printf "linkbuilding/%s.yaml" $lang }}
 
@@ -38,8 +50,54 @@
           {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}
           {{ $hasTag := findRE $skipPattern $content }}
           
-          {{ if not $hasTag }}
-            {{ $content = replaceRE $pattern $replacement $content }}
+          {{/* Check if we should process this keyword-URL combination */}}
+          {{ $shouldProcess := true }}
+          
+          {{ if $page }}
+            {{ $linkKey := printf "%s-%s" $keyword $url }}
+            {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
+            
+            {{ range $processedLinks }}
+              {{ if eq . $linkKey }}
+                {{ $shouldProcess = false }}
+              {{ end }}
+            {{ end }}
+          {{ else }}
+            {{/* If no page context, check if link already exists in content */}}
+            {{ $linkPattern := printf `<a href="%s"[^>]*>%s</a>` $url $keyword }}
+            {{ $hasLink := findRE $linkPattern $content }}
+            {{ if $hasLink }}
+              {{ $shouldProcess = false }}
+            {{ end }}
+          {{ end }}
+          
+          {{/* Process only if conditions are met */}}
+          {{ if and (not $hasTag) $shouldProcess }}
+            {{/* Find paragraphs or text blocks that contain the keyword */}}
+            {{ $paragraphPattern := printf `([^<>]{0,500}%s[^<>]{0,500})` $keyword }}
+            {{ $paragraphs := findRE $paragraphPattern $content }}
+            
+            {{ range $paragraphs }}
+              {{ $paragraph := . }}
+              {{/* Only replace if paragraph is at least 30 characters long */}}
+              {{ if gt (len $paragraph) 30 }}
+                {{ $newParagraph := replaceRE $pattern $replacement $paragraph }}
+                {{ if ne $newParagraph $paragraph }}
+                  {{ $content = replace $content $paragraph $newParagraph }}
+                  
+                  {{/* Track this keyword-URL combination if we have page context */}}
+                  {{ if $page }}
+                    {{ $linkKey := printf "%s-%s" $keyword $url }}
+                    {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
+                    {{ $newProcessed := $processedLinks | append $linkKey }}
+                    {{ $page.Scratch.Set "processedLinks" $newProcessed }}
+                  {{ end }}
+                  
+                  {{/* Break after first replacement to avoid multiple replacements */}}
+                  {{ break }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
           {{ end }}
         {{ end }}
       {{ end }}

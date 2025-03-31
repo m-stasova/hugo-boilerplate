@@ -13,7 +13,7 @@
 {{ $shortDescription := .Params.shortDescription }}
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Params.term
-  "description" (partial "utils/linkbuilding" $shortDescription | safeHTML)
+  "description" (partial "utils/linkbuilding" (dict "content" $shortDescription "page" .) | safeHTML)
   "eyebrow" "Glossary"
 ) }}
 
@@ -41,7 +41,7 @@
   "eyebrow" "Definition"
   "heading" (print "What is " .Params.term "?")
   "description" .Params.shortDescription
-  "content" .Content
+  "content" (partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML)
 ) }}
 
 <!-- CTA Section -->
@@ -74,6 +74,7 @@
   "heading" "Frequently Asked Questions"
   "faqs" .Params.faq
   "bgColor" "bg-white"
+  "page" .
 ) }}
 {{ end }}
 

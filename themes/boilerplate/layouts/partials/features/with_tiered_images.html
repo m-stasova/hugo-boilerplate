@@ -14,11 +14,13 @@
   - smallImages: Array of image objects with the following structure:
     - url: URL to the small image
     - alt: Alt text for the small image
+  - page: Page context for linkbuilding
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}
 {{ $subheading := .subheading | default "Machined Kettle" }}
 {{ $heading := .heading | default "Elegant simplicity" }}
+{{ $page := .page }}
 
 {{ $features := .features | default (slice 
   (dict 
@@ -68,7 +70,7 @@
           {{ range $features }}
           <div>
             <dt class="text-sm font-medium text-gray-900">{{ .title }}</dt>
-            <dd class="mt-3 text-sm text-gray-500">{{ partial "utils/linkbuilding" .description | safeHTML }}</dd>
+            <dd class="mt-3 text-sm text-gray-500">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
           </div>
           {{ end }}
         </dl>

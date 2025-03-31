@@ -11,7 +11,7 @@
 <!-- Hero Section -->
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Title
-  "description" (printf "Browse all content tagged with %s" .Title)
+  "description" (partial "utils/linkbuilding" (dict "content" (printf "Browse all content tagged with %s" .Title) "page" .))
   "eyebrow" "Tag"
 ) }}
 

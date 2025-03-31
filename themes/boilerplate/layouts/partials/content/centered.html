@@ -13,6 +13,7 @@
 {{/* Content section */}}
 {{ $contentColor := .contentColor | default "text-gray-700" }}
 {{ $content := .content | default "" }}
+{{ $page := .page }}
 
 <div class="{{ $bgColor }} {{ $padding }} rounded-xl mx-6 sm:mx-8 lg:mx-auto lg:max-w-7xl">
   <div class="mx-auto max-w-3xl text-base/7 {{ $contentColor }}">
@@ -30,8 +31,7 @@
     
     <!-- Apply Tailwind typography with custom processing for better heading styles -->
     <div class="mt-10 prose prose-lg prose-indigo max-w-none">
-      {{ $linkbuildingContent := partial "utils/linkbuilding" $content }}
-      
+      {{ $linkbuildingContent := partial "utils/linkbuilding" (dict "content" $content "page" $page) }}
       <!-- Then apply all other custom styles -->
       {{ $processedContent := $linkbuildingContent | 
                               replaceRE "<h1([^>]*)>" "<h1 class=\"text-4xl font-bold mt-8 mb-6 text-gray-900\"$1>" | 

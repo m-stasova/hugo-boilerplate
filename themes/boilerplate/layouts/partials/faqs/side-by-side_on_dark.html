@@ -5,6 +5,9 @@
 {{ $heading := .heading | default "Frequently asked questions" }}
 {{ $headingColor := .headingColor | default "text-white" }}
 
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
 {{/* FAQ items */}}
 {{ $questionColor := .questionColor | default "text-white" }}
 {{ $answerColor := .answerColor | default "text-gray-300" }}
@@ -40,7 +43,9 @@
       <div class="py-8 first:pt-0 last:pb-0 lg:grid lg:grid-cols-12 lg:gap-8">
         <dt class="text-base/7 font-semibold {{ $questionColor }} lg:col-span-5">{{ .question }}</dt>
         <dd class="mt-4 lg:col-span-7 lg:mt-0">
-          <p class="text-base/7 {{ $answerColor }}">{{ partial "utils/linkbuilding" .answer | safeHTML }}</p>
+          <p class="text-base/7 {{ $answerColor }}">
+            {{ partial "utils/linkbuilding" (dict "content" .answer "page" $page) | safeHTML }}
+          </p>
         </dd>
       </div>
       {{ end }}

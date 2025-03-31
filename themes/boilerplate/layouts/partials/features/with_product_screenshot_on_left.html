@@ -26,6 +26,9 @@
   "height" "1442"
 ) }}
 
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
 <div class="overflow-hidden bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -33,7 +36,7 @@
         <div class="lg:max-w-lg">
           <h2 class="text-base/7 font-semibold text-indigo-600">{{ $tagline }}</h2>
           <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{{ $heading }}</p>
-          <p class="mt-6 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" $description | safeHTML }}</p>
+          <p class="mt-6 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
           <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-600 lg:max-w-none">
             {{ range $features }}
             <div class="relative pl-9">
@@ -43,7 +46,7 @@
                 </svg>
                 {{ .title }}
               </dt>
-              <dd class="inline">{{ partial "utils/linkbuilding" .description | safeHTML }}</dd>
+              <dd class="inline">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
             </div>
             {{ end }}
           </dl>

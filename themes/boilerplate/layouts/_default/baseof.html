@@ -6,6 +6,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+  <!-- Initialize linkbuilding tracking for all pages -->
+  {{ .Scratch.Set "processedLinks" slice }}
+  
   <header>
     {{ partial "header.html" . }}
   </header>

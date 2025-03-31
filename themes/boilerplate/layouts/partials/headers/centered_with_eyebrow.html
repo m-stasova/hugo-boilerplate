@@ -22,6 +22,6 @@
     <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
     {{ end }}
     <h2 class="mt-2 text-5xl font-semibold tracking-tight {{ $headingColor }} sm:text-7xl">{{ $heading }}</h2>
-    <p class="mt-8 text-lg font-medium text-pretty {{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
+    <p class="mt-8 text-lg font-medium text-pretty {{ $descriptionColor }} sm:text-xl/8">{{ $description | safeHTML }}</p>
   </div>
 </div>

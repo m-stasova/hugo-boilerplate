@@ -9,6 +9,9 @@
 {{ $supportingTextLinkColor := .supportingTextLinkColor | default "text-indigo-400" }}
 {{ $supportingTextLinkHoverColor := .supportingTextLinkHoverColor | default "text-indigo-300" }}
 
+{{/* Page context for linkbuilding */}}
+{{ $page := .page }}
+
 {{/* FAQ items */}}
 {{ $questionColor := .questionColor | default "text-white" }}
 {{ $answerColor := .answerColor | default "text-gray-300" }}
@@ -48,7 +51,7 @@
         {{ range $faqs }}
         <div>
           <dt class="text-base/7 font-semibold {{ $questionColor }}">{{ .question }}</dt>
-          <dd class="mt-2 text-base/7 {{ $answerColor }}">{{ partial "utils/linkbuilding" .answer | safeHTML }}</dd>
+          <dd class="mt-2 text-base/7 {{ $answerColor }}">{{ partial "utils/linkbuilding" (dict "content" .answer "page" $page) | safeHTML }}</dd>
         </div>
         {{ end }}
       </dl>
