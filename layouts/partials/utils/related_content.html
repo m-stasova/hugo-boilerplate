@@ -14,37 +14,70 @@
 
 {{ $relatedContentData := index site.Data.related_content $lang }}
 {{ $sectionData := index $relatedContentData $section | default dict }}
-{{ $pageRelatedContent := index $sectionData $slug | default dict }}
-{{ $relatedFiles := index $pageRelatedContent "related_content" | default slice }}
+{{ $pageRelatedContent := index $sectionData $slug | default slice }}
 
-{{ if gt (len $relatedFiles) 0 }}
+{{ if gt (len $pageRelatedContent) 0 }}
   {{ $relatedItems := slice }}
+  {{ $allHaveImages := true }}
   
-  {{ range $relatedFiles }}
+  {{ range $pageRelatedContent }}
     {{ $relatedPath := .file }}
     {{ $relatedPage := site.GetPage $relatedPath }}
     
     {{ if $relatedPage }}
+      {{ $title := "" }}
+      {{ if $relatedPage.Params.term }}
+        {{ $title = $relatedPage.Params.term }}
+      {{ else }}
+        {{ $title = $relatedPage.Title }}
+      {{ end }}
+      
+      {{ $description := "" }}
+      {{ if $relatedPage.Params.shortDescription }}
+        {{ $description = $relatedPage.Params.shortDescription }}
+      {{ else }}
+        {{ $description = $relatedPage.Params.description | default $relatedPage.Description | default "" }}
+      {{ end }}
+      
+      {{ $imageAlt := print "Image for " $title }}
+      {{ $image := $relatedPage.Params.image | default "" }}
+      
+      {{ if eq $image "" }}
+        {{ $allHaveImages = false }}
+      {{ end }}
+      
       {{ $relatedItems = $relatedItems | append (dict 
-        "image" ($relatedPage.Params.image | default "")
-        "imageAlt" (print "Image for " $relatedPage.Params.term)
+        "image" $image
+        "imageAlt" $imageAlt
         "date" ($relatedPage.Date.Format "2006-01-02")
         "dateDisplay" ($relatedPage.Date.Format "Jan 2, 2006")
         "category" (index $relatedPage.Params.tags 0 | default "")
         "categoryLink" (print "/tags/" (index $relatedPage.Params.tags 0 | urlize) | default "#")
-        "title" $relatedPage.Params.term
+        "title" $title
         "titleLink" $relatedPage.RelPermalink
-        "description" $relatedPage.Params.shortDescription
+        "description" $description
       ) }}
     {{ end }}
   {{ end }}
   
   {{ if gt (len $relatedItems) 0 }}
+    {{ $modifiedItems := slice }}
+    
+    {{ if not $allHaveImages }}
+      {{ range $relatedItems }}
+        {{ $item := . }}
+        {{ $item = merge $item (dict "image" "") }}
+        {{ $modifiedItems = $modifiedItems | append $item }}
+      {{ end }}
+    {{ else }}
+      {{ $modifiedItems = $relatedItems }}
+    {{ end }}
+    
     {{ partial "items/three_column_with_images.html" (dict 
       "bgColor" "bg-gray-50"
       "heading" "Related Content"
       "description" "Explore these related topics to expand your knowledge."
-      "items" (first 3 $relatedItems)
+      "items" (first 3 $modifiedItems)
     ) }}
   {{ end }}
 {{ end }}

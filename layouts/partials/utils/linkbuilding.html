@@ -32,7 +32,7 @@
             {{ $pattern = printf `(?i)\b%s\b` $keyword }}
           {{ end }}
           
-          {{ $replacement := printf `<a href="%s" class="auto-link" data-priority="%d" title="%s">%s</a>` $url $priority $title $keyword }}
+          {{ $replacement := printf `<a href="%s" title="%s">%s</a>` $url $title $keyword }}
           
           {{/* Skip if the keyword is already part of an HTML tag or link */}}
           {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}

@@ -1,17 +1,17 @@
 keywords:
   - keyword: "keyword1"
     url: "/"
-    exact: false
+    exact: true
     priority: 1
     title: "Visit our homepage"
   - keyword: "model"
     url: "https://www.liveagent.com/"
-    exact: false
+    exact: true
     priority: 1
     title: "Learn about LLMs"
   - keyword: "training"
     url: "https://www.liveagent.com/"
-    exact: false
+    exact: true
     priority: 1
     title: "Learn about LiveAgent"
     

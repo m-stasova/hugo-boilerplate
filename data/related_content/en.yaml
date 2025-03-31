@@ -1,20 +1,18 @@
 glossary:
-  llm:
-    related_content:
-      - file: "glossary/llm1"
-      - file: "glossary/machine-learning"
-      - file: "glossary/nlp"
-      - file: "glossary/transformer"
-      - file: "glossary/generative-ai"
-  ai:
-    related_content:
-      - file: "glossary/llm"
-      - file: "glossary/machine-learning"
-      - file: "glossary/nlp"
-      - file: "glossary/transformer"
-      - file: "glossary/generative-ai"
   european-parliament-mission-2025:
-    related_content:
-      - file: "glossary/eu-governance"
-      - file: "glossary/eu-climate-policy"
-      - file: "glossary/eu-digital-strategy"
+  - file: glossary/llm
+  - file: glossary/llm1
+  - file: posts/example-post
+  llm:
+  - file: glossary/llm1
+  - file: glossary/european-parliament-mission-2025
+  - file: posts/example-post
+  llm1:
+  - file: glossary/llm
+  - file: glossary/european-parliament-mission-2025
+  - file: posts/example-post
+posts:
+  example-post:
+  - file: test
+  - file: glossary/llm
+  - file: glossary/llm1

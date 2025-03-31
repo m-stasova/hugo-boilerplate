@@ -1,5 +1,9 @@
 ---
 title: "Test Page for Partials"
+date: 2025-03-31T16:49:48+02:00
+draft: false
+url: "test"
+description: "This is a test page to demonstrate all available shortcodes in the Hugo boilerplate theme."
 ---
 
 This is a test page to demonstrate all available shortcodes in the Hugo boilerplate theme. Each section below shows how to use a specific shortcode and how it appears to users.

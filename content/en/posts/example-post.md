@@ -1,6 +1,7 @@
 ---
 title: "Example Post"
 date: 2025-03-28T10:41:11+01:00
+description: "This is an example post demonstrating various features of Hugo and Markdown. should be 3 lines long.... so add one more line"
 draft: false
 tags: ["example", "first"]
 categories: ["demo"]
