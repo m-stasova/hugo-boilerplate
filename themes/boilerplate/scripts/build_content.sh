@@ -10,7 +10,8 @@ set -e  # Exit immediately if a command exits with a non-zero status
 
 # Get the directory where this script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-HUGO_ROOT="$(dirname "$SCRIPT_DIR")"
+THEME_DIR="$(dirname "$SCRIPT_DIR")"
+HUGO_ROOT="$(dirname "$(dirname "$THEME_DIR")")"
 
 # Colors for output
 GREEN='\033[0;32m'
