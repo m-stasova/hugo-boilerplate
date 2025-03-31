@@ -34,7 +34,7 @@ theme = 'boilerplate'
 [params]
   description = "A clean Hugo boilerplate"
   author = "Your Name"
-  mainSections = ["posts"]
+  mainSections = ["blog"]
   dateFormat = "January 2, 2006"
 
 # Language configuration
@@ -54,9 +54,9 @@ theme = 'boilerplate'
       url = "/"
       weight = 1
     [[languages.en.menu.main]]
-      identifier = "posts"
-      name = "Posts"
-      url = "/posts/"
+      identifier = "blog"
+      name = "Blog"
+      url = "/blog/"
       weight = 2
 
   [languages.de]
@@ -74,9 +74,9 @@ theme = 'boilerplate'
       url = "/"
       weight = 1
     [[languages.de.menu.main]]
-      identifier = "posts"
+      identifier = "blog"
       name = "Beiträge"
-      url = "/posts/"
+      url = "/blog/"
       weight = 2
 
   [languages.sk]
@@ -94,9 +94,9 @@ theme = 'boilerplate'
       url = "/"
       weight = 1
     [[languages.sk.menu.main]]
-      identifier = "posts"
+      identifier = "blog"
       name = "Články"
-      url = "/posts/"
+      url = "/blog/"
       weight = 2
 
 # Taxonomies
