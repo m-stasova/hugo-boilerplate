@@ -36,23 +36,13 @@
 </div>
 
 <!-- Content Section -->
-<div class="bg-gray-50 px-6 py-32 lg:px-8">
-  <div class="mx-auto max-w-3xl">
-    <h2 class="text-center text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl mb-16">{{ printf "What is %s?" .Params.term }}</h2>
-    <div class="prose prose-lg prose-headings:font-semibold prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md max-w-none">
-      {{ .Content }}
-    </div>
-  </div>
-</div>
-
-<!-- FAQ Section Side by Side -->
-{{ if .Params.faq }}
-{{ partial "faqs/side-by-side.html" (dict 
-  "heading" "Frequently Asked Questions"
-  "faqs" .Params.faq
-  "bgColor" "bg-white"
+{{ partial "content/centered.html" (dict 
+  "eyebrow" "Definition"
+  "heading" (print "What is " .Params.term "?")
+  "description" .Params.shortDescription
+  "content" .Content
 ) }}
-{{ end }}
+
 
 <!-- CTA Section -->
 {{ $ctaHeading := .Params.ctaHeading | default "Expand your knowledge with our resources" }}
@@ -75,6 +65,15 @@
     "text" $ctaSecondaryText
     "url" $ctaSecondaryURL
   )
+) }}
+{{ end }}
+
+<!-- FAQ Section Side by Side -->
+{{ if .Params.faq }}
+{{ partial "faqs/side-by-side.html" (dict 
+  "heading" "Frequently Asked Questions"
+  "faqs" .Params.faq
+  "bgColor" "bg-white"
 ) }}
 {{ end }}
 
