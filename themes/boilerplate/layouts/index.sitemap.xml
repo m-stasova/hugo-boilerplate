@@ -1,7 +1,6 @@
 {{ safeHTML "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" }}
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  {{- range .Data.Pages -}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range where .Site.Pages "Language.Lang" .Site.Language.Lang -}}
   {{- if not .Params.sitemap_exclude -}}
   <url>
     <loc>{{ .Permalink }}</loc>
@@ -10,21 +9,6 @@
     {{- end }}
     {{- with .Sitemap.ChangeFreq }}
     <changefreq>{{ . }}</changefreq>
-    {{- end }}
-    {{- if ge .Sitemap.Priority 0.0 }}
-    <priority>{{ .Sitemap.Priority }}</priority>
-    {{- end }}
-    {{- if .IsTranslated }}
-    {{- range .Translations }}
-    <xhtml:link
-      rel="alternate"
-      hreflang="{{ .Language.Lang }}"
-      href="{{ .Permalink }}" />
-    {{- end }}
-    <xhtml:link
-      rel="alternate"
-      hreflang="{{ .Language.Lang }}"
-      href="{{ .Permalink }}" />
     {{- end }}
   </url>
   {{- end -}}
