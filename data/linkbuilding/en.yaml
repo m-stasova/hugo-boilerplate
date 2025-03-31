@@ -4,3 +4,15 @@ keywords:
     exact: false
     priority: 1
     title: "Visit our homepage"
+  - keyword: "model"
+    url: "https://www.liveagent.com/"
+    exact: false
+    priority: 1
+    title: "Learn about LLMs"
+  - keyword: "training"
+    url: "https://www.liveagent.com/"
+    exact: false
+    priority: 1
+    title: "Learn about LiveAgent"
+    
+    

@@ -1,0 +1,50 @@
+{{/* 
+  Linkbuilding Partial
+  
+  This partial processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml
+  
+  Parameters:
+  - content: The HTML content to process
+  
+  Usage:
+  {{ $processedContent := partial "utils/linkbuilding" .Content }}
+*/}}
+
+{{ $content := . }}
+{{ $lang := site.Language.Lang | default "en" }}
+{{ $dataFile := printf "linkbuilding/%s.yaml" $lang }}
+
+{{ with site.Data }}
+  {{ with index . "linkbuilding" }}
+    {{ with index . $lang }}
+      {{ with .keywords }}
+        {{ range . }}
+          {{ $keyword := .keyword }}
+          {{ $url := .url }}
+          {{ $exact := default false .exact }}
+          {{ $priority := default 1 .priority }}
+          {{ $title := default $keyword .title }}
+          
+          {{ $pattern := "" }}
+          {{ if $exact }}
+            {{ $pattern = printf `\b%s\b` $keyword }}
+          {{ else }}
+            {{ $pattern = printf `(?i)\b%s\b` $keyword }}
+          {{ end }}
+          
+          {{ $replacement := printf `<a href="%s" class="auto-link" data-priority="%d" title="%s">%s</a>` $url $priority $title $keyword }}
+          
+          {{/* Skip if the keyword is already part of an HTML tag or link */}}
+          {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}
+          {{ $hasTag := findRE $skipPattern $content }}
+          
+          {{ if not $hasTag }}
+            {{ $content = replaceRE $pattern $replacement $content }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ return $content }}
