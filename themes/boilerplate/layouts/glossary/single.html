@@ -1,5 +1,14 @@
 {{ define "main" }}
 
+<!-- Breadcrumbs -->
+{{ partial "breadcrumbs/basic" (dict 
+  "items" (slice 
+    (dict "title" "Home" "url" (print "/" | relLangURL))
+    (dict "title" "Glossary" "url" (print "/glossary/" | relLangURL))
+    (dict "title" .Params.term "url" .Permalink)
+  )
+) }}
+
 <!-- Hero Section with Split Image -->
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Params.term
