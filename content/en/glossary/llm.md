@@ -52,6 +52,8 @@ The "large" in Large Language Models refers to both:
 - The enormous size of these models (often containing billions or even trillions of parameters)
 - The vast amounts of training data they consume (typically hundreds of billions of words)
 
+{{< pricing-three-tiers "LLM Solutions" "AI Language Models for Every Need" "Choose the right LLM implementation package for your business needs, from basic integrations to custom enterprise solutions." "gray-50" >}}
+
 ## How LLMs Are Trained
 
 The training process for LLMs typically involves three main stages:
