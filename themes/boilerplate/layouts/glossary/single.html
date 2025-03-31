@@ -10,9 +10,10 @@
 ) }}
 
 <!-- Hero Section with Split Image -->
+{{ $shortDescription := .Params.shortDescription }}
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Params.term
-  "description" .Params.shortDescription
+  "description" (partial "utils/linkbuilding" $shortDescription | safeHTML)
   "eyebrow" "Glossary"
 ) }}
 

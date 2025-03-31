@@ -47,7 +47,7 @@
           {{ range $faqs }}
           <div>
             <dt class="text-base/7 font-semibold {{ $questionColor }}">{{ .question }}</dt>
-            <dd class="mt-2 text-base/7 {{ $answerColor }}">{{ .answer }}</dd>
+            <dd class="mt-2 text-base/7 {{ $answerColor }}">{{ partial "utils/linkbuilding" .answer | safeHTML }}</dd>
           </div>
           {{ end }}
         </dl>

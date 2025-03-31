@@ -32,7 +32,7 @@
             {{ $pattern = printf `(?i)\b%s\b` $keyword }}
           {{ end }}
           
-          {{ $replacement := printf `<a href="%s" title="%s">%s</a>` $url $title $keyword }}
+          {{ $replacement := printf `<a href="%s" title="%s" class="text-indigo-600 font-medium hover:text-indigo-500 transition-colors duration-150 ease-in-out underline decoration-1 underline-offset-2 hover:decoration-2">%s</a>` $url $title $keyword }}
           
           {{/* Skip if the keyword is already part of an HTML tag or link */}}
           {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}

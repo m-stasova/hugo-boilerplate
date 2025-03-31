@@ -32,13 +32,8 @@
     <div class="mt-10 prose prose-lg prose-indigo max-w-none">
       {{ $linkbuildingContent := partial "utils/linkbuilding" $content }}
       
-      <!-- First apply custom styles to links without class attribute -->
-      {{ $processedLinks := $linkbuildingContent | 
-                            replaceRE "<a ([^>]*)>" "<a $1 class=\"text-indigo-600 font-medium hover:text-indigo-500 transition-colors duration-150 ease-in-out underline decoration-1 underline-offset-2 hover:decoration-2\">" | 
-                            replaceRE "<a class=\"([^\"]*)\" ([^>]*)class=\"([^\"]*)\"" "<a class=\"$1\" $2class=\"$3\"" }}
-      
       <!-- Then apply all other custom styles -->
-      {{ $processedContent := $processedLinks | 
+      {{ $processedContent := $linkbuildingContent | 
                               replaceRE "<h1([^>]*)>" "<h1 class=\"text-4xl font-bold mt-8 mb-6 text-gray-900\"$1>" | 
                               replaceRE "<h2([^>]*)>" "<h2 class=\"text-3xl font-bold mt-8 mb-5 text-gray-900\"$1>" | 
                               replaceRE "<h3([^>]*)>" "<h3 class=\"text-2xl font-semibold mt-6 mb-4 text-gray-900\"$1>" | 

@@ -5,7 +5,7 @@
   {{ $dateHuman := .Date | time.Format ":date_long" }}
   <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
 
-  {{ .Content }}
+  {{ partial "utils/linkbuilding" .Content | safeHTML }}
 
   {{ partial "utils/related_content.html" . }}
 {{ end }}
