@@ -1,0 +1,18 @@
+glossary:
+  european-parliament-mission-2025:
+  - file: glossary/llm1
+  - file: glossary/llm
+  - file: posts/example-post
+  llm:
+  - file: glossary/llm1
+  - file: glossary/european-parliament-mission-2025
+  - file: posts/example-post
+  llm1:
+  - file: glossary/llm
+  - file: glossary/european-parliament-mission-2025
+  - file: posts/example-post
+posts:
+  example-post:
+  - file: test
+  - file: glossary/european-parliament-mission-2025
+  - file: glossary/llm1

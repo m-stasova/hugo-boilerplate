@@ -1,9 +1,10 @@
 #!/bin/bash
-# build_related_content.sh
+# build_content.sh
 #
 # This script creates a virtual environment, installs requirements,
-# and runs the generate_related_content.py script to build related content
-# YAML files for the Hugo site.
+# and performs two main tasks:
+# 1. Translates missing content files from English to other languages
+# 2. Generates related content YAML files for the Hugo site
 
 set -e  # Exit immediately if a command exits with a non-zero status
 
@@ -17,7 +18,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}=== Building Related Content for Hugo Site ===${NC}"
+echo -e "${BLUE}=== Building Content for Hugo Site ===${NC}"
 echo -e "${BLUE}Hugo root: ${HUGO_ROOT}${NC}"
 
 # Create a virtual environment if it doesn't exist
@@ -41,6 +42,27 @@ pip install --upgrade pip
 echo -e "${YELLOW}Installing requirements...${NC}"
 pip install -r "${SCRIPT_DIR}/requirements.txt"
 
+# STEP 1: Translate missing content files
+echo -e "${BLUE}=== Step 1: Translating Missing Content Files ===${NC}"
+
+# Check for OpenAI API key
+if [ -z "$OPENAI_API_KEY" ]; then
+    echo -e "${YELLOW}Checking for OpenAI API key...${NC}"
+    if [ ! -f "${SCRIPT_DIR}/.env" ]; then
+        echo -e "${YELLOW}No .env file found. Please enter your OpenAI API key:${NC}"
+        read -p "OpenAI API Key: " api_key
+        echo "OPENAI_API_KEY=${api_key}" > "${SCRIPT_DIR}/.env"
+    fi
+fi
+
+# Run the translation script
+echo -e "${YELLOW}Running translation script...${NC}"
+python "${SCRIPT_DIR}/translate_missing_files.py"
+echo -e "${GREEN}Translation of missing content completed!${NC}"
+
+# STEP 2: Generate related content
+echo -e "${BLUE}=== Step 2: Generating Related Content ===${NC}"
+
 # Process each language directory in content/
 echo -e "${YELLOW}Finding language directories...${NC}"
 for lang_dir in "${HUGO_ROOT}/content/"*/; do
@@ -61,4 +83,4 @@ done
 # Deactivate the virtual environment
 deactivate
 
-echo -e "${GREEN}Done! Related content YAML files have been generated in data/related_content/${NC}"
+echo -e "${GREEN}Done! All content processing completed successfully.${NC}"

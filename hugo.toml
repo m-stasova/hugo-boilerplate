@@ -79,6 +79,26 @@ theme = 'boilerplate'
       url = "/posts/"
       weight = 2
 
+  [languages.sk]
+    languageName = "Slovensky"
+    title = "Slovenská stránka"
+    weight = 3
+    contentDir = "content/sk"
+    baseURL = "https://example.sk"
+    bcp47Lang = "sk"
+    [languages.sk.params]
+      description = "Slovenská stránka popis"
+    [[languages.sk.menu.main]]
+      identifier = "home"
+      name = "Domov"
+      url = "/"
+      weight = 1
+    [[languages.sk.menu.main]]
+      identifier = "posts"
+      name = "Články"
+      url = "/posts/"
+      weight = 2
+
 # Taxonomies
 [taxonomies]
   tag = "tags"
