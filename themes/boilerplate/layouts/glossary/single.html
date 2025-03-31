@@ -1,0 +1,48 @@
+{{ define "main" }}
+
+<!-- Hero Section with Split Image -->
+{{ partial "headers/centered_with_eyebrow.html" (dict 
+  "heading" .Params.term
+  "description" .Params.shortDescription
+  "eyebrow" "Glossary"
+) }}
+
+<!-- Tags Section -->
+<div class="bg-white py-12">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <div class="mt-6 flex flex-wrap justify-center gap-4">
+        {{ if .Params.tags }}
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          {{ range .Params.tags }}
+          <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800">
+            {{ . }}
+          </span>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Content Section -->
+<div class="bg-gray-50 px-6 py-32 lg:px-8">
+  <div class="mx-auto max-w-3xl">
+    <h2 class="text-center text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl mb-16">{{ printf "What is %s?" .Params.term }}</h2>
+    <div class="prose prose-lg prose-headings:font-semibold prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-md max-w-none">
+      {{ .Content }}
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section Side by Side -->
+{{ if .Params.faq }}
+{{ partial "faqs/side-by-side.html" (dict 
+  "heading" "Frequently Asked Questions"
+  "faqs" .Params.faq
+  "bgColor" "bg-white"
+) }}
+{{ end }}
+
+{{ end }}

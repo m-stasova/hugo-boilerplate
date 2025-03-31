@@ -6,4 +6,8 @@ url = ""
 description = ""
 keywords = []
 image = ""
+tags = []
+categories = []
 +++
+
+Write your post content here...
