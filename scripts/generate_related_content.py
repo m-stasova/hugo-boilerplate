@@ -248,17 +248,30 @@ def generate_yaml(related_content, hugo_root, output_dir, lang):
     
     # Convert defaultdict to regular dict for YAML serialization
     yaml_data = {}
+    has_content = False
+    
     for section, slugs in related_content.items():
+        if not slugs:  # Skip empty sections
+            continue
+            
         yaml_data[section] = {}
         for slug, related_files in slugs.items():
+            if not related_files:  # Skip pages with no related content
+                continue
+                
             yaml_data[section][slug] = related_files
+            has_content = True
     
-    # Write YAML file
-    output_file = os.path.join(output_path, f"{lang}.yaml")
-    with open(output_file, 'w', encoding='utf-8') as f:
-        yaml.dump(yaml_data, f, default_flow_style=False, allow_unicode=True)
-    
-    print(f"YAML file generated: {output_file}")
+    # Only write the YAML file if there's actual content
+    if has_content:
+        # Write YAML file
+        output_file = os.path.join(output_path, f"{lang}.yaml")
+        with open(output_file, 'w', encoding='utf-8') as f:
+            yaml.dump(yaml_data, f, default_flow_style=False, allow_unicode=True)
+        
+        print(f"YAML file generated: {output_file}")
+    else:
+        print(f"No related content found for language: {lang}. YAML file not created.")
 
 def main():
     """Main function."""
