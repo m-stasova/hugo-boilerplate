@@ -2,7 +2,7 @@
   Related Content Partial
   
   This partial loads related content from data/related_content/[lang].yaml
-  and displays it using the items/three_column_with_images.html partial.
+  and displays it using post_card.html partial in a grid layout.
   
   If no related content is defined for the current page, nothing is displayed.
 */}}
@@ -17,67 +17,33 @@
 {{ $pageRelatedContent := index $sectionData $slug | default slice }}
 
 {{ if gt (len $pageRelatedContent) 0 }}
-  {{ $relatedItems := slice }}
-  {{ $allHaveImages := true }}
+  {{ $relatedPages := slice }}
   
   {{ range $pageRelatedContent }}
     {{ $relatedPath := .file }}
     {{ $relatedPage := site.GetPage $relatedPath }}
     
     {{ if $relatedPage }}
-      {{ $title := "" }}
-      {{ if $relatedPage.Params.term }}
-        {{ $title = $relatedPage.Params.term }}
-      {{ else }}
-        {{ $title = $relatedPage.Title }}
-      {{ end }}
-      
-      {{ $description := "" }}
-      {{ if $relatedPage.Params.shortDescription }}
-        {{ $description = $relatedPage.Params.shortDescription }}
-      {{ else }}
-        {{ $description = $relatedPage.Params.description | default $relatedPage.Description | default "" }}
-      {{ end }}
-      
-      {{ $imageAlt := print "Image for " $title }}
-      {{ $image := $relatedPage.Params.image | default "" }}
-      
-      {{ if eq $image "" }}
-        {{ $allHaveImages = false }}
-      {{ end }}
-      
-      {{ $relatedItems = $relatedItems | append (dict 
-        "image" $image
-        "imageAlt" $imageAlt
-        "date" ($relatedPage.Date.Format "2006-01-02")
-        "dateDisplay" ($relatedPage.Date.Format "Jan 2, 2006")
-        "category" (index $relatedPage.Params.tags 0 | default "")
-        "categoryLink" (print "/tags/" (index $relatedPage.Params.tags 0 | urlize) | default "#")
-        "title" $title
-        "titleLink" $relatedPage.RelPermalink
-        "description" $description
-      ) }}
+      {{ $relatedPages = $relatedPages | append $relatedPage }}
     {{ end }}
   {{ end }}
   
-  {{ if gt (len $relatedItems) 0 }}
-    {{ $modifiedItems := slice }}
-    
-    {{ if not $allHaveImages }}
-      {{ range $relatedItems }}
-        {{ $item := . }}
-        {{ $item = merge $item (dict "image" "") }}
-        {{ $modifiedItems = $modifiedItems | append $item }}
-      {{ end }}
-    {{ else }}
-      {{ $modifiedItems = $relatedItems }}
-    {{ end }}
-    
-    {{ partial "items/three_column_with_images.html" (dict 
-      "bgColor" "bg-gray-50"
-      "heading" "Related Content"
-      "description" "Explore these related topics to expand your knowledge."
-      "items" (first 3 $modifiedItems)
-    ) }}
+  {{ if gt (len $relatedPages) 0 }}
+    <div class="bg-gray-50 py-12">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto">
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Related Content</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-500">Explore these related topics to expand your knowledge.</p>
+          </div>
+          
+          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {{ range first 3 $relatedPages }}
+              {{ partial "cards/post_card.html" . }}
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
   {{ end }}
 {{ end }}
