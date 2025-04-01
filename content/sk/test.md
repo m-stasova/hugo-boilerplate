@@ -331,7 +331,7 @@ Video vyššie sa načíta iba vtedy, keď sa dostane do zobrazenia, čím sa zl
 
 ## Komponenty päty
 
-### Päta so štyrmi stĺpcami
+### Päta so štyrmi stĺpcoch
 
 {{< footer-four-column 
     backgroundColor="bg-gray-900" 
@@ -383,10 +383,7 @@ Video vyššie sa načíta iba vtedy, keď sa dostane do zobrazenia, čím sa zl
     buttonText="Začať" 
     buttonUrl="#" 
     codeLanguage="javascript" 
-    codeContent="// Example code
-function example() {
-  console.log('Hello world!');
-}" 
+    codeContent="function example() {console.log(\"Hello world!\");}" 
     backgroundColor="bg-gray-100" 
 >}}
 
