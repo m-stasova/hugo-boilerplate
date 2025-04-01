@@ -1,3 +1,8 @@
+blog:
+  example-post:
+  - file: posts/example-post
+  - file: test
+  - file: glossary/llm1
 glossary:
   european-parliament-mission-2025:
   - file: glossary/llm
@@ -10,9 +15,9 @@ glossary:
   llm1:
   - file: glossary/llm
   - file: glossary/european-parliament-mission-2025
-  - file: posts/example-post
+  - file: test
 posts:
   example-post:
+  - file: blog/example-post
   - file: test
-  - file: glossary/llm
-  - file: glossary/european-parliament-mission-2025
+  - file: glossary/llm1

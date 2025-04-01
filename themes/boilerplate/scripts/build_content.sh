@@ -13,6 +13,13 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 THEME_DIR="$(dirname "$SCRIPT_DIR")"
 HUGO_ROOT="$(dirname "$(dirname "$THEME_DIR")")"
 
+#print directories
+
+echo -e "${BLUE}=== Directories ===${NC}"
+echo -e "${BLUE}Script directory: ${SCRIPT_DIR}${NC}"
+echo -e "${BLUE}Theme directory: ${THEME_DIR}${NC}"
+echo -e "${BLUE}Hugo root: ${HUGO_ROOT}${NC}"
+
 # Colors for output
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -43,9 +50,6 @@ pip install --upgrade pip
 echo -e "${YELLOW}Installing requirements...${NC}"
 pip install -r "${SCRIPT_DIR}/requirements.txt"
 
-# STEP 1: Translate missing content files
-echo -e "${BLUE}=== Step 1: Translating Missing Content Files ===${NC}"
-
 # Check for OpenAI API key
 if [ -z "$OPENAI_API_KEY" ]; then
     echo -e "${YELLOW}Checking for OpenAI API key...${NC}"
@@ -58,28 +62,12 @@ fi
 
 # Run the translation script
 echo -e "${YELLOW}Running translation script...${NC}"
-python "${SCRIPT_DIR}/translate_missing_files.py"
+python "${SCRIPT_DIR}/translate_missing_files.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
 
-# STEP 2: Generate related content
+# STEP 2: Generate Related Content
 echo -e "${BLUE}=== Step 2: Generating Related Content ===${NC}"
-
-# Process each language directory in content/
-echo -e "${YELLOW}Finding language directories...${NC}"
-for lang_dir in "${HUGO_ROOT}/content/"*/; do
-    # Extract language code from directory name
-    lang=$(basename "$lang_dir")
-    
-    # Skip if not a directory or starts with underscore (like _gen)
-    if [[ ! -d "$lang_dir" || "$lang" == _* ]]; then
-        continue
-    fi
-    
-    echo -e "${GREEN}Processing language: ${lang}${NC}"
-    
-    # Run the Python script for this language
-    python "${SCRIPT_DIR}/generate_related_content.py" --lang "$lang"
-done
+python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
 
 # Deactivate the virtual environment
 deactivate

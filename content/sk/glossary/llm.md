@@ -3,11 +3,11 @@ title = 'LLM'
 date = 2025-03-30T18:13:01+02:00
 draft = false
 url = "glossary/large-language-model"
-description = "Large Language Models (LLMs) sú pokročilé AI systémy trénované na obrovských množstvách textových dát, ktoré umožňujú porozumieť a generovať ľudskému jazyku podobný text."
+description = "Large Language Models (LLMs) sú pokročilé systémy umelej inteligencie trénované na obrovských množstvách textových dát na pochopenie a generovanie ľudského jazyka."
 keywords = ["LLM", "large language model", "AI", "artificial intelligence", "NLP", "machine learning", "GPT", "language model"]
 image = "/images/glossary/llm-main.jpg"
 term = "Large Language Model (LLM)"
-shortDescription = "Pokročilé AI systémy trénované na obrovských dátových súboroch textov, ktoré dokážu porozumieť, generovať a manipulovať s ľudským jazykom s pozoruhodnou plynulosťou."
+shortDescription = "Pokročilé systémy umelej inteligencie trénované na obrovských textových datasetoch, ktoré dokážu pochopiť, generovať a manipulovať s ľudským jazykom s pozoruhodnou plynulosťou."
 category = "L"
 tags = ["artificial intelligence", "machine learning", "natural language processing", "neural networks", "transformer models"]
 additionalImages = [
@@ -18,82 +18,82 @@ additionalImages = [
 
 # CTA Section Configuration
 showCTA = true
-ctaHeading = "Preskúmajte AI a LLM riešenia pre vaše podnikanie"
-ctaDescription = "Zistite, ako môžu Large Language Models transformovať vaše operácie, zlepšiť zákaznícke skúsenosti a podnietiť inovácie vo vašej organizácii."
-ctaPrimaryText = "Požiadajte o AI konzultáciu"
+ctaHeading = "Preskúmajte AI a LLM riešenia pre vašu firmu"
+ctaDescription = "Zistite, ako môžu Large Language Models transformovať vaše operácie, zlepšiť zákaznícku skúsenosť a posilniť inovácie vo vašej organizácii."
+ctaPrimaryText = "Žiadosť o AI konzultáciu"
 ctaPrimaryURL = "/services/ai-consulting/"
-ctaSecondaryText = "Pozrite si prípadové štúdie LLM"
+ctaSecondaryText = "Pozrite si štúdie prípadov LLM"
 ctaSecondaryURL = "/case-studies/ai-implementation/"
-
+ 
 [[faq]]
 question = "Čo je Large Language Model (LLM)?"
-answer = "Large Language Model (LLM) je typ systému umelej inteligencie navrhnutého na porozumenie a generovanie ľudského jazyka. Tieto modely sú trénované na obrovských dátových súboroch textov z internetu, kníh a iných zdrojov, čo im umožňuje rozpoznať vzory v jazyku a generovať koherentné, kontextovo relevantné textové odpovede."
+answer = "Large Language Model (LLM) je typ systému umelej inteligencie navrhnutého na pochopenie a generovanie ľudského jazyka. Tieto modely sú trénované na obrovských datasetoch textu z internetu, kníh a iných zdrojov, čo im umožňuje rozpoznať jazykové vzory a generovať koherentné, kontextuálne relevantné textové odpovede."
 
 [[faq]]
 question = "Ako fungujú Large Language Models?"
-answer = "LLM fungujú pomocou architektúry neurónových sietí nazývanej transformery, ktorá spracováva text analýzou vzťahov medzi slovami. Počas trénovania sa model učí vzory z miliárd príkladov textu. Keď je modelu zadaná výzva, predpovedá, aký text by mal nasledovať na základe svojho trénovania. Tento proces predpovedania prebieha token po token (slová alebo časti slov), pričom každá predpoveď je ovplyvnená všetkými predchádzajúcimi tokenmi v kontexte."
+answer = "LLM fungujú pomocou architektúry neurónových sietí nazývanej transformery, ktorá spracováva text analyzovaním vzťahov medzi slovami. Počas tréningu sa model naučí vzory z miliárd príkladov textu. Keď dostane vstup, model predikuje, aký text by mal nasledovať na základe svojho tréningu. Tento proces predikcie prebieha token za tokenom (slová alebo časti slov), pričom každá predpoveď je ovplyvnená všetkými predchádzajúcimi tokenmi v kontexte."
 
 [[faq]]
 question = "Aké sú bežné príklady LLM?"
-answer = "Bežné príklady zahŕňajú modely GPT (Generative Pre-trained Transformer) od OpenAI, ako je GPT-4, modely PaLM a Gemini od Googlu, LLaMA od Mety, Claude od Anthropic a open-source modely ako Mistral a Falcon. Tieto modely poháňajú rôzne AI asistentov a aplikácie v rôznych odvetviach."
+answer = "Medzi bežné príklady patria GPT (Generative Pre-trained Transformer) modely od OpenAI, napríklad GPT-4, Google PaLM a Gemini modely, Meta LLaMA, Anthropic Claude a open-source modely ako Mistral a Falcon. Tieto modely poháňajú rôzne AI asistenty a aplikácie v mnohých odvetviach."
 
 [[faq]]
 question = "Aké sú obmedzenia LLM?"
-answer = "LLM majú niekoľko obmedzení: môžu generovať presvedčivé, ale nesprávne informácie (halucinácie), nemajú skutočné pochopenie sveta, môžu perpetuovať predsudky prítomné v ich trénovacích dátach, majú obmedzené schopnosti logického uvažovania pri riešení zložitých problémov a zvyčajne majú aj dátum ukončenia vedomostí, po ktorom nemajú prístup k novým informáciám."
+answer = "LLM majú niekoľko obmedzení: môžu generovať zdanlivo pravdivé, ale nesprávne informácie (halucinácie), postrádajú skutočné pochopenie sveta, môžu zosilňovať predsudky prítomné v ich tréningových dátach, majú obmedzené schopnosti logického usudzovania pri riešení zložitých problémov a typicky majú konečný dátum znalostí, po ktorom nemajú nové informácie."
 +++
 
-Large Language Models (LLMs) predstavujú jeden z najvýznamnejších pokrokov v oblasti umelej inteligencie v posledných rokoch. Tieto sofistikované AI systémy sú trénované na obrovských dátových súboroch textov a kódu, aby si vytvorili hlboké štatistické porozumenie jazykových vzorov a vzťahov.
+Large Language Models (LLMs) predstavujú jeden z najvýznamnejších pokrokov v oblasti umelej inteligencie v posledných rokoch. Tieto sofistikované systémy AI sú trénované na obrovských datasetoch textu a kódu, aby získali hlboké štatistické porozumenie jazykových vzorov a vzťahov.
 
-## Čím sa LLM odlišujú
+## Čím sa LLM líšia
 
-Na rozdiel od skorších systémov spracovania jazyka sa LLM nespoliehajú na vopred definovaná pravidlá alebo šablóny. Namiesto toho využívajú neurónové siete – primárne transformer modely – na spracovanie a generovanie textu tým, že chápu vzťahy medzi slovami a pojmami v kontexte. To im umožňuje vykonávať širokú škálu jazykových úloh bez potreby špecifického trénovania pre jednotlivé úlohy.
+Na rozdiel od skôr používaných systémov spracovania jazyka sa LLM nespoliehajú na vopred určené pravidlá alebo šablóny. Namiesto toho používajú architektúry neurónových sietí—predovšetkým transformátory—na spracovanie a generovanie textu prostredníctvom pochopenia vzťahov medzi slovami a konceptmi v danom kontexte. To im umožňuje vykonávať širokú škálu jazykových úloh bez špecifického tréningu pre danú úlohu.
 
-Termín "large" v názve Large Language Models sa vzťahuje na obe tieto charakteristiky:
-- OBLÍČNY ROZMER týchto modelov (často obsahujú miliardy alebo dokonca bilióny parametrov)
-- OBROVSKÉ množstvo trénovacích dát, ktoré spotrebujú (zvyčajne stovky miliárd slov)
+"Large" v názve Large Language Models odkazuje na obe nasledovné charakteristiky:
+- Obrovskú veľkosť týchto modelov (často obsahujú miliardy alebo dokonca bilióny parametrov)
+- Obrovské množstvá tréningových dát, ktoré spotrebovávajú (zvyčajne stovky miliárd slov)
 
 {{< pricing-three-tiers "LLM Solutions" "AI Language Models for Every Need" "Choose the right LLM implementation package for your business needs, from basic integrations to custom enterprise solutions." "gray-50" >}}
 
 ## Ako sa trénujú LLM
 
-Tréningový proces LLM typicky zahŕňa tri hlavné fázy:
+Tréningový proces LLM zvyčajne zahŕňa tri hlavné etapy:
 
-1. **Predtréning (Pre-training)**: Model sa učí všeobecné jazykové vzory z obrovského množstva textových dát prostredníctvom samo-supervidovaného učenia, zvyčajne predpovedaním nasledujúceho slova v sekvencii.
+1. **Predtréning**: Model sa naučí všeobecné jazykové vzory z obrovského množstva textových dát pomocou samo-supervízovaného učenia, zvyčajne predpovedaním ďalšieho slova v sekvencii.
 
-2. **Doladenie (Fine-tuning)**: Predtrénovaný model je následne ďalej trénovaný na špecifickejších dátach, často so spätnou väzbou od ľudí, aby sa zlepšili jeho schopnosti v konkrétnych úlohách alebo aby bol viac v súlade s ľudskými preferenciami.
+2. **Doladenie**: Predtrénovaný model je následne trénovaný na konkrétnejších datasetoch, často so spätnou väzbou od ľudí, aby sa zlepšili jeho schopnosti pre špecifické úlohy alebo aby bol zosúladený s ľudskými preferenciami.
 
-3. **Reinforcement Learning from Human Feedback (RLHF)**: Pokročilé LLM sú dolaďované pomocou ľudskej spätnej väzby, aby boli nápomocnejšie, neškodné a úprimné.
+3. **Reinforcement Learning from Human Feedback (RLHF)**: Pokročilé LLM sú doladené pomocou ľudskej spätnej väzby, aby boli užitočnejšie, neškodné a čestné.
 
-## Použitie LLM
+## Aplikácie LLM
 
 LLM preukázali pozoruhodné schopnosti v rôznych oblastiach:
 
 - **Tvorba obsahu**: Písanie článkov, príbehov, marketingových textov a kreatívneho obsahu
 - **Asistencia pri kódovaní**: Generovanie, vysvetľovanie a ladenie kódu
-- **Konverzačná AI**: Poháňanie chatovacích botov a virtuálnych asistentov
-- **Preklad**: Konverzia textu medzi jazykmi s vysokou presnosťou
-- **Zhrnutie**: Skoncentrovanie dlhých dokumentov pri zachovaní kľúčových informácií
-- **Odpovedanie na otázky**: Poskytovanie informácií a vysvetlení na rôzne témy
-- **Analýza dát**: Extrakcia poznatkov z nestruktúrovaných textových dát
+- **Konverzačná AI**: Poháňanie chatbotov a virtuálnych asistentov
+- **Preklad**: Prekladanie textu medzi jazykmi s vysokou presnosťou
+- **Zhrňovanie**: Zhrnutie dlhých dokumentov pri zachovaní kľúčových informácií
+- **Odpovedanie na otázky**: Poskytovanie informácií a vysvetlení o rôznych témach
+- **Analýza dát**: Extrahovanie poznatkov z nestrukturovaných textových dát
 
 ## Etické úvahy
 
-Vývoj a nasadenie LLM vyvolávajú dôležité etické otázky:
+Vývoj a nasadzovanie LLM vyvoláva dôležité etické otázky:
 
-- **Predpojatosti a spravodlivosť**: LLM môžu perpetuovať alebo zosilňovať predsudky prítomné v ich trénovacích dátach
-- **Dezinformácie**: Môžu generovať presvedčivé, ale nesprávne informácie
-- **Obavy o súkromie**: Otázky ohľadom dát použitých na trénovanie a interakcií používateľov
+- **Predsudky a spravodlivosť**: LLM môžu zosilňovať alebo prehlbovať predsudky prítomné v tréningových dátach
+- **Dezinformácie**: Môžu generovať presvedčivé, ale nepravdivé informácie
+- **Obavy o súkromie**: Otázky týkajúce sa dát použitých na tréning a interakcií používateľov
 - **Vplyv na životné prostredie**: Tréning veľkých modelov vyžaduje značné výpočtové zdroje
-- **Nahradzovanie ľudskej práce**: Potenciál automatizácie úloh, ktoré predtým vykonávali ľudia
+- **Nahraďovanie pracovných miest**: Potenciál na automatizáciu úloh, ktoré predtým vykonávali ľudia
 
 ## Budúcnosť LLM
 
 Ako výskum pokračuje, svedčíme rýchlemu vývoju schopností a aplikácií LLM:
 
-- **Multimodálne modely**: Rozšírenie okrem textu na pochopenie a generovanie obrázkov, zvuku a videa
+- **Multimodálne modely**: Rozširovanie pôsobnosti mimo textu na pochopenie a generovanie obrázkov, zvuku a videa
 - **Špecializovaní doménoví experti**: Modely prispôsobené pre konkrétne odvetvia, ako sú zdravotníctvo, právo alebo financie
-- **Zlepšené uvažovanie**: Vylepšené schopnosti pre logické myslenie a riešenie problémov
-- **Znížené požiadavky na výpočtovú silu**: Efektívnejšie modely, ktoré vyžadujú menej výpočtového výkonu
-- **Integrácia s inými systémami**: LLM spolupracujú s databázami, API a špecializovanými nástrojmi
+- **Vylepšené logické usudzovanie**: Zlepšené schopnosti pre logické myslenie a riešenie problémov
+- **Znížené výpočtové požiadavky**: Efektívnejšie modely, ktoré vyžadujú menej výpočtovej sily
+- **Integrácia s inými systémami**: LLM pracujúce v spolupráci s databázami, API a špecializovanými nástrojmi
 
-Large Language Models predstavujú transformačnú technológiu, ktorá sa neustále rýchlo vyvíja, pričom nové schopnosti a aplikácie sa pravidelne objavujú, ako výskumníci posúvajú hranice možností systémov umelej inteligencie založených na jazyku.
+Large Language Models predstavujú transformačnú technológiu, ktorá sa neustále rýchlo vyvíja, pričom nové schopnosti a aplikácie sa objavujú pravidelne, keď výskumníci posúvajú hranice toho, čo je možné s AI jazykovými systémami.

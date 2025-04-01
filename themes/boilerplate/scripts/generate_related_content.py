@@ -8,9 +8,14 @@ the 3 most similar files and generates a YAML file with the related content stru
 
 Usage:
     python generate_related_content.py --lang en
+    python generate_related_content.py --lang en --path /path/to/content
 
 Requirements:
     pip install sentence-transformers faiss-cpu torch pyyaml frontmatter markdown bs4 tqdm
+    
+    or install requirements.txt
+    pip install -r requirements.txt
+    
 """
 
 import os
@@ -23,24 +28,55 @@ import markdown
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 from collections import defaultdict
+import numpy as np
 
 # Constants
-MODEL_NAME = "all-MiniLM-L6-v2"  # Extremely small model for minimal memory usage
+#MODEL_NAME = "all-MiniLM-L6-v2"  # Extremely small model for minimal memory usage
+MODEL_NAME = "Alibaba-NLP/gte-multilingual-base"
 MAX_TEXT_LENGTH = 2000  # Limit text length to avoid memory issues
 TOP_K = 3  # Number of related content items to find
+
+# Global variables for model and tokenizer
+_model = None
+_tokenizer = None
+
+def load_model(model_name):
+    """Load the model and tokenizer once."""
+    global _model, _tokenizer
+    
+    # Only load if not already loaded
+    if _model is None or _tokenizer is None:
+        print(f"Loading model: {model_name}")
+        
+        # Import here to delay loading these heavy libraries until needed
+        import torch
+        from transformers import AutoModel, AutoTokenizer
+        
+        # Load the model and tokenizer
+        _tokenizer = AutoTokenizer.from_pretrained(model_name)
+        _model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
+    else:
+        print("Using already loaded model")
+    
+    return _model, _tokenizer
 
 def parse_args():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Generate related content YAML")
-    parser.add_argument("--lang", type=str, default="en", help="Language code (e.g., 'en', 'de')")
-    parser.add_argument("--content_dir", type=str, default="content", 
-                        help="Content directory relative to Hugo root")
-    parser.add_argument("--output_dir", type=str, default="data/related_content",
-                        help="Output directory for YAML files relative to Hugo root")
-    parser.add_argument("--exclude_sections", type=str, nargs="+", default=["_index.md"],
+    parser.add_argument("--lang", type=str,
+                        help="Language to process (if only processing one language)")
+    parser.add_argument("--path", type=str, 
+                        help="Absolute path to the content directory")
+    parser.add_argument("--content-dir", type=str, default="content",
+                        help="Content directory relative to Hugo root (default: content)")
+    parser.add_argument("--output-dir", type=str, default="data/related_content",
+                        help="Output directory relative to Hugo root (default: data/related_content)")
+    parser.add_argument("--exclude-sections", type=str, nargs="+", default=[],
                         help="Sections or files to exclude")
     parser.add_argument("--model", type=str, default=MODEL_NAME,
                         help=f"Model name to use (default: {MODEL_NAME})")
+    parser.add_argument("--hugo-root", type=str, default=os.getcwd(),
+                        help="Hugo root directory (default: current directory)")
     return parser.parse_args()
 
 def extract_text_from_markdown(content):
@@ -59,134 +95,147 @@ def extract_text_from_markdown(content):
         print(f"Error extracting text from markdown: {e}")
         return ""
 
-def process_content_files(hugo_root, lang, content_dir, exclude_sections):
-    """Process content files and extract their text content."""
-    content_path = os.path.join(hugo_root, content_dir, lang)
+def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_sections=None, path=None):
+    """Process content files and extract relevant information."""
+    # Determine the content directory
+    if path:
+        content_directory = path
+    elif content_dir:
+        content_directory = os.path.join(hugo_root, content_dir, lang)
+    else:
+        content_directory = os.path.join(hugo_root, "content", lang)
     
-    if not os.path.exists(content_path):
-        print(f"Content path does not exist: {content_path}")
+    print(f"Processing content files in: {content_directory}")
+    
+    # Check if the content directory exists
+    if not os.path.exists(content_directory):
+        print(f"Content directory not found: {content_directory}")
         return []
     
-    print(f"Processing content files in: {content_path}")
-    
+    # Process content files
     file_data = []
     
     # Walk through the content directory
-    for root, _, files in os.walk(content_path):
+    for root, _, files in os.walk(content_directory):
         for file in files:
-            if file.endswith('.md') and file not in exclude_sections:
+            if file.endswith(".md"):
                 file_path = os.path.join(root, file)
-                rel_path = os.path.relpath(file_path, os.path.join(hugo_root, content_dir, lang))
                 
-                # Read the file
-                with open(file_path, 'r', encoding='utf-8') as f:
-                    try:
-                        # Parse frontmatter and content
+                # Extract relative path from content directory
+                rel_path = os.path.relpath(file_path, content_directory)
+                
+                # Skip excluded sections
+                if exclude_sections and any(section in rel_path for section in exclude_sections):
+                    continue
+                
+                # Extract section from path
+                path_parts = rel_path.split(os.sep)
+                section = path_parts[0] if len(path_parts) > 1 else ""
+                
+                # Skip _index.md files
+                if "index.md" in file.lower():
+                    continue
+                
+                try:
+                    # Parse frontmatter and content
+                    with open(file_path, "r", encoding="utf-8") as f:
                         post = frontmatter.load(f)
-                        
-                        # Get the section and slug
-                        section_parts = os.path.dirname(rel_path).split(os.sep)
-                        section = section_parts[0] if section_parts and section_parts[0] != '.' else ''
-                        
-                        # Get the slug (filename without extension)
-                        slug = os.path.splitext(os.path.basename(rel_path))[0]
-                        
-                        # Combine title, description, and content for embedding
-                        title = post.get('title', '')
-                        description = post.get('description', '')
-                        term = post.get('term', '')
-                        short_description = post.get('shortDescription', '')
-                        
-                        # Extract text from markdown content - limit to first 1000 chars to save memory
-                        content_text = extract_text_from_markdown(post.content[:1000])
-                        
-                        # Combine all text for embedding
-                        combined_text = f"{title} {term} {description} {short_description} {content_text}"
-                        
-                        # Limit text length to avoid memory issues
-                        if len(combined_text) > MAX_TEXT_LENGTH:
-                            combined_text = combined_text[:MAX_TEXT_LENGTH]
-                        
-                        # Store file info
-                        file_info = {
-                            'path': rel_path,
-                            'section': section,
-                            'slug': slug,
-                            'text': combined_text
-                        }
-                        
-                        file_data.append(file_info)
-                    except Exception as e:
-                        print(f"Error processing file {file_path}: {e}")
+                    
+                    # Extract slug from frontmatter or filename
+                    slug = post.get("slug", os.path.splitext(file)[0])
+                    
+                    # Extract title from frontmatter
+                    title = post.get("title", "")
+                    
+                    # Extract text from content
+                    text = extract_text_from_markdown(post.content)
+                    
+                    # Limit text length to avoid memory issues
+                    if len(text) > MAX_TEXT_LENGTH:
+                        text = text[:MAX_TEXT_LENGTH]
+                    
+                    # Add to file data
+                    file_data.append({
+                        "path": rel_path,
+                        "section": section,
+                        "slug": slug,
+                        "title": title,
+                        "text": text
+                    })
+                except Exception as e:
+                    print(f"Error processing file {file_path}: {e}")
     
     print(f"Found {len(file_data)} content files")
     return file_data
 
 def generate_embeddings(file_data, model_name):
     """Generate embeddings for the file data using the specified model."""
-    print(f"Loading model: {model_name}")
-    
     # Import here to delay loading these heavy libraries until needed
     import torch
-    import faiss
-    from sentence_transformers import SentenceTransformer
+    import torch.nn.functional as F
     
-    # Use CPU explicitly to avoid CUDA memory issues
-    model = SentenceTransformer(model_name, device="cpu")
+    # Load the model and tokenizer (will reuse if already loaded)
+    model, tokenizer = load_model(model_name)
     
-    # Process files in very small batches to manage memory
+    # Process files in batches to manage memory
     embeddings = []
-    batch_size = 1  # Process one file at a time
+    batch_size = 8  # Process multiple files at a time, adjust based on memory constraints
     
     for i in range(0, len(file_data), batch_size):
         batch = file_data[i:i+batch_size]
-        texts = [info['text'] for info in batch]
+        texts = [item['text'] for item in batch]
         
-        print(f"Processing file {i+1}/{len(file_data)}")
+        print(f"Processing batch {i//batch_size + 1}/{(len(file_data) + batch_size - 1)//batch_size}")
         
-        # Get embeddings for this batch
-        with torch.no_grad():  # Disable gradient calculation to save memory
-            batch_embeddings = model.encode(texts, show_progress_bar=False)
-        
-        embeddings.extend(batch_embeddings)
-        
-        # Clear batch data to free memory
-        texts = None
-        batch = None
-        
-        # Force garbage collection to free memory
-        gc.collect()
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
+        # Tokenize the input texts
+        with torch.no_grad():
+            batch_dict = tokenizer(texts, max_length=512, padding=True, truncation=True, return_tensors='pt')
+            outputs = model(**batch_dict)
+            
+            # Get embeddings from the [CLS] token (first token)
+            batch_embeddings = outputs.last_hidden_state[:, 0]
+            
+            # Normalize embeddings
+            batch_embeddings = F.normalize(batch_embeddings, p=2, dim=1)
+            
+            # Convert to numpy for FAISS
+            batch_embeddings = batch_embeddings.cpu().numpy()
+            
+            embeddings.extend(batch_embeddings)
     
-    # Free model memory
-    del model
-    gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
+    # Convert list to numpy array
+    embeddings = np.array(embeddings).astype('float32')
     
     return embeddings
 
-def find_related_content(file_data, embeddings, top_k=TOP_K):
-    """Find related content for each file using FAISS."""
+def build_index(embeddings):
+    """Build a FAISS index for the embeddings."""
     print("Building FAISS index...")
     
     # Import here to delay loading until needed
-    import numpy as np
     import faiss
     
-    # Convert embeddings to numpy array
-    embeddings_array = np.array(embeddings).astype('float32')
+    # Get the dimension of the embeddings
+    dimension = embeddings.shape[1]
     
-    # Create and train the index
-    dimension = embeddings_array.shape[1]
-    index = faiss.IndexFlatL2(dimension)
-    index.add(embeddings_array)
+    # Create a flat index (exact search)
+    index = faiss.IndexFlatIP(dimension)  # Inner product for cosine similarity with normalized vectors
+    
+    # Add vectors to the index
+    index.add(embeddings)
+    
+    return index
+
+def find_related_content(file_data, embeddings, top_k=TOP_K):
+    """Find related content for each file using FAISS."""
+    print("Finding related content...")
+    
+    # Build the index
+    index = build_index(embeddings)
     
     # Find related content for each file
     related_content = defaultdict(lambda: defaultdict(list))
     
-    print("Finding related content...")
     for i, file_info in enumerate(tqdm(file_data)):
         section = file_info['section']
         slug = file_info['slug']
@@ -202,7 +251,7 @@ def find_related_content(file_data, embeddings, top_k=TOP_K):
             continue
         
         # Search for similar files
-        query_vector = embeddings_array[i].reshape(1, -1)
+        query_vector = embeddings[i].reshape(1, -1)
         # Request more results than we need since we'll filter some out
         search_k = top_k + 5  
         distances, indices = index.search(query_vector, min(search_k, len(file_data)))
@@ -232,11 +281,16 @@ def find_related_content(file_data, embeddings, top_k=TOP_K):
                 added_count += 1
     
     # Free memory
-    embeddings_array = None
     index = None
     gc.collect()
     
     return related_content
+
+def convert_defaultdict_to_dict(d):
+    """Convert a defaultdict to a regular dictionary recursively."""
+    if isinstance(d, defaultdict):
+        d = {k: convert_defaultdict_to_dict(v) for k, v in d.items()}
+    return d
 
 def generate_yaml(related_content, hugo_root, output_dir, lang):
     """Generate YAML file with related content structure."""
@@ -247,64 +301,83 @@ def generate_yaml(related_content, hugo_root, output_dir, lang):
     os.makedirs(output_path, exist_ok=True)
     
     # Convert defaultdict to regular dict for YAML serialization
-    yaml_data = {}
-    has_content = False
+    yaml_data = convert_defaultdict_to_dict(related_content)
     
-    for section, slugs in related_content.items():
-        if not slugs:  # Skip empty sections
-            continue
-            
-        yaml_data[section] = {}
-        for slug, related_files in slugs.items():
-            if not related_files:  # Skip pages with no related content
-                continue
-                
-            yaml_data[section][slug] = related_files
-            has_content = True
-    
-    # Only write the YAML file if there's actual content
-    if has_content:
-        # Write YAML file
-        output_file = os.path.join(output_path, f"{lang}.yaml")
-        with open(output_file, 'w', encoding='utf-8') as f:
-            yaml.dump(yaml_data, f, default_flow_style=False, allow_unicode=True)
+    # Write YAML file
+    output_file = os.path.join(output_path, f"{lang}.yaml")
+    with open(output_file, 'w', encoding='utf-8') as f:
+        yaml.dump(yaml_data, f, default_flow_style=False, allow_unicode=True)
         
-        print(f"YAML file generated: {output_file}")
-    else:
-        print(f"No related content found for language: {lang}. YAML file not created.")
+    print(f"YAML file generated: {output_file}")
 
-def main():
-    """Main function."""
-    args = parse_args()
+def process_language(args, lang):
+    """Process a single language."""
+    print(f"\nProcessing language: {lang}")
     
-    # Get Hugo root directory (parent of script directory)
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    hugo_root = os.path.dirname(script_dir)
-    
-    print(f"Hugo root: {hugo_root}")
+    # Determine the content directory for this language
+    content_dir = os.path.join(args.path, lang) if args.path else os.path.join(args.hugo_root, "content", lang)
     
     # Process content files
-    file_data = process_content_files(
-        hugo_root, args.lang, args.content_dir, args.exclude_sections
-    )
+    file_data = process_content_files(hugo_root=args.hugo_root, path=content_dir, exclude_sections=args.exclude_sections)
     
     if not file_data:
-        print("No content files found or processed.")
+        print(f"No content files found for language: {lang}")
         return
     
     # Generate embeddings
     embeddings = generate_embeddings(file_data, args.model)
     
     # Find related content
-    related_content = find_related_content(file_data, embeddings, top_k=TOP_K)
+    related_content = find_related_content(file_data, embeddings)
     
-    # Free memory
-    file_data = None
-    embeddings = None
-    gc.collect()
+    # Convert defaultdict to regular dict for clean YAML output
+    related_content_dict = convert_defaultdict_to_dict(related_content)
     
     # Generate YAML file
-    generate_yaml(related_content, hugo_root, args.output_dir, args.lang)
+    yaml_dir = os.path.join(args.hugo_root, "data", "related_content")
+    os.makedirs(yaml_dir, exist_ok=True)
+    yaml_file = os.path.join(yaml_dir, f"{lang}.yaml")
+    
+    print(f"Generating YAML file for language: {lang}")
+    with open(yaml_file, "w") as f:
+        yaml.dump(related_content_dict, f, default_flow_style=False)
+    
+    print(f"YAML file generated: {yaml_file}")
+    
+    # Clean up memory for this language
+    gc.collect()
+
+def main():
+    """Main function to run the script."""
+    args = parse_args()
+    
+    # Find all language directories
+    if args.path:
+        content_dir = args.path
+    else:
+        content_dir = os.path.join(args.hugo_root, "content")
+    
+    # Check if content directory exists
+    if not os.path.exists(content_dir):
+        print(f"Content directory not found: {content_dir}")
+        return
+    
+    # Find all language directories
+    languages = [d for d in os.listdir(content_dir) 
+                if os.path.isdir(os.path.join(content_dir, d)) and not d.startswith('_')]
+    
+    print(f"Found languages: {', '.join(languages)}")
+    
+    # Process each language
+    for lang in languages:
+        process_language(args, lang)
+    
+    # Clean up global model resources at the end
+    if '_model' in globals() and _model is not None:
+        del globals()['_model']
+    if '_tokenizer' in globals() and _tokenizer is not None:
+        del globals()['_tokenizer']
+    gc.collect()
 
 if __name__ == "__main__":
     main()

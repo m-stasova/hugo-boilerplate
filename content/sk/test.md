@@ -1,42 +1,42 @@
 ---
-title: "Testovacia stránka pre čiastočné zobrazenia"
+title: "Testovacia stránka pre čiastkové súčasti"
 date: 2025-03-31T16:49:48+02:00
 draft: false
 url: "test"
-description: "Toto je testovacia stránka, ktorá demonštruje všetky dostupné shortcode v Hugo boilerplate téme."
+description: "Toto je testovacia stránka demonštrujúca všetky dostupné shortcodes v Hugo boilerplate téme."
 ---
 
-Toto je testovacia stránka, ktorá demonštruje všetky dostupné shortcode v Hugo boilerplate téme. Každá sekcia nižšie ukazuje, ako použiť konkrétny shortcode a ako sa zobrazuje používateľom.
+Toto je testovacia stránka demonštrujúca všetky dostupné shortcodes v Hugo boilerplate téme. Každá sekcia nižšie ukazuje, ako použiť konkrétny shortcode a ako sa zobrazuje používateľom.
 
-## Komponenty s oneskoreným načítaním
+## Komponenty líného načítania
 
 ### YouTube video s oneskoreným načítaním
 
-Nižšie je uvedené YouTube video s oneskoreným načítaním, ktoré otestuje funkciu oneskoreného načítania videa:
+Nižšie je YouTube video s oneskoreným načítaním na otestovanie funkcie líného načítania videa:
 
-{{< lazyvideo "8kGxHHhYRmE" "Krásne prírodné video - Relaxačná hudba s prírodnými zvukmi" >}}
+{{< lazyvideo "8kGxHHhYRmE" "Krásne prírodné video - Uvoľňujúca hudba s prírodnými zvukmi" >}}
 
-Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím sa zlepší výkon stránky.
+Video vyššie sa načíta iba vtedy, keď sa dostane do zobrazenia, čím sa zlepší výkon stránky.
 
 ### Obrázok s oneskoreným načítaním
 
-{{< lazyimg "https://images.unsplash.com/photo-1682687982501-1e58ab814714" "Príklad obrázka s oneskoreným načítaním" >}}
+{{< lazyimg "https://images.unsplash.com/photo-1682687982501-1e58ab814714" "Príklad obrázku s oneskoreným načítaním" >}}
 
 ### SVG s oneskoreným načítaním
 
 {{< lazysvg "https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/AJ_Digital_Camera.svg" "Príklad SVG s oneskoreným načítaním" >}}
 
-### Element picture
+### Prvok picture
 
-{{< picture "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg" "Príklad responzívneho elementu picture" >}}
+{{< picture "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg" "Príklad responzívneho prvku picture" >}}
 
-## Bannerové komponenty
+## Komponenty bannerov
 
 ### Banner s tlačidlom
 
 {{< banner-with-button 
     title="Nová funkcia k dispozícii" 
-    message="Vyskúšajte náš nový dashboard s vylepšenou analytikou." 
+    message="Vyskúšajte naše nové skúsenosti s dashboardom s vylepšenou analytikou." 
     buttonText="Vyskúšajte teraz" 
     buttonUrl="#" 
     dismissable=true 
@@ -45,15 +45,15 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 ### Banner na tmavom pozadí
 
 {{< banner-on-dark 
-    message="Black Friday výpredaj: Získajte 50% zľavu na všetky plány až do 30. novembra" 
+    message="Výpredaj Black Friday: Získajte 50% zľavu na všetky plány do 30. novembra" 
     url="#" 
     dismissable=true 
 >}}
 
-### Banner s firemnou farbou
+### Banner na firemnej farbe
 
 {{< banner-on-brand 
-    message="Zúčastnite sa nášho webinára o aktualizáciách produktov tento piatok" 
+    message="Pridajte sa k nášmu webináru o aktualizáciách produktov tento piatok" 
     url="#" 
     dismissable=true 
 >}}
@@ -61,57 +61,57 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 ### Banner s pozadím s efektom žiarenia
 
 {{< banner-with-background-glow 
-    message="Naša nová mobilná aplikácia je teraz dostupná na stiahnutie" 
+    message="Naša nová mobilná aplikácia je už k dispozícii na stiahnutie" 
     url="#" 
     dismissable=true 
 >}}
 
-### Banner zarovnaný dole
+### Spodne zarovnaný banner
 
 {{< banner-bottom-aligned 
-    message="Táto stránka používa cookies na zlepšenie vášho zážitku" 
+    message="Táto stránka používa súbory cookies na zlepšenie vášho zážitku" 
     url="#" 
     dismissable=true 
 >}}
 
-### Plávajúci banner dole
+### Plávajúci banner v dolnej časti
 
 {{< banner-floating-at-bottom 
-    message="Ponuka na obmedzený čas: Doprava zadarmo na všetky objednávky" 
+    message="Ponuka s obmedzenou dobou: Doprava zdarma na všetky objednávky" 
     url="#" 
     dismissable=true 
 >}}
 
-### Stredovo plávajúci banner
+### Uprostred plávajúci banner
 
 {{< banner-floating-at-bottom-centered 
-    message="Nový blogový príspevok: 10 tipov pre lepšiu produktivitu" 
+    message="Nový blogový príspevok: 10 tipov, ako zlepšiť produktivitu" 
     url="#" 
     dismissable=true 
 >}}
 
-### Ochrana osobných údajov (zarovnané vľavo)
+### Oznámenie o ochrane súkromia (zarovnané vľavo)
 
 {{< banner-privacy-notice-left-aligned 
-    message="Používame cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej návštevnosti." 
+    message="Používame súbory cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej prevádzky." 
     policyUrl="#" 
     acceptText="Prijať všetko" 
     rejectText="Odmietnuť všetko" 
 >}}
 
-### Ochrana osobných údajov (zarovnané na stred)
+### Oznámenie o ochrane súkromia (zarovnané na stred)
 
 {{< banner-privacy-notice-centered 
-    message="Používame cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej návštevnosti." 
+    message="Používame súbory cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej prevádzky." 
     policyUrl="#" 
     acceptText="Prijať všetko" 
     rejectText="Odmietnuť všetko" 
 >}}
 
-### Ochrana osobných údajov (na celú šírku)
+### Oznámenie o ochrane súkromia (na celú šírku)
 
 {{< banner-privacy-notice-full-width 
-    message="Používame cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej návštevnosti." 
+    message="Používame súbory cookies na zlepšenie vášho prehliadania, zobrazovanie personalizovaných reklám alebo obsahu a analýzu našej prevádzky." 
     policyUrl="#" 
     acceptText="Prijať všetko" 
     rejectText="Odmietnuť všetko" 
@@ -119,74 +119,74 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty kategórií
 
-### Náhľad troch stĺpcov s popisom
+### Náhľad: tri stĺpce s popisom
 
 {{< categories-preview-three-column-with-description 
     heading="Nakupujte podľa kolekcie" 
-    description="Každú sezónu spolupracujeme s návrhármi svetovej úrovne na vytvorení kolekcie inšpirovanej prírodou." 
+    description="Každú sezónu spolupracujeme s dizajnérmi svetovej triedy na vytvorení kolekcie inšpirovanej prírodou." 
     backgroundColor="bg-white" 
 >}}
 
-### Náhľad troch stĺpcov
+### Náhľad: tri stĺpce
 
 {{< categories-preview-three-column 
     heading="Nakupujte podľa kategórie" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Náhľad s obrázkovým pozadím
+### Náhľad s obrázkovými pozadiami
 
 {{< categories-preview-with-image-backgrounds 
     heading="Nakupujte podľa štýlu" 
-    browseAllText="Prezrieť všetky štýly" 
+    browseAllText="Zobraziť všetky štýly" 
     browseAllUrl="#" 
     backgroundColor="bg-white" 
 >}}
 
-### Náhľad s rolovacími kartami
+### Náhľad s posúvajúcimi kartami
 
 {{< categories-preview-with-scrolling-cards 
-    heading="Prezrite si kategórie" 
+    heading="Prezrieť kategórie" 
     browseAllText="Zobraziť všetky kategórie" 
     browseAllUrl="#" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Produktová karta s kompletnými detailmi
+### Produktový zoznam: karta s úplnými detailmi
 
 {{< categories-product-list-card-with-full-details 
     heading="Vybrané produkty" 
     backgroundColor="bg-white" 
 >}}
 
-### Produktový zoznam s prekrytím obrázku a tlačidlom Pridať
+### Produktový zoznam s obrazovým prekrytím a tlačidlom pridať
 
 {{< categories-product-list-with-image-overlay-and-add-button 
     heading="Novinky" 
-    buttonText="Pridať do košíka" 
+    buttonText="Pridať do tašky" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Produktový zoznam s cenou vloženou do textu a CTA odkazom
+### Produktový zoznam s cenou v riadku a CTA odkazom
 
 {{< categories-product-list-with-inline-price-and-cta-link 
     heading="Odporúčané produkty" 
     viewAllText="Zobraziť všetky produkty" 
     viewAllUrl="#" 
-    ctaText="Zobraziť detail" 
+    ctaText="Zobraziť detaily" 
     backgroundColor="bg-white" 
 >}}
 
 ### Produktový zoznam s vysokými obrázkami
 
 {{< categories-product-list-with-tall-images 
-    heading="Teraz populárne" 
+    heading="Teraz v trende" 
     backgroundColor="bg-gray-100" 
 >}}
 
-## Komponenty obsahu
+## Obsahové komponenty
 
-### Zarovnaný obsah na stred
+### Obsah so stredovým zarovnaním
 
 {{< content-centered 
     heading="O našej spoločnosti" 
@@ -204,10 +204,10 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty výzvy k akcii
 
-### Výzva k akcii: tmavé panela
+### CTA na tmavom panely
 
 {{< cta-dark-panel 
-    heading="Pripravení začať?" 
+    heading="Ste pripravení začať?" 
     description="Kontaktujte nás alebo si vytvorte účet." 
     primaryButtonText="Kontaktovať predaj" 
     primaryButtonUrl="#" 
@@ -215,29 +215,29 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     secondaryButtonUrl="#" 
 >}}
 
-### Jednoduchá výzva k akcii (zarovnaná na stred)
+### Jednoduchá CTA na stred
 
 {{< cta-simple-centered 
     heading="Zvýšte svoju produktivitu" 
-    description="Začnite dnes používať našu aplikáciu." 
+    description="Začnite používať našu aplikáciu ešte dnes." 
     buttonText="Začať" 
     buttonUrl="#" 
     backgroundColor="bg-white" 
 >}}
 
-### Jednoduchá výzva k akcii (do riadku)
+### Jednoduchá CTA s rozložením
 
 {{< cta-simple-justified 
-    heading="Pripravení sa pustiť do toho?" 
-    description="Začnite si dnes zadarmo skúšobnú verziu." 
+    heading="Ste pripravení pustiť sa do toho?" 
+    description="Začnite dnes svoj bezplatný skúšobný čas." 
     buttonText="Zaregistrujte sa zadarmo" 
     buttonUrl="#" 
     backgroundColor="bg-gray-100" 
 >}}
 
-## Komponenty FAQ
+## FAQ komponenty
 
-### FAQ s akordeónom, zarovnané na stred
+### Akordeón FAQ so stredovým zarovnaním
 
 {{< faq-centered-accordion 
     heading="Často kladené otázky" 
@@ -250,15 +250,15 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 {{< features-three-column 
     heading="Funkcie" 
-    description="Naša aplikácia poskytuje kompletné riešenie pre riadenie potrieb vášho podnikania." 
+    description="Naša aplikácia poskytuje kompletné riešenie pre správu vašich obchodných potrieb." 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Technické špecifikácie so štvorcovou mriežkou 4 obrázkov
+### Funkcie so sieťou štyroch obrázkov
 
 {{< features-with-4-images-grid 
     heading="Technické špecifikácie" 
-    description="Nasledujúce špecifikácie robia tento produkt výnimočným oproti konkurencii." 
+    description="Nasledujúce špecifikácie robia tento produkt výnimočným v porovnaní s konkurenciou." 
     backgroundColor="bg-white" 
 >}}
 
@@ -266,11 +266,11 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 {{< features-with-alternating-sections 
     heading="Kľúčové funkcie" 
-    description="Náš produkt je navrhnutý tak, aby riešil vaše každodenné problémy." 
+    description="Náš produkt je navrhnutý na riešenie vašich každodenných problémov." 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Špecifikácie produktu s miznúcim obrázkom
+### Funkcie s miznúcim obrázkom
 
 {{< features-with-fading-image 
     heading="Špecifikácie produktu" 
@@ -278,15 +278,15 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     backgroundColor="bg-white" 
 >}}
 
-### Ako to funguje s hlavičkou, obrázkami a popismi
+### Funkcie s hlavičkou, obrázkami a popismi
 
 {{< features-with-header-images-and-descriptions 
     heading="Ako to funguje" 
-    description="Náš jednoduchý proces od začiatku po koniec." 
+    description="Náš jednoduchý proces od začiatku až do konca." 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Funkcie produktu s úvodom a záložkami
+### Funkcie s úvodom a záložkami
 
 {{< features-with-intro-and-tabs 
     heading="Funkcie produktu" 
@@ -297,13 +297,13 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 ### Funkcie s rozdeleným obrázkom
 
 {{< features-with-split-image 
-    subheading="Navrhnuté pre podnikanie" 
-    heading="Správne funkcie pre vaše podnikanie" 
-    description="Náš produkt je navrhnutý tak, aby riešil konkrétne potreby moderných podnikov." 
+    subheading="Navrhnuté pre podniky" 
+    heading="Správne funkcie pre váš biznis" 
+    description="Náš produkt je navrhnutý tak, aby vyhovoval špecifickým potrebám moderných podnikov." 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Funkcie so štvorcovými obrázkami
+### Funkcie s obdĺžnikovými obrázkami
 
 {{< features-with-square-images 
     subheading="Prečo si vybrať nás" 
@@ -315,8 +315,8 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 ### Funkcie s vrstvenými obrázkami
 
 {{< features-with-tiered-images 
-    subheading="Silné funkcie" 
-    heading="Všetko, čo potrebujete na úspech" 
+    subheading="Výkonné funkcie" 
+    heading="Všetko, čo potrebujete pre úspech" 
     backgroundColor="bg-gray-100" 
 >}}
 
@@ -325,7 +325,7 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 {{< features-with-wide-images 
     subheading="Intuitívne rozhranie" 
     heading="Navrhnuté pre produktivitu" 
-    description="Naše čisté rozhranie vám pomáha sústrediť sa na to, čo je dôležité." 
+    description="Naše prehľadné rozhranie vám pomáha sústrediť sa na to, čo je dôležité." 
     backgroundColor="bg-white" 
 >}}
 
@@ -337,7 +337,7 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     backgroundColor="bg-gray-900" 
 >}}
 
-### Jednoduchá centrálná päta
+### Jednoduchá centrálna päta
 
 {{< footer-simple-centered 
     backgroundColor="bg-gray-900" 
@@ -345,10 +345,10 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty hlavičky
 
-### Zarovnaná hlavička na stred
+### Hlavička so stredovým zarovnaním
 
 {{< header-centered 
-    heading="Vitajte na našej stránke" 
+    heading="Vitajte na našej webovej stránke" 
     description="Objavte naše produkty a služby." 
     backgroundColor="bg-white" 
 >}}
@@ -357,25 +357,25 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 {{< header-simple 
     heading="O nás" 
-    description="Zistite viac o našej spoločnosti a našej misii." 
+    description="Dozviete sa viac o našej spoločnosti a misii." 
     backgroundColor="bg-gray-100" 
 >}}
 
 ## Hero komponenty
 
-### Jednoduchý hrdinský blok so stredovým zarovnaním
+### Jednoduchý centrálny hero
 
 {{< hero-simple-centered 
     heading="Platforma novej generácie" 
     description="Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." 
     primaryButtonText="Začať" 
     primaryButtonUrl="#" 
-    secondaryButtonText="Viac informácií" 
+    secondaryButtonText="Dozvedieť sa viac" 
     secondaryButtonUrl="#" 
     backgroundColor="bg-white" 
 >}}
 
-### Rozdelený hrdinský blok s kódom
+### Rozdelený hero s kódom
 
 {{< hero-split-with-code 
     heading="Vyvíjajte s dôverou" 
@@ -383,37 +383,40 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     buttonText="Začať" 
     buttonUrl="#" 
     codeLanguage="javascript" 
-    codeContent="" 
+    codeContent="// Example code
+function example() {
+  console.log('Hello world!');
+}" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Rozdelený hrdinský blok s obrázkovými dlaždicami
+### Rozdelený hero s obrázkovými dlaždicami
 
 {{< hero-split-with-image-tiles 
     heading="Navrhnite svoj ďalší projekt" 
-    description="Vytvorte krásne dizajny s našou ľahko použiteľnou platformou." 
+    description="Vytvorte krásne dizajny s našou jednoduchou platformou." 
     buttonText="Začať navrhovať" 
     buttonUrl="#" 
     backgroundColor="bg-white" 
 >}}
 
-### Rozdelený hrdinský blok s obrázkom
+### Rozdelený hero s obrázkom
 
 {{< hero-split-with-image 
-    heading="Analýzy založené na dátach" 
-    description="Premeníme vaše dáta na akčné postrehy s našou analytickou platformou." 
-    buttonText="Viac informácií" 
+    heading="Odhadnuté na základe dát" 
+    description="Premeníte svoje dáta na využiteľné poznatky s našou analytickou platformou." 
+    buttonText="Dozvedieť sa viac" 
     buttonUrl="#" 
     imageUrl="https://images.unsplash.com/photo-1551434678-e076c223a692" 
-    imageAlt="Analýza dashboardu" 
+    imageAlt="Analytika dashboardu" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### Rozdelený hrdinský blok s ukážkou
+### Rozdelený hero so screenshotom
 
 {{< hero-split-with-screenshot 
     heading="Zefektívnite svoj pracovný tok" 
-    description="Naša platforma vám pomáha efektívnejšie riadiť vaše projekty." 
+    description="Naša platforma vám pomáha efektívnejšie spravovať vaše projekty." 
     buttonText="Začať" 
     buttonUrl="#" 
     imageUrl="https://images.unsplash.com/photo-1551434678-e076c223a692" 
@@ -430,7 +433,7 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     backgroundColor="bg-gray-100" 
 >}}
 
-### 3 stĺpce s ilustráciami a hlavičkou
+### Trojstĺpcové s ilustráciami a hlavičkou
 
 {{< incentives-3-column-with-illustrations-and-header 
     heading="Naše výhody" 
@@ -438,22 +441,22 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     backgroundColor="bg-white" 
 >}}
 
-### 3 stĺpce s ilustráciami a nadpisom
+### Trojstĺpcové s ilustráciami a nadpisom
 
 {{< incentives-3-column-with-illustrations-and-heading 
     heading="Naše záruky" 
     backgroundColor="bg-gray-100" 
 >}}
 
-### 3 stĺpce s ilustráciami a rozdelenou hlavičkou
+### Trojstĺpcové s ilustráciami a rozdelenou hlavičkou
 
 {{< incentives-3-column-with-illustrations-and-split-header 
     heading="Prečo nás zákazníci milujú" 
-    description="Pomohli sme tisíckam firiem dosiahnuť ich ciele." 
+    description="Pomohli sme tisícom firiem dosiahnuť ich ciele." 
     backgroundColor="bg-white" 
 >}}
 
-### 4 stĺpce s ilustráciami
+### Štvorstĺpcové s ilustráciami
 
 {{< incentives-4-column-with-illustrations 
     backgroundColor="bg-gray-100" 
@@ -461,13 +464,13 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty menu
 
-### Rozbaľovacie menu, plná šírka, dva stĺpce
+### Rozbaľovacie menu cez celú šírku, dve stĺpce
 
 {{< menu-flyout-full-width-two-columns 
     buttonText="Riešenia" 
 >}}
 
-### Rozbaľovacie menu, plná šírka
+### Rozbaľovacie menu cez celú šírku
 
 {{< menu-flyout-full-width 
     buttonText="Produkty" 
@@ -479,13 +482,13 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     buttonText="Zdroje" 
 >}}
 
-### Zoskupené rozbaľovacie menu s akciami v päte
+### Zložené rozbaľovacie menu s akciami v päte
 
 {{< menu-flyout-stacked-with-footer-actions 
     buttonText="Funkcie" 
 >}}
 
-### Rozbaľovacie menu, dva stĺpce
+### Rozbaľovacie menu s dvoma stĺpcami
 
 {{< menu-flyout-two-column 
     buttonText="Spoločnosť" 
@@ -497,11 +500,11 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty cien
 
-### Cena v troch úrovniach
+### Cenové plány v troch úrovniach
 
 {{< pricing-three-tiers 
     heading="Cenové plány" 
-    description="Vyberte si plán, ktorý je pre vás najvhodnejší." 
+    description="Vyberte si plán, ktorý vám najviac vyhovuje." 
     backgroundColor="bg-white" 
 >}}
 
@@ -513,13 +516,13 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
     backgroundColor="bg-gray-100" 
 >}}
 
-### S galériou obrázkov a rozbaľovacími detailmi
+### S obrázkovou galériou a rozbaľovacími detailmi
 
 {{< products-with-image-gallery-and-expandable-details 
     backgroundColor="bg-white" 
 >}}
 
-### S mriežkou obrázkov
+### S obrázkovou mriežkou
 
 {{< products-with-image-grid 
     backgroundColor="bg-gray-100" 
@@ -549,17 +552,17 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 ### S prehľadovým grafom
 
 {{< reviews-with-summary-chart 
-    heading="Spätná väzba zákazníkov" 
+    heading="Spätná väzba od zákazníkov" 
     backgroundColor="bg-gray-100" 
 >}}
 
-## Komponenty štatistík
+## Štatistické komponenty
 
-### Jednoduchá mriežka so štatistikami
+### Jednoduchá mriežka štatistík
 
 {{< stats-simple-grid 
-    heading="Dôverujú nám firmy po celom svete" 
-    description="Pomohli sme tisíckam firiem dosiahnuť ich ciele." 
+    heading="Dôverujú nám firmy z celého sveta" 
+    description="Pomohli sme tisícom firiem dosiahnuť ich ciele." 
     backgroundColor="bg-white" 
 >}}
 
@@ -575,14 +578,14 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty referencií
 
-### Referencie v mriežke
+### Mriežka referencií
 
 {{< testimonial-grid 
     heading="Čo hovoria naši zákazníci" 
     backgroundColor="bg-white" 
 >}}
 
-### Jednoduchá centrálná referencia
+### Jednoduchá centrálna referencia
 
 {{< testimonial-simple-centered 
     backgroundColor="bg-gray-100" 
@@ -590,24 +593,24 @@ Video vyššie by sa malo načítať iba vtedy, keď príde do zobrazenia, čím
 
 ## Komponenty rozloženia
 
-### Bento mriežka: tri stĺpce
+### Bento mriežka v troch stĺpcoch
 
 {{< bentogrid-three-column 
     backgroundColor="bg-white" 
 >}}
 
-### Bento mriežka: dva riadky
+### Bento mriežka v dvoch riadkoch
 
 {{< bentogrid-two-row 
     backgroundColor="bg-gray-100" 
 >}}
 
-## Komponenty logotypov
+## Komponenty loga
 
 ### Jednoduché logá
 
 {{< logos-simple 
-    heading="Dôverujú nám tieto spoločnosti" 
+    heading="Dôverujú týmto spoločnostiam" 
     backgroundColor="bg-white" 
 >}}
 
