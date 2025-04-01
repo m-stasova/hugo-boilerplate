@@ -1,11 +1,46 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <!-- Breadcrumbs -->
+  {{ $breadcrumbItems := slice (dict "title" "Home" "url" .Site.Home.RelPermalink) }}
+  
+  {{ if ne .Section "" }}
+    {{ with .Site.GetPage .Section }}
+      {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
+    {{ end }}
+  {{ end }}
+  
+  {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
+  
+  {{ partial "breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
 
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+  <!-- Hero Section split with image-->
+  {{ partial "hero/split_with_image.html" (dict 
+    "heading" .Title
+    "description" .Description
+    "image" .Params.image
+    "tags" .Params.tags
+    "categories" .Params.categories
+    "eyebrow" "Category"
+  ) }}
+  
+  <!-- Main Content -->
+  {{ partial "content/centered" (dict 
+    "title" .Title
+    "content" (.Content | partial "utils/linkbuilding" (dict "content" .Content "page" .))
+  ) }}
 
-  {{ partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+  <!-- FAQ Section if available -->
+  {{ if .Params.faq }}
+  {{ partial "faqs/side-by-side" (dict 
+    "title" "Frequently Asked Questions"
+    "description" "Find answers to common questions about this topic."
+    "items" .Params.faq
+  ) }}
+  {{ end }}
 
-  {{ partial "utils/related_content.html" . }}
+  <!-- Related Content -->
+  <div class="bg-white py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {{ partial "utils/related_content.html" . }}
+    </div>
+  </div>
 {{ end }}

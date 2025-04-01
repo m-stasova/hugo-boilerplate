@@ -5,6 +5,12 @@ description: "This is an example post demonstrating various features of Hugo and
 draft: false
 tags: ["example", "first"]
 categories: ["demo"]
+image: "https://www.flowhunt.io/wp/urlslab-download/d75b90632c26613095e43b6c3ef4df09/rag-vs-cag-950x950.jpg.webp"
+faq:
+  - question: "What is Hugo?"
+    answer: "Hugo is a static site generator."
+  - question: "What is Markdown?"
+    answer: "Markdown is a formatting syntax."
 ---
 
 # Welcome to Hugo Boilerplate
