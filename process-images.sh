@@ -63,7 +63,7 @@ for IMAGE in static/images/*; do
   fi
   
   # Get image dimensions
-  WIDTH=$(identify -format "%w" "$IMAGE")
+  WIDTH=$(magick identify -format "%w" "$IMAGE")
   
   # Generate small size
   if [ "$WIDTH" -gt "$SMALL_WIDTH" ]; then
@@ -71,16 +71,16 @@ for IMAGE in static/images/*; do
     echo "  Creating small size ($SMALL_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      convert -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.webp"
-      convert -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.webp"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.jpg"
     else
       # Normal case
-      convert -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating small WebP ($SMALL_WIDTH px)..."
-        convert -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.webp"
+        magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.webp"
       fi
     fi
   fi
@@ -91,16 +91,16 @@ for IMAGE in static/images/*; do
     echo "  Creating medium size ($MEDIUM_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      convert -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.webp"
-      convert -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.webp"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.jpg"
     else
       # Normal case
-      convert -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating medium WebP ($MEDIUM_WIDTH px)..."
-        convert -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.webp"
+        magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.webp"
       fi
     fi
   fi
@@ -111,16 +111,16 @@ for IMAGE in static/images/*; do
     echo "  Creating large size ($LARGE_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      convert -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.webp"
-      convert -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.webp"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.jpg"
     else
       # Normal case
-      convert -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating large WebP ($LARGE_WIDTH px)..."
-        convert -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.webp"
+        magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.webp"
       fi
     fi
   fi
@@ -128,13 +128,13 @@ for IMAGE in static/images/*; do
   # Always generate original formats if special case
   if [ "$IS_SPECIAL_CASE" = true ]; then
     echo "  Creating original JPG version..."
-    convert -quality $QUALITY_ORIG "$IMAGE" "public/images/${FILENAME_WITHOUT_BOTH}.jpg"
+    magick "$IMAGE" -quality $QUALITY_ORIG "public/images/${FILENAME_WITHOUT_BOTH}.jpg"
   fi
   
   # Always generate WebP version of original if not already WebP
   if [ "$IS_WEBP" = false ]; then
     echo "  Creating WebP version of original..."
-    convert -quality $QUALITY_WEBP "$IMAGE" "public/images/${FILENAME_WITHOUT_EXT}.webp"
+    magick "$IMAGE" -quality $QUALITY_WEBP "public/images/${FILENAME_WITHOUT_EXT}.webp"
   fi
   
   # Copy the original image to public directory
