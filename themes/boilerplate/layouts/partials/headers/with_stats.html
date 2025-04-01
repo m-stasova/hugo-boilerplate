@@ -66,11 +66,7 @@
 
 <div class="relative isolate overflow-hidden {{ $bgColor }} {{ $padding }}">
   {{ if $showBgImage }}
-  {{ if eq (hasPrefix $bgImage "http") true }}
-  <img src="{{ $bgImage }}" alt="{{ $bgImageAlt }}" class="absolute inset-0 -z-10 size-full object-cover object-right md:object-center">
-  {{ else }}
   {{ partial "lazyimg" (dict "src" $bgImage "alt" $bgImageAlt "class" "absolute inset-0 -z-10 size-full object-cover object-right md:object-center") }}
-  {{ end }}
   {{ end }}
   
   <!-- Decorative blobs -->

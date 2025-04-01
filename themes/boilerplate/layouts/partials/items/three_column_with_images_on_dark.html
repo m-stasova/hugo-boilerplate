@@ -103,15 +103,11 @@
       <article class="flex flex-col items-start justify-between">
         <div class="relative w-full">
           {{ if .image }}
-            {{ if hasPrefix .image "http" }}
-              <img src="{{ .image }}" alt="{{ .imageAlt }}" class="aspect-video w-full rounded-2xl {{ $imageBgColor }} object-cover sm:aspect-2/1 lg:aspect-3/2">
-            {{ else }}
-              {{ partial "lazyimg" (dict 
-                "src" .image 
-                "alt" .imageAlt
-                "class" "aspect-video w-full rounded-2xl {{ $imageBgColor }} object-cover sm:aspect-2/1 lg:aspect-3/2"
-              ) }}
-            {{ end }}
+            {{ partial "lazyimg" (dict 
+              "src" .image 
+              "alt" .imageAlt
+              "class" "aspect-video w-full rounded-2xl {{ $imageBgColor }} object-cover sm:aspect-2/1 lg:aspect-3/2"
+            ) }}
           {{ end }}
           <div class="absolute inset-0 rounded-2xl ring-1 {{ $imageRingColor }} ring-inset"></div>
         </div>
@@ -132,15 +128,11 @@
           {{ if .authorName }}
           <div class="relative mt-8 flex items-center gap-x-4">
             {{ if .authorImage }}
-              {{ if hasPrefix .authorImage "http" }}
-                <img src="{{ .authorImage }}" alt="{{ .authorName }}" class="size-10 rounded-full {{ $authorImageBg }}">
-              {{ else }}
-                {{ partial "lazyimg" (dict 
-                  "src" .authorImage 
-                  "alt" .authorName
-                  "class" "size-10 rounded-full {{ $authorImageBg }}"
-                ) }}
-              {{ end }}
+              {{ partial "lazyimg" (dict 
+                "src" .authorImage 
+                "alt" .authorName
+                "class" "size-10 rounded-full {{ $authorImageBg }}"
+              ) }}
             {{ end }}
             <div class="text-sm/6">
               <p class="font-semibold {{ $authorNameColor }}">

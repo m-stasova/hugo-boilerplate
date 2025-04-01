@@ -42,13 +42,23 @@
               <p>"{{ partial "utils/linkbuilding" (dict "content" $testimonial.quote "page" $page) | safeHTML }}"</p>
             </blockquote>
             <figcaption class="mt-6 flex gap-x-4 text-sm/6">
-              <img src="{{ $testimonial.author.avatar }}" alt="" class="size-6 flex-none rounded-full">
+              {{ partial "lazyimg.html" (dict 
+                "src" $testimonial.author.avatar 
+                "alt" ""
+                "class" "size-6 flex-none rounded-full"
+              ) }}
               <div><span class="font-semibold text-gray-900">{{ $testimonial.author.name }}</span> – {{ $testimonial.author.title }}</div>
             </figcaption>
           </figure>
         </div>
       </div>
-      <img src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" class="w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:ml-0" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+      {{ partial "lazyimg.html" (dict 
+        "src" $screenshot.url 
+        "alt" $screenshot.alt
+        "width" $screenshot.width
+        "height" $screenshot.height
+        "class" "w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem] md:-ml-4 lg:ml-0"
+      ) }}
     </div>
   </div>
 </div>

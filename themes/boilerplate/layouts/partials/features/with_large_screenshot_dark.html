@@ -54,7 +54,13 @@
   </div>
   <div class="relative overflow-hidden pt-16">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <img src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" class="mb-[-12%] rounded-xl ring-1 shadow-2xl ring-white/10" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+      {{ partial "lazyimg.html" (dict 
+        "src" $screenshot.url 
+        "alt" $screenshot.alt
+        "width" $screenshot.width
+        "height" $screenshot.height
+        "class" "mb-[-12%] rounded-xl ring-1 shadow-2xl ring-white/10"
+      ) }}
       <div class="relative" aria-hidden="true">
         <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t from-gray-900 pt-[7%]"></div>
       </div>

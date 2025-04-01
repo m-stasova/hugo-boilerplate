@@ -103,7 +103,11 @@
     <div class="flex lg:flex-1">
       <a href="/" class="-m-1.5 p-1.5">
         <span class="sr-only">{{ $siteTitle }}</span>
-        <img class="{{ $logoHeight }} w-auto" src="{{ $logoUrl }}" alt="{{ $logoAlt }}">
+        {{ partial "lazyimg.html" (dict 
+          "src" $logoUrl 
+          "alt" $logoAlt
+          "class" (printf "%s w-auto" $logoHeight)
+        ) }}
       </a>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
@@ -150,7 +154,11 @@
       <div class="flex items-center gap-x-6">
         <a href="/" class="-m-1.5 p-1.5">
           <span class="sr-only">{{ $siteTitle }}</span>
-          <img class="{{ $logoHeight }} w-auto" src="{{ $logoUrl }}" alt="{{ $logoAlt }}">
+          {{ partial "lazyimg.html" (dict 
+            "src" $logoUrl 
+            "alt" $logoAlt
+            "class" (printf "%s w-auto" $logoHeight)
+          ) }}
         </a>
         <a href="{{ $ctaUrl }}" class="ml-auto rounded-md {{ $ctaBgColor }} px-3 py-2 text-sm font-semibold {{ $ctaTextColor }} shadow-xs {{ $ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $ctaText }}</a>
         <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 close-mobile-menu">

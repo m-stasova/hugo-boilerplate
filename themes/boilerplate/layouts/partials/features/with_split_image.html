@@ -43,11 +43,11 @@
   )
 ) }}
 
-<div class="{{ $backgroundColor }}">
-  <section aria-labelledby="features-heading" class="relative">
-    {{ partial "lazyimg.html" (dict 
-      "src" $imageUrl
-      "alt" $imageAlt
+<div class="{{ $backgroundColor }} overflow-hidden rounded-2xl shadow-lg mx-auto max-w-7xl my-8">
+      <section aria-labelledby="features-heading" class="relative">
+          {{ partial "lazyimg.html" (dict 
+            "src" $imageUrl
+            "alt" $imageAlt
       "class" "aspect-3/2 w-full object-cover sm:aspect-5/2 lg:absolute lg:aspect-auto lg:h-full lg:w-1/2 lg:pr-4 xl:pr-16"
     ) }}
 
@@ -58,14 +58,14 @@
         <p class="mt-4 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
 
         <dl class="mt-10 grid grid-cols-1 gap-x-8 gap-y-10 text-sm sm:grid-cols-2">
-          {{ range $features }}
-          <div>
-            <dt class="font-medium text-gray-900">{{ .title }}</dt>
+                {{ range $features }}
+                <div>
+                  <dt class="font-medium text-gray-900">{{ .title }}</dt>
             <dd class="mt-2 text-gray-500">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>
+                </div>
+                {{ end }}
+              </dl>
+            </div>
           </div>
-          {{ end }}
-        </dl>
-      </div>
+      </section>
     </div>
-  </section>
-</div>

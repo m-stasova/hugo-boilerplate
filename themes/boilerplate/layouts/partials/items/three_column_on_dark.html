@@ -112,15 +112,11 @@
         {{ if .authorName }}
         <div class="relative mt-8 flex items-center gap-x-4">
           {{ if .authorImage }}
-            {{ if hasPrefix .authorImage "http" }}
-              <img src="{{ .authorImage }}" alt="{{ .authorName }}" class="size-10 rounded-full bg-gray-800">
-            {{ else }}
-              {{ partial "lazyimg" (dict 
-                "src" .authorImage 
-                "alt" .authorName
-                "class" "size-10 rounded-full bg-gray-800"
-              ) }}
-            {{ end }}
+            {{ partial "lazyimg" (dict 
+              "src" .authorImage 
+              "alt" .authorName
+              "class" "size-10 rounded-full bg-gray-800"
+            ) }}
           {{ end }}
           <div class="text-sm/6">
             <p class="font-semibold {{ $authorNameColor }}">

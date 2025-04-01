@@ -122,17 +122,13 @@
           {{ range $review := $reviews }}
             <div class="py-12">
               <div class="flex items-center">
-                {{ if eq (hasPrefix $review.imageUrl "http") true }}
-                  <img src="{{ $review.imageUrl }}" alt="{{ $review.imageAlt }}" class="size-12 rounded-full">
-                {{ else }}
-                  {{ partial "lazyimg.html" (dict 
-                    "src" $review.imageUrl 
-                    "alt" $review.imageAlt 
-                    "class" "size-12 rounded-full" 
-                    "loading" "lazy" 
-                    "decoding" "async"
-                  ) }}
-                {{ end }}
+                {{ partial "lazyimg.html" (dict 
+                  "src" $review.imageUrl 
+                  "alt" $review.imageAlt 
+                  "class" "size-12 rounded-full" 
+                  "loading" "lazy" 
+                  "decoding" "async"
+                ) }}
                 <div class="ml-4">
                   <h4 class="text-sm font-bold text-gray-900">{{ $review.name }}</h4>
                   <div class="mt-1 flex items-center">
@@ -157,7 +153,6 @@
               </div>
             </div>
           {{ end }}
-          <!-- More reviews... -->
         </div>
       </div>
     </div>

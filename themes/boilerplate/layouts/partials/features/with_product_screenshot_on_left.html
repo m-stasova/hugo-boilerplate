@@ -53,7 +53,13 @@
         </div>
       </div>
       <div class="flex items-start justify-end lg:order-first">
-        <img src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" class="w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem]" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+        {{ partial "lazyimg.html" (dict 
+          "src" $screenshot.url 
+          "alt" $screenshot.alt
+          "width" $screenshot.width
+          "height" $screenshot.height
+          "class" "w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-gray-400/10 sm:w-[57rem]"
+        ) }}
       </div>
     </div>
   </div>

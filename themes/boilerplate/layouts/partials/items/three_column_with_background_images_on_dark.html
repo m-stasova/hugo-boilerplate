@@ -77,15 +77,11 @@
       {{ range $items }}
       <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl {{ $cardBgColor }} {{ $cardPadding }}">
         {{ if .image }}
-          {{ if hasPrefix .image "http" }}
-            <img src="{{ .image }}" alt="{{ .imageAlt }}" class="absolute inset-0 -z-10 size-full object-cover">
-          {{ else }}
-            {{ partial "lazyimg" (dict 
-              "src" .image 
-              "alt" .imageAlt
-              "class" "absolute inset-0 -z-10 size-full object-cover"
-            ) }}
-          {{ end }}
+          {{ partial "lazyimg" (dict 
+            "src" .image 
+            "alt" .imageAlt
+            "class" "absolute inset-0 -z-10 size-full object-cover"
+          ) }}
         {{ end }}
         <div class="absolute inset-0 -z-10 {{ $gradientOverlay }}"></div>
         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 {{ $ringColor }} ring-inset"></div>
@@ -99,15 +95,11 @@
             </svg>
             <div class="flex gap-x-2.5">
               {{ if .authorImage }}
-                {{ if hasPrefix .authorImage "http" }}
-                  <img src="{{ .authorImage }}" alt="{{ .authorName }}" class="size-6 flex-none rounded-full {{ $authorImageBg }}">
-                {{ else }}
-                  {{ partial "lazyimg" (dict 
-                    "src" .authorImage 
-                    "alt" .authorName
-                    "class" "size-6 flex-none rounded-full {{ $authorImageBg }}"
-                  ) }}
-                {{ end }}
+                {{ partial "lazyimg" (dict 
+                  "src" .authorImage 
+                  "alt" .authorName
+                  "class" "size-6 flex-none rounded-full {{ $authorImageBg }}"
+                ) }}
               {{ end }}
               <span class="{{ $authorColor }}">{{ .authorName }}</span>
             </div>

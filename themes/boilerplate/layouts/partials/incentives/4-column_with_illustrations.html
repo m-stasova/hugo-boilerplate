@@ -43,17 +43,13 @@
     <div class="grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
       {{ range $incentives }}
         <div>
-          {{ if eq (hasPrefix .iconUrl "http") true }}
-            <img src="{{ .iconUrl }}" alt="{{ .iconAlt }}" class="h-24 w-auto">
-          {{ else }}
-            {{ partial "lazyimg.html" (dict 
-              "src" .iconUrl 
-              "alt" .iconAlt 
-              "class" "h-24 w-auto" 
-              "loading" "lazy" 
-              "decoding" "async"
-            ) }}
-          {{ end }}
+          {{ partial "lazyimg.html" (dict 
+            "src" .iconUrl 
+            "alt" .iconAlt 
+            "class" "h-24 w-auto" 
+            "loading" "lazy" 
+            "decoding" "async"
+          ) }}
           <h3 class="mt-6 text-sm font-medium text-gray-900">{{ .title }}</h3>
           <p class="mt-2 text-sm text-gray-500">{{ .description }}</p>
         </div>

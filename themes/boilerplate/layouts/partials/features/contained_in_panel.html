@@ -36,7 +36,13 @@
           <h2 class="text-3xl font-semibold tracking-tight text-balance text-white sm:text-4xl">{{ $heading }}</h2>
           <p class="mt-6 text-lg/8 text-gray-300">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
         </div>
-        <img src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" class="relative -z-20 max-w-xl min-w-full rounded-xl ring-1 shadow-xl ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+        {{ partial "lazyimg.html" (dict 
+          "src" $screenshot.url 
+          "alt" $screenshot.alt
+          "width" $screenshot.width
+          "height" $screenshot.height
+          "class" "relative -z-20 max-w-xl min-w-full rounded-xl ring-1 shadow-xl ring-white/10 lg:row-span-4 lg:w-[64rem] lg:max-w-none"
+        ) }}
         <div class="max-w-xl lg:row-start-3 lg:mt-10 lg:max-w-md lg:border-t lg:border-white/10 lg:pt-10">
           <dl class="max-w-xl space-y-8 text-base/7 text-gray-300 lg:max-w-none">
             {{ range $features }}

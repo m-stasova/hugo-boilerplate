@@ -108,15 +108,11 @@
         <div class="-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8">
           {{ range $index, $image := $images }}
           <div class="{{ if or (eq $index 1) (eq $index 3) }}-mt-8 lg:-mt-40{{ end }} aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
-            {{ if hasPrefix $image.src "http" }}
-              <img alt="{{ $image.alt }}" src="{{ $image.src }}" class="block size-full object-cover">
-            {{ else }}
-              {{ partial "lazyimg" (dict 
-                "src" $image.src 
-                "alt" $image.alt
-                "class" "block size-full object-cover"
-              ) }}
-            {{ end }}
+            {{ partial "lazyimg.html" (dict 
+              "src" $image.src 
+              "alt" $image.alt
+              "class" "block size-full object-cover"
+            ) }}
           </div>
           {{ end }}
         </div>

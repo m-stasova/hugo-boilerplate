@@ -52,7 +52,15 @@
           </dl>
         </div>
       </div>
-      <img src="{{ $screenshot.url }}" alt="{{ $screenshot.alt }}" class="w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-white/10 sm:w-[57rem] md:-ml-4 lg:-ml-0" width="{{ $screenshot.width }}" height="{{ $screenshot.height }}">
+      <div class="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
+        {{ partial "lazyimg.html" (dict 
+          "src" $screenshot.url 
+          "alt" $screenshot.alt
+          "width" $screenshot.width
+          "height" $screenshot.height
+          "class" "w-[48rem] max-w-none rounded-xl ring-1 shadow-xl ring-white/10 sm:w-[57rem] md:-ml-4 lg:-ml-0"
+        ) }}
+      </div>
     </div>
   </div>
 </div>

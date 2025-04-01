@@ -88,15 +88,11 @@
         <article class="relative isolate flex flex-col gap-8 lg:flex-row">
           <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
             {{ if .image }}
-              {{ if hasPrefix .image "http" }}
-                <img src="{{ .image }}" alt="{{ .imageAlt }}" class="absolute inset-0 size-full rounded-2xl {{ $imageBgColor }} object-cover">
-              {{ else }}
-                {{ partial "lazyimg" (dict 
-                  "src" .image 
-                  "alt" .imageAlt
-                  "class" "absolute inset-0 size-full rounded-2xl {{ $imageBgColor }} object-cover"
-                ) }}
-              {{ end }}
+              {{ partial "lazyimg" (dict 
+                "src" .image 
+                "alt" .imageAlt
+                "class" "absolute inset-0 size-full rounded-2xl {{ $imageBgColor }} object-cover"
+              ) }}
             {{ end }}
             <div class="absolute inset-0 rounded-2xl ring-1 {{ $imageRingColor }} ring-inset"></div>
           </div>
@@ -118,15 +114,11 @@
             <div class="mt-6 flex border-t {{ $borderColor }} pt-6">
               <div class="relative flex items-center gap-x-4">
                 {{ if .authorImage }}
-                  {{ if hasPrefix .authorImage "http" }}
-                    <img src="{{ .authorImage }}" alt="{{ .authorName }}" class="size-10 rounded-full {{ $authorImageBg }}">
-                  {{ else }}
-                    {{ partial "lazyimg" (dict 
-                      "src" .authorImage 
-                      "alt" .authorName
-                      "class" "size-10 rounded-full {{ $authorImageBg }}"
-                    ) }}
-                  {{ end }}
+                  {{ partial "lazyimg" (dict 
+                    "src" .authorImage 
+                    "alt" .authorName
+                    "class" "size-10 rounded-full {{ $authorImageBg }}"
+                  ) }}
                 {{ end }}
                 <div class="text-sm/6">
                   <p class="font-semibold {{ $authorNameColor }}">
