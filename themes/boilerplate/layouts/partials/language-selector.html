@@ -7,42 +7,112 @@
     {{ if .Translations }}
       <!-- Use page translations when available -->
       {{ range .Translations }}
-        {{ $langCode := .Language.Lang }}
+        {{ $lang := .Language.Lang }}
+        <!-- Default flag emoji mapping -->
+        {{ $flagEmoji := "🏳️" }}
         
-        <!-- Default to language code if BCP47 not available -->
-        {{ $flagCode := $langCode }}
-        {{ if eq $langCode "en" }}
-          {{ $flagCode = "en-us" }}
+        <!-- European Languages -->
+        {{ if eq $lang "en" }}{{ $flagEmoji = "🇬🇧" }} <!-- English (UK) -->
+        {{ else if eq $lang "en-us" }}{{ $flagEmoji = "🇺🇸" }} <!-- English (US) -->
+        {{ else if eq $lang "de" }}{{ $flagEmoji = "🇩🇪" }} <!-- German -->
+        {{ else if eq $lang "fr" }}{{ $flagEmoji = "🇫🇷" }} <!-- French -->
+        {{ else if eq $lang "es" }}{{ $flagEmoji = "🇪🇸" }} <!-- Spanish -->
+        {{ else if eq $lang "it" }}{{ $flagEmoji = "🇮🇹" }} <!-- Italian -->
+        {{ else if eq $lang "pt" }}{{ $flagEmoji = "🇵🇹" }} <!-- Portuguese -->
+        {{ else if eq $lang "nl" }}{{ $flagEmoji = "🇳🇱" }} <!-- Dutch -->
+        {{ else if eq $lang "be" }}{{ $flagEmoji = "🇧🇪" }} <!-- Belgian -->
+        {{ else if eq $lang "lu" }}{{ $flagEmoji = "🇱🇺" }} <!-- Luxembourgish -->
+        {{ else if eq $lang "da" }}{{ $flagEmoji = "🇩🇰" }} <!-- Danish -->
+        {{ else if eq $lang "sv" }}{{ $flagEmoji = "🇸🇪" }} <!-- Swedish -->
+        {{ else if eq $lang "fi" }}{{ $flagEmoji = "🇫🇮" }} <!-- Finnish -->
+        {{ else if eq $lang "no" }}{{ $flagEmoji = "🇳🇴" }} <!-- Norwegian -->
+        {{ else if eq $lang "is" }}{{ $flagEmoji = "🇮🇸" }} <!-- Icelandic -->
+        {{ else if eq $lang "el" }}{{ $flagEmoji = "🇬🇷" }} <!-- Greek -->
+        {{ else if eq $lang "cs" }}{{ $flagEmoji = "🇨🇿" }} <!-- Czech -->
+        {{ else if eq $lang "sk" }}{{ $flagEmoji = "🇸🇰" }} <!-- Slovak -->
+        {{ else if eq $lang "pl" }}{{ $flagEmoji = "🇵🇱" }} <!-- Polish -->
+        {{ else if eq $lang "hu" }}{{ $flagEmoji = "🇭🇺" }} <!-- Hungarian -->
+        {{ else if eq $lang "ro" }}{{ $flagEmoji = "🇷🇴" }} <!-- Romanian -->
+        {{ else if eq $lang "bg" }}{{ $flagEmoji = "🇧🇬" }} <!-- Bulgarian -->
+        {{ else if eq $lang "hr" }}{{ $flagEmoji = "🇭🇷" }} <!-- Croatian -->
+        {{ else if eq $lang "sl" }}{{ $flagEmoji = "🇸🇮" }} <!-- Slovenian -->
+        {{ else if eq $lang "sr" }}{{ $flagEmoji = "🇷🇸" }} <!-- Serbian -->
+        {{ else if eq $lang "mk" }}{{ $flagEmoji = "🇲🇰" }} <!-- Macedonian -->
+        {{ else if eq $lang "sq" }}{{ $flagEmoji = "🇦🇱" }} <!-- Albanian -->
+        {{ else if eq $lang "et" }}{{ $flagEmoji = "🇪🇪" }} <!-- Estonian -->
+        {{ else if eq $lang "lv" }}{{ $flagEmoji = "🇱🇻" }} <!-- Latvian -->
+        {{ else if eq $lang "lt" }}{{ $flagEmoji = "🇱🇹" }} <!-- Lithuanian -->
+        {{ else if eq $lang "mt" }}{{ $flagEmoji = "🇲🇹" }} <!-- Maltese -->
+        {{ else if eq $lang "ga" }}{{ $flagEmoji = "🇮🇪" }} <!-- Irish -->
+        {{ else if eq $lang "cy" }}{{ $flagEmoji = "🇬🇧" }} <!-- Welsh (UK) -->
+        {{ else if eq $lang "gd" }}{{ $flagEmoji = "🇬🇧" }} <!-- Scottish Gaelic (UK) -->
+        {{ else if eq $lang "ru" }}{{ $flagEmoji = "🇷🇺" }} <!-- Russian -->
+        {{ else if eq $lang "uk" }}{{ $flagEmoji = "🇺🇦" }} <!-- Ukrainian -->
+        {{ else if eq $lang "by" }}{{ $flagEmoji = "🇧🇾" }} <!-- Belarusian -->
+        {{ else if eq $lang "tr" }}{{ $flagEmoji = "🇹🇷" }} <!-- Turkish -->
         {{ end }}
         
         <a href="{{ .Permalink }}" 
-           class="inline-flex items-center" 
-           title="{{ .Language.LanguageName }}">
-          {{ partial "lazyimg.html" (dict 
-               "src" (printf "flags/%s.png" $flagCode | relURL) 
-               "alt" .Language.LanguageName 
-               "class" "w-6 h-4 hover:opacity-75 transition-opacity") }}
+           class="inline-flex items-center text-xl hover:opacity-75 transition-opacity" 
+           title="{{ .Language.LanguageName }}"
+           aria-label="{{ .Language.LanguageName }}">
+          <span role="img" aria-hidden="true">{{ $flagEmoji }}</span>
         </a>
       {{ end }}
     {{ else }}
       <!-- Fallback to all site languages -->
       {{ range .Site.Home.AllTranslations }}
         {{ if ne .Language.Lang $.Site.Language.Lang }}
-          {{ $langCode := .Language.Lang }}
+          {{ $lang := .Language.Lang }}
+          <!-- Default flag emoji mapping -->
+          {{ $flagEmoji := "🏳️" }}
           
-          <!-- Default to language code if BCP47 not available -->
-          {{ $flagCode := $langCode }}
-          {{ if eq $langCode "en" }}
-            {{ $flagCode = "en-us" }}
+          <!-- European Languages -->
+          {{ if eq $lang "en" }}{{ $flagEmoji = "🇬🇧" }} <!-- English (UK) -->
+          {{ else if eq $lang "en-us" }}{{ $flagEmoji = "🇺🇸" }} <!-- English (US) -->
+          {{ else if eq $lang "de" }}{{ $flagEmoji = "🇩🇪" }} <!-- German -->
+          {{ else if eq $lang "fr" }}{{ $flagEmoji = "🇫🇷" }} <!-- French -->
+          {{ else if eq $lang "es" }}{{ $flagEmoji = "🇪🇸" }} <!-- Spanish -->
+          {{ else if eq $lang "it" }}{{ $flagEmoji = "🇮🇹" }} <!-- Italian -->
+          {{ else if eq $lang "pt" }}{{ $flagEmoji = "🇵🇹" }} <!-- Portuguese -->
+          {{ else if eq $lang "nl" }}{{ $flagEmoji = "🇳🇱" }} <!-- Dutch -->
+          {{ else if eq $lang "be" }}{{ $flagEmoji = "🇧🇪" }} <!-- Belgian -->
+          {{ else if eq $lang "lu" }}{{ $flagEmoji = "🇱🇺" }} <!-- Luxembourgish -->
+          {{ else if eq $lang "da" }}{{ $flagEmoji = "🇩🇰" }} <!-- Danish -->
+          {{ else if eq $lang "sv" }}{{ $flagEmoji = "🇸🇪" }} <!-- Swedish -->
+          {{ else if eq $lang "fi" }}{{ $flagEmoji = "🇫🇮" }} <!-- Finnish -->
+          {{ else if eq $lang "no" }}{{ $flagEmoji = "🇳🇴" }} <!-- Norwegian -->
+          {{ else if eq $lang "is" }}{{ $flagEmoji = "🇮🇸" }} <!-- Icelandic -->
+          {{ else if eq $lang "el" }}{{ $flagEmoji = "🇬🇷" }} <!-- Greek -->
+          {{ else if eq $lang "cs" }}{{ $flagEmoji = "🇨🇿" }} <!-- Czech -->
+          {{ else if eq $lang "sk" }}{{ $flagEmoji = "🇸🇰" }} <!-- Slovak -->
+          {{ else if eq $lang "pl" }}{{ $flagEmoji = "🇵🇱" }} <!-- Polish -->
+          {{ else if eq $lang "hu" }}{{ $flagEmoji = "🇭🇺" }} <!-- Hungarian -->
+          {{ else if eq $lang "ro" }}{{ $flagEmoji = "🇷🇴" }} <!-- Romanian -->
+          {{ else if eq $lang "bg" }}{{ $flagEmoji = "🇧🇬" }} <!-- Bulgarian -->
+          {{ else if eq $lang "hr" }}{{ $flagEmoji = "🇭🇷" }} <!-- Croatian -->
+          {{ else if eq $lang "sl" }}{{ $flagEmoji = "🇸🇮" }} <!-- Slovenian -->
+          {{ else if eq $lang "sr" }}{{ $flagEmoji = "🇷🇸" }} <!-- Serbian -->
+          {{ else if eq $lang "mk" }}{{ $flagEmoji = "🇲🇰" }} <!-- Macedonian -->
+          {{ else if eq $lang "sq" }}{{ $flagEmoji = "🇦🇱" }} <!-- Albanian -->
+          {{ else if eq $lang "et" }}{{ $flagEmoji = "🇪🇪" }} <!-- Estonian -->
+          {{ else if eq $lang "lv" }}{{ $flagEmoji = "🇱🇻" }} <!-- Latvian -->
+          {{ else if eq $lang "lt" }}{{ $flagEmoji = "🇱🇹" }} <!-- Lithuanian -->
+          {{ else if eq $lang "mt" }}{{ $flagEmoji = "🇲🇹" }} <!-- Maltese -->
+          {{ else if eq $lang "ga" }}{{ $flagEmoji = "🇮🇪" }} <!-- Irish -->
+          {{ else if eq $lang "cy" }}{{ $flagEmoji = "🇬🇧" }} <!-- Welsh (UK) -->
+          {{ else if eq $lang "gd" }}{{ $flagEmoji = "🇬🇧" }} <!-- Scottish Gaelic (UK) -->
+          {{ else if eq $lang "ru" }}{{ $flagEmoji = "🇷🇺" }} <!-- Russian -->
+          {{ else if eq $lang "uk" }}{{ $flagEmoji = "🇺🇦" }} <!-- Ukrainian -->
+          {{ else if eq $lang "by" }}{{ $flagEmoji = "🇧🇾" }} <!-- Belarusian -->
+          {{ else if eq $lang "tr" }}{{ $flagEmoji = "🇹🇷" }} <!-- Turkish -->
           {{ end }}
           
           <a href="{{ .Permalink }}" 
-             class="inline-flex items-center" 
-             title="{{ .Language.LanguageName }}">
-            {{ partial "lazyimg.html" (dict 
-                 "src" (printf "flags/%s.png" $flagCode | relURL) 
-                 "alt" .Language.LanguageName 
-                 "class" "w-6 h-4 hover:opacity-75 transition-opacity") }}
+             class="inline-flex items-center text-xl hover:opacity-75 transition-opacity" 
+             title="{{ .Language.LanguageName }}"
+             aria-label="{{ .Language.LanguageName }}">
+            <span role="img" aria-hidden="true">{{ $flagEmoji }}</span>
           </a>
         {{ end }}
       {{ end }}

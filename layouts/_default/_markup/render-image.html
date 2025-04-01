@@ -1,0 +1,192 @@
+{{/* 
+  Custom image rendering for markdown content
+  This will process images and create alternative sizes and formats
+*/}}
+
+{{ $src := .Destination }}
+{{ $alt := .Text }}
+{{ $title := .Title }}
+
+{{ $isExternal := or (hasPrefix $src "http://") (hasPrefix $src "https://") }}
+
+{{ if not $isExternal }}
+  {{ $originalSrc := $src }}
+  {{ $smallWidth := 150 }}
+  {{ $mediumWidth := 300 }}
+  {{ $largeWidth := 1024 }}
+  {{ $qualityOrig := site.Params.imaging.quality | default 85 }}
+  {{ $qualityWebp := site.Params.imaging.formats.webp.quality | default 85 }}
+  
+  {{ $image := "" }}
+  {{ if hasPrefix $src "/" }}
+    {{ $image = resources.Get (strings.TrimPrefix "/" $src) }}
+  {{ else }}
+    {{ $image = resources.Get $src }}
+  {{ end }}
+  
+  {{ if $image }}
+    {{ $isJPEG := or (strings.HasSuffix $src ".jpg") (strings.HasSuffix $src ".jpeg") }}
+    {{ $isPNG := strings.HasSuffix $src ".png" }}
+    {{ $isWebP := strings.HasSuffix $src ".webp" }}
+    {{ $isWebPSupported := or $isJPEG $isPNG $isWebP }}
+    
+    {{ if $isWebPSupported }}
+      {{ $originalWidth := $image.Width }}
+      {{ $filenameWithoutExt := $src }}
+      {{ $fileExt := path.Ext $src }}
+      
+      {{ if $fileExt }}
+        {{ $filenameWithoutExt = substr $src 0 (sub (len $src) (len $fileExt)) }}
+      {{ end }}
+      
+      {{ $smallSrc := $image }}
+      {{ $mediumSrc := $image }}
+      {{ $largeSrc := $image }}
+      {{ $smallWebp := $image }}
+      {{ $mediumWebp := $image }}
+      {{ $largeWebp := $image }}
+      
+      <!-- Generate small size if original is larger -->
+      {{ if gt $originalWidth $smallWidth }}
+        {{ if $isWebP }}
+          {{ $smallSrc = $image.Resize (printf "%dx q%d" $smallWidth $qualityWebp) }}
+          {{ $smallWebp = $smallSrc }}
+          {{ $smallPath := printf "%s-%d%s" $filenameWithoutExt $smallWidth $fileExt }}
+          {{ $smallSrc.Permalink }}
+        {{ else }}
+          {{ $smallSrc = $image.Resize (printf "%dx q%d" $smallWidth $qualityOrig) }}
+          {{ $smallWebp = $image.Resize (printf "%dx webp q%d" $smallWidth $qualityWebp) }}
+          {{ $smallPath := printf "%s-%d%s" $filenameWithoutExt $smallWidth $fileExt }}
+          {{ $smallWebpPath := printf "%s-%d.webp" $filenameWithoutExt $smallWidth }}
+          {{ $smallSrc.Permalink }}
+          {{ $smallWebp.Permalink }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- Generate medium size if original is larger -->
+      {{ if gt $originalWidth $mediumWidth }}
+        {{ if $isWebP }}
+          {{ $mediumSrc = $image.Resize (printf "%dx q%d" $mediumWidth $qualityWebp) }}
+          {{ $mediumWebp = $mediumSrc }}
+          {{ $mediumPath := printf "%s-%d%s" $filenameWithoutExt $mediumWidth $fileExt }}
+          {{ $mediumSrc.Permalink }}
+        {{ else }}
+          {{ $mediumSrc = $image.Resize (printf "%dx q%d" $mediumWidth $qualityOrig) }}
+          {{ $mediumWebp = $image.Resize (printf "%dx webp q%d" $mediumWidth $qualityWebp) }}
+          {{ $mediumPath := printf "%s-%d%s" $filenameWithoutExt $mediumWidth $fileExt }}
+          {{ $mediumWebpPath := printf "%s-%d.webp" $filenameWithoutExt $mediumWidth }}
+          {{ $mediumSrc.Permalink }}
+          {{ $mediumWebp.Permalink }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- Generate large size if original is larger -->
+      {{ if gt $originalWidth $largeWidth }}
+        {{ if $isWebP }}
+          {{ $largeSrc = $image.Resize (printf "%dx q%d" $largeWidth $qualityWebp) }}
+          {{ $largeWebp = $largeSrc }}
+          {{ $largePath := printf "%s-%d%s" $filenameWithoutExt $largeWidth $fileExt }}
+          {{ $largeSrc.Permalink }}
+        {{ else }}
+          {{ $largeSrc = $image.Resize (printf "%dx q%d" $largeWidth $qualityOrig) }}
+          {{ $largeWebp = $image.Resize (printf "%dx webp q%d" $largeWidth $qualityWebp) }}
+          {{ $largePath := printf "%s-%d%s" $filenameWithoutExt $largeWidth $fileExt }}
+          {{ $largeWebpPath := printf "%s-%d.webp" $filenameWithoutExt $largeWidth }}
+          {{ $largeSrc.Permalink }}
+          {{ $largeWebp.Permalink }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- Always generate WebP version of original if not already WebP -->
+      {{ if and (not $isWebP) (gt $originalWidth 0) }}
+        {{ $origWebp := $image.Resize (printf "%dx webp q%d" $originalWidth $qualityWebp) }}
+        {{ $origWebpPath := printf "%s.webp" $filenameWithoutExt }}
+        {{ $origWebp.Permalink }}
+      {{ end }}
+      
+      <!-- Build srcset based on available sizes -->
+      {{ $srcset := "" }}
+      {{ $webpSrcset := "" }}
+      
+      {{ if gt $originalWidth $smallWidth }}
+        {{ $srcset = printf "%s %dw" $smallSrc.RelPermalink $smallSrc.Width }}
+        {{ $webpSrcset = printf "%s %dw" $smallWebp.RelPermalink $smallWebp.Width }}
+      {{ end }}
+      
+      {{ if gt $originalWidth $mediumWidth }}
+        {{ if $srcset }}
+          {{ $srcset = printf "%s, %s %dw" $srcset $mediumSrc.RelPermalink $mediumSrc.Width }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebp.RelPermalink $mediumWebp.Width }}
+        {{ else }}
+          {{ $srcset = printf "%s %dw" $mediumSrc.RelPermalink $mediumSrc.Width }}
+          {{ $webpSrcset = printf "%s %dw" $mediumWebp.RelPermalink $mediumWebp.Width }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if gt $originalWidth $largeWidth }}
+        {{ if $srcset }}
+          {{ $srcset = printf "%s, %s %dw" $srcset $largeSrc.RelPermalink $largeSrc.Width }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebp.RelPermalink $largeWebp.Width }}
+        {{ else }}
+          {{ $srcset = printf "%s %dw" $largeSrc.RelPermalink $largeSrc.Width }}
+          {{ $webpSrcset = printf "%s %dw" $largeWebp.RelPermalink $largeWebp.Width }}
+        {{ end }}
+      {{ end }}
+      
+      {{ $sizes := "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px" }}
+      
+      <picture class="content-image">
+        <!-- WebP sources -->
+        <source 
+          type="image/webp" 
+          srcset="{{ $webpSrcset }}"
+          sizes="{{ $sizes }}"
+        >
+        
+        <!-- Original format sources -->
+        <source 
+          type="{{ $image.MediaType }}"
+          srcset="{{ $srcset }}"
+          sizes="{{ $sizes }}"
+        >
+        
+        <!-- Fallback image -->
+        <img 
+          src="{{ $image.RelPermalink }}" 
+          alt="{{ $alt }}" 
+          {{ with $title }}title="{{ . }}"{{ end }}
+          loading="lazy"
+          decoding="async"
+          width="{{ $image.Width }}"
+          height="{{ $image.Height }}"
+        >
+      </picture>
+    {{ else }}
+      <img 
+        src="{{ $image.RelPermalink }}" 
+        alt="{{ $alt }}" 
+        {{ with $title }}title="{{ . }}"{{ end }}
+        loading="lazy"
+        decoding="async"
+        width="{{ $image.Width }}"
+        height="{{ $image.Height }}"
+      >
+    {{ end }}
+  {{ else }}
+    <img 
+      src="{{ $src }}" 
+      alt="{{ $alt }}" 
+      {{ with $title }}title="{{ . }}"{{ end }}
+      loading="lazy"
+      decoding="async"
+    >
+  {{ end }}
+{{ else }}
+  <img 
+    src="{{ $src }}" 
+    alt="{{ $alt }}" 
+    {{ with $title }}title="{{ . }}"{{ end }}
+    loading="lazy"
+    decoding="async"
+  >
+{{ end }}
