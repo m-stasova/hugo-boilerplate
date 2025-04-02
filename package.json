@@ -4,17 +4,21 @@
   "description": "A clean and minimal Hugo boilerplate project that can be used as a starting point for other Hugo projects.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "hugo server",
     "build": "hugo --minify",
-    "build:css": "tailwindcss -i ./assets/css/main.css -o ./assets/css/style.css",
-    "watch:css": "tailwindcss -i ./assets/css/main.css -o ./assets/css/style.css --watch"
+    "start": "hugo server",
+    "clean": "rm -rf public resources"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/QualityUnit/hugo-boilerplate.git"
   },
-  "keywords": [],
+  "keywords": [
+    "hugo",
+    "boilerplate",
+    "tailwindcss",
+    "postcss"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -23,10 +27,32 @@
   "homepage": "https://github.com/QualityUnit/hugo-boilerplate#readme",
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.17"
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.5"
+  },
+  "dependencies": {
+    "browserslist": "^4.24.4",
+    "caniuse-lite": "^1.0.30001707",
+    "cssesc": "^3.0.0",
+    "electron-to-chromium": "^1.5.128",
+    "escalade": "^3.2.0",
+    "fraction.js": "^4.3.7",
+    "lodash.castarray": "^4.0.6",
+    "lodash.isplainobject": "^4.0.6",
+    "lodash.merge": "^4.6.2",
+    "mini-svg-data-uri": "^1.4.4",
+    "nanoid": "^3.3.11",
+    "node-releases": "^2.0.19",
+    "normalize-range": "^0.1.2",
+    "picocolors": "^1.1.1",
+    "postcss-selector-parser": "^6.0.10",
+    "postcss-value-parser": "^4.2.0",
+    "source-map-js": "^1.2.1",
+    "update-browserslist-db": "^1.1.3",
+    "util-deprecate": "^1.0.2"
   }
 }

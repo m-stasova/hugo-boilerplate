@@ -49,17 +49,17 @@ theme = 'boilerplate'
     
     # Anchor used when cropping pictures.
     # Default is "smart" which does Smart Cropping, using https://github.com/muesli/smartcrop
-    # Smart Cropping is content aware and tries to find the best crop.
     anchor = "smart"
     
     # Default background color.
-    # Hugo will create an image with this color if the source image is transparent.
+    # Hugo will preserve transparency for target formats that support it,
+    # but will fall back to this color for JPEG.
+    # Expects a standard HEX color string with 3 or 6 digits.
+    # See https://www.google.com/search?q=color+picker
     bgColor = "#ffffff"
-    
-    # Format-specific quality settings
-    [params.imaging.formats]
-      [params.imaging.formats.webp]
-        quality = 85
+
+    # Default WebP quality setting. Default is 75.
+    webpQuality = 85
 
 # Language configuration
 [languages]
@@ -72,6 +72,8 @@ theme = 'boilerplate'
     bcp47Lang = "en-us"
     [languages.en.params]
       description = "English site description"
+      flag = "🇺🇸"
+      gaMeasurementID = "G-PROD7890123"
     [[languages.en.menu.main]]
       identifier = "home"
       name = "Home"
@@ -92,6 +94,8 @@ theme = 'boilerplate'
     bcp47Lang = "de"
     [languages.de.params]
       description = "Deutsche Seitenbeschreibung"
+      flag = "🇩🇪"
+      gaMeasurementID = "G-GERMAN12345"
     [[languages.de.menu.main]]
       identifier = "home"
       name = "Startseite"
@@ -99,19 +103,21 @@ theme = 'boilerplate'
       weight = 1
     [[languages.de.menu.main]]
       identifier = "blog"
-      name = "Beiträge"
+      name = "Blog"
       url = "/blog/"
       weight = 2
 
   [languages.sk]
-    languageName = "Slovensky"
-    title = "Slovenská stránka"
+    languageName = "Slovenčina"
+    title = "Slovenský Názov Stránky"
     weight = 3
     contentDir = "content/sk"
     baseURL = "https://example.sk"
     bcp47Lang = "sk"
     [languages.sk.params]
-      description = "Slovenská stránka popis"
+      description = "Slovenský popis stránky"
+      flag = "🇸🇰"
+      gaMeasurementID = "G-SLOVAK67890"
     [[languages.sk.menu.main]]
       identifier = "home"
       name = "Domov"
@@ -119,7 +125,7 @@ theme = 'boilerplate'
       weight = 1
     [[languages.sk.menu.main]]
       identifier = "blog"
-      name = "Články"
+      name = "Blog"
       url = "/blog/"
       weight = 2
 
