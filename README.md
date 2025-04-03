@@ -1,115 +1,340 @@
-# Hugo Boilerplate
+# Hugo Boilerplate Theme
 
-A clean and minimal Hugo boilerplate project that can be used as a starting point for other Hugo projects.
+A clean and minimal Hugo theme designed for modern websites with a focus on performance, SEO, and responsive design. This theme includes Tailwind CSS integration, comprehensive SEO features, responsive image processing, and multilingual support out of the box.
 
-## Prerequisites
+## Features
 
-- Hugo Extended (v0.145.0 or later)
-- Go (for Hugo modules if used)
+- **Tailwind CSS Integration** - Modern utility-first CSS framework
+- **Responsive Design** - Optimized for all device sizes
+- **Multilingual Support** - Built-in support for multiple languages
+- **SEO Optimized** - Comprehensive metadata and structured data
+- **Responsive Images** - Automatic image processing with WebP conversion
+- **Lazy Loading** - Performance-optimized image and video loading
+- **Glossary System** - Built-in glossary with alphabetical navigation
+- **Tag & Category System** - Comprehensive taxonomy management
+- **Component Library** - Extensive collection of pre-built components:
+  - Headers and navigation menus
+  - Product showcases and listings
+  - Feature sections
+  - Review components
+  - Banners and CTAs
 
-## Getting Started
+## Installation
 
-1. Clone this repository:
-   ```bash
-   git clone [repository-url]
-   ```
+### Option 1: As a Git Submodule (Recommended)
 
-2. Navigate to the project directory:
-   ```bash
-   cd hugo-boilerplate
-   ```
+This method allows you to easily update the theme when new versions are released:
 
-3. Start the Hugo development server:
-   ```bash
-   hugo server -D
-   ```
-
-The site will be available at http://localhost:1313/
-
-## Project Structure
-
-```
-.
-├── archetypes/        # Content templates
-├── assets/            # Files that need processing (SCSS, JS)
-├── content/           # Your content files
-├── data/             # Configuration files
-├── layouts/          # Templates
-├── scripts/          # Build and utility scripts
-├── static/           # Static files
-├── themes/           # Theme files
-├── hugo.toml         # Hugo configuration
-└── README.md         # This file
-```
-
-## Creating Content
-
-To create a new post:
 ```bash
-hugo new content/posts/my-post.md
+# Navigate to your Hugo site's root directory
+cd your-hugo-site
+
+# Add the theme as a submodule
+git submodule add https://github.com/owner/hugo-boilerplate.git themes/boilerplate
+
+# Update your Hugo configuration to use the theme
+echo 'theme = "boilerplate"' >> hugo.toml
+```
+
+### Option 2: Manual Download
+
+If you prefer not to use Git submodules:
+
+```bash
+# Navigate to your Hugo site's root directory
+cd your-hugo-site
+
+# Download the theme
+mkdir -p themes
+curl -L https://github.com/owner/hugo-boilerplate/archive/main.tar.gz | tar -xz -C themes
+mv themes/hugo-boilerplate-main themes/boilerplate
+
+# Update your Hugo configuration to use the theme
+echo 'theme = "boilerplate"' >> hugo.toml
+```
+
+## Dependencies
+
+This theme requires Node.js and npm for Tailwind CSS processing. You need to create a `package.json` file in your project root (not in the theme directory) with the necessary dependencies.
+
+You can use the example provided in the theme at `themes/boilerplate/package.json.example`:
+
+```bash
+# Copy the example package.json to your project root
+cp themes/boilerplate/package.json.example package.json
+
+# Install dependencies
+npm install
+```
+
+The minimum required dependencies are:
+
+```json
+{
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.3.5"
+  }
+}
+```
+
+## PostCSS Configuration
+
+### Required Setup
+
+This theme uses Tailwind CSS which requires PostCSS for processing. You **must** create a `postcss.config.js` file in your project root (not in the theme directory) with the following content:
+
+```javascript
+// postcss.config.js in your project root
+module.exports = {
+  plugins: {
+    tailwindcss: {
+      config: './themes/boilerplate/tailwind.config.js'
+    },
+    autoprefixer: {}
+  }
+}
+```
+
+This configuration tells PostCSS to:
+1. Use the Tailwind CSS plugin with the configuration file located in the theme directory
+2. Apply autoprefixer for cross-browser compatibility
+
+### Troubleshooting PostCSS Issues
+
+If you encounter errors related to PostCSS processing (such as `Cannot read properties of undefined (reading 'blocklist')`), check the following:
+
+1. Ensure your `postcss.config.js` is in the project root, not just in the theme directory
+2. Verify that all dependencies are installed correctly with `npm install`
+3. Make sure the path to the Tailwind config file is correct relative to your project structure
+4. Check for any path resolution issues in your project's JavaScript configuration files
+
+### Advanced PostCSS Configuration
+
+For advanced users who want to customize the PostCSS processing:
+
+```javascript
+// postcss.config.js with additional options
+module.exports = {
+  plugins: {
+    'postcss-import': {},
+    'tailwindcss/nesting': {},
+    tailwindcss: {
+      config: './themes/boilerplate/tailwind.config.js'
+    },
+    autoprefixer: {
+      flexbox: 'no-2009'
+    },
+    'postcss-preset-env': {
+      features: { 'nesting-rules': false }
+    }
+  }
+}
+```
+
+## Configuration
+
+### Basic Configuration
+
+Add the following to your `hugo.toml` file:
+
+```toml
+baseURL = 'https://example.com/'
+languageCode = 'en-us'
+title = 'Your Site Title'
+theme = 'boilerplate'
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+
+# Output formats configuration
+[outputs]
+  home = ["HTML", "RSS", "SITEMAP"]
+
+# Site parameters
+[params]
+  description = "Your site description"
+  author = "Your Name"
+  mainSections = ["blog"]
+  dateFormat = "January 2, 2006"
+```
+
+### Multilingual Setup
+
+The theme supports multiple languages out of the box. Configure them in your `hugo.toml`:
+
+```toml
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "English Site Title"
+    weight = 1
+    contentDir = "content/en"
+    baseURL = "https://example.com"
+    bcp47Lang = "en-us"
+    [languages.en.params]
+      description = "English site description"
+      flag = "🇺🇸"
+
+  [languages.de]
+    languageName = "Deutsch"
+    title = "Deutsche Site Title"
+    weight = 2
+    contentDir = "content/de"
+    baseURL = "https://example.de"
+    bcp47Lang = "de"
+    [languages.de.params]
+      description = "Deutsche Seitenbeschreibung"
+      flag = "🇩🇪"
+```
+
+### Image Processing Configuration
+
+For optimal image processing, add the following to your `hugo.toml`:
+
+```toml
+[params.imaging]
+  resampleFilter = "Lanczos"
+  quality = 85
+  anchor = "smart"
+  bgColor = "#ffffff"
+  webpQuality = 85
+```
+
+## Content Structure
+
+### Creating Blog Posts
+
+Create a new blog post with:
+
+```bash
+hugo new content/en/blog/my-post.md
+```
+
+Front matter example:
+
+```yaml
++++
+title = 'My Post Title'
+date = 2025-04-03T07:43:16+02:00
+draft = false
+description = "A comprehensive description for SEO purposes"
+keywords = ["keyword1", "keyword2", "keyword3"]
+image = "/images/blog/featured-image.jpg"
+tags = ["tag1", "tag2"]
+categories = ["category1"]
++++
+
+Your post content here...
+```
+
+### Creating Glossary Terms
+
+Create a new glossary term with:
+
+```bash
+hugo new content/en/glossary/term-name.md
+```
+
+Front matter example:
+
+```yaml
++++
+title = 'Term Name'
+date = 2025-04-03T07:43:16+02:00
+draft = false
+url = "glossary/term-name"
+description = "A comprehensive description of the term for SEO purposes"
+keywords = ["keyword1", "keyword2", "keyword3"]
+image = "/images/glossary/term-image.jpg"
+term = "Term Name"
+shortDescription = "A brief description of the term"
+category = "T"
+tags = ["tag1", "tag2"]
+additionalImages = [
+  "/images/glossary/additional-image1.jpg",
+  "/images/glossary/additional-image2.jpg"
+]
+
+# CTA Section Configuration
+showCTA = true
+ctaHeading = "Related CTA Heading"
+ctaDescription = "Call to action description text"
+ctaPrimaryText = "Primary Button"
+ctaPrimaryURL = "/related-url/"
+ctaSecondaryText = "Secondary Button"
+ctaSecondaryURL = "/another-url/"
+
+[[faq]]
+question = "Frequently asked question about the term?"
+answer = "Comprehensive answer to the question that provides valuable information about the term."
++++
+
+# What is Term Name?
+
+Main content about the term goes here...
+```
+
+## Using Theme Components
+
+### Shortcodes
+
+The theme includes various shortcodes for common components:
+
+```markdown
+{{< products-with-image-grid 
+  background="bg-gray-50"
+  product="{ title: 'Product Title', ... }" >}}
+
+{{< features-with-split-image
+  background="bg-white"
+  heading="Feature Section Heading"
+  description="Feature section description text" >}}
+```
+
+### Partials
+
+You can include partials in your templates:
+
+```go
+{{ partial "headers/centered_with_eyebrow.html" (dict 
+  "eyebrow" "Eyebrow Text"
+  "heading" "Main Heading"
+  "description" "Description text") }}
 ```
 
 ## Customization
 
-1. Modify `hugo.toml` for site configuration
-2. Edit templates in `themes/boilerplate/layouts/`
-3. Add styles in `themes/boilerplate/assets/`
-4. Place static files in `static/`
+### Tailwind Configuration
 
-## Multilingual Support
+The theme uses Tailwind CSS. You can customize the Tailwind configuration by editing the `tailwind.config.js` file in the theme directory.
 
-This boilerplate supports multiple languages with separate domains:
+### CSS Customization
 
-1. Content Structure:
-   ```
-   content/
-   ├── en/          # English content
-   │   ├── posts/
-   │   └── pages/
-   ├── de/          # German content
-   │   ├── posts/
-   │   └── pages/
-   └── _index.md    # Homepage in default language
-   ```
+Add custom CSS by creating a file at `assets/css/custom.css` in your project root.
 
-2. Language Configuration:
-   - Each language has its own domain (e.g., example.com for English, example.de for German)
-   - Language-specific settings are in `hugo.toml`
-   - Translations are managed in `i18n/*.yaml` files
+### Layout Customization
 
-3. Creating Content:
-   ```bash
-   # Create content in English
-   hugo new content/en/posts/my-post.md
-   
-   # Create content in German
-   hugo new content/de/posts/my-post.md
-   ```
+Override any theme layout by creating a matching file structure in your project's `layouts` directory.
 
-## Environment Setup
+## Troubleshooting
 
-1. Copy the environment template:
-   ```bash
-   cp .env.example .env
-   ```
+### Common Issues
 
-2. Edit `.env` with your configuration values. This file is ignored by git for security.
+1. **PostCSS Processing Errors**: Ensure you have the correct PostCSS configuration in your project root.
 
-## Building the Project
+2. **Image Processing Issues**: Check that Hugo has the required permissions to process images.
 
-To build the project for production:
-```bash
-./scripts/build.sh
-```
+3. **Multilingual Configuration**: Verify that your content directories match the configured language directories.
 
-This script will:
-1. Clean the existing build
-2. Generate minified production files
-3. Perform post-build checks
-4. Show build statistics
+## Contributing
 
-The built files will be available in the `public/` directory.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License
+This theme is released under the MIT license. See [LICENSE](LICENSE) for details.
