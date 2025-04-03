@@ -3,8 +3,10 @@ module.exports = {
   content: [
     "./layouts/**/*.html",
     "./content/**/*.{html,md}",
-    "./themes/**/layouts/**/*.html",
-    "./themes/**/content/**/*.{html,md}"
+    "../../layouts/**/*.html",
+    "../../content/**/*.{html,md}",
+    "../**/layouts/**/*.html",
+    "../**/content/**/*.{html,md}"
   ],
   theme: {
     extend: {

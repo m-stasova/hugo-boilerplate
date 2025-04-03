@@ -1,7 +1,7 @@
-name = 'Theme name'
+name = 'Hugo Boilerplate'
 license = 'MIT'
 licenselink = 'https://github.com/owner/repo/LICENSE'
-description = 'Theme description'
+description = 'A clean and minimal Hugo boilerplate theme'
 
 # The home page of the theme, where the source can be found
 homepage = 'https://github.com/owner/repo'
