@@ -13,19 +13,16 @@
 {{ $ogImage := "" }}
 {{ if .Params.image }}
   {{ $ogImage = .Params.image | absURL }}
-{{ else if eq .Type "blog" }}
-  {{ if .Params.image }}
-    {{ $ogImage = .Params.image | absURL }}
-  {{ end }}
-{{ else if eq .Type "products" }}
-  {{ if .Params.mainImage }}
-    {{ $ogImage = .Params.mainImage | absURL }}
-  {{ end }}
 {{ end }}
 
-<!-- Default image fallback -->
+<!-- Default image fallback with existence check -->
 {{ if eq $ogImage "" }}
-  {{ $ogImage = "/images/confoot-social-share.jpg" | absURL }}
+  {{ $defaultImage := "/images/social-share.jpg" }}
+  {{ if fileExists (printf "static%s" $defaultImage) }}
+    {{ $ogImage = $defaultImage | absURL }}
+  {{ else if fileExists (printf "static/images/placeholder.webp") }}
+    {{ $ogImage = "/images/placeholder.webp" | absURL }}
+  {{ end }}
 {{ end }}
 
 <meta property="og:image" content="{{ $ogImage }}">

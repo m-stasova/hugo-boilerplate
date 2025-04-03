@@ -491,9 +491,6 @@ The video above should only load when it comes into view, improving page perform
     buttonText="Company" 
 >}}
 
-### Header Menu
-
-{{< menu-header >}}
 
 ## Pricing Components
 

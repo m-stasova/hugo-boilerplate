@@ -5,19 +5,18 @@
 {{ $readingTime := .ReadingTime }}
 {{ $permalink := .RelPermalink }}
 {{ $section := .Section }}
+{{ $placeholderImage := "/images/placeholder.webp" }}
 
 <article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
-  <!-- Image (if available) -->
-  {{ if $image }}
-    <div class="h-40 overflow-hidden rounded-t-lg">
-      {{ partial "lazyimg.html" (dict
-        "src" $image
-        "alt" $title
-        "class" "h-full w-full object-cover object-center group-hover:opacity-90 transition-opacity"
-        "maxWidth" 300
-      ) }}
-    </div>
-  {{ end }}
+  <!-- Image (always show - use placeholder if no image available) -->
+  <div class="h-40 overflow-hidden rounded-t-lg">
+    {{ partial "lazyimg.html" (dict
+      "src" (cond (and $image (ne $image "")) $image $placeholderImage)
+      "alt" $title
+      "class" "h-full w-full object-cover object-center group-hover:opacity-90 transition-opacity"
+      "maxWidth" 300
+    ) }}
+  </div>
   
   <div class="p-4 flex flex-col flex-grow">
     <!-- Date and Section -->

@@ -28,8 +28,8 @@ LANG_DIRS+=("$SITE_ROOT/public")
 # Ensure the public/images directory exists
 mkdir -p "$SITE_ROOT/public/images"
 
-# Process all images in the static/images directory
-for IMAGE in "$SITE_ROOT/static/images/"*; do
+# Process all images in the static/images directory and its subdirectories
+find "$SITE_ROOT/static/images/" -type f | while read IMAGE; do
   # Skip if not a file
   if [ ! -f "$IMAGE" ]; then
     continue
@@ -37,6 +37,17 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
   
   # Get file extension and name
   FILENAME=$(basename "$IMAGE")
+  
+  # Get relative path from static/images
+  REL_PATH=$(dirname "${IMAGE#$SITE_ROOT/static/images/}")
+  
+  # Create output directory if it doesn't exist
+  if [ "$REL_PATH" != "." ]; then
+    mkdir -p "$SITE_ROOT/public/images/$REL_PATH"
+    OUTPUT_DIR="$SITE_ROOT/public/images/$REL_PATH"
+  else
+    OUTPUT_DIR="$SITE_ROOT/public/images"
+  fi
   
   # Handle the special case of double extension (e.g., rag-vs-cag-950x950.jpg.webp)
   if [[ "$FILENAME" == *".jpg.webp" ]]; then
@@ -57,7 +68,7 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
     continue
   fi
   
-  echo "Processing $FILENAME..."
+  echo "Processing $FILENAME in $REL_PATH..."
   
   # Check if it's a WebP image
   IS_WEBP=false
@@ -74,16 +85,16 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
     echo "  Creating small size ($SMALL_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.webp"
-      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.webp"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${SMALL_WIDTH}.jpg"
     else
       # Normal case
-      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating small WebP ($SMALL_WIDTH px)..."
-        magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.webp"
+        magick "$IMAGE" -resize ${SMALL_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${SMALL_WIDTH}.webp"
       fi
     fi
   fi
@@ -94,16 +105,16 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
     echo "  Creating medium size ($MEDIUM_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.webp"
-      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.webp"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${MEDIUM_WIDTH}.jpg"
     else
       # Normal case
-      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating medium WebP ($MEDIUM_WIDTH px)..."
-        magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.webp"
+        magick "$IMAGE" -resize ${MEDIUM_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${MEDIUM_WIDTH}.webp"
       fi
     fi
   fi
@@ -114,16 +125,16 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
     echo "  Creating large size ($LARGE_WIDTH px)..."
     if [ "$IS_SPECIAL_CASE" = true ]; then
       # For special case, create both WebP and JPG
-      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.webp"
-      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.jpg"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.webp"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}-${LARGE_WIDTH}.jpg"
     else
       # Normal case
-      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.${EXTENSION}"
+      magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.${EXTENSION}"
       
       # WebP format (if not already WebP)
       if [ "$IS_WEBP" = false ]; then
         echo "  Creating large WebP ($LARGE_WIDTH px)..."
-        magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.webp"
+        magick "$IMAGE" -resize ${LARGE_WIDTH}x -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}-${LARGE_WIDTH}.webp"
       fi
     fi
   fi
@@ -131,27 +142,29 @@ for IMAGE in "$SITE_ROOT/static/images/"*; do
   # Always generate original formats if special case
   if [ "$IS_SPECIAL_CASE" = true ]; then
     echo "  Creating original JPG version..."
-    magick "$IMAGE" -quality $QUALITY_ORIG "$SITE_ROOT/public/images/${FILENAME_WITHOUT_BOTH}.jpg"
+    magick "$IMAGE" -quality $QUALITY_ORIG "$OUTPUT_DIR/${FILENAME_WITHOUT_BOTH}.jpg"
   fi
   
   # Always generate WebP version of original if not already WebP
   if [ "$IS_WEBP" = false ]; then
     echo "  Creating WebP version of original..."
-    magick "$IMAGE" -quality $QUALITY_WEBP "$SITE_ROOT/public/images/${FILENAME_WITHOUT_EXT}.webp"
+    magick "$IMAGE" -quality $QUALITY_WEBP "$OUTPUT_DIR/${FILENAME_WITHOUT_EXT}.webp"
   fi
   
   # Copy the original image to public directory
   echo "  Copying original image..."
-  cp "$IMAGE" "$SITE_ROOT/public/images/$FILENAME"
+  cp "$IMAGE" "$OUTPUT_DIR/$FILENAME"
 done
 
-# Copy all processed images to each language directory
+# Copy all processed images to each language directory, preserving directory structure
 echo "Copying processed images to language directories..."
 for LANG_DIR in "${LANG_DIRS[@]}"; do
   if [ "$LANG_DIR" != "$SITE_ROOT/public" ]; then
     echo "  Copying to $LANG_DIR/images..."
     mkdir -p "$LANG_DIR/images"
-    cp -r "$SITE_ROOT/public/images/"* "$LANG_DIR/images/"
+    
+    # Use rsync to preserve directory structure
+    rsync -a "$SITE_ROOT/public/images/" "$LANG_DIR/images/"
   fi
 done
 

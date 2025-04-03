@@ -134,19 +134,14 @@
         {{ end }}
       {{ end }}
       
-      <!-- Build srcset based on available sizes -->
-      {{ $srcset := printf "%s %dw" $smallSrc.RelPermalink $smallSrc.Width }}
-      {{ $webpSrcset := printf "%s %dw" $smallWebp.RelPermalink $smallWebp.Width }}
+      <!-- Build srcset for original format and WebP -->
+      {{ $origSrcset := printf "%s %dw" $smallSrc.RelPermalink $smallWidth }}
+      {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrc.RelPermalink $mediumWidth }}
+      {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrc.RelPermalink $largeWidth }}
       
-      {{ if ne $mediumSrc.Width $smallSrc.Width }}
-        {{ $srcset = printf "%s, %s %dw" $srcset $mediumSrc.RelPermalink $mediumSrc.Width }}
-        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebp.RelPermalink $mediumWebp.Width }}
-      {{ end }}
-      
-      {{ if ne $largeSrc.Width $mediumSrc.Width }}
-        {{ $srcset = printf "%s, %s %dw" $srcset $largeSrc.RelPermalink $largeSrc.Width }}
-        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebp.RelPermalink $largeWebp.Width }}
-      {{ end }}
+      {{ $webpSrcset := printf "%s %dw" $smallWebp.RelPermalink $smallWidth }}
+      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebp.RelPermalink $mediumWidth }}
+      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebp.RelPermalink $largeWidth }}
       
       <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
         <!-- WebP sources with lazy loading -->
@@ -159,15 +154,15 @@
         
         <!-- Original format sources with lazy loading -->
         <source 
-          type="{{ $image.MediaType }}"
-          srcset="{{ $srcset }}"
+          type="{{ cond $isJPEG "image/jpeg" (cond $isPNG "image/png" "image/webp") }}"
+          srcset="{{ $origSrcset }}"
           sizes="{{ $sizes }}"
           data-original-src="{{ $src }}"
         >
         
         <!-- Fallback image with lazy loading -->
         <img 
-          src="{{ $smallSrc.RelPermalink }}"
+          src="{{ $smallWebp.RelPermalink }}"
           alt="{{ $alt }}" 
           class="lazy-image {{ with $class }}{{ . }}{{ end }}"
           {{ with $id }}id="{{ . }}"{{ end }}
@@ -184,7 +179,7 @@
       <img 
         src="{{ $image.RelPermalink }}" 
         alt="{{ $alt }}" 
-        class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+        class="{{ with $class }}{{ . }}{{ end }}"
         {{ with $id }}id="{{ . }}"{{ end }}
         {{ with $width }}width="{{ . }}"{{ end }}
         {{ with $height }}height="{{ . }}"{{ end }}
@@ -233,6 +228,14 @@
       {{ $justFilenameWithoutExt = substr $justFilename 0 (sub (len $justFilename) (len $fileExt)) }}
     {{ end }}
     
+    <!-- Extract directory path -->
+    {{ $dirPath := path.Dir $src }}
+    {{ if eq $dirPath "." }}
+      {{ $dirPath = "" }}
+    {{ else if not (hasSuffix $dirPath "/") }}
+      {{ $dirPath = printf "%s/" $dirPath }}
+    {{ end }}
+    
     <!-- Handle special case with double extension -->
     {{ if $isSpecialCase }}
       {{ $justFilenameWithoutExt = substr $justFilenameWithoutExt 0 (sub (len $justFilenameWithoutExt) 4) }}
@@ -243,11 +246,11 @@
     
     <!-- For special case with double extension (.jpg.webp) -->
     {{ if $isSpecialCase }}
-      {{ $smallWebpPath := printf "/images/%s-150.webp" $justFilenameWithoutExt }}
-      {{ $mediumWebpPath := printf "/images/%s-300.webp" $justFilenameWithoutExt }}
-      {{ $smallJpgPath := printf "/images/%s-150.jpg" $justFilenameWithoutExt }}
-      {{ $mediumJpgPath := printf "/images/%s-300.jpg" $justFilenameWithoutExt }}
-      {{ $originalJpgPath := printf "/images/%s.jpg" $justFilenameWithoutExt }}
+      {{ $smallWebpPath := printf "%s%s-150.webp" $dirPath $justFilenameWithoutExt }}
+      {{ $mediumWebpPath := printf "%s%s-300.webp" $dirPath $justFilenameWithoutExt }}
+      {{ $smallJpgPath := printf "%s%s-150.jpg" $dirPath $justFilenameWithoutExt }}
+      {{ $mediumJpgPath := printf "%s%s-300.jpg" $dirPath $justFilenameWithoutExt }}
+      {{ $originalJpgPath := printf "%s%s.jpg" $dirPath $justFilenameWithoutExt }}
       
       <!-- Build srcset for JPG and WebP -->
       {{ $jpgSrcset := printf "%s %dw" $smallJpgPath $smallWidth }}
@@ -291,15 +294,13 @@
       </picture>
     {{ else }}
       <!-- Normal case (single extension) -->
-      {{ $smallJpgPath := printf "/images/%s-%d.jpg" $justFilenameWithoutExt $smallWidth }}
-      {{ $mediumJpgPath := printf "/images/%s-%d.jpg" $justFilenameWithoutExt $mediumWidth }}
-      {{ $largeJpgPath := printf "/images/%s-%d.jpg" $justFilenameWithoutExt $largeWidth }}
-      {{ $originalJpgPath := printf "/images/%s.jpg" $justFilenameWithoutExt }}
+      {{ $smallJpgPath := printf "%s%s-%d.jpg" $dirPath $justFilenameWithoutExt $smallWidth }}
+      {{ $mediumJpgPath := printf "%s%s-%d.jpg" $dirPath $justFilenameWithoutExt $mediumWidth }}
+      {{ $originalJpgPath := printf "%s%s.jpg" $dirPath $justFilenameWithoutExt }}
       
-      {{ $smallWebpPath := printf "/images/%s-%d.webp" $justFilenameWithoutExt $smallWidth }}
-      {{ $mediumWebpPath := printf "/images/%s-%d.webp" $justFilenameWithoutExt $mediumWidth }}
-      {{ $largeWebpPath := printf "/images/%s-%d.webp" $justFilenameWithoutExt $largeWidth }}
-      {{ $originalWebpPath := printf "/images/%s.webp" $justFilenameWithoutExt }}
+      {{ $smallWebpPath := printf "%s%s-%d.webp" $dirPath $justFilenameWithoutExt $smallWidth }}
+      {{ $mediumWebpPath := printf "%s%s-%d.webp" $dirPath $justFilenameWithoutExt $mediumWidth }}
+      {{ $originalWebpPath := printf "%s%s.webp" $dirPath $justFilenameWithoutExt }}
       
       <!-- Build srcset for JPG and WebP -->
       {{ $jpgSrcset := printf "%s %dw" $smallJpgPath $smallWidth }}

@@ -491,14 +491,9 @@ Video vyššie sa načíta iba vtedy, keď sa dostane do zobrazenia, čím sa zl
     buttonText="Spoločnosť" 
 >}}
 
-### Hlavičkové menu
-
-{{< menu-header >}}
-
 ## Komponenty cien
 
 ### Cenové plány v troch úrovniach
-
 {{< pricing-three-tiers 
     heading="Cenové plány" 
     description="Vyberte si plán, ktorý vám najviac vyhovuje." 

@@ -491,10 +491,6 @@ Das obenstehende Video sollte erst geladen werden, wenn es in den sichtbaren Ber
     buttonText="Unternehmen" 
 >}}
 
-### Header Menu
-
-{{< menu-header >}}
-
 ## Preis-Komponenten
 
 ### Preisgestaltung in drei Stufen
