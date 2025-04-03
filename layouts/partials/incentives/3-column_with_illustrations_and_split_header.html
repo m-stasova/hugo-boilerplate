@@ -60,17 +60,13 @@
         {{ range $incentives }}
           <div class="sm:flex lg:block">
             <div class="sm:shrink-0">
-              {{ if eq (hasPrefix .iconUrl "http") true }}
-                <img class="size-16" src="{{ .iconUrl }}" alt="{{ .iconAlt }}">
-              {{ else }}
-                {{ partial "lazyimg.html" (dict 
-                  "src" .iconUrl 
-                  "alt" .iconAlt 
-                  "class" "size-16" 
-                  "loading" "lazy" 
-                  "decoding" "async"
-                ) }}
-              {{ end }}
+              {{ partial "lazyimg.html" (dict 
+                "src" .iconUrl 
+                "alt" .iconAlt 
+                "class" "size-16" 
+                "loading" "lazy" 
+                "decoding" "async"
+              ) }}
             </div>
             <div class="mt-4 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
               <h3 class="text-sm font-medium text-gray-900">{{ .title }}</h3>

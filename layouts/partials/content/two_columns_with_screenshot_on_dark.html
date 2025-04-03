@@ -68,15 +68,11 @@
   </div>
   <div class="relative overflow-hidden pt-16 lg:pt-20">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      {{ if hasPrefix $screenshot "http" }}
-        <img class="mb-[-12%] rounded-xl ring-1 shadow-2xl {{ $screenshotBorderColor }}" src="{{ $screenshot }}" alt="{{ $screenshotAlt }}">
-      {{ else }}
-        {{ partial "lazyimg" (dict 
-          "src" $screenshot 
-          "alt" $screenshotAlt
-          "class" "mb-[-12%] rounded-xl ring-1 shadow-2xl {{ $screenshotBorderColor }}"
-        ) }}
-      {{ end }}
+      {{ partial "lazyimg" (dict 
+        "src" $screenshot 
+        "alt" $screenshotAlt
+        "class" "mb-[-12%] rounded-xl ring-1 shadow-2xl {{ $screenshotBorderColor }}"
+      ) }}
       <div class="relative" aria-hidden="true">
         <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t {{ $fadeColor }} pt-[7%]"></div>
       </div>

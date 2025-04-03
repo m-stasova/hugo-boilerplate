@@ -67,7 +67,13 @@
     <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
       {{ range $teamMembers }}
       <li>
-        <img class="aspect-3/2 w-full rounded-2xl object-cover" src="{{ .image }}" alt="{{ .name }}">
+        {{ partial "lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "aspect-3/2 w-full rounded-2xl object-cover" 
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
         <h3 class="mt-6 text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
         <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
         <ul role="list" class="mt-6 flex gap-x-6">

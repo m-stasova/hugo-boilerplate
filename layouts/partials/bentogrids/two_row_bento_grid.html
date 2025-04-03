@@ -62,7 +62,11 @@
         <div class="relative lg:col-span-3">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
-            <img class="h-80 object-cover object-left" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+            {{ partial "lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left"
+            ) }}
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
@@ -75,7 +79,11 @@
         <div class="relative lg:col-span-3">
           <div class="absolute inset-px rounded-lg bg-white lg:rounded-tr-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
-            <img class="h-80 object-cover object-left lg:object-right" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+            {{ partial "lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left lg:object-right"
+            ) }}
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
@@ -88,7 +96,11 @@
         <div class="relative lg:col-span-2">
           <div class="absolute inset-px rounded-lg bg-white lg:rounded-bl-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
-            <img class="h-80 object-cover object-left" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+            {{ partial "lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left"
+            ) }}
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
@@ -101,7 +113,11 @@
         <div class="relative lg:col-span-2">
           <div class="absolute inset-px rounded-lg bg-white"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
-            <img class="h-80 object-cover" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+            {{ partial "lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover"
+            ) }}
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
@@ -114,7 +130,11 @@
         <div class="relative lg:col-span-2">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
-            <img class="h-80 object-cover" src="{{ $card.image }}" alt="{{ $card.imageAlt }}">
+            {{ partial "lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover"
+            ) }}
             <div class="p-10 pt-4">
               <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>

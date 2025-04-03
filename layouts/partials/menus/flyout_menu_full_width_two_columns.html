@@ -199,7 +199,13 @@
         {{ range $blogPosts }}
         <article class="relative isolate flex max-w-2xl flex-col gap-x-8 gap-y-6 sm:flex-row sm:items-start lg:flex-col lg:items-stretch">
           <div class="relative flex-none">
-            <img class="aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" src="{{ .image }}" alt="">
+            {{ partial "lazyimg.html" (dict 
+              "src" .image 
+              "alt" "" 
+              "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-video sm:h-32 lg:h-auto" 
+              "loading" "lazy" 
+              "decoding" "async"
+            ) }}
             <div class="absolute inset-0 rounded-lg ring-1 ring-gray-900/10 ring-inset"></div>
           </div>
           <div>

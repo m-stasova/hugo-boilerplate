@@ -51,7 +51,13 @@
     <ul role="list" class="divide-y {{ $dividerColor }} xl:col-span-3">
       {{ range $teamMembers }}
       <li class="flex flex-col gap-10 py-12 first:pt-0 last:pb-0 sm:flex-row">
-        <img class="aspect-4/5 w-52 flex-none rounded-2xl object-cover" src="{{ .image }}" alt="{{ .name }}">
+        {{ partial "lazyimg.html" (dict 
+          "src" .image 
+          "alt" .name 
+          "class" "aspect-4/5 w-52 flex-none rounded-2xl object-cover" 
+          "loading" "lazy" 
+          "decoding" "async"
+        ) }}
         <div class="max-w-xl flex-auto">
           <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
           <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>

@@ -123,7 +123,7 @@ LANGUAGE_MAP = {
     'eu': 'Basque',  # Not European Union
 }
 
-def translate_text(text, target_lang, model="o3-mini"):
+def translate_text(text, target_lang, model="gpt-4o"):
     """
     Translate text using OpenAI's API
     

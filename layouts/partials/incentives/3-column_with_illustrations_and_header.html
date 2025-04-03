@@ -48,7 +48,13 @@
           <div class="sm:flex lg:block">
             <div class="sm:shrink-0">
               {{ if eq (hasPrefix .iconUrl "http") true }}
-                <img class="size-16" src="{{ .iconUrl }}" alt="{{ .iconAlt }}">
+                {{ partial "lazyimg" (dict 
+                  "src" .iconUrl 
+                  "alt" .iconAlt 
+                  "class" "size-16" 
+                  "loading" "lazy" 
+                  "decoding" "async"
+                ) }}
               {{ else }}
                 {{ partial "lazyimg.html" (dict 
                   "src" .iconUrl 
