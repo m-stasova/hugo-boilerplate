@@ -315,7 +315,7 @@ The video above should only load when it comes into view, improving page perform
 ### Features with Tiered Images
 
 {{< features-with-tiered-images 
-    subheading="Powerful features" 
+    subheading="Priklad features" 
     heading="Everything you need to succeed" 
     backgroundColor="bg-gray-100" 
 >}}
