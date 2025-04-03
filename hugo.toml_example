@@ -72,7 +72,6 @@ theme = 'boilerplate'
     bcp47Lang = "en-us"
     [languages.en.params]
       description = "English site description"
-      flag = "🇺🇸"
       gaMeasurementID = "G-PROD7890123"
     [[languages.en.menu.main]]
       identifier = "home"
@@ -94,7 +93,6 @@ theme = 'boilerplate'
     bcp47Lang = "de"
     [languages.de.params]
       description = "Deutsche Seitenbeschreibung"
-      flag = "🇩🇪"
       gaMeasurementID = "G-GERMAN12345"
     [[languages.de.menu.main]]
       identifier = "home"
@@ -116,7 +114,6 @@ theme = 'boilerplate'
     bcp47Lang = "sk"
     [languages.sk.params]
       description = "Slovenský popis stránky"
-      flag = "🇸🇰"
       gaMeasurementID = "G-SLOVAK67890"
     [[languages.sk.menu.main]]
       identifier = "home"
