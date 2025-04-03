@@ -163,8 +163,8 @@ for LANG_DIR in "${LANG_DIRS[@]}"; do
     echo "  Copying to $LANG_DIR/images..."
     mkdir -p "$LANG_DIR/images"
     
-    # Use rsync to preserve directory structure
-    rsync -a "$SITE_ROOT/public/images/" "$LANG_DIR/images/"
+    # Fallback to cp if rsync is not available
+    cp -r "$SITE_ROOT/public/images/"* "$LANG_DIR/images/" 2>/dev/null || true
   fi
 done
 
