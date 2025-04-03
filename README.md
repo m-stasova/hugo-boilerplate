@@ -30,7 +30,7 @@ This method allows you to easily update the theme when new versions are released
 cd your-hugo-site
 
 # Add the theme as a submodule
-git submodule add https://github.com/owner/hugo-boilerplate.git themes/boilerplate
+git submodule add https://github.com/qualityunit/hugo-boilerplate.git themes/boilerplate
 
 # Update your Hugo configuration to use the theme
 echo 'theme = "boilerplate"' >> hugo.toml
