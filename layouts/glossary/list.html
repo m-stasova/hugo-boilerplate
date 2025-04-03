@@ -8,7 +8,7 @@
 
     <!-- Alphabet navigation -->
     <div class="mt-10 flex flex-wrap justify-center gap-2">
-      {{ $letters := slice "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" }}
+      {{ $letters := slice "0-9" "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" }}
       {{ $glossaryTerms := where .Site.RegularPages "Section" "glossary" }}
       
       {{ range $letters }}
@@ -28,7 +28,7 @@
 
     <!-- Terms grouped by letter -->
     <div class="mt-16 space-y-16">
-      {{ $letters := slice "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" }}
+      {{ $letters := slice "0-9" "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" }}
       {{ $glossaryTerms := where .Site.RegularPages "Section" "glossary" }}
       
       {{ range $letters }}
