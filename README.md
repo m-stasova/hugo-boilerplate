@@ -337,4 +337,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This theme is released under the MIT license. See [LICENSE](LICENSE) for details.
+See [LICENSE](LICENSE) for details.
