@@ -3,3 +3,15 @@ frequently_asked_questions: "Frequently Asked Questions"
 language_selector_title: "Available Languages"
 glossary_subtitle: "A comprehensive list of terms and definitions"
 glossary_title: "Glossary"
+
+
+# Tags page translations
+tags_title: "Tags"
+tag_eyebrow: "Tag"
+tag_browse_content: "Browse all content tagged with %s"
+tag_no_content_found: "No content found with this tag"
+tag_try_browsing: "Try browsing other tags or searching for content"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Previous"
+tag_pagination_next: "Next"
+tag_other_tags: "Other Tags"
