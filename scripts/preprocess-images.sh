@@ -49,7 +49,7 @@ needs_processing() {
 
 # Function to get image dimensions using identify from ImageMagick
 get_image_width() {
-    identify -format "%w" "$1" 2>/dev/null || echo "0"
+    magick identify -format "%w" "$1" 2>/dev/null || echo "0"
 }
 
 # Function to get file size in bytes
@@ -87,11 +87,11 @@ process_image() {
             
             if [ "$is_webp" = true ]; then
                 # For WebP, just resize
-                convert "$source" -resize "${SMALL_WIDTH}x" -quality "$QUALITY_WEBP" "$small_target"
+                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_WEBP" "$small_target"
             else
                 # For other formats, create both original format and WebP
-                convert "$source" -resize "${SMALL_WIDTH}x" -quality "$QUALITY_JPG" "$small_target"
-                convert "$source" -resize "${SMALL_WIDTH}x" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${SMALL_WIDTH}.webp"
+                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_JPG" "$small_target"
+                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${SMALL_WIDTH}.webp"
             fi
             
             # Check if the processed image is larger than the original
@@ -112,11 +112,11 @@ process_image() {
             
             if [ "$is_webp" = true ]; then
                 # For WebP, just resize
-                convert "$source" -resize "${MEDIUM_WIDTH}x" -quality "$QUALITY_WEBP" "$medium_target"
+                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_WEBP" "$medium_target"
             else
                 # For other formats, create both original format and WebP
-                convert "$source" -resize "${MEDIUM_WIDTH}x" -quality "$QUALITY_JPG" "$medium_target"
-                convert "$source" -resize "${MEDIUM_WIDTH}x" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${MEDIUM_WIDTH}.webp"
+                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_JPG" "$medium_target"
+                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${MEDIUM_WIDTH}.webp"
             fi
             
             # Check if the processed image is larger than the original
@@ -137,11 +137,11 @@ process_image() {
             
             if [ "$is_webp" = true ]; then
                 # For WebP, just resize
-                convert "$source" -resize "${LARGE_WIDTH}x" -quality "$QUALITY_WEBP" "$large_target"
+                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_WEBP" "$large_target"
             else
                 # For other formats, create both original format and WebP
-                convert "$source" -resize "${LARGE_WIDTH}x" -quality "$QUALITY_JPG" "$large_target"
-                convert "$source" -resize "${LARGE_WIDTH}x" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${LARGE_WIDTH}.webp"
+                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_JPG" "$large_target"
+                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${LARGE_WIDTH}.webp"
             fi
             
             # Check if the processed image is larger than the original
@@ -159,7 +159,7 @@ process_image() {
         
         if needs_processing "$source" "$webp_target"; then
             echo "  Creating WebP version"
-            convert "$source" -quality "$QUALITY_WEBP" "$webp_target"
+            magick "$source" -quality "$QUALITY_WEBP" "$webp_target"
             
             # Check if the processed image is larger than the original
             local processed_size=$(get_file_size "$webp_target")
