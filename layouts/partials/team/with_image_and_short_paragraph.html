@@ -61,7 +61,8 @@
         {{ partial "lazyimg.html" (dict 
           "src" .image 
           "alt" .name 
-          "class" "aspect-3/2 w-full rounded-2xl object-cover" 
+          "class" "aspect-3/2 w-full rounded-2xl object-cover"
+          "maxWidth" "400px"
           "loading" "lazy" 
           "decoding" "async"
         ) }}

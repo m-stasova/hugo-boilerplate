@@ -44,17 +44,41 @@
       </div>
       <div class="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
         <div class="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
-          {{ partial "lazyimg.html" (dict "src" (index $images 0 "url") "alt" (index $images 0 "alt") "class" (index $images 0 "class")) }}
+          {{ partial "lazyimg.html" (dict 
+            "src" (index $images 0 "url") 
+            "alt" (index $images 0 "alt") 
+            "class" (index $images 0 "class")
+            "maxWidth" "400px"
+          ) }}
+          <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
         </div>
         <div class="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
           <div class="order-first flex w-64 flex-none justify-end self-end lg:w-auto">
-            {{ partial "lazyimg.html" (dict "src" (index $images 1 "url") "alt" (index $images 1 "alt") "class" (index $images 1 "class")) }}
+            {{ partial "lazyimg.html" (dict 
+              "src" (index $images 1 "url") 
+              "alt" (index $images 1 "alt") 
+              "class" (index $images 1 "class")
+              "maxWidth" "400px"
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
           </div>
           <div class="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
-            {{ partial "lazyimg.html" (dict "src" (index $images 2 "url") "alt" (index $images 2 "alt") "class" (index $images 2 "class")) }}
+            {{ partial "lazyimg.html" (dict 
+              "src" (index $images 2 "url") 
+              "alt" (index $images 2 "alt") 
+              "class" (index $images 2 "class")
+              "maxWidth" "400px"
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
           </div>
           <div class="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
-            {{ partial "lazyimg.html" (dict "src" (index $images 3 "url") "alt" (index $images 3 "alt") "class" (index $images 3 "class")) }}
+            {{ partial "lazyimg.html" (dict 
+              "src" (index $images 3 "url") 
+              "alt" (index $images 3 "alt") 
+              "class" (index $images 3 "class")
+              "maxWidth" "400px"
+            ) }}
+            <div class="absolute inset-0 rounded-lg ring-1 ring-inset ring-gray-900/10"></div>
           </div>
         </div>
       </div>

@@ -75,13 +75,16 @@
         {{ partial "lazyimg.html" (dict 
           "src" .image 
           "alt" .name 
-          "class" "aspect-14/13 w-full rounded-2xl object-cover" 
+          "class" "h-48 w-48 rounded-full"
+          "maxWidth" "192px"
           "loading" "lazy" 
           "decoding" "async"
         ) }}
-        <h3 class="mt-6 text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
-        <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
-        <p class="text-sm/6 {{ $locationColor }}">{{ .location }}</p>
+        <div class="space-y-2">
+          <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
+          <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
+          <p class="text-sm/6 {{ $locationColor }}">{{ .location }}</p>
+        </div>
       </li>
       {{ end }}
     </ul>

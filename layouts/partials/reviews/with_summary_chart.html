@@ -85,7 +85,7 @@
         <dl class="space-y-3">
           {{ range $index, $count := $ratingDistribution }}
             {{ $stars := sub 5 $index }}
-            {{ $percentage := div (mul $count 100) $totalRatings }}
+            {{ $percentage := div (mul $count 100.0) $totalRatings }}
             <div class="flex items-center text-sm">
               <dt class="flex flex-1 items-center">
                 <p class="w-3 font-medium text-gray-900">{{ $stars }}<span class="sr-only"> star reviews</span></p>
@@ -96,7 +96,30 @@
 
                   <div class="relative ml-3 flex-1">
                     <div class="h-3 rounded-full border border-gray-200 bg-gray-100"></div>
-                    <div style="width: calc({{ $count }} / {{ $totalRatings }} * 100%)" class="absolute inset-y-0 rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ $barWidth := math.Round (div (mul $count 100.0) $totalRatings) }}
+                    {{ if eq $barWidth 0 }}
+                    <div class="absolute inset-y-0 w-0 rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 10 }}
+                    <div class="absolute inset-y-0 w-[5%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 20 }}
+                    <div class="absolute inset-y-0 w-[15%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 30 }}
+                    <div class="absolute inset-y-0 w-[25%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 40 }}
+                    <div class="absolute inset-y-0 w-[35%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 50 }}
+                    <div class="absolute inset-y-0 w-[45%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 60 }}
+                    <div class="absolute inset-y-0 w-[55%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 70 }}
+                    <div class="absolute inset-y-0 w-[65%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 80 }}
+                    <div class="absolute inset-y-0 w-[75%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else if lt $barWidth 90 }}
+                    <div class="absolute inset-y-0 w-[85%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ else }}
+                    <div class="absolute inset-y-0 w-[95%] rounded-full border border-yellow-400 bg-yellow-400"></div>
+                    {{ end }}
                   </div>
                 </div>
               </dt>
@@ -124,8 +147,9 @@
               <div class="flex items-center">
                 {{ partial "lazyimg.html" (dict 
                   "src" $review.imageUrl 
-                  "alt" $review.imageAlt 
-                  "class" "size-12 rounded-full" 
+                  "alt" ($review.imageAlt | default $review.name)
+                  "class" "h-12 w-12 rounded-full"
+                  "maxWidth" "64px"
                   "loading" "lazy" 
                   "decoding" "async"
                 ) }}

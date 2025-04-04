@@ -102,7 +102,12 @@
         <article class="relative isolate flex flex-col gap-8 lg:flex-row">
           <div class="relative aspect-video sm:aspect-2/1 lg:aspect-square lg:w-64 lg:shrink-0">
             {{ if .image }}
-              {{ partial "lazyimg.html" (dict "src" .image "alt" .imageAlt "class" "absolute inset-0 size-full rounded-2xl {{ $imageBgColor }} object-cover") }}
+              {{ partial "lazyimg.html" (dict 
+                "src" .image 
+                "alt" .imageAlt 
+                "class" "absolute inset-0 size-full rounded-2xl {{ $imageBgColor }} object-cover"
+                "maxWidth" "600px"
+              ) }}
             {{ end }}
             <div class="absolute inset-0 rounded-2xl ring-1 {{ $imageRingColor }} ring-inset"></div>
           </div>
@@ -124,7 +129,12 @@
             <div class="mt-6 flex border-t {{ $borderColor }} pt-6">
               <div class="relative flex items-center gap-x-4">
                 {{ if .authorImage }}
-                  {{ partial "lazyimg.html" (dict "src" .authorImage "alt" .authorName "class" "size-10 rounded-full {{ $authorImageBg }}") }}
+                  {{ partial "lazyimg.html" (dict 
+                    "src" .authorImage 
+                    "alt" .authorName 
+                    "class" "size-10 rounded-full {{ $authorImageBg }}"
+                    "maxWidth" "64px"
+                  ) }}
                 {{ end }}
                 <div class="text-sm/6">
                   <p class="font-semibold {{ $authorNameColor }}">

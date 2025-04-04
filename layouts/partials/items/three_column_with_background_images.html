@@ -63,7 +63,12 @@
       {{ range $items }}
       <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl {{ $cardBgColor }} {{ $cardPadding }}">
         {{ if .image }}
-          {{ partial "lazyimg.html" (dict "src" .image "alt" .imageAlt "class" "absolute inset-0 -z-10 size-full object-cover") }}
+          {{ partial "lazyimg.html" (dict 
+            "src" .image 
+            "alt" .imageAlt 
+            "class" "absolute inset-0 -z-10 size-full object-cover"
+            "maxWidth" "600px"
+          ) }}
         {{ end }}
         <div class="absolute inset-0 -z-10 {{ $gradientOverlay }}"></div>
         <div class="absolute inset-0 -z-10 rounded-2xl ring-1 {{ $ringColor }} ring-inset"></div>
@@ -77,7 +82,12 @@
             </svg>
             <div class="flex gap-x-2.5">
               {{ if .authorImage }}
-                {{ partial "lazyimg.html" (dict "src" .authorImage "alt" .authorName "class" "size-6 flex-none rounded-full {{ $authorImageBg }}") }}
+                {{ partial "lazyimg.html" (dict 
+                  "src" .authorImage 
+                  "alt" .authorName 
+                  "class" "size-6 flex-none rounded-full {{ $authorImageBg }}"
+                  "maxWidth" "48px"
+                ) }}
               {{ end }}
               <span class="{{ $authorColor }}">{{ .authorName }}</span>
             </div>

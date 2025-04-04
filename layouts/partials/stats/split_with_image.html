@@ -46,9 +46,23 @@
 <div class="relative {{ $bgColor }}">
   {{ if $image }}
     {{ if eq $imagePosition "left" }}
-      {{ partial "lazyimg.html" (dict "src" $image "alt" $imageAlt "class" "h-56 w-full bg-gray-50 object-cover lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-1/2" "maxWidth" 600) }}
+      <div class="lg:absolute lg:inset-y-0 lg:left-0 lg:w-1/2">
+        {{ partial "lazyimg.html" (dict 
+          "src" $image 
+          "alt" $imageAlt
+          "class" "aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+          "maxWidth" "1024px"
+        ) }}
+      </div>
     {{ else }}
-      {{ partial "lazyimg.html" (dict "src" $image "alt" $imageAlt "class" "h-56 w-full bg-gray-50 object-cover lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-1/2" "maxWidth" 600) }}
+      <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+        {{ partial "lazyimg.html" (dict 
+          "src" $image 
+          "alt" $imageAlt
+          "class" "aspect-[3/2] w-full object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+          "maxWidth" "1024px"
+        ) }}
+      </div>
     {{ end }}
   {{ end }}
   

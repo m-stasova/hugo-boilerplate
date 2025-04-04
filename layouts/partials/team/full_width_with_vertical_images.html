@@ -63,11 +63,12 @@
         {{ partial "lazyimg.html" (dict 
           "src" .image 
           "alt" .name 
-          "class" "aspect-4/5 w-52 flex-none rounded-2xl object-cover" 
+          "class" "aspect-[3/4] w-full rounded-xl bg-gray-50 object-cover" 
+          "maxWidth" "400px"
           "loading" "lazy" 
           "decoding" "async"
         ) }}
-        <div class="flex-auto">
+        <div class="mt-4 flex items-start gap-x-4">
           <h3 class="text-lg/8 font-semibold tracking-tight {{ $nameColor }}">{{ .name }}</h3>
           <p class="text-base/7 {{ $roleColor }}">{{ .role }}</p>
           <p class="mt-6 text-base/7 {{ $bioColor }}">{{ .bio }}</p>
