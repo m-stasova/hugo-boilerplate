@@ -202,7 +202,7 @@ def get_target_languages(content_dir):
             
     return target_langs
 
-def process_files(content_dir, target_langs, max_concurrent=10, model="o3-mini"):
+def process_files(content_dir, target_langs, max_concurrent=10, model="gpt-4o"):
     """
     Process all translatable files in the English directory
     Only translate files that don't exist in the target language directories
@@ -339,7 +339,7 @@ Requirements:
     parser.add_argument(
         "--model",
         help="OpenAI model to use for translation (default: %(default)s)",
-        default="o3-mini"
+        default="gpt-4o"
     )
     
     args = parser.parse_args()

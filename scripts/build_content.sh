@@ -2,9 +2,10 @@
 # build_content.sh
 #
 # This script creates a virtual environment, installs requirements,
-# and performs two main tasks:
+# and performs three main tasks:
 # 1. Translates missing content files from English to other languages
 # 2. Generates related content YAML files for the Hugo site
+# 3. Preprocesses images for optimal web delivery
 
 set -e  # Exit immediately if a command exits with a non-zero status
 
@@ -13,18 +14,17 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 THEME_DIR="$(dirname "$SCRIPT_DIR")"
 HUGO_ROOT="$(dirname "$(dirname "$THEME_DIR")")"
 
-#print directories
-
-echo -e "${BLUE}=== Directories ===${NC}"
-echo -e "${BLUE}Script directory: ${SCRIPT_DIR}${NC}"
-echo -e "${BLUE}Theme directory: ${THEME_DIR}${NC}"
-echo -e "${BLUE}Hugo root: ${HUGO_ROOT}${NC}"
-
 # Colors for output
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+#print directories
+echo -e "${BLUE}=== Directories ===${NC}"
+echo -e "${BLUE}Script directory: ${SCRIPT_DIR}${NC}"
+echo -e "${BLUE}Theme directory: ${THEME_DIR}${NC}"
+echo -e "${BLUE}Hugo root: ${HUGO_ROOT}${NC}"
 
 echo -e "${BLUE}=== Building Content for Hugo Site ===${NC}"
 echo -e "${BLUE}Hugo root: ${HUGO_ROOT}${NC}"
@@ -60,7 +60,8 @@ if [ -z "$OPENAI_API_KEY" ]; then
     fi
 fi
 
-# Run the translation script
+# STEP 1: Run the translation script
+echo -e "${BLUE}=== Step 1: Translating Missing Content ===${NC}"
 echo -e "${YELLOW}Running translation script...${NC}"
 python "${SCRIPT_DIR}/translate_missing_files.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
@@ -68,6 +69,16 @@ echo -e "${GREEN}Translation of missing content completed!${NC}"
 # STEP 2: Generate Related Content
 echo -e "${BLUE}=== Step 2: Generating Related Content ===${NC}"
 python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
+echo -e "${GREEN}Related content generation completed!${NC}"
+
+# STEP 3: Preprocess Images
+echo -e "${BLUE}=== Step 3: Preprocessing Images ===${NC}"
+echo -e "${YELLOW}Running image preprocessing script...${NC}"
+# Source the preprocess-images.sh script to use its functions
+source "${SCRIPT_DIR}/preprocess-images.sh"
+# Run the image preprocessing
+process_all_images
+echo -e "${GREEN}Image preprocessing completed!${NC}"
 
 # Deactivate the virtual environment
 deactivate

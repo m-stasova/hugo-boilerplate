@@ -61,96 +61,130 @@
         {{ $largeWidth = $originalWidth }}
       {{ end }}
       
+      <!-- Use original image as fallback -->
       {{ $smallSrc := $image }}
       {{ $mediumSrc := $image }}
       {{ $largeSrc := $image }}
-      {{ $qualityOrig := site.Params.imaging.quality | default 85 }}
-      {{ $qualityWebp := site.Params.imaging.formats.webp.quality | default 85 }}
-      
       {{ $smallWebp := $image }}
       {{ $mediumWebp := $image }}
       {{ $largeWebp := $image }}
       
-      <!-- Generate small size if original is larger -->
-      {{ if gt $originalWidth $smallWidth }}
-        {{ if $isWebP }}
-          <!-- If already WebP, just resize -->
-          {{ $smallSrc = $image.Resize (printf "%dx q%d" $smallWidth $qualityWebp) }}
-          {{ $smallWebp = $smallSrc }}
+      <!-- Extract filename for processed image paths -->
+      {{ $filename := path.Base $src }}
+      {{ $extension := path.Ext $filename }}
+      {{ $basename := replace $filename $extension "" }}
+      {{ $dirPath := path.Dir $src }}
+      {{ if eq $dirPath "." }}
+        {{ $dirPath = "" }}
+      {{ else if not (hasSuffix $dirPath "/") }}
+        {{ $dirPath = printf "%s/" $dirPath }}
+      {{ end }}
+      
+      <!-- Define paths to preprocessed images -->
+      {{ $smallSrcPath := printf "/images/processed/%s-%d%s" $basename $smallWidth $extension }}
+      {{ $mediumSrcPath := printf "/images/processed/%s-%d%s" $basename $mediumWidth $extension }}
+      {{ $largeSrcPath := printf "/images/processed/%s-%d%s" $basename $largeWidth $extension }}
+      
+      {{ $smallWebpPath := printf "/images/processed/%s-%d.webp" $basename $smallWidth }}
+      {{ $mediumWebpPath := printf "/images/processed/%s-%d.webp" $basename $mediumWidth }}
+      {{ $largeWebpPath := printf "/images/processed/%s-%d.webp" $basename $largeWidth }}
+      {{ $originalWebpPath := printf "/images/processed/%s.webp" $basename }}
+      
+      <!-- Check if preprocessed images exist and use them -->
+      {{ $useSmallSrc := fileExists (printf "static%s" $smallSrcPath) }}
+      {{ $useMediumSrc := fileExists (printf "static%s" $mediumSrcPath) }}
+      {{ $useLargeSrc := fileExists (printf "static%s" $largeSrcPath) }}
+      
+      {{ $useSmallWebp := fileExists (printf "static%s" $smallWebpPath) }}
+      {{ $useMediumWebp := fileExists (printf "static%s" $mediumWebpPath) }}
+      {{ $useLargeWebp := fileExists (printf "static%s" $largeWebpPath) }}
+      {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
+      
+      <!-- Build srcset for original format -->
+      {{ $origSrcset := "" }}
+      {{ if $useSmallSrc }}
+        {{ $origSrcset = printf "%s %dw" $smallSrcPath $smallWidth }}
+      {{ end }}
+      
+      {{ if $useMediumSrc }}
+        {{ if $origSrcset }}
+          {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrcPath $mediumWidth }}
         {{ else }}
-          <!-- For non-WebP, create both original format and WebP -->
-          {{ $smallSrc = $image.Resize (printf "%dx q%d" $smallWidth $qualityOrig) }}
-          {{ $smallWebp = $image.Resize (printf "%dx webp q%d" $smallWidth $qualityWebp) }}
-        {{ end }}
-      {{ else }}
-        <!-- If original is smaller than small size, use the original -->
-        {{ $smallSrc = $image }}
-        {{ if $isWebP }}
-          {{ $smallWebp = $image }}
-        {{ else }}
-          {{ $smallWebp = $image.Resize (printf "%dx webp q%d" $image.Width $qualityWebp) }}
+          {{ $origSrcset = printf "%s %dw" $mediumSrcPath $mediumWidth }}
         {{ end }}
       {{ end }}
       
-      <!-- Generate medium size if original is larger -->
-      {{ if gt $originalWidth $mediumWidth }}
-        {{ if $isWebP }}
-          <!-- If already WebP, just resize -->
-          {{ $mediumSrc = $image.Resize (printf "%dx q%d" $mediumWidth $qualityWebp) }}
-          {{ $mediumWebp = $mediumSrc }}
+      {{ if $useLargeSrc }}
+        {{ if $origSrcset }}
+          {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrcPath $largeWidth }}
         {{ else }}
-          <!-- For non-WebP, create both original format and WebP -->
-          {{ $mediumSrc = $image.Resize (printf "%dx q%d" $mediumWidth $qualityOrig) }}
-          {{ $mediumWebp = $image.Resize (printf "%dx webp q%d" $mediumWidth $qualityWebp) }}
-        {{ end }}
-      {{ else }}
-        <!-- If original is smaller than medium size, use the original -->
-        {{ $mediumSrc = $image }}
-        {{ if $isWebP }}
-          {{ $mediumWebp = $image }}
-        {{ else }}
-          {{ $mediumWebp = $image.Resize (printf "%dx webp q%d" $image.Width $qualityWebp) }}
+          {{ $origSrcset = printf "%s %dw" $largeSrcPath $largeWidth }}
         {{ end }}
       {{ end }}
       
-      <!-- Generate large size if original is larger -->
-      {{ if gt $originalWidth $largeWidth }}
-        {{ if $isWebP }}
-          <!-- If already WebP, just resize -->
-          {{ $largeSrc = $image.Resize (printf "%dx q%d" $largeWidth $qualityWebp) }}
-          {{ $largeWebp = $largeSrc }}
+      <!-- If no processed images exist, use original -->
+      {{ if not $origSrcset }}
+        {{ $origSrcset = printf "%s %dw" $src $originalWidth }}
+      {{ end }}
+      
+      <!-- Build srcset for WebP format -->
+      {{ $webpSrcset := "" }}
+      {{ if $useSmallWebp }}
+        {{ $webpSrcset = printf "%s %dw" $smallWebpPath $smallWidth }}
+      {{ end }}
+      
+      {{ if $useMediumWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
         {{ else }}
-          <!-- For non-WebP, create both original format and WebP -->
-          {{ $largeSrc = $image.Resize (printf "%dx q%d" $largeWidth $qualityOrig) }}
-          {{ $largeWebp = $image.Resize (printf "%dx webp q%d" $largeWidth $qualityWebp) }}
-        {{ end }}
-      {{ else }}
-        <!-- If original is smaller than large size, use the original -->
-        {{ $largeSrc = $image }}
-        {{ if $isWebP }}
-          {{ $largeWebp = $image }}
-        {{ else }}
-          {{ $largeWebp = $image.Resize (printf "%dx webp q%d" $image.Width $qualityWebp) }}
+          {{ $webpSrcset = printf "%s %dw" $mediumWebpPath $mediumWidth }}
         {{ end }}
       {{ end }}
       
-      <!-- Build srcset for original format and WebP -->
-      {{ $origSrcset := printf "%s %dw" $smallSrc.RelPermalink $smallWidth }}
-      {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrc.RelPermalink $mediumWidth }}
-      {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrc.RelPermalink $largeWidth }}
+      {{ if $useLargeWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebpPath $largeWidth }}
+        {{ else }}
+          {{ $webpSrcset = printf "%s %dw" $largeWebpPath $largeWidth }}
+        {{ end }}
+      {{ end }}
       
-      {{ $webpSrcset := printf "%s %dw" $smallWebp.RelPermalink $smallWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebp.RelPermalink $mediumWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebp.RelPermalink $largeWidth }}
+      {{ if $useOriginalWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath $originalWidth }}
+        {{ else }}
+          {{ $webpSrcset = printf "%s %dw" $originalWebpPath $originalWidth }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- If no WebP images exist, use original -->
+      {{ if not $webpSrcset }}
+        {{ if $isWebP }}
+          {{ $webpSrcset = printf "%s %dw" $src $originalWidth }}
+        {{ else }}
+          <!-- Don't include WebP source if no WebP version exists -->
+          {{ $webpSrcset = "" }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- Determine fallback image -->
+      {{ $fallbackSrc := $src }}
+      {{ if $useSmallWebp }}
+        {{ $fallbackSrc = $smallWebpPath }}
+      {{ else if $useSmallSrc }}
+        {{ $fallbackSrc = $smallSrcPath }}
+      {{ end }}
       
       <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
         <!-- WebP sources with lazy loading -->
+        {{ if $webpSrcset }}
         <source 
           type="image/webp" 
           srcset="{{ $webpSrcset }}"
           sizes="{{ $sizes }}"
           data-original-src="{{ $src }}"
         >
+        {{ end }}
         
         <!-- Original format sources with lazy loading -->
         <source 
@@ -162,7 +196,7 @@
         
         <!-- Fallback image with lazy loading -->
         <img 
-          src="{{ $smallWebp.RelPermalink }}"
+          src="{{ $fallbackSrc }}"
           alt="{{ $alt }}" 
           class="lazy-image {{ with $class }}{{ . }}{{ end }}"
           {{ with $id }}id="{{ . }}"{{ end }}
@@ -197,15 +231,18 @@
       {{ $filenameWithoutExt = substr $src 0 (sub (len $src) (len $fileExt)) }}
     {{ end }}
     
-    <!-- Check for double extension like .jpg.webp -->
-    {{ $isSpecialCase := false }}
-    {{ $filenameWithoutBoth := $filenameWithoutExt }}
-    {{ if strings.HasSuffix $filenameWithoutExt ".jpg" }}
-      {{ $isSpecialCase = true }}
-      {{ $filenameWithoutBoth = substr $filenameWithoutExt 0 (sub (len $filenameWithoutExt) 4) }}
+    <!-- Extract filename for processed image paths -->
+    {{ $filename := path.Base $src }}
+    {{ $extension := path.Ext $filename }}
+    {{ $basename := replace $filename $extension "" }}
+    {{ $dirPath := path.Dir $src }}
+    {{ if eq $dirPath "." }}
+      {{ $dirPath = "" }}
+    {{ else if not (hasSuffix $dirPath "/") }}
+      {{ $dirPath = printf "%s/" $dirPath }}
     {{ end }}
     
-    <!-- Define image paths for different sizes -->
+    <!-- Define image sizes -->
     {{ $smallWidth := 150 }}
     {{ $mediumWidth := 300 }}
     {{ $largeWidth := $maxWidth }}
@@ -215,134 +252,124 @@
       {{ $largeWidth = 1024 }}
     {{ end }}
     
-    <!-- Determine base filename for processed images -->
-    {{ $baseFilename := $src }}
-    {{ if hasPrefix $baseFilename "/" }}
-      {{ $baseFilename = substr $baseFilename 1 }}
+    <!-- Define paths to preprocessed images -->
+    {{ $smallSrcPath := printf "/images/processed/%s-%d%s" $basename $smallWidth $extension }}
+    {{ $mediumSrcPath := printf "/images/processed/%s-%d%s" $basename $mediumWidth $extension }}
+    {{ $largeSrcPath := printf "/images/processed/%s-%d%s" $basename $largeWidth $extension }}
+    
+    {{ $smallWebpPath := printf "/images/processed/%s-%d.webp" $basename $smallWidth }}
+    {{ $mediumWebpPath := printf "/images/processed/%s-%d.webp" $basename $mediumWidth }}
+    {{ $largeWebpPath := printf "/images/processed/%s-%d.webp" $basename $largeWidth }}
+    {{ $originalWebpPath := printf "/images/processed/%s.webp" $basename }}
+    
+    <!-- Check if preprocessed images exist and use them -->
+    {{ $useSmallSrc := fileExists (printf "static%s" $smallSrcPath) }}
+    {{ $useMediumSrc := fileExists (printf "static%s" $mediumSrcPath) }}
+    {{ $useLargeSrc := fileExists (printf "static%s" $largeSrcPath) }}
+    
+    {{ $useSmallWebp := fileExists (printf "static%s" $smallWebpPath) }}
+    {{ $useMediumWebp := fileExists (printf "static%s" $mediumWebpPath) }}
+    {{ $useLargeWebp := fileExists (printf "static%s" $largeWebpPath) }}
+    {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
+    
+    <!-- Build srcset for original format -->
+    {{ $origSrcset := "" }}
+    {{ if $useSmallSrc }}
+      {{ $origSrcset = printf "%s %dw" $smallSrcPath $smallWidth }}
     {{ end }}
     
-    <!-- Extract just the filename without path -->
-    {{ $justFilename := path.Base $baseFilename }}
-    {{ $justFilenameWithoutExt := $justFilename }}
-    {{ if $fileExt }}
-      {{ $justFilenameWithoutExt = substr $justFilename 0 (sub (len $justFilename) (len $fileExt)) }}
+    {{ if $useMediumSrc }}
+      {{ if $origSrcset }}
+        {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrcPath $mediumWidth }}
+      {{ else }}
+        {{ $origSrcset = printf "%s %dw" $mediumSrcPath $mediumWidth }}
+      {{ end }}
     {{ end }}
     
-    <!-- Extract directory path -->
-    {{ $dirPath := path.Dir $src }}
-    {{ if eq $dirPath "." }}
-      {{ $dirPath = "" }}
-    {{ else if not (hasSuffix $dirPath "/") }}
-      {{ $dirPath = printf "%s/" $dirPath }}
+    {{ if $useLargeSrc }}
+      {{ if $origSrcset }}
+        {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrcPath $largeWidth }}
+      {{ else }}
+        {{ $origSrcset = printf "%s %dw" $largeSrcPath $largeWidth }}
+      {{ end }}
     {{ end }}
     
-    <!-- Handle special case with double extension -->
-    {{ if $isSpecialCase }}
-      {{ $justFilenameWithoutExt = substr $justFilenameWithoutExt 0 (sub (len $justFilenameWithoutExt) 4) }}
+    <!-- If no processed images exist, use original -->
+    {{ if not $origSrcset }}
+      {{ $origSrcset = printf "%s %dw" $src 1024 }}
     {{ end }}
     
-    <!-- Define paths for processed images based on the actual filenames in the public directory -->
-    {{ $originalPath := $src }}
-    
-    <!-- For special case with double extension (.jpg.webp) -->
-    {{ if $isSpecialCase }}
-      {{ $smallWebpPath := printf "%s%s-150.webp" $dirPath $justFilenameWithoutExt }}
-      {{ $mediumWebpPath := printf "%s%s-300.webp" $dirPath $justFilenameWithoutExt }}
-      {{ $smallJpgPath := printf "%s%s-150.jpg" $dirPath $justFilenameWithoutExt }}
-      {{ $mediumJpgPath := printf "%s%s-300.jpg" $dirPath $justFilenameWithoutExt }}
-      {{ $originalJpgPath := printf "%s%s.jpg" $dirPath $justFilenameWithoutExt }}
-      
-      <!-- Build srcset for JPG and WebP -->
-      {{ $jpgSrcset := printf "%s %dw" $smallJpgPath $smallWidth }}
-      {{ $jpgSrcset = printf "%s, %s %dw" $jpgSrcset $mediumJpgPath $mediumWidth }}
-      {{ $jpgSrcset = printf "%s, %s %dw" $jpgSrcset $originalJpgPath $largeWidth }}
-      
-      {{ $webpSrcset := printf "%s %dw" $smallWebpPath $smallWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalPath $largeWidth }}
-      
-      <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
-        <!-- WebP sources with lazy loading -->
-        <source 
-          type="image/webp" 
-          srcset="{{ $webpSrcset }}"
-          sizes="{{ $sizes }}"
-          data-original-src="{{ $src }}"
-        >
-        
-        <!-- Original format sources with lazy loading -->
-        <source 
-          type="image/jpeg"
-          srcset="{{ $jpgSrcset }}"
-          sizes="{{ $sizes }}"
-          data-original-src="{{ $src }}"
-        >
-        
-        <!-- Fallback image with lazy loading -->
-        <img 
-          src="{{ $smallWebpPath }}"
-          alt="{{ $alt }}" 
-          class="lazy-image {{ with $class }}{{ . }}{{ end }}"
-          {{ with $id }}id="{{ . }}"{{ end }}
-          {{ with $width }}width="{{ . }}"{{ end }}
-          {{ with $height }}height="{{ . }}"{{ end }}
-          loading="lazy"
-          decoding="async"
-          data-original-src="{{ $src }}"
-          {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
-        >
-      </picture>
-    {{ else }}
-      <!-- Normal case (single extension) -->
-      {{ $smallJpgPath := printf "%s%s-%d.jpg" $dirPath $justFilenameWithoutExt $smallWidth }}
-      {{ $mediumJpgPath := printf "%s%s-%d.jpg" $dirPath $justFilenameWithoutExt $mediumWidth }}
-      {{ $originalJpgPath := printf "%s%s.jpg" $dirPath $justFilenameWithoutExt }}
-      
-      {{ $smallWebpPath := printf "%s%s-%d.webp" $dirPath $justFilenameWithoutExt $smallWidth }}
-      {{ $mediumWebpPath := printf "%s%s-%d.webp" $dirPath $justFilenameWithoutExt $mediumWidth }}
-      {{ $originalWebpPath := printf "%s%s.webp" $dirPath $justFilenameWithoutExt }}
-      
-      <!-- Build srcset for JPG and WebP -->
-      {{ $jpgSrcset := printf "%s %dw" $smallJpgPath $smallWidth }}
-      {{ $jpgSrcset = printf "%s, %s %dw" $jpgSrcset $mediumJpgPath $mediumWidth }}
-      {{ $jpgSrcset = printf "%s, %s %dw" $jpgSrcset $originalJpgPath $largeWidth }}
-      
-      {{ $webpSrcset := printf "%s %dw" $smallWebpPath $smallWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
-      {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath $largeWidth }}
-      
-      <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
-        <!-- WebP sources with lazy loading -->
-        <source 
-          type="image/webp" 
-          srcset="{{ $webpSrcset }}"
-          sizes="{{ $sizes }}"
-          data-original-src="{{ $src }}"
-        >
-        
-        <!-- Original format sources with lazy loading -->
-        <source 
-          type="image/jpeg"
-          srcset="{{ $jpgSrcset }}"
-          sizes="{{ $sizes }}"
-          data-original-src="{{ $src }}"
-        >
-        
-        <!-- Fallback image with lazy loading -->
-        <img 
-          src="{{ $smallWebpPath }}"
-          alt="{{ $alt }}" 
-          class="lazy-image {{ with $class }}{{ . }}{{ end }}"
-          {{ with $id }}id="{{ . }}"{{ end }}
-          {{ with $width }}width="{{ . }}"{{ end }}
-          {{ with $height }}height="{{ . }}"{{ end }}
-          loading="lazy"
-          decoding="async"
-          data-original-src="{{ $src }}"
-          {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
-        >
-      </picture>
+    <!-- Build srcset for WebP format -->
+    {{ $webpSrcset := "" }}
+    {{ if $useSmallWebp }}
+      {{ $webpSrcset = printf "%s %dw" $smallWebpPath $smallWidth }}
     {{ end }}
+    
+    {{ if $useMediumWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $mediumWebpPath $mediumWidth }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $useLargeWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebpPath $largeWidth }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $largeWebpPath $largeWidth }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $useOriginalWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath 1024 }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $originalWebpPath 1024 }}
+      {{ end }}
+    {{ end }}
+    
+    <!-- Determine fallback image -->
+    {{ $fallbackSrc := $src }}
+    {{ if $useSmallWebp }}
+      {{ $fallbackSrc = $smallWebpPath }}
+    {{ else if $useSmallSrc }}
+      {{ $fallbackSrc = $smallSrcPath }}
+    {{ end }}
+    
+    <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
+      <!-- WebP sources with lazy loading -->
+      {{ if $webpSrcset }}
+      <source 
+        type="image/webp" 
+        srcset="{{ $webpSrcset }}"
+        sizes="{{ $sizes }}"
+        data-original-src="{{ $src }}"
+      >
+      {{ end }}
+      
+      <!-- Original format sources with lazy loading -->
+      <source 
+        type="{{ cond (or (strings.HasSuffix $src ".jpg") (strings.HasSuffix $src ".jpeg")) "image/jpeg" (cond (strings.HasSuffix $src ".png") "image/png" "image/webp") }}"
+        srcset="{{ $origSrcset }}"
+        sizes="{{ $sizes }}"
+        data-original-src="{{ $src }}"
+      >
+      
+      <!-- Fallback image with lazy loading -->
+      <img 
+        src="{{ $fallbackSrc }}"
+        alt="{{ $alt }}" 
+        class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+        {{ with $id }}id="{{ . }}"{{ end }}
+        {{ with $width }}width="{{ . }}"{{ end }}
+        {{ with $height }}height="{{ . }}"{{ end }}
+        loading="lazy"
+        decoding="async"
+        data-original-src="{{ $src }}"
+        {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+      >
+    </picture>
   {{ end }}
 {{ else }}
   <!-- External image, just use as is -->
