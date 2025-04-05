@@ -1,20 +1,20 @@
-# German translations
-language_selector_title: "Verfügbare Sprachen"
+
+# English translations
 frequently_asked_questions: "Häufig gestellte Fragen"
+language_selector_title: "Verfügbare Sprachen"
 glossary_subtitle: "Eine umfassende Liste von Begriffen und Definitionen"
 glossary_title: "Glossar"
-home_title: "Startseite"
 
 # Tags page translations
-tags_title: "Schlagwörter"
-tag_eyebrow: "Schlagwort"
-tag_browse_content: "Alle Inhalte mit dem Schlagwort %s durchsuchen"
-tag_no_content_found: "Keine Inhalte mit diesem Schlagwort gefunden"
-tag_try_browsing: "Versuchen Sie, andere Schlagwörter zu durchsuchen oder nach Inhalten zu suchen"
+tags_title: "Tags"
+tag_eyebrow: "Tag"
+tag_browse_content: "Alle Inhalte mit dem Tag %s durchsuchen"
+tag_no_content_found: "Keine Inhalte mit diesem Tag gefunden"
+tag_try_browsing: "Versuchen Sie, andere Tags zu durchsuchen oder nach Inhalten zu suchen"
 tag_pagination_page: "%d / %d (%d)"
-tag_pagination_previous: "Zurück"
-tag_pagination_next: "Weiter"
-tag_other_tags: "Andere Schlagwörter"
+tag_pagination_previous: "Vorherige"
+tag_pagination_next: "Nächste"
+tag_other_tags: "Weitere Tags"
 
 # Cookie consent translations
 cookie_consent_title: "Cookie-Zustimmung"
@@ -25,7 +25,7 @@ cookie_consent_settings: "Cookie-Einstellungen"
 cookie_settings_title: "Cookie-Einstellungen"
 cookie_settings_close: "Schließen"
 cookie_settings_necessary_title: "Notwendige Cookies"
-cookie_settings_necessary_description: "Diese Cookies sind für die Funktion der Website erforderlich und können nicht deaktiviert werden."
+cookie_settings_necessary_description: "Diese Cookies sind erforderlich, damit die Website funktioniert und können nicht deaktiviert werden."
 cookie_settings_analytics_title: "Analyse-Cookies"
 cookie_settings_analytics_description: "Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren."
 cookie_settings_cancel: "Abbrechen"
