@@ -1,4 +1,4 @@
-```yaml
+
 # English translations
 frequently_asked_questions: "الأسئلة الشائعة"
 language_selector_title: "اللغات المتاحة"
@@ -30,4 +30,3 @@ cookie_settings_analytics_title: "ملفات تعريف الارتباط الت�
 cookie_settings_analytics_description: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا."
 cookie_settings_cancel: "إلغاء"
 cookie_settings_save: "حفظ التفضيلات"
-```
