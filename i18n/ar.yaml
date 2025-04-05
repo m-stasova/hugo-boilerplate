@@ -1,0 +1,33 @@
+```yaml
+# English translations
+frequently_asked_questions: "الأسئلة الشائعة"
+language_selector_title: "اللغات المتاحة"
+glossary_subtitle: "قائمة شاملة بالمصطلحات والتعريفات"
+glossary_title: "المصطلحات"
+
+# Tags page translations
+tags_title: "العلامات"
+tag_eyebrow: "علامة"
+tag_browse_content: "تصفح جميع المحتويات المعلّمة بـ %s"
+tag_no_content_found: "لم يتم العثور على محتوى بهذه العلامة"
+tag_try_browsing: "جرب تصفح العلامات الأخرى أو البحث عن محتوى"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "السابق"
+tag_pagination_next: "التالي"
+tag_other_tags: "علامات أخرى"
+
+# Cookie consent translations
+cookie_consent_title: "الموافقة على ملفات تعريف الارتباط"
+cookie_consent_message: "نستخدم ملفات تعريف الارتباط لتعزيز تجربة التصفح وتحليل حركة المرور لدينا."
+cookie_consent_accept_all: "قبول الكل"
+cookie_consent_accept_necessary: "قبول الضروري فقط"
+cookie_consent_settings: "إعدادات ملفات تعريف الارتباط"
+cookie_settings_title: "إعدادات ملفات تعريف الارتباط"
+cookie_settings_close: "إغلاق"
+cookie_settings_necessary_title: "ملفات تعريف الارتباط الضرورية"
+cookie_settings_necessary_description: "تلك الملفات ضرورية لعمل الموقع ولا يمكن تعطيلها."
+cookie_settings_analytics_title: "ملفات تعريف الارتباط التحليلية"
+cookie_settings_analytics_description: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا."
+cookie_settings_cancel: "إلغاء"
+cookie_settings_save: "حفظ التفضيلات"
+```

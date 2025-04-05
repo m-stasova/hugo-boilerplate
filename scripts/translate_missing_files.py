@@ -301,7 +301,8 @@ def process_files(content_dir, target_langs, max_concurrent=10, model="gpt-4o"):
 
 def translate_i18n_files(i18n_dir, model="gpt-4o"):
     """
-    Translate the en.yaml file to all languages and save as [lang].en.yaml
+    Translate the en.yaml file to missing languages and save as [lang].yaml
+    Skip languages that already have translation files.
     
     Args:
         i18n_dir (Path): Path to the i18n directory
@@ -325,18 +326,29 @@ def translate_i18n_files(i18n_dir, model="gpt-4o"):
     # Get all language codes from LANGUAGE_MAP except 'en'
     target_langs = [lang for lang in LANGUAGE_MAP.keys() if lang != 'en' and '-' not in lang]
     
+    # Filter out languages that already have translation files
+    missing_langs = []
+    for lang in target_langs:
+        target_file = i18n_dir / f"{lang}.yaml"  # Changed from {lang}.en.yaml
+        if not target_file.exists():
+            missing_langs.append(lang)
+    
+    if not missing_langs:
+        print("All language files already exist in i18n directory. No translation needed.")
+        return
+    
     print(f"Source file: {en_yaml_path}")
-    print(f"Target languages: {', '.join(target_langs)}")
+    print(f"Missing languages to translate: {', '.join(missing_langs)}")
     
     # Track statistics
     files_translated = 0
     files_failed = 0
     
     # Create a progress bar
-    with tqdm(total=len(target_langs), desc="Translating i18n files") as progress_bar:
-        # Process each target language
-        for target_lang in target_langs:
-            target_file = i18n_dir / f"{target_lang}.en.yaml"
+    with tqdm(total=len(missing_langs), desc="Translating i18n files") as progress_bar:
+        # Process each missing language
+        for target_lang in missing_langs:
+            target_file = i18n_dir / f"{target_lang}.yaml"  # Changed from {target_lang}.en.yaml
             
             try:
                 # Translate the content
@@ -361,7 +373,7 @@ def translate_i18n_files(i18n_dir, model="gpt-4o"):
     print("\nI18n Translation Summary:")
     print(f"Files translated: {files_translated}")
     print(f"Files failed: {files_failed}")
-    print(f"Total target files: {len(target_langs)}")
+    print(f"Total missing files: {len(missing_langs)}")
 
 def main():
     """Main function to parse arguments and process files"""
