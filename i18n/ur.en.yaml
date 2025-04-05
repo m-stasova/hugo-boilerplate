@@ -1,0 +1,32 @@
+
+# انگلش تراجم
+frequently_asked_questions: "اکثر پوچھے گئے سوالات"
+language_selector_title: "دستیاب زبانیں"
+glossary_subtitle: "اصطلاحات اور تعریفات کی جامع فہرست"
+glossary_title: "اصطلاحات"
+
+# ٹیگز صفحہ کے تراجم
+tags_title: "ٹیگز"
+tag_eyebrow: "ٹیگ"
+tag_browse_content: "تمام مواد کو %s کے ٹیگ کے ساتھ براؤز کریں"
+tag_no_content_found: "اس ٹیگ کے ساتھ کوئی مواد نہیں ملا"
+tag_try_browsing: "دیگر ٹیگز یا مواد کی تلاش کو آزمائیں"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "پچھلا"
+tag_pagination_next: "اگلا"
+tag_other_tags: "دیگر ٹیگز"
+
+# کوکیز کی رضامندی کے تراجم
+cookie_consent_title: "کوکیز کی رضامندی"
+cookie_consent_message: "ہم آپ کی براؤزنگ کے تجربے کو بہتر بنانے اور ہماری ٹریفک کا تجزیہ کرنے کے لیے کوکیز کا استعمال کرتے ہیں۔"
+cookie_consent_accept_all: "سب قبول کریں"
+cookie_consent_accept_necessary: "صرف ضروری قبول کریں"
+cookie_consent_settings: "کوکی ترتیبات"
+cookie_settings_title: "کوکی ترتیبات"
+cookie_settings_close: "بند کریں"
+cookie_settings_necessary_title: "ضروری کوکیز"
+cookie_settings_necessary_description: "یہ کوکیز ویب سائٹ کے کام کے لیے ضروری ہیں اور ان کو غیر فعال نہیں کیا جا سکتا۔"
+cookie_settings_analytics_title: "تجارتی تجزیاتی کوکیز"
+cookie_settings_analytics_description: "یہ کوکیز ہمیں یہ سمجھنے میں مدد کرتی ہیں کہ وزیٹر ہماری ویب سائٹ کے ساتھ کیسے تعامل کرتے ہیں۔"
+cookie_settings_cancel: "منسوخ کریں"
+cookie_settings_save: "ترجیحات محفوظ کریں"

@@ -1,0 +1,31 @@
+# English translations
+frequently_asked_questions: "அடிக்கடி கேட்கப்படும் கேள்விகள்"
+language_selector_title: "கிடைக்கும் மொழிகள்"
+glossary_subtitle: "ப termeகளின் மற்றும் விளக்கங்களின் விரிவான பட்டியல்"
+glossary_title: "சொல்லகம்"
+
+# Tags page translations
+tags_title: "குறிச்சொற்கள்"
+tag_eyebrow: "குறிச்சொல்"
+tag_browse_content: "இந்த குறிச்சொல்லோடு குறிக்கப்பட்டுள்ள அனைத்துப் பதிவுகளையும் உலாவவும் %s"
+tag_no_content_found: "இந்த குறிச்சொல்லோடு உள்ளடக்கம் எதுவும் இல்லை"
+tag_try_browsing: "மற்ற குறிச்சொற்களை உலாவ விரும்பிய பிறகு களஞ்சியத்தில் தேடு"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "முந்தைய"
+tag_pagination_next: "அடுத்தது"
+tag_other_tags: "மற்ற குறிச்சொற்கள்"
+
+# Cookie consent translations
+cookie_consent_title: "குக்கி ஒப்புதல்"
+cookie_consent_message: "உங்கள் உலாவல் அனுபவத்தை மேம்படுத்தவும், எங்கள் போக்குவரத்தை பகுப்பாய்வு செய்யவும் நாங்கள் குக்கிகளை பயன்படுத்துகிறோம்."
+cookie_consent_accept_all: "அனைத்தையும் ஏற்கவும்"
+cookie_consent_accept_necessary: "தேவைப்படும்வற்றை மட்டும் ஏற்கவும்"
+cookie_consent_settings: "குக்கி அமைப்புகள்"
+cookie_settings_title: "குக்கி அமைப்புகள்"
+cookie_settings_close: "மூடு"
+cookie_settings_necessary_title: "தவிர்க்க முடியாத குக்கிகள்"
+cookie_settings_necessary_description: "இந்த குக்கிகள் இணையதளம் செயல்பட தேவையானவை மற்றும் அவற்றை முடக்க முடியாது."
+cookie_settings_analytics_title: "பகுப்பாய்வு குக்கிகள்"
+cookie_settings_analytics_description: "வருகையாளர்கள் எங்கள் இணையதளத்துடன் எவ்வாறு தொடர்பு கொள்கிறார்கள் என்பதை புரிந்து கொள்ள இந்த குக்கிகள் உதவுகின்றன."
+cookie_settings_cancel: "ரத்துசெய்"
+cookie_settings_save: "விருப்பங்களைச் சேமிக்கவும்"

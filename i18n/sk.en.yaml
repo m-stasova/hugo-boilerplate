@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Najčastejšie kladené otázky"
+language_selector_title: "Dostupné jazyky"
+glossary_subtitle: "Komplexný zoznam pojmov a definícií"
+glossary_title: "Glosár"
+
+# Tags page translations
+tags_title: "Tagy"
+tag_eyebrow: "Tag"
+tag_browse_content: "Prehľadávať všetok obsah označený %s"
+tag_no_content_found: "Nenašiel sa žiadny obsah s týmto tagom"
+tag_try_browsing: "Skúste prehľadávať iné tagy alebo vyhľadávať obsah"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Predchádzajúca"
+tag_pagination_next: "Nasledujúca"
+tag_other_tags: "Iné tagy"
+
+# Cookie consent translations
+cookie_consent_title: "Súhlas s cookies"
+cookie_consent_message: "Používame cookies na vylepšenie vášho prehliadania a analýzu našej návštevnosti."
+cookie_consent_accept_all: "Prijať všetky"
+cookie_consent_accept_necessary: "Prijať len nevyhnutné"
+cookie_consent_settings: "Nastavenia cookies"
+cookie_settings_title: "Nastavenia cookies"
+cookie_settings_close: "Zavrieť"
+cookie_settings_necessary_title: "Nevyhnutné cookies"
+cookie_settings_necessary_description: "Tieto cookies sú potrebné na fungovanie webovej stránky a nemožno ich zakázať."
+cookie_settings_analytics_title: "Analytické cookies"
+cookie_settings_analytics_description: "Tieto cookies nám pomáhajú pochopiť, ako návštevníci interagujú s našou webovou stránkou."
+cookie_settings_cancel: "Zrušiť"
+cookie_settings_save: "Uložiť preferencie"

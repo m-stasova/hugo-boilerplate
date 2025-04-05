@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Ohiko Galderak"
+language_selector_title: "Hizkuntza Aukeragarriak"
+glossary_subtitle: "Termino eta definizioen zerrenda osoa"
+glossary_title: "Glosarioa"
+
+# Tags page translations
+tags_title: "Etiketak"
+tag_eyebrow: "Etiketa"
+tag_browse_content: "Bilatu %s etiketarekin markatutako eduki guztia"
+tag_no_content_found: "Ez da edukirik aurkitu etiketa honekin"
+tag_try_browsing: "Saiatu beste etiketak arakatzen edo edukia bilatzen"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Aurrekoa"
+tag_pagination_next: "Hurrengoa"
+tag_other_tags: "Beste Etiketak"
+
+# Cookie consent translations
+cookie_consent_title: "Cookieen Onarpena"
+cookie_consent_message: "Cookieak erabiltzen ditugu zure arakatze-esperientzia hobetzeko eta gure trafikoa aztertzeko."
+cookie_consent_accept_all: "Onartu Guztiak"
+cookie_consent_accept_necessary: "Onartu Beharrezkoak Besterik Ez"
+cookie_consent_settings: "Cookie Hobespenak"
+cookie_settings_title: "Cookie Hobespenak"
+cookie_settings_close: "Itxi"
+cookie_settings_necessary_title: "Beharrezko Cookieak"
+cookie_settings_necessary_description: "Cookie hauek webguneak funtzionatzeko beharrezkoak dira eta ezin dira desgaitu."
+cookie_settings_analytics_title: "Analitika Cookieak"
+cookie_settings_analytics_description: "Cookie hauek bisitariek gure webgunearekin nola elkarreragiten duten ulertzen laguntzen digute."
+cookie_settings_cancel: "Utzi"
+cookie_settings_save: "Gorde Hobespenak"

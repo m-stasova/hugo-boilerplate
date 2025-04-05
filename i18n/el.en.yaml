@@ -1,0 +1,32 @@
+
+# Μεταφράσεις στα ελληνικά
+frequently_asked_questions: "Συχνές Ερωτήσεις"
+language_selector_title: "Διαθέσιμες Γλώσσες"
+glossary_subtitle: "Μία εκτενής λίστα όρων και ορισμών"
+glossary_title: "Γλωσσάριο"
+
+# Μεταφράσεις σελίδας ετικετών
+tags_title: "Ετικέτες"
+tag_eyebrow: "Ετικέτα"
+tag_browse_content: "Περιηγηθείτε σε όλο το περιεχόμενο με ετικέτα %s"
+tag_no_content_found: "Δεν βρέθηκε περιεχόμενο με αυτή την ετικέτα"
+tag_try_browsing: "Δοκιμάστε να περιηγηθείτε σε άλλες ετικέτες ή να αναζητήσετε περιεχόμενο"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Προηγούμενη"
+tag_pagination_next: "Επόμενη"
+tag_other_tags: "Άλλες Ετικέτες"
+
+# Μεταφράσεις για τη συγκατάθεση cookies
+cookie_consent_title: "Συγκατάθεση για Cookies"
+cookie_consent_message: "Χρησιμοποιούμε cookies για να βελτιώσουμε την πλοήγησή σας και να αναλύσουμε την επισκεψιμότητά μας."
+cookie_consent_accept_all: "Αποδοχή Όλων"
+cookie_consent_accept_necessary: "Αποδοχή Μόνο Απαραίτητων"
+cookie_consent_settings: "Ρυθμίσεις Cookies"
+cookie_settings_title: "Ρυθμίσεις Cookies"
+cookie_settings_close: "Κλείσιμο"
+cookie_settings_necessary_title: "Απαραίτητα Cookies"
+cookie_settings_necessary_description: "Αυτά τα cookies είναι απαραίτητα για τη λειτουργία της ιστοσελίδας και δεν μπορούν να απενεργοποιηθούν."
+cookie_settings_analytics_title: "Cookies Αναλυτικής"
+cookie_settings_analytics_description: "Αυτά τα cookies μας βοηθούν να κατανοήσουμε πώς οι επισκέπτες αλληλεπιδρούν με την ιστοσελίδα μας."
+cookie_settings_cancel: "Ακύρωση"
+cookie_settings_save: "Αποθήκευση Προτιμήσεων"

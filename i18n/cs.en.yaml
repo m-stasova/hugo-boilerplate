@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Často kladené otázky"
+language_selector_title: "Dostupné jazyky"
+glossary_subtitle: "Komplexní seznam termínů a definic"
+glossary_title: "Slovník"
+
+# Tags page translations
+tags_title: "Štítky"
+tag_eyebrow: "Štítek"
+tag_browse_content: "Procházet veškerý obsah označený %s"
+tag_no_content_found: "Žádný obsah s tímto štítkem nebyl nalezen"
+tag_try_browsing: "Zkuste procházet jiné štítky nebo vyhledávat obsah"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Předchozí"
+tag_pagination_next: "Další"
+tag_other_tags: "Další štítky"
+
+# Cookie consent translations
+cookie_consent_title: "Souhlas s cookies"
+cookie_consent_message: "Používáme cookies ke zlepšení vašeho prohlížení a analýze naší návštěvnosti."
+cookie_consent_accept_all: "Přijmout vše"
+cookie_consent_accept_necessary: "Přijmout pouze nezbytné"
+cookie_consent_settings: "Nastavení cookies"
+cookie_settings_title: "Nastavení cookies"
+cookie_settings_close: "Zavřít"
+cookie_settings_necessary_title: "Nezbytné cookies"
+cookie_settings_necessary_description: "Tyto cookies jsou potřebné pro fungování webu a nelze je zakázat."
+cookie_settings_analytics_title: "Analytické cookies"
+cookie_settings_analytics_description: "Tyto cookies nám pomáhají porozumět, jak návštěvníci interagují s naším webem."
+cookie_settings_cancel: "Zrušit"
+cookie_settings_save: "Uložit preference"

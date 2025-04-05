@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "अक्सर पूछे जाने वाले प्रश्न"
+language_selector_title: "उपलब्ध भाषाएँ"
+glossary_subtitle: "शब्दावली और परिभाषाओं की व्यापक सूची"
+glossary_title: "शब्दावली"
+
+# Tags page translations
+tags_title: "टैग्स"
+tag_eyebrow: "टैग"
+tag_browse_content: "सभी सामग्री ब्राउज़ करें जो %s के टैग के साथ है"
+tag_no_content_found: "इस टैग के साथ कोई सामग्री नहीं मिली"
+tag_try_browsing: "अन्य टैग ब्राउज़ करने या सामग्री खोजने का प्रयास करें"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "पिछला"
+tag_pagination_next: "अगला"
+tag_other_tags: "अन्य टैग्स"
+
+# Cookie consent translations
+cookie_consent_title: "कुकी स्वीकृति"
+cookie_consent_message: "हम आपकी ब्राउज़िंग अनुभव को बेहतर बनाने और हमारे ट्रैफिक का विश्लेषण करने के लिए कुकीज़ का उपयोग करते हैं।"
+cookie_consent_accept_all: "सभी स्वीकार करें"
+cookie_consent_accept_necessary: "केवल आवश्यक स्वीकार करें"
+cookie_consent_settings: "कुकी सेटिंग्स"
+cookie_settings_title: "कुकी सेटिंग्स"
+cookie_settings_close: "बंद करें"
+cookie_settings_necessary_title: "आवश्यक कुकीज़"
+cookie_settings_necessary_description: "ये कुकीज़ वेबसाइट की कार्यक्षमता के लिए आवश्यक हैं और इन्हें बंद नहीं किया जा सकता।"
+cookie_settings_analytics_title: "एनालिटिक्स कुकीज़"
+cookie_settings_analytics_description: "ये कुकीज़ हमें यह समझने में मदद करती हैं कि आगंतुक हमारी वेबसाइट के साथ कैसे बातचीत करते हैं।"
+cookie_settings_cancel: "रद्द करें"
+cookie_settings_save: "प्रेफरेन्स सहेजें"

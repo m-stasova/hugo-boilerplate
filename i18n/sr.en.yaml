@@ -1,0 +1,33 @@
+
+# English translations
+frequently_asked_questions: "Često Postavljana Pitanja"
+language_selector_title: "Dostupni Jezici"
+glossary_subtitle: "Sveobuhvatan spisak termina i definicija"
+glossary_title: "Rečnik"
+
+
+# Tags page translations
+tags_title: "Oznake"
+tag_eyebrow: "Oznaka"
+tag_browse_content: "Pregledajte sav sadržaj označen sa %s"
+tag_no_content_found: "Nije pronađen sadržaj sa ovom oznakom"
+tag_try_browsing: "Pokušajte pretražiti druge oznake ili tražiti sadržaj"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Prethodna"
+tag_pagination_next: "Sledeća"
+tag_other_tags: "Druge Oznake"
+
+# Cookie consent translations
+cookie_consent_title: "Saglasnost za Kolačiće"
+cookie_consent_message: "Koristimo kolačiće za poboljšanje vašeg iskustva pretraživanja i analizu našeg saobraćaja."
+cookie_consent_accept_all: "Prihvati Sve"
+cookie_consent_accept_necessary: "Prihvati Samo Neophodne"
+cookie_consent_settings: "Postavke Kolačića"
+cookie_settings_title: "Postavke Kolačića"
+cookie_settings_close: "Zatvori"
+cookie_settings_necessary_title: "Neophodni Kolačići"
+cookie_settings_necessary_description: "Ovi kolačići su potrebni za funkcionisanje sajta i ne mogu biti onemogućeni."
+cookie_settings_analytics_title: "Analitički Kolačići"
+cookie_settings_analytics_description: "Ovi kolačići nam pomažu da razumemo kako posetioci koriste naš sajt."
+cookie_settings_cancel: "Otkaži"
+cookie_settings_save: "Sačuvaj Preferencije"

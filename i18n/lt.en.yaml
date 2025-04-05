@@ -1,0 +1,34 @@
+
+# English translations
+frequently_asked_questions: "Dažniausiai užduodami klausimai"
+language_selector_title: "Galimos kalbos"
+glossary_subtitle: "Išsamus terminų ir apibrėžimų sąrašas"
+glossary_title: "Žodynėlis"
+
+
+# Tags page translations
+tags_title: "Žymos"
+tag_eyebrow: "Žyma"
+tag_browse_content: "Naršykite visą turinį pažymėtą %s"
+tag_no_content_found: "Turinys su šia žyma nerastas"
+tag_try_browsing: "Pabandykite naršyti kitas žymas arba ieškoti turinio"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Ankstesnis"
+tag_pagination_next: "Kitas"
+tag_other_tags: "Kitos žymos"
+
+# Cookie consent translations
+cookie_consent_title: "Slapukų sutikimas"
+cookie_consent_message: "Naudojame slapukus naršymo patirčiai pagerinti ir analizuoti mūsų srautą."
+cookie_consent_accept_all: "Priimti visus"
+cookie_consent_accept_necessary: "Priimti tik būtinuosius"
+cookie_consent_settings: "Slapukų nustatymai"
+cookie_settings_title: "Slapukų nustatymai"
+cookie_settings_close: "Uždaryti"
+cookie_settings_necessary_title: "Būtini slapukai"
+cookie_settings_necessary_description: "Šie slapukai yra būtini svetainės veikimui ir jų negalima išjungti."
+cookie_settings_analytics_title: "Analitiniai slapukai"
+cookie_settings_analytics_description: "Šie slapukai padeda mums suprasti, kaip lankytojai sąveikauja su mūsų svetaine."
+cookie_settings_cancel: "Atšaukti"
+cookie_settings_save: "Išsaugoti nustatymus"
+

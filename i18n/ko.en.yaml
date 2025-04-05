@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "자주 묻는 질문"
+language_selector_title: "사용 가능한 언어"
+glossary_subtitle: "용어 및 정의의 종합 목록"
+glossary_title: "용어집"
+
+# Tags page translations
+tags_title: "태그"
+tag_eyebrow: "태그"
+tag_browse_content: "%s 태그가 있는 모든 콘텐츠 찾아보기"
+tag_no_content_found: "이 태그로 찾은 콘텐츠 없음"
+tag_try_browsing: "다른 태그를 검색하거나 콘텐츠를 검색해 보세요"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "이전"
+tag_pagination_next: "다음"
+tag_other_tags: "다른 태그"
+
+# Cookie consent translations
+cookie_consent_title: "쿠키 동의"
+cookie_consent_message: "당사는 귀하의 브라우징 경험을 향상시키고 트래픽을 분석하기 위해 쿠키를 사용합니다."
+cookie_consent_accept_all: "모두 허용"
+cookie_consent_accept_necessary: "필수 항목만 허용"
+cookie_consent_settings: "쿠키 설정"
+cookie_settings_title: "쿠키 설정"
+cookie_settings_close: "닫기"
+cookie_settings_necessary_title: "필수 쿠키"
+cookie_settings_necessary_description: "이 쿠키는 웹사이트 작동에 필요하며 비활성화할 수 없습니다."
+cookie_settings_analytics_title: "분석 쿠키"
+cookie_settings_analytics_description: "이 쿠키는 방문자가 웹사이트와 상호 작용하는 방식을 이해하는 데 도움이 됩니다."
+cookie_settings_cancel: "취소"
+cookie_settings_save: "환경 설정 저장"

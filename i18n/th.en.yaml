@@ -1,0 +1,31 @@
+# English translations
+frequently_asked_questions: "คำถามที่พบบ่อย"
+language_selector_title: "ภาษาที่มี"
+glossary_subtitle: "รายการคำศัพท์และคำนิยามที่ครอบคลุม"
+glossary_title: "อภิธานศัพท์"
+
+# Tags page translations
+tags_title: "แท็ก"
+tag_eyebrow: "แท็ก"
+tag_browse_content: "เรียกดูเนื้อหาทั้งหมดที่แท็กด้วย %s"
+tag_no_content_found: "ไม่พบเนื้อหาที่มีแท็กนี้"
+tag_try_browsing: "ลองเรียกดูแท็กอื่นหรือค้นหาเนื้อหา"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "ก่อนหน้า"
+tag_pagination_next: "ถัดไป"
+tag_other_tags: "แท็กอื่นๆ"
+
+# Cookie consent translations
+cookie_consent_title: "การยินยอมคุกกี้"
+cookie_consent_message: "เราใช้คุกกี้เพื่อเพิ่มประสบการณ์การเรียกดูและวิเคราะห์การจราจรของเรา"
+cookie_consent_accept_all: "ยอมรับทั้งหมด"
+cookie_consent_accept_necessary: "ยอมรับเฉพาะที่จำเป็น"
+cookie_consent_settings: "การตั้งค่าคุกกี้"
+cookie_settings_title: "การตั้งค่าคุกกี้"
+cookie_settings_close: "ปิด"
+cookie_settings_necessary_title: "คุกกี้ที่จำเป็น"
+cookie_settings_necessary_description: "คุกกี้เหล่านี้จำเป็นต่อการทำงานของเว็บไซต์และไม่สามารถปิดใช้งานได้"
+cookie_settings_analytics_title: "คุกกี้สำหรับวิเคราะห์"
+cookie_settings_analytics_description: "คุกกี้เหล่านี้ช่วยให้เราเข้าใจว่าผู้เข้าชมมีปฏิสัมพันธ์กับเว็บไซต์ของเราอย่างไร"
+cookie_settings_cancel: "ยกเลิก"
+cookie_settings_save: "บันทึกการตั้งค่า"

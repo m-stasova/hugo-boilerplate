@@ -1,0 +1,32 @@
+
+# ترجمه‌های فارسی
+frequently_asked_questions: "سوالات متداول"
+language_selector_title: "زبان‌های موجود"
+glossary_subtitle: "فهرستی جامع از اصطلاحات و تعاریف"
+glossary_title: "فرهنگ لغات"
+
+# ترجمه‌های صفحه برچسب‌ها
+tags_title: "برچسب‌ها"
+tag_eyebrow: "برچسب"
+tag_browse_content: "مرور تمام محتوای دارای برچسب %s"
+tag_no_content_found: "هیچ محتوایی با این برچسب یافت نشد"
+tag_try_browsing: "سعی کنید برچسب‌های دیگر را مرور کنید یا به دنبال محتوا بگردید"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "قبلی"
+tag_pagination_next: "بعدی"
+tag_other_tags: "برچسب‌های دیگر"
+
+# ترجمه‌های رضایت‌نامه کوکی
+cookie_consent_title: "رضایت‌نامه کوکی"
+cookie_consent_message: "ما از کوکی‌ها برای بهبود تجربه مرور شما و تحلیل ترافیک خود استفاده می‌کنیم."
+cookie_consent_accept_all: "همه را بپذیرید"
+cookie_consent_accept_necessary: "تنها الزامی‌ها را بپذیرید"
+cookie_consent_settings: "تنظیمات کوکی"
+cookie_settings_title: "تنظیمات کوکی"
+cookie_settings_close: "بستن"
+cookie_settings_necessary_title: "کوکی‌های ضروری"
+cookie_settings_necessary_description: "این کوکی‌ها برای عملکرد سایت ضروری هستند و نمی‌توان آنها را غیرفعال کرد."
+cookie_settings_analytics_title: "کوکی‌های تحلیلی"
+cookie_settings_analytics_description: "این کوکی‌ها به ما کمک می‌کنند بفهمیم بازدیدکنندگان چگونه با وب‌سایت ما تعامل دارند."
+cookie_settings_cancel: "لغو"
+cookie_settings_save: "ذخیره ترجیحات"

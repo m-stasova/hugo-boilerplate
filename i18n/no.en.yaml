@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Vanlige spørsmål"
+language_selector_title: "Tilgjengelige språk"
+glossary_subtitle: "En omfattende liste over termer og definisjoner"
+glossary_title: "Ordliste"
+
+# Tags page translations
+tags_title: "Tags"
+tag_eyebrow: "Tagg"
+tag_browse_content: "Bla gjennom alt innhold merket med %s"
+tag_no_content_found: "Ingen innhold funnet med denne taggen"
+tag_try_browsing: "Prøv å bla gjennom andre tagger eller søk etter innhold"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Forrige"
+tag_pagination_next: "Neste"
+tag_other_tags: "Andre tags"
+
+# Cookie consent translations
+cookie_consent_title: "Informasjonskapselsamtykke"
+cookie_consent_message: "Vi bruker informasjonskapsler for å forbedre din surfeopplevelse og analysere vår trafikk."
+cookie_consent_accept_all: "Godta alle"
+cookie_consent_accept_necessary: "Godta kun nødvendige"
+cookie_consent_settings: "Innstillinger for informasjonskapsler"
+cookie_settings_title: "Innstillinger for informasjonskapsler"
+cookie_settings_close: "Lukk"
+cookie_settings_necessary_title: "Nødvendige informasjonskapsler"
+cookie_settings_necessary_description: "Disse informasjonskapslene er nødvendige for at nettsiden skal fungere og kan ikke deaktiveres."
+cookie_settings_analytics_title: "Analyse-informasjonskapsler"
+cookie_settings_analytics_description: "Disse informasjonskapslene hjelper oss med å forstå hvordan besøkende interagerer med vår nettside."
+cookie_settings_cancel: "Avbryt"
+cookie_settings_save: "Lagre preferanser"

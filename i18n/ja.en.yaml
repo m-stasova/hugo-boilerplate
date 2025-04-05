@@ -1,0 +1,31 @@
+# English translations
+frequently_asked_questions: "よくある質問"
+language_selector_title: "利用可能な言語"
+glossary_subtitle: "用語と定義の包括的なリスト"
+glossary_title: "用語集"
+
+# Tags page translations
+tags_title: "タグ"
+tag_eyebrow: "タグ"
+tag_browse_content: "このタグが付けられたすべてのコンテンツを閲覧する: %s"
+tag_no_content_found: "このタグのコンテンツが見つかりません"
+tag_try_browsing: "他のタグを閲覧するか、コンテンツを検索してみてください"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "前へ"
+tag_pagination_next: "次へ"
+tag_other_tags: "その他のタグ"
+
+# Cookie consent translations
+cookie_consent_title: "クッキーの同意"
+cookie_consent_message: "閲覧体験を向上させ、トラフィックを分析するためにクッキーを使用します。"
+cookie_consent_accept_all: "すべてを受け入れる"
+cookie_consent_accept_necessary: "必要なものだけを受け入れる"
+cookie_consent_settings: "クッキー設定"
+cookie_settings_title: "クッキー設定"
+cookie_settings_close: "閉じる"
+cookie_settings_necessary_title: "必要なクッキー"
+cookie_settings_necessary_description: "これらのクッキーはウェブサイトの機能に必要であり、無効にすることはできません。"
+cookie_settings_analytics_title: "分析クッキー"
+cookie_settings_analytics_description: "これらのクッキーは、訪問者がウェブサイトとどのように相互作用しているかを理解するのに役立ちます。"
+cookie_settings_cancel: "キャンセル"
+cookie_settings_save: "設定を保存"

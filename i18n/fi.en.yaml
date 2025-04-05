@@ -1,0 +1,33 @@
+
+# English translations
+frequently_asked_questions: "Usein Kysytyt Kysymykset"
+language_selector_title: "Saatavilla Olevat Kielet"
+glossary_subtitle: "Kattava lista termeistä ja määritelmistä"
+glossary_title: "Sanasto"
+
+
+# Tags page translations
+tags_title: "Tunnisteet"
+tag_eyebrow: "Tunniste"
+tag_browse_content: "Selaa kaikkea sisältöä, johon on merkitty %s"
+tag_no_content_found: "Sisältöä ei löytynyt tällä tunnisteella"
+tag_try_browsing: "Kokeile selata muita tunnisteita tai etsiä sisältöä"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Edellinen"
+tag_pagination_next: "Seuraava"
+tag_other_tags: "Muut Tunnisteet"
+
+# Cookie consent translations
+cookie_consent_title: "Evästeiden Suostumus"
+cookie_consent_message: "Käytämme evästeitä parantaaksemme selauskokemustasi ja analysoidaksemme liikennettämme."
+cookie_consent_accept_all: "Hyväksy Kaikki"
+cookie_consent_accept_necessary: "Hyväksy Vain Välttämättömät"
+cookie_consent_settings: "Evästeasetukset"
+cookie_settings_title: "Evästeasetukset"
+cookie_settings_close: "Sulje"
+cookie_settings_necessary_title: "Välttämättömät Evästeet"
+cookie_settings_necessary_description: "Nämä evästeet ovat tarpeen verkkosivuston toiminnan kannalta eikä niitä voi poistaa käytöstä."
+cookie_settings_analytics_title: "Analytiikkaevästeet"
+cookie_settings_analytics_description: "Nämä evästeet auttavat meitä ymmärtämään, miten vierailijat ovat vuorovaikutuksessa verkkosivustomme kanssa."
+cookie_settings_cancel: "Peruuta"
+cookie_settings_save: "Tallenna Asetukset"

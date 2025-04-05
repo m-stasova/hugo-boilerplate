@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Vanliga frågor"
+language_selector_title: "Tillgängliga språk"
+glossary_subtitle: "En omfattande lista över termer och definitioner"
+glossary_title: "Ordlista"
+
+# Tags page translations
+tags_title: "Taggar"
+tag_eyebrow: "Tagg"
+tag_browse_content: "Bläddra i allt innehåll märkt med %s"
+tag_no_content_found: "Inget innehåll hittades med den här taggen"
+tag_try_browsing: "Försök bläddra i andra taggar eller sök efter innehåll"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Föregående"
+tag_pagination_next: "Nästa"
+tag_other_tags: "Andra taggar"
+
+# Cookie consent translations
+cookie_consent_title: "Cookie-samtycke"
+cookie_consent_message: "Vi använder cookies för att förbättra din surfupplevelse och analysera vår trafik."
+cookie_consent_accept_all: "Acceptera alla"
+cookie_consent_accept_necessary: "Acceptera endast nödvändiga"
+cookie_consent_settings: "Cookie-inställningar"
+cookie_settings_title: "Cookie-inställningar"
+cookie_settings_close: "Stäng"
+cookie_settings_necessary_title: "Nödvändiga cookies"
+cookie_settings_necessary_description: "Dessa cookies krävs för att webbplatsen ska fungera och kan inte inaktiveras."
+cookie_settings_analytics_title: "Analyscookies"
+cookie_settings_analytics_description: "Dessa cookies hjälper oss att förstå hur besökare interagerar med vår webbplats."
+cookie_settings_cancel: "Avbryt"
+cookie_settings_save: "Spara inställningar"

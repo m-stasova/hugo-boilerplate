@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Soalan Lazim"
+language_selector_title: "Bahasa yang Tersedia"
+glossary_subtitle: "Senarai istilah dan definisi yang komprehensif"
+glossary_title: "Glosari"
+
+# Tags page translations
+tags_title: "Tag"
+tag_eyebrow: "Tag"
+tag_browse_content: "Lihat semua kandungan yang ditandai dengan %s"
+tag_no_content_found: "Tiada kandungan dijumpai dengan tag ini"
+tag_try_browsing: "Cuba lihat tag lain atau cari kandungan"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Sebelumnya"
+tag_pagination_next: "Seterusnya"
+tag_other_tags: "Tag Lain"
+
+# Cookie consent translations
+cookie_consent_title: "Kebenaran Kuki"
+cookie_consent_message: "Kami menggunakan kuki untuk meningkatkan pengalaman melayari anda dan menganalisis trafik kami."
+cookie_consent_accept_all: "Terima Semua"
+cookie_consent_accept_necessary: "Terima Yang Diperlukan Sahaja"
+cookie_consent_settings: "Tetapan Kuki"
+cookie_settings_title: "Tetapan Kuki"
+cookie_settings_close: "Tutup"
+cookie_settings_necessary_title: "Kuki Yang Diperlukan"
+cookie_settings_necessary_description: "Kuki ini diperlukan untuk fungsi laman web dan tidak boleh dinyahdayakan."
+cookie_settings_analytics_title: "Kuki Analitis"
+cookie_settings_analytics_description: "Kuki ini membantu kami memahami bagaimana pelawat berinteraksi dengan laman web kami."
+cookie_settings_cancel: "Batal"
+cookie_settings_save: "Simpan Keutamaan"

@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "שאלות נפוצות"
+language_selector_title: "שפות זמינות"
+glossary_subtitle: "רשימה מקיפה של מונחים והגדרות"
+glossary_title: "מילון מונחים"
+
+# Tags page translations
+tags_title: "תגיות"
+tag_eyebrow: "תג"
+tag_browse_content: "עיין בכל התכנים עם התגית %s"
+tag_no_content_found: "לא נמצא תוכן עם התגית הזו"
+tag_try_browsing: "נסה לעיין בתגיות אחרות או לחפש תוכן"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "הקודם"
+tag_pagination_next: "הבא"
+tag_other_tags: "תגיות אחרות"
+
+# Cookie consent translations
+cookie_consent_title: "אישור עוגיות"
+cookie_consent_message: "אנו משתמשים בעוגיות כדי לשפר את חוויית הגלישה שלך ולנתח את התנועה שלנו."
+cookie_consent_accept_all: "קבל הכל"
+cookie_consent_accept_necessary: "קבל רק את הנחוצות"
+cookie_consent_settings: "הגדרות עוגיות"
+cookie_settings_title: "הגדרות עוגיות"
+cookie_settings_close: "סגור"
+cookie_settings_necessary_title: "עוגיות נחוצות"
+cookie_settings_necessary_description: "לעוגיות אלו יש צורך בשביל הפעולה של האתר ולא ניתן לשלול אותן."
+cookie_settings_analytics_title: "עוגיות ניתוח"
+cookie_settings_analytics_description: "עוגיות אלו עוזרות לנו להבין כיצד מבקרים מתקשרים עם האתר שלנו."
+cookie_settings_cancel: "ביטול"
+cookie_settings_save: "שמור העדפות"

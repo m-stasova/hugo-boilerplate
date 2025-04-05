@@ -142,7 +142,7 @@ def translate_text(text, target_lang, model="gpt-4o"):
         response = openai.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a translation assistant. Translate the text to the target language while preserving the format, front matter, and markdown structure. Do not translate code blocks, URLs, or variable names."},
+                {"role": "system", "content": "You are a translation assistant. Translate the text to the target language while preserving the format, front matter, and markdown structure. Do not translate code blocks, URLs, or variable names. Don\'t use word: photo trap. RECOMMENDED translations in each language: EN: trail camera, trail cam, wildlife camera, DE: Wildkamera, HU: Vadkamera, PL: Fotopulapka, Fotopułapka, Fotopułapki, Kamera lesna, RO: Camere vanatoare, BG: Фотокапани, DK: Vildtkamera, EE: rajakaameramuuk, ES: Fototrampeo alebo Cámara de caza, FI: riistakamera, GR: κάμερα παγίδα alebo Κάμερες Κυνηγιού, HR: Lovačka kamera, IT: Fototrappole, Fototrappole da caccia, LV: meža kamera, NL:  wildcamera, LT: Medžioklės kamera, SE: viltkamera"},
                 {"role": "user", "content": f"Translate this to {language_name}, preserving all front matter fields, markdown formatting, and HTML tags:\n\n{text}"}
             ]
         )
@@ -299,6 +299,70 @@ def process_files(content_dir, target_langs, max_concurrent=10, model="gpt-4o"):
     print(f"Files skipped (already exist): {files_already_exist}")
     print(f"Total target files: {files_already_exist + files_translated + files_failed}")
 
+def translate_i18n_files(i18n_dir, model="gpt-4o"):
+    """
+    Translate the en.yaml file to all languages and save as [lang].en.yaml
+    
+    Args:
+        i18n_dir (Path): Path to the i18n directory
+        model (str): The OpenAI model to use for translation
+    """
+    # Check if the i18n directory exists
+    if not i18n_dir.exists() or not i18n_dir.is_dir():
+        print(f"Error: i18n directory not found: {i18n_dir}")
+        return
+    
+    # Check if the English YAML file exists
+    en_yaml_path = i18n_dir / "en.yaml"
+    if not en_yaml_path.exists() or not en_yaml_path.is_file():
+        print(f"Error: English YAML file not found: {en_yaml_path}")
+        return
+    
+    # Read the English YAML file
+    with open(en_yaml_path, 'r', encoding='utf-8') as f:
+        en_yaml_content = f.read()
+    
+    # Get all language codes from LANGUAGE_MAP except 'en'
+    target_langs = [lang for lang in LANGUAGE_MAP.keys() if lang != 'en' and '-' not in lang]
+    
+    print(f"Source file: {en_yaml_path}")
+    print(f"Target languages: {', '.join(target_langs)}")
+    
+    # Track statistics
+    files_translated = 0
+    files_failed = 0
+    
+    # Create a progress bar
+    with tqdm(total=len(target_langs), desc="Translating i18n files") as progress_bar:
+        # Process each target language
+        for target_lang in target_langs:
+            target_file = i18n_dir / f"{target_lang}.en.yaml"
+            
+            try:
+                # Translate the content
+                print(f"Translating to {target_lang} ({LANGUAGE_MAP.get(target_lang, target_lang)})...")
+                translated_content = translate_text(en_yaml_content, target_lang, model)
+                
+                # Save the translated content
+                with open(target_file, 'w', encoding='utf-8') as f:
+                    f.write(translated_content)
+                
+                print(f"Saved: {target_file}")
+                files_translated += 1
+                
+            except Exception as e:
+                print(f"Error translating to {target_lang}: {str(e)}")
+                files_failed += 1
+            
+            # Update the progress bar
+            progress_bar.update(1)
+    
+    # Print summary
+    print("\nI18n Translation Summary:")
+    print(f"Files translated: {files_translated}")
+    print(f"Files failed: {files_failed}")
+    print(f"Total target files: {len(target_langs)}")
+
 def main():
     """Main function to parse arguments and process files"""
     parser = argparse.ArgumentParser(
@@ -324,11 +388,17 @@ Requirements:
     
     # Default path is ../content/ relative to the script location
     default_path = os.path.join(hugo_root, "content")
+    default_i18n_path = os.path.join(hugo_root, "i18n")
     
     parser.add_argument(
         "--path",
         help="Path to the content directory containing language subdirectories (default: %(default)s)",
         default=default_path
+    )
+    parser.add_argument(
+        "--i18n-path",
+        help="Path to the i18n directory containing translation files (default: %(default)s)",
+        default=default_i18n_path
     )
     parser.add_argument(
         "--max-concurrent",
@@ -341,40 +411,90 @@ Requirements:
         help="OpenAI model to use for translation (default: %(default)s)",
         default="gpt-4o"
     )
+    parser.add_argument(
+        "--i18n-only",
+        help="Only translate i18n files, skip content files",
+        action="store_true"
+    )
+    parser.add_argument(
+        "--content-only",
+        help="Only translate content files, skip i18n files",
+        action="store_true"
+    )
     
     args = parser.parse_args()
     
-    # Convert to Path object
+    # Convert to Path objects
     content_dir = Path(args.path)
+    i18n_dir = Path(args.i18n_path)
     
-    # Check if the directory exists
-    if not content_dir.exists() or not content_dir.is_dir():
-        print(f"Error: Directory not found: {content_dir}")
-        sys.exit(1)
+    # Check what to translate based on flags
+    translate_content = not args.i18n_only
+    translate_i18n = not args.content_only
     
-    # Check if the English directory exists
-    en_dir = content_dir / "en"
-    if not en_dir.exists() or not en_dir.is_dir():
-        print(f"Error: English directory not found: {en_dir}")
-        sys.exit(1)
+    if translate_content:
+        # Check if the content directory exists
+        if not content_dir.exists() or not content_dir.is_dir():
+            print(f"Error: Content directory not found: {content_dir}")
+            if not translate_i18n:
+                sys.exit(1)
+            else:
+                print("Skipping content translation.")
+                translate_content = False
+        
+        # Check if the English directory exists
+        en_dir = content_dir / "en"
+        if not en_dir.exists() or not en_dir.is_dir():
+            print(f"Error: English directory not found: {en_dir}")
+            if not translate_i18n:
+                sys.exit(1)
+            else:
+                print("Skipping content translation.")
+                translate_content = False
     
-    # Get target languages
-    target_langs = get_target_languages(content_dir)
+    if translate_content:
+        # Get target languages
+        target_langs = get_target_languages(content_dir)
+        
+        if not target_langs:
+            print("No target language directories found. Please create at least one target language directory.")
+            if not translate_i18n:
+                sys.exit(1)
+            else:
+                print("Skipping content translation.")
+                translate_content = False
+        
+        print(f"Content directory: {content_dir}")
+        print(f"Source language: en")
+        print(f"Target languages: {', '.join(target_langs)}")
+        print(f"Maximum concurrent requests: {args.max_concurrent}")
+        print(f"Using model: {args.model}")
+        
+        # Process content files
+        process_files(content_dir, target_langs, args.max_concurrent, args.model)
     
-    if not target_langs:
-        print("No target language directories found. Please create at least one target language directory.")
-        sys.exit(1)
+    if translate_i18n:
+        # Check if the i18n directory exists
+        if not i18n_dir.exists() or not i18n_dir.is_dir():
+            print(f"Error: i18n directory not found: {i18n_dir}")
+            if not translate_content:
+                sys.exit(1)
+            else:
+                print("Skipping i18n translation.")
+                translate_i18n = False
+        
+        if translate_i18n:
+            print(f"\nTranslating i18n files...")
+            print(f"i18n directory: {i18n_dir}")
+            print(f"Using model: {args.model}")
+            
+            # Process i18n files
+            translate_i18n_files(i18n_dir, args.model)
     
-    print(f"Content directory: {content_dir}")
-    print(f"Source language: en")
-    print(f"Target languages: {', '.join(target_langs)}")
-    print(f"Maximum concurrent requests: {args.max_concurrent}")
-    print(f"Using model: {args.model}")
-    
-    # Process files
-    process_files(content_dir, target_langs, args.max_concurrent, args.model)
-    
-    print("Translation completed successfully!")
+    if translate_content or translate_i18n:
+        print("\nTranslation completed successfully!")
+    else:
+        print("\nNo translation tasks were performed.")
 
 if __name__ == "__main__":
     main()

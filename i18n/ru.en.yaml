@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Часто задаваемые вопросы"
+language_selector_title: "Доступные языки"
+glossary_subtitle: "Подробный список терминов и определений"
+glossary_title: "Глоссарий"
+
+# Tags page translations
+tags_title: "Теги"
+tag_eyebrow: "Тег"
+tag_browse_content: "Просмотреть весь контент с тегом %s"
+tag_no_content_found: "Контент с этим тегом не найден"
+tag_try_browsing: "Попробуйте просмотреть другие теги или поискать контент"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Предыдущая"
+tag_pagination_next: "Следующая"
+tag_other_tags: "Другие теги"
+
+# Cookie consent translations
+cookie_consent_title: "Согласие на использование файлов cookie"
+cookie_consent_message: "Мы используем файлы cookie для улучшения вашего опыта просмотра и анализа нашего трафика."
+cookie_consent_accept_all: "Принять все"
+cookie_consent_accept_necessary: "Принять только необходимые"
+cookie_consent_settings: "Настройки файлов cookie"
+cookie_settings_title: "Настройки файлов cookie"
+cookie_settings_close: "Закрыть"
+cookie_settings_necessary_title: "Необходимые файлы cookie"
+cookie_settings_necessary_description: "Эти файлы необходимы для работы сайта и не могут быть отключены."
+cookie_settings_analytics_title: "Аналитические файлы cookie"
+cookie_settings_analytics_description: "Эти файлы помогают нам понять, как посетители взаимодействуют с нашим сайтом."
+cookie_settings_cancel: "Отмена"
+cookie_settings_save: "Сохранить предпочтения"

@@ -1,0 +1,31 @@
+# English translations
+frequently_asked_questions: "Najczęściej Zadawane Pytania"
+language_selector_title: "Dostępne Języki"
+glossary_subtitle: "Kompleksowa lista terminów i definicji"
+glossary_title: "Słownik"
+
+# Tags page translations
+tags_title: "Tagi"
+tag_eyebrow: "Tag"
+tag_browse_content: "Przeglądaj wszystkie treści oznaczone etykietą %s"
+tag_no_content_found: "Nie znaleziono treści z tym tagiem"
+tag_try_browsing: "Spróbuj przeglądać inne tagi lub wyszukać treść"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Poprzednia"
+tag_pagination_next: "Następna"
+tag_other_tags: "Inne Tagi"
+
+# Cookie consent translations
+cookie_consent_title: "Zgoda na Pliki Cookie"
+cookie_consent_message: "Używamy plików cookie, aby poprawić jakość przeglądania i analizować nasz ruch."
+cookie_consent_accept_all: "Akceptuj Wszystkie"
+cookie_consent_accept_necessary: "Akceptuj Tylko Niezbędne"
+cookie_consent_settings: "Ustawienia Plików Cookie"
+cookie_settings_title: "Ustawienia Plików Cookie"
+cookie_settings_close: "Zamknij"
+cookie_settings_necessary_title: "Niezbędne Pliki Cookie"
+cookie_settings_necessary_description: "Te pliki cookie są potrzebne do prawidłowego funkcjonowania strony i nie mogą być wyłączone."
+cookie_settings_analytics_title: "Pliki Cookie Analityczne"
+cookie_settings_analytics_description: "Te pliki cookie pomagają nam zrozumieć, jak użytkownicy wchodzą w interakcję z naszą stroną."
+cookie_settings_cancel: "Anuluj"
+cookie_settings_save: "Zapisz Preferencje"

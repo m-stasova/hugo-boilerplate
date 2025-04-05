@@ -1,0 +1,33 @@
+
+# English translations
+frequently_asked_questions: "Korduma Kippuvad Küsimused"
+language_selector_title: "Saadaolevad Keeled"
+glossary_subtitle: "Põhjalik terminite ja definitsioonide loend"
+glossary_title: "Sõnastik"
+
+
+# Tags page translations
+tags_title: "Sildid"
+tag_eyebrow: "Silt"
+tag_browse_content: "Sirvi kõiki sildiga %s märgitud sisu"
+tag_no_content_found: "Selle sildiga sisu ei leitud"
+tag_try_browsing: "Proovi sirvida teisi silte või otsida sisu"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Eelmine"
+tag_pagination_next: "Järgmine"
+tag_other_tags: "Muud Sildid"
+
+# Cookie consent translations
+cookie_consent_title: "Küpsiste Nõusolek"
+cookie_consent_message: "Kasutame küpsiseid teie sirvimiskogemuse parandamiseks ja liikluse analüüsimiseks."
+cookie_consent_accept_all: "Nõustu Kõigiga"
+cookie_consent_accept_necessary: "Nõustu Ainult Vajalikuga"
+cookie_consent_settings: "Küpsiste Seaded"
+cookie_settings_title: "Küpsiste Seaded"
+cookie_settings_close: "Sulge"
+cookie_settings_necessary_title: "Vajalikud Küpsised"
+cookie_settings_necessary_description: "Need küpsised on vajalikud veebisaidi toimimiseks ja neid ei saa keelata."
+cookie_settings_analytics_title: "Analüütilised Küpsised"
+cookie_settings_analytics_description: "Need küpsised aitavad meil mõista, kuidas külastajad meie veebisaidiga suhtlevad."
+cookie_settings_cancel: "Tühista"
+cookie_settings_save: "Salvesta Eelistused"

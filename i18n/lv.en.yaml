@@ -1,0 +1,33 @@
+
+# English translations
+frequently_asked_questions: "Bieži Uzdotie Jautājumi"
+language_selector_title: "Pieejamās Valodas"
+glossary_subtitle: "Visaptverošs terminu un definīciju saraksts"
+glossary_title: "Glosārijs"
+
+
+# Tags page translations
+tags_title: "Tagi"
+tag_eyebrow: "Tags"
+tag_browse_content: "Pārlūkojiet visu saturu ar atzīmi %s"
+tag_no_content_found: "Nav atrasts saturs ar šo tagu"
+tag_try_browsing: "Mēģiniet pārlūkot citus tagus vai meklēt saturu"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Iepriekšējais"
+tag_pagination_next: "Nākamais"
+tag_other_tags: "Citi Tagi"
+
+# Cookie consent translations
+cookie_consent_title: "Sīkdatņu Piekrišana"
+cookie_consent_message: "Mēs izmantojam sīkdatnes, lai uzlabotu jūsu pārlūkošanas pieredzi un analizētu mūsu trafiku."
+cookie_consent_accept_all: "Pieņemt Visas"
+cookie_consent_accept_necessary: "Pieņemt Tikai Nepieciešamās"
+cookie_consent_settings: "Sīkdatņu Iestatījumi"
+cookie_settings_title: "Sīkdatņu Iestatījumi"
+cookie_settings_close: "Aizvērt"
+cookie_settings_necessary_title: "Nepieciešamās Sīkdatnes"
+cookie_settings_necessary_description: "Šīs sīkdatnes ir nepieciešamas vietnes darbībai un nevar tikt atspējotas."
+cookie_settings_analytics_title: "Analītiskās Sīkdatnes"
+cookie_settings_analytics_description: "Šīs sīkdatnes palīdz mums saprast, kā apmeklētāji mijiedarbojas ar mūsu vietni."
+cookie_settings_cancel: "Atcelt"
+cookie_settings_save: "Saglabāt Preferences"

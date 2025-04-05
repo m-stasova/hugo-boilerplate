@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Често задавани въпроси"
+language_selector_title: "Налични езици"
+glossary_subtitle: "Изчерпателен списък на термини и определения"
+glossary_title: "Речник"
+
+# Tags page translations
+tags_title: "Етикети"
+tag_eyebrow: "Етикет"
+tag_browse_content: "Разгледайте цялото съдържание с етикет %s"
+tag_no_content_found: "Няма намерено съдържание с този етикет"
+tag_try_browsing: "Опитайте да разгледате други етикети или да търсите съдържание"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Предишна"
+tag_pagination_next: "Следваща"
+tag_other_tags: "Други етикети"
+
+# Cookie consent translations
+cookie_consent_title: "Съгласие за бисквитки"
+cookie_consent_message: "Използваме бисквитки, за да подобрим вашето сърфиране и да анализираме нашия трафик."
+cookie_consent_accept_all: "Приемете всички"
+cookie_consent_accept_necessary: "Приемете само необходимите"
+cookie_consent_settings: "Настройки на бисквитките"
+cookie_settings_title: "Настройки на бисквитките"
+cookie_settings_close: "Затвори"
+cookie_settings_necessary_title: "Необходими бисквитки"
+cookie_settings_necessary_description: "Тези бисквитки са необходими за функционирането на уебсайта и не могат да бъдат деактивирани."
+cookie_settings_analytics_title: "Аналитични бисквитки"
+cookie_settings_analytics_description: "Тези бисквитки ни помагат да разберем как посетителите взаимодействат с нашия уебсайт."
+cookie_settings_cancel: "Отказ"
+cookie_settings_save: "Запазете предпочитанията"

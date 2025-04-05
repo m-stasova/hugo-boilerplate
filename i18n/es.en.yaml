@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Preguntas Frecuentes"
+language_selector_title: "Idiomas Disponibles"
+glossary_subtitle: "Una lista completa de términos y definiciones"
+glossary_title: "Glosario"
+
+# Tags page translations
+tags_title: "Etiquetas"
+tag_eyebrow: "Etiqueta"
+tag_browse_content: "Explora todo el contenido etiquetado con %s"
+tag_no_content_found: "No se encontró contenido con esta etiqueta"
+tag_try_browsing: "Intenta explorar otras etiquetas o buscar contenido"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Anterior"
+tag_pagination_next: "Siguiente"
+tag_other_tags: "Otras Etiquetas"
+
+# Cookie consent translations
+cookie_consent_title: "Consentimiento de Cookies"
+cookie_consent_message: "Usamos cookies para mejorar tu experiencia de navegación y analizar nuestro tráfico."
+cookie_consent_accept_all: "Aceptar Todas"
+cookie_consent_accept_necessary: "Aceptar Solo Necesarias"
+cookie_consent_settings: "Configuración de Cookies"
+cookie_settings_title: "Configuración de Cookies"
+cookie_settings_close: "Cerrar"
+cookie_settings_necessary_title: "Cookies Necesarias"
+cookie_settings_necessary_description: "Estas cookies son necesarias para que el sitio web funcione y no pueden ser deshabilitadas."
+cookie_settings_analytics_title: "Cookies de Análisis"
+cookie_settings_analytics_description: "Estas cookies nos ayudan a comprender cómo los visitantes interactúan con nuestro sitio web."
+cookie_settings_cancel: "Cancelar"
+cookie_settings_save: "Guardar Preferencias"

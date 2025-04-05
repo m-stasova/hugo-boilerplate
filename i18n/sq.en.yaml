@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Pyetjet e Bëra Shpesh"
+language_selector_title: "Gjuhët e Disponueshme"
+glossary_subtitle: "Një listë gjithëpërfshirëse e termave dhe përkufizimeve"
+glossary_title: "Fjalori"
+
+# Tags page translations
+tags_title: "Etiketat"
+tag_eyebrow: "Etiketë"
+tag_browse_content: "Shfletoni të gjithë përmbajtjen e etiketuar me %s"
+tag_no_content_found: "Nuk u gjet asnjë përmbajtje me këtë etiketë"
+tag_try_browsing: "Provoni të shfletoni etiketa të tjera ose të kërkoni për përmbajtje"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "E mëparshme"
+tag_pagination_next: "Tjetër"
+tag_other_tags: "Etiketa të Tjera"
+
+# Cookie consent translations
+cookie_consent_title: "Pëlqimi për Cookie"
+cookie_consent_message: "Ne përdorim cookies për të përmirësuar përvojën tuaj të shfletimit dhe për të analizuar trafikun tonë."
+cookie_consent_accept_all: "Prano të Gjitha"
+cookie_consent_accept_necessary: "Prano vetem të Nevojshmet"
+cookie_consent_settings: "Cilësimet e Cookie"
+cookie_settings_title: "Cilësimet e Cookie"
+cookie_settings_close: "Mbyll"
+cookie_settings_necessary_title: "Cookies të Nevojshme"
+cookie_settings_necessary_description: "Këto cookies janë të nevojshme për funksionimin e faqes dhe nuk mund të çaktivizohen."
+cookie_settings_analytics_title: "Cookies të Analizës"
+cookie_settings_analytics_description: "Këto cookies na ndihmojnë të kuptojmë se si vizitorët ndërveprojnë me faqen tonë."
+cookie_settings_cancel: "Anulo"
+cookie_settings_save: "Ruaj Preferencat"

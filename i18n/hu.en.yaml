@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Gyakran Ismételt Kérdések"
+language_selector_title: "Elérhető Nyelvek"
+glossary_subtitle: "Átfogó lista szakmai kifejezésekkel és meghatározásokkal"
+glossary_title: "Szószedet"
+
+# Tags page translations
+tags_title: "Címkék"
+tag_eyebrow: "Címke"
+tag_browse_content: "Böngésszen az összes tartalom között, amely a %s címkével van megjelölve"
+tag_no_content_found: "Ezzel a címkével nem található tartalom"
+tag_try_browsing: "Próbáljon böngészni más címkék között vagy keressen tartalmat"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Előző"
+tag_pagination_next: "Következő"
+tag_other_tags: "Egyéb Címkék"
+
+# Cookie consent translations
+cookie_consent_title: "Sütik Hozzájárulás"
+cookie_consent_message: "A sütiket használjuk, hogy javítsuk a böngészési élményt és elemezzük a forgalmunkat."
+cookie_consent_accept_all: "Összes Elfogadása"
+cookie_consent_accept_necessary: "Csak a Szükséges Elfogadása"
+cookie_consent_settings: "Süti Beállítások"
+cookie_settings_title: "Süti Beállítások"
+cookie_settings_close: "Bezár"
+cookie_settings_necessary_title: "Szükséges Sütik"
+cookie_settings_necessary_description: "Ezek a sütik a weboldal működéséhez szükségesek, és nem tilthatók le."
+cookie_settings_analytics_title: "Analitikai Sütik"
+cookie_settings_analytics_description: "Ezek a sütik segítenek megérteni, hogy a látogatók hogyan lépnek kapcsolatba a weboldalunkkal."
+cookie_settings_cancel: "Mégse"
+cookie_settings_save: "Preferenciák Mentése"

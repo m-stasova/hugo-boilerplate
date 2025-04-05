@@ -1,0 +1,32 @@
+
+# English translations
+frequently_asked_questions: "Ofte Stillede Spørgsmål"
+language_selector_title: "Tilgængelige Sprog"
+glossary_subtitle: "En omfattende liste over udtryk og definitioner"
+glossary_title: "Ordliste"
+
+# Tags page translations
+tags_title: "Emneord"
+tag_eyebrow: "Emneord"
+tag_browse_content: "Gennemse alt indhold mærket med %s"
+tag_no_content_found: "Ingen indhold fundet med dette emneord"
+tag_try_browsing: "Prøv at gennemse andre emneord eller søge efter indhold"
+tag_pagination_page: "%d / %d (%d)"
+tag_pagination_previous: "Forrige"
+tag_pagination_next: "Næste"
+tag_other_tags: "Andre Emneord"
+
+# Cookie consent translations
+cookie_consent_title: "Cookie Samtykke"
+cookie_consent_message: "Vi bruger cookies til at forbedre din browsingoplevelse og analysere vores trafik."
+cookie_consent_accept_all: "Accepter Alle"
+cookie_consent_accept_necessary: "Accepter Kun Nødvendige"
+cookie_consent_settings: "Cookie Indstillinger"
+cookie_settings_title: "Cookie Indstillinger"
+cookie_settings_close: "Luk"
+cookie_settings_necessary_title: "Nødvendige Cookies"
+cookie_settings_necessary_description: "Disse cookies er nødvendige for, at hjemmesiden fungerer og kan ikke deaktiveres."
+cookie_settings_analytics_title: "Analysecookies"
+cookie_settings_analytics_description: "Disse cookies hjælper os med at forstå, hvordan besøgende interagerer med vores hjemmeside."
+cookie_settings_cancel: "Annuller"
+cookie_settings_save: "Gem Indstillinger"
