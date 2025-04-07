@@ -40,7 +40,7 @@
       <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p class="text-sm text-gray-700">
-            Showing <span class="font-medium">{{ $paginator.FirstPage }}</span> to <span class="font-medium">{{ $paginator.LastPage }}</span> of <span class="font-medium">{{ $paginator.TotalPages }}</span> pages
+            Showing <span class="font-medium">{{ mul (add $paginator.PageNumber -1) $paginator.PagerSize | add 1 }}</span> to <span class="font-medium">{{ if lt (mul $paginator.PageNumber $paginator.PagerSize) $paginator.TotalNumberOfElements }}{{ mul $paginator.PageNumber $paginator.PagerSize }}{{ else }}{{ $paginator.TotalNumberOfElements }}{{ end }}</span> of <span class="font-medium">{{ $paginator.TotalNumberOfElements }}</span> results
           </p>
         </div>
         <div>
