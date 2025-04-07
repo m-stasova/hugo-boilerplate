@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Perguntas Frequentes"
 language_selector_title: "Idiomas Disponíveis"
 glossary_subtitle: "Uma lista abrangente de termos e definições"
 glossary_title: "Glossário"
+home_title: "Início"
+
+# Glossary translations
+glossary_eyebrow: "Glossário"
+
+# Category page translations
+categories_title: "Categorias"
+categories_browse_all: "Navegar por todo o conteúdo por categoria"
+category_eyebrow: "Categoria"
+category_browse_content: "Navegar por todo o conteúdo na categoria %s"
+category_no_content_found: "Nenhum conteúdo encontrado nesta categoria"
+category_try_browsing: "Tente navegar por outras categorias ou buscar por conteúdo"
+category_other_categories: "Outras Categorias"
+
+# CTA translations
+cta_default_heading: "Amplie seu conhecimento com nossos recursos"
+cta_default_description: "Explore nossa biblioteca abrangente de artigos, guias e tutoriais para aprofundar seu entendimento de conceitos-chave e manter-se atualizado com os últimos desenvolvimentos."
+cta_default_primary_text: "Navegar pelos recursos"
+cta_default_secondary_text: "Contatar nossos especialistas"
+
+# Content type translations
+content_article_singular: "artigo"
+content_article_plural: "artigos"
 
 # Tags page translations
 tags_title: "Tags"
+tags_browse_all: "Navegar por todo o conteúdo por tópico"
 tag_eyebrow: "Tag"
 tag_browse_content: "Navegue por todo o conteúdo marcado com %s"
 tag_no_content_found: "Nenhum conteúdo encontrado com esta tag"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Cookies de Análise"
 cookie_settings_analytics_description: "Esses cookies nos ajudam a entender como os visitantes interagem com nosso site."
 cookie_settings_cancel: "Cancelar"
 cookie_settings_save: "Salvar Preferências"
+
+# Pagination translations
+pagination_previous: "Anterior"
+pagination_next: "Próximo"
+pagination_showing: "Mostrando"
+pagination_to: "a"
+pagination_of: "de"
+pagination_results: "resultados"
+pagination_browse_all: "Navegar por todo o conteúdo em"
+
+# FAQ translations
+faq_heading: "Perguntas frequentes"
+faq_description: "Encontre respostas para perguntas comuns sobre este tópico."

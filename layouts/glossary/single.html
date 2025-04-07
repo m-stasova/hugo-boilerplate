@@ -3,8 +3,8 @@
 <!-- Breadcrumbs -->
 {{ partial "breadcrumbs/basic" (dict 
   "items" (slice 
-    (dict "title" "Home" "url" (print "/" | relLangURL))
-    (dict "title" "Glossary" "url" (print "/glossary/" | relLangURL))
+    (dict "title" (i18n "home_title") "url" (print "/" | relLangURL))
+    (dict "title" (i18n "glossary_title") "url" (print "/glossary/" | relLangURL))
     (dict "title" .Params.term "url" .Permalink)
   )
 ) }}
@@ -14,7 +14,7 @@
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Params.term
   "description" (partial "utils/linkbuilding" (dict "content" $shortDescription "page" .) | safeHTML)
-  "eyebrow" "Glossary"
+  "eyebrow" (i18n "glossary_eyebrow")
 ) }}
 
 <!-- Tags Section -->
@@ -44,11 +44,11 @@
 </div>
 
 <!-- CTA Section -->
-{{ $ctaHeading := .Params.ctaHeading | default "Expand your knowledge with our resources" }}
-{{ $ctaDescription := .Params.ctaDescription | default "Explore our comprehensive library of articles, guides, and tutorials to deepen your understanding of key concepts and stay up-to-date with the latest developments." }}
-{{ $ctaPrimaryText := .Params.ctaPrimaryText | default "Browse resources" }}
+{{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
+{{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
+{{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
 {{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "/resources/" }}
-{{ $ctaSecondaryText := .Params.ctaSecondaryText | default "Contact our experts" }}
+{{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
 {{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "/contact/" }}
 {{ $showCTA := .Params.showCTA | default true }}
 
@@ -70,7 +70,7 @@
 <!-- FAQ Section Side by Side -->
 {{ if .Params.faq }}
 {{ partial "faqs/side-by-side.html" (dict 
-  "heading" "Frequently Asked Questions"
+  "heading" (i18n "faq_heading")
   "faqs" .Params.faq
   "bgColor" "bg-white"
   "page" .

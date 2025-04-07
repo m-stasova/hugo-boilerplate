@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Часто задаваемые вопросы"
 language_selector_title: "Доступные языки"
 glossary_subtitle: "Подробный список терминов и определений"
 glossary_title: "Глоссарий"
+home_title: "Главная"
+
+# Glossary translations
+glossary_eyebrow: "Глоссарий"
+
+# Category page translations
+categories_title: "Категории"
+categories_browse_all: "Просмотреть весь контент по категориям"
+category_eyebrow: "Категория"
+category_browse_content: "Просмотреть весь контент в категории %s"
+category_no_content_found: "В этой категории контент не найден"
+category_try_browsing: "Попробуйте просмотреть другие категории или поискать контент"
+category_other_categories: "Другие категории"
+
+# CTA translations
+cta_default_heading: "Расширьте свои знания с помощью наших ресурсов"
+cta_default_description: "Изучите нашу обширную библиотеку статей, руководств и учебных пособий, чтобы углубить понимание ключевых концепций и быть в курсе последних разработок."
+cta_default_primary_text: "Просмотреть ресурсы"
+cta_default_secondary_text: "Связаться с нашими экспертами"
+
+# Content type translations
+content_article_singular: "статья"
+content_article_plural: "статьи"
 
 # Tags page translations
 tags_title: "Теги"
+tags_browse_all: "Просмотреть весь контент по темам"
 tag_eyebrow: "Тег"
 tag_browse_content: "Просмотреть весь контент с тегом %s"
 tag_no_content_found: "Контент с этим тегом не найден"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Аналитические файлы cookie"
 cookie_settings_analytics_description: "Эти файлы помогают нам понять, как посетители взаимодействуют с нашим сайтом."
 cookie_settings_cancel: "Отмена"
 cookie_settings_save: "Сохранить предпочтения"
+
+# Pagination translations
+pagination_previous: "Предыдущая"
+pagination_next: "Следующая"
+pagination_showing: "Показано"
+pagination_to: "до"
+pagination_of: "из"
+pagination_results: "результатов"
+pagination_browse_all: "Просмотреть весь контент в"
+
+# FAQ translations
+faq_heading: "Часто задаваемые вопросы"
+faq_description: "Найдите ответы на распространенные вопросы по этой теме."

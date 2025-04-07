@@ -1,6 +1,6 @@
 {{ define "main" }}
   <!-- Breadcrumbs -->
-  {{ $breadcrumbItems := slice (dict "title" "Home" "url" .Site.Home.RelPermalink) }}
+  {{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
   
   {{ if ne .Section "" }}
     {{ with .Site.GetPage .Section }}
@@ -19,11 +19,10 @@
     "image" .Params.image
     "tags" .Params.tags
     "categories" .Params.categories
-    "eyebrow" "Category"
+    "eyebrow" (i18n "category_eyebrow")
   ) }}
   
   <!-- Main Content -->
-<!-- Main Content -->
 <div class="bg-white px-6 py-32 lg:px-8 mx-auto max-w-7xl">
   <div class="mx-auto prose prose-lg prose-indigo prose-headings:font-semibold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
     {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
@@ -33,18 +32,18 @@
   <!-- FAQ Section if available -->
   {{ if .Params.faq }}
   {{ partial "faqs/side-by-side" (dict 
-    "title" "Frequently Asked Questions"
-    "description" "Find answers to common questions about this topic."
+    "title" (i18n "faq_heading")
+    "description" (i18n "faq_description")
     "items" .Params.faq
   ) }}
   {{ end }}
 
 <!-- CTA Section -->
-{{ $ctaHeading := .Params.ctaHeading | default "Expand your knowledge with our resources" }}
-{{ $ctaDescription := .Params.ctaDescription | default "Explore our comprehensive library of articles, guides, and tutorials to deepen your understanding of key concepts and stay up-to-date with the latest developments." }}
-{{ $ctaPrimaryText := .Params.ctaPrimaryText | default "Browse resources" }}
+{{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
+{{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
+{{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
 {{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "/resources/" }}
-{{ $ctaSecondaryText := .Params.ctaSecondaryText | default "Contact our experts" }}
+{{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
 {{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "/contact/" }}
 {{ $showCTA := .Params.showCTA | default true }}
 
@@ -62,7 +61,6 @@
   )
 ) }}
 {{ end }}
-
 
   <!-- Related Content -->
   <div class="bg-white py-16">

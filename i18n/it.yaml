@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Domande Frequenti"
 language_selector_title: "Lingue Disponibili"
 glossary_subtitle: "Un elenco completo di termini e definizioni"
 glossary_title: "Glossario"
+home_title: "Home"
 
+# Glossary translations
+glossary_eyebrow: "Glossario"
+
+# Category page translations
+categories_title: "Categorie"
+categories_browse_all: "Sfoglia tutti i contenuti per categoria"
+category_eyebrow: "Categoria"
+category_browse_content: "Sfoglia tutti i contenuti nella categoria %s"
+category_no_content_found: "Nessun contenuto trovato in questa categoria"
+category_try_browsing: "Prova a sfogliare altre categorie o cerca contenuti"
+category_other_categories: "Altre Categorie"
+
+# CTA translations
+cta_default_heading: "Amplia le tue conoscenze con le nostre risorse"
+cta_default_description: "Esplora la nostra biblioteca completa di articoli, guide e tutorial per approfondire la tua comprensione dei concetti chiave e rimanere aggiornato con gli ultimi sviluppi."
+cta_default_primary_text: "Sfoglia le risorse"
+cta_default_secondary_text: "Contatta i nostri esperti"
+
+# Content type translations
+content_article_singular: "articolo"
+content_article_plural: "articoli"
 
 # Tags page translations
 tags_title: "Tag"
+tags_browse_all: "Sfoglia tutti i contenuti per argomento"
 tag_eyebrow: "Tag"
 tag_browse_content: "Sfoglia tutti i contenuti con tag %s"
 tag_no_content_found: "Nessun contenuto trovato con questo tag"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Cookie Analitici"
 cookie_settings_analytics_description: "Questi cookie ci aiutano a capire come i visitatori interagiscono con il nostro sito web."
 cookie_settings_cancel: "Annulla"
 cookie_settings_save: "Salva Preferenze"
+
+# Pagination translations
+pagination_previous: "Precedente"
+pagination_next: "Successivo"
+pagination_showing: "Mostrando"
+pagination_to: "a"
+pagination_of: "di"
+pagination_results: "risultati"
+pagination_browse_all: "Sfoglia tutti i contenuti in"
+
+# FAQ translations
+faq_heading: "Domande frequenti"
+faq_description: "Trova risposte alle domande comuni su questo argomento."
