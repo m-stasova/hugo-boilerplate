@@ -11,7 +11,7 @@ Usage:
     python generate_related_content.py --lang en --path /path/to/content
 
 Requirements:
-    pip install sentence-transformers faiss-cpu torch pyyaml frontmatter markdown bs4 tqdm
+    pip install sentence-transformers faiss-cpu pyyaml frontmatter markdown bs4 tqdm
     
     or install requirements.txt
     pip install -r requirements.txt
@@ -31,34 +31,30 @@ from collections import defaultdict
 import numpy as np
 
 # Constants
-#MODEL_NAME = "all-MiniLM-L6-v2"  # Extremely small model for minimal memory usage
-MODEL_NAME = "Alibaba-NLP/gte-multilingual-base"
+MODEL_NAME = "Alibaba-NLP/gte-multilingual-base"  # Smaller model that works well with sentence-transformers
 MAX_TEXT_LENGTH = 2000  # Limit text length to avoid memory issues
 TOP_K = 3  # Number of related content items to find
 
-# Global variables for model and tokenizer
+# Global variables for model
 _model = None
-_tokenizer = None
 
 def load_model(model_name):
-    """Load the model and tokenizer once."""
-    global _model, _tokenizer
+    """Load the model once."""
+    global _model
     
     # Only load if not already loaded
-    if _model is None or _tokenizer is None:
+    if _model is None:
         print(f"Loading model: {model_name}")
         
         # Import here to delay loading these heavy libraries until needed
-        import torch
-        from transformers import AutoModel, AutoTokenizer
+        from sentence_transformers import SentenceTransformer
         
-        # Load the model and tokenizer
-        _tokenizer = AutoTokenizer.from_pretrained(model_name)
-        _model = AutoModel.from_pretrained(model_name, trust_remote_code=True)
+        # Load the model using sentence_transformers
+        _model = SentenceTransformer(model_name, trust_remote_code=True)
     else:
         print("Using already loaded model")
     
-    return _model, _tokenizer
+    return _model
 
 def parse_args():
     """Parse command line arguments."""
@@ -170,12 +166,8 @@ def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_s
 
 def generate_embeddings(file_data, model_name):
     """Generate embeddings for the file data using the specified model."""
-    # Import here to delay loading these heavy libraries until needed
-    import torch
-    import torch.nn.functional as F
-    
-    # Load the model and tokenizer (will reuse if already loaded)
-    model, tokenizer = load_model(model_name)
+    # Load the model (will reuse if already loaded)
+    model = load_model(model_name)
     
     # Process files in batches to manage memory
     embeddings = []
@@ -187,21 +179,10 @@ def generate_embeddings(file_data, model_name):
         
         print(f"Processing batch {i//batch_size + 1}/{(len(file_data) + batch_size - 1)//batch_size}")
         
-        # Tokenize the input texts
-        with torch.no_grad():
-            batch_dict = tokenizer(texts, max_length=512, padding=True, truncation=True, return_tensors='pt')
-            outputs = model(**batch_dict)
-            
-            # Get embeddings from the [CLS] token (first token)
-            batch_embeddings = outputs.last_hidden_state[:, 0]
-            
-            # Normalize embeddings
-            batch_embeddings = F.normalize(batch_embeddings, p=2, dim=1)
-            
-            # Convert to numpy for FAISS
-            batch_embeddings = batch_embeddings.cpu().numpy()
-            
-            embeddings.extend(batch_embeddings)
+        # Generate embeddings using sentence_transformers
+        batch_embeddings = model.encode(texts, show_progress_bar=False)
+        
+        embeddings.extend(batch_embeddings)
     
     # Convert list to numpy array
     embeddings = np.array(embeddings).astype('float32')
@@ -375,8 +356,6 @@ def main():
     # Clean up global model resources at the end
     if '_model' in globals() and _model is not None:
         del globals()['_model']
-    if '_tokenizer' in globals() and _tokenizer is not None:
-        del globals()['_tokenizer']
     gc.collect()
 
 if __name__ == "__main__":

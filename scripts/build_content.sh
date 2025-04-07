@@ -3,7 +3,7 @@
 #
 # This script creates a virtual environment, installs requirements,
 # and performs three main tasks:
-# 1. Translates missing content files from English to other languages
+# 1. Translates missing content files from English to other languages using FlowHunt API
 # 2. Generates related content YAML files for the Hugo site
 # 3. Preprocesses images for optimal web delivery
 
@@ -60,10 +60,24 @@ if [ -z "$OPENAI_API_KEY" ]; then
     fi
 fi
 
-# STEP 1: Run the translation script
-echo -e "${BLUE}=== Step 1: Translating Missing Content ===${NC}"
-echo -e "${YELLOW}Running translation script...${NC}"
-python "${SCRIPT_DIR}/translate_missing_files.py" --path "${HUGO_ROOT}/content"
+# Check for FlowHunt API key
+if [ -z "$FLOWHUNT_API_KEY" ]; then
+    echo -e "${YELLOW}Checking for FlowHunt API key...${NC}"
+    if [ ! -f "${SCRIPT_DIR}/.env" ]; then
+        echo -e "${YELLOW}No .env file found. Please enter your FlowHunt API key:${NC}"
+        read -p "FlowHunt API Key: " flow_api_key
+        echo "FLOWHUNT_API_KEY=${flow_api_key}" >> "${SCRIPT_DIR}/.env"
+    elif ! grep -q "FLOWHUNT_API_KEY" "${SCRIPT_DIR}/.env"; then
+        echo -e "${YELLOW}FlowHunt API key not found in .env file. Please enter your FlowHunt API key:${NC}"
+        read -p "FlowHunt API Key: " flow_api_key
+        echo "FLOWHUNT_API_KEY=${flow_api_key}" >> "${SCRIPT_DIR}/.env"
+    fi
+fi
+
+# STEP 1: Run the translation script with FlowHunt
+echo -e "${BLUE}=== Step 1: Translating Missing Content with FlowHunt API ===${NC}"
+echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
+python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
 
 # STEP 2: Generate Related Content
