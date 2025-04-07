@@ -7,6 +7,7 @@ that don't already exist in the target language directories using FlowHunt API.
 
 Usage:
     python translate_with_flowhunt.py [--path /path/to/content] [--check-interval 60] [--max-concurrent 10]
+                                     [--flow-id FLOW_ID]
 
 Prerequisites:
     - Python 3.6 or higher
@@ -19,6 +20,9 @@ Examples:
     
     # With explicit path
     python translate_with_flowhunt.py --path /Users/username/work/hugo-boilerplate/content
+    
+    # With custom flow and workspace IDs
+    python translate_with_flowhunt.py --flow-id "custom-flow-id"
     
     # With API key as environment variable
     export FLOWHUNT_API_KEY="your-api-key"
@@ -53,9 +57,8 @@ if not api_key:
     print("Please set the FLOWHUNT_API_KEY environment variable or add it to the .env file")
     sys.exit(1)
 
-# FlowHunt flow ID for translation service
-FLOW_ID = '023d4dee-b451-467f-a5cd-693e9f2aeac4'
-WORKSPACE_ID = '93b15202-726d-4556-a3bf-c157338e6ff4'
+# Default FlowHunt flow ID and workspace ID for translation service
+DEFAULT_FLOW_ID = '7389730a-fbaf-48a2-bb77-3b6814c23b20'
 
 # Map of folder names to full language names
 LANGUAGE_MAP = {
@@ -124,6 +127,22 @@ LANGUAGE_MAP = {
     'eu': 'Basque',  # Not European Union
 }
 
+
+
+def get_workspace_id():
+    api_client = initialize_api_client()
+    # Create an instance of the API class
+    api_instance = flowhunt.AuthApi(api_client)
+
+    try:
+        # Get User
+        api_response = api_instance.get_user()
+        return api_response.api_key_workspace_id
+    except flowhunt.ApiException as e:
+        print("Exception when calling AuthApi->get_user: %s\n" % e)
+        return None
+    
+
 def is_translatable_file(file_path):
     """Check if a file should be translated based on extension"""
     return file_path.suffix.lower() in ['.md', '.markdown', '.yaml', '.yml', '.html', '.txt']
@@ -155,7 +174,7 @@ def initialize_api_client():
     
     return flowhunt.ApiClient(configuration)
 
-def invoke_flow_for_translation(api_instance, content, target_lang):
+def invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id):
     """
     Invoke a FlowHunt flow to translate content to the target language
     
@@ -163,6 +182,8 @@ def invoke_flow_for_translation(api_instance, content, target_lang):
         api_instance: FlowHunt API instance
         content (str): Content to translate
         target_lang (str): Target language code
+        flow_id (str): FlowHunt flow ID
+        workspace_id (str): FlowHunt workspace ID
         
     Returns:
         str: Process ID or None if failed
@@ -181,8 +202,8 @@ def invoke_flow_for_translation(api_instance, content, target_lang):
         
         # Invoke the flow
         response = api_instance.invoke_flow_singleton(
-            flow_id=FLOW_ID,
-            workspace_id=WORKSPACE_ID,
+            flow_id=flow_id,
+            workspace_id=workspace_id,
             flow_invoke_request=flow_invoke_request
         )
         
@@ -193,13 +214,15 @@ def invoke_flow_for_translation(api_instance, content, target_lang):
         print(f"Error invoking flow for {target_lang}: {str(e)}")
         return None
 
-def check_flow_results(api_instance, process_id):
+def check_flow_results(api_instance, process_id, flow_id, workspace_id):
     """
     Check if a flow has completed and get the results
     
     Args:
         api_instance: FlowHunt API instance
         process_id (str): Process ID to check
+        flow_id (str): FlowHunt flow ID
+        workspace_id (str): FlowHunt workspace ID
         
     Returns:
         tuple: (is_ready, result_text)
@@ -207,7 +230,7 @@ def check_flow_results(api_instance, process_id):
     try:
         # Get the results of the invoked flow
         response = api_instance.get_invoked_flow_results(
-            flow_id=FLOW_ID, task_id=process_id, workspace_id=WORKSPACE_ID
+            flow_id=flow_id, task_id=process_id, workspace_id=workspace_id
         )
         
         # Check if the flow has completed
@@ -277,19 +300,21 @@ def find_files_for_translation(content_dir, target_langs):
     
     return translation_tasks, files_already_exist
 
-def process_translations(translation_tasks):
+def process_translations(translation_tasks, flow_id, workspace_id):
     """
     Process translation tasks using FlowHunt API
     
     Args:
         translation_tasks (list): List of translation tasks
+        flow_id (str): FlowHunt flow ID
+        workspace_id (str): FlowHunt workspace ID
     """
     if not translation_tasks:
         print("No files need translation (all files already exist in target languages)")
         return
     
     print(f"Translating {len(translation_tasks)} files")
-    max_concurrent=10
+    max_concurrent=50
     check_interval=10
     # Initialize the API client
     with initialize_api_client() as api_client:
@@ -311,7 +336,7 @@ def process_translations(translation_tasks):
                 file_path, content, target_lang, target_file = translation_tasks[task_index]
                 
                 # Invoke the translation flow
-                process_id = invoke_flow_for_translation(api_instance, content, target_lang)
+                process_id = invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id)
                 
                 if process_id:
                     # Add to pending tasks
@@ -333,7 +358,7 @@ def process_translations(translation_tasks):
             for process_id in process_ids:
                 file_path, target_lang, target_file = pending_tasks[process_id]
                 
-                is_ready, translated_text = check_flow_results(api_instance, process_id)
+                is_ready, translated_text = check_flow_results(api_instance, process_id, flow_id, workspace_id)
                 
                 if is_ready:
                     # Remove from pending tasks
@@ -385,6 +410,7 @@ Examples:
   python translate_with_flowhunt.py
   python translate_with_flowhunt.py --path /path/to/content
   python translate_with_flowhunt.py --check-interval 30
+  python translate_with_flowhunt.py --flow-id "custom-flow-id"
         """,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
@@ -409,11 +435,23 @@ Examples:
         type=int,
         default=10
     )
+    parser.add_argument(
+        "--flow-id",
+        help="FlowHunt flow ID for translation service (default: %(default)s)",
+        default=DEFAULT_FLOW_ID
+    )
     
     args = parser.parse_args()
     
     # Convert to Path object
     content_dir = Path(args.path)
+
+    workspace_id = get_workspace_id()
+    if not workspace_id:
+        print("Error: Unable to retrieve workspace ID. Please check your API key.")
+        sys.exit(1)
+    else:
+        print(f"Using workspace ID: {workspace_id}")
     
     # Check if the content directory exists
     if not content_dir.exists() or not content_dir.is_dir():
@@ -436,6 +474,7 @@ Examples:
     print(f"Content directory: {content_dir}")
     print(f"Source language: en")
     print(f"Target languages: {', '.join(target_langs)}")
+    print(f"Using FlowHunt flow ID: {args.flow_id}")
     
     # Find files that need translation
     translation_tasks, files_already_exist = find_files_for_translation(content_dir, target_langs)
@@ -444,7 +483,7 @@ Examples:
     print(f"Files skipped (already exist): {files_already_exist}")
     
     # Process translations
-    process_translations(translation_tasks)
+    process_translations(translation_tasks, args.flow_id, workspace_id)
     
     print("\nTranslation completed!")
 
