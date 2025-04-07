@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "שאלות נפוצות"
 language_selector_title: "שפות זמינות"
 glossary_subtitle: "רשימה מקיפה של מונחים והגדרות"
 glossary_title: "מילון מונחים"
+home_title: "בית"
+
+# Glossary translations
+glossary_eyebrow: "מילון מונחים"
+
+# Category page translations
+categories_title: "קטגוריות"
+categories_browse_all: "עיין בכל התוכן לפי קטגוריה"
+category_eyebrow: "קטגוריה"
+category_browse_content: "עיין בכל התוכן בקטגוריה %s"
+category_no_content_found: "לא נמצא תוכן בקטגוריה זו"
+category_try_browsing: "נסה לעיין בקטגוריות אחרות או לחפש תוכן"
+category_other_categories: "קטגוריות אחרות"
+
+# CTA translations
+cta_default_heading: "הרחב את הידע שלך עם המשאבים שלנו"
+cta_default_description: "עיין בספריית המאמרים, המדריכים והטוטוריאלים המקיפה שלנו כדי להעמיק את ההבנה שלך במושגי מפתח ולהישאר מעודכן עם ההתפתחויות האחרונות."
+cta_default_primary_text: "עיין במשאבים"
+cta_default_secondary_text: "צור קשר עם המומחים שלנו"
+
+# Content type translations
+content_article_singular: "מאמר"
+content_article_plural: "מאמרים"
 
 # Tags page translations
 tags_title: "תגיות"
+tags_browse_all: "עיין בכל התוכן לפי נושא"
 tag_eyebrow: "תג"
 tag_browse_content: "עיין בכל התכנים עם התגית %s"
 tag_no_content_found: "לא נמצא תוכן עם התגית הזו"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "עוגיות ניתוח"
 cookie_settings_analytics_description: "עוגיות אלו עוזרות לנו להבין כיצד מבקרים מתקשרים עם האתר שלנו."
 cookie_settings_cancel: "ביטול"
 cookie_settings_save: "שמור העדפות"
+
+# Pagination translations
+pagination_previous: "הקודם"
+pagination_next: "הבא"
+pagination_showing: "מציג"
+pagination_to: "עד"
+pagination_of: "מתוך"
+pagination_results: "תוצאות"
+pagination_browse_all: "עיין בכל התוכן ב"
+
+# FAQ translations
+faq_heading: "שאלות נפוצות"
+faq_description: "מצא תשובות לשאלות נפוצות בנושא זה."

@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "الأسئلة الشائعة"
 language_selector_title: "اللغات المتاحة"
 glossary_subtitle: "قائمة شاملة بالمصطلحات والتعريفات"
 glossary_title: "المصطلحات"
+home_title: "الرئيسية"
+
+# Glossary translations
+glossary_eyebrow: "المصطلحات"
+
+# Category page translations
+categories_title: "الفئات"
+categories_browse_all: "تصفح جميع المحتويات حسب الفئة"
+category_eyebrow: "الفئة"
+category_browse_content: "تصفح جميع المحتويات في فئة %s"
+category_no_content_found: "لم يتم العثور على محتوى في هذه الفئة"
+category_try_browsing: "حاول تصفح فئات أخرى أو البحث عن محتوى"
+category_other_categories: "فئات أخرى"
+
+# CTA translations
+cta_default_heading: "وسّع معرفتك من خلال مواردنا"
+cta_default_description: "استكشف مكتبتنا الشاملة من المقالات والأدلة والبرامج التعليمية لتعميق فهمك للمفاهيم الرئيسية والبقاء على اطلاع بأحدث التطورات."
+cta_default_primary_text: "تصفح الموارد"
+cta_default_secondary_text: "تواصل مع خبرائنا"
+
+# Content type translations
+content_article_singular: "مقال"
+content_article_plural: "مقالات"
 
 # Tags page translations
 tags_title: "العلامات"
+tags_browse_all: "تصفح جميع المحتويات حسب الموضوع"
 tag_eyebrow: "علامة"
 tag_browse_content: "تصفح جميع المحتويات المعلّمة بـ %s"
 tag_no_content_found: "لم يتم العثور على محتوى بهذه العلامة"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "ملفات تعريف الارتباط الت�
 cookie_settings_analytics_description: "تساعدنا هذه الملفات في فهم كيفية تفاعل الزوار مع موقعنا."
 cookie_settings_cancel: "إلغاء"
 cookie_settings_save: "حفظ التفضيلات"
+
+# Pagination translations
+pagination_previous: "السابق"
+pagination_next: "التالي"
+pagination_showing: "عرض"
+pagination_to: "إلى"
+pagination_of: "من"
+pagination_results: "النتائج"
+pagination_browse_all: "تصفح جميع المحتويات في"
+
+# FAQ translations
+faq_heading: "الأسئلة الشائعة"
+faq_description: "ابحث عن إجابات للأسئلة الشائعة حول هذا الموضوع."

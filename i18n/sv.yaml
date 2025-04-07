@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Vanliga frågor"
 language_selector_title: "Tillgängliga språk"
 glossary_subtitle: "En omfattande lista över termer och definitioner"
 glossary_title: "Ordlista"
+home_title: "Hem"
+
+# Glossary translations
+glossary_eyebrow: "Ordlista"
+
+# Category page translations
+categories_title: "Kategorier"
+categories_browse_all: "Bläddra i allt innehåll efter kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Bläddra i allt innehåll i kategorin %s"
+category_no_content_found: "Inget innehåll hittades i denna kategori"
+category_try_browsing: "Försök bläddra i andra kategorier eller sök efter innehåll"
+category_other_categories: "Andra kategorier"
+
+# CTA translations
+cta_default_heading: "Utöka dina kunskaper med våra resurser"
+cta_default_description: "Utforska vårt omfattande bibliotek av artiklar, guider och handledningar för att fördjupa din förståelse av nyckelbegrepp och hålla dig uppdaterad med de senaste utvecklingarna."
+cta_default_primary_text: "Bläddra bland resurser"
+cta_default_secondary_text: "Kontakta våra experter"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artiklar"
 
 # Tags page translations
 tags_title: "Taggar"
+tags_browse_all: "Bläddra i allt innehåll efter ämne"
 tag_eyebrow: "Tagg"
 tag_browse_content: "Bläddra i allt innehåll märkt med %s"
 tag_no_content_found: "Inget innehåll hittades med den här taggen"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Analyscookies"
 cookie_settings_analytics_description: "Dessa cookies hjälper oss att förstå hur besökare interagerar med vår webbplats."
 cookie_settings_cancel: "Avbryt"
 cookie_settings_save: "Spara inställningar"
+
+# Pagination translations
+pagination_previous: "Föregående"
+pagination_next: "Nästa"
+pagination_showing: "Visar"
+pagination_to: "till"
+pagination_of: "av"
+pagination_results: "resultat"
+pagination_browse_all: "Bläddra i allt innehåll i"
+
+# FAQ translations
+faq_heading: "Vanliga frågor"
+faq_description: "Hitta svar på vanliga frågor om detta ämne."

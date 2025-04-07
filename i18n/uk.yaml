@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Часті запитання"
 language_selector_title: "Доступні мови"
 glossary_subtitle: "Всебічний список термінів та визначень"
 glossary_title: "Глосарій"
+home_title: "Головна"
 
+# Glossary translations
+glossary_eyebrow: "Глосарій"
+
+# Category page translations
+categories_title: "Категорії"
+categories_browse_all: "Переглянути весь вміст за категоріями"
+category_eyebrow: "Категорія"
+category_browse_content: "Переглянути весь вміст у категорії %s"
+category_no_content_found: "У цій категорії не знайдено вмісту"
+category_try_browsing: "Спробуйте переглянути інші категорії або пошукати вміст"
+category_other_categories: "Інші категорії"
+
+# CTA translations
+cta_default_heading: "Розширюйте свої знання за допомогою наших ресурсів"
+cta_default_description: "Досліджуйте нашу повну бібліотеку статей, посібників та навчальних матеріалів, щоб поглибити своє розуміння ключових понять та бути в курсі останніх розробок."
+cta_default_primary_text: "Переглянути ресурси"
+cta_default_secondary_text: "Зв'язатися з нашими експертами"
+
+# Content type translations
+content_article_singular: "стаття"
+content_article_plural: "статті"
 
 # Tags page translations
 tags_title: "Теги"
+tags_browse_all: "Переглянути весь вміст за темами"
 tag_eyebrow: "Тег"
 tag_browse_content: "Переглянути весь вміст за тегом %s"
 tag_no_content_found: "Вміст із цим тегом не знайдено"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Аналітичні файли cookie"
 cookie_settings_analytics_description: "Ці файли cookie допомагають нам зрозуміти, як відвідувачі взаємодіють з нашим вебсайтом."
 cookie_settings_cancel: "Скасувати"
 cookie_settings_save: "Зберегти налаштування"
+
+# Pagination translations
+pagination_previous: "Попередня"
+pagination_next: "Наступна"
+pagination_showing: "Показано"
+pagination_to: "до"
+pagination_of: "з"
+pagination_results: "результатів"
+pagination_browse_all: "Переглянути весь вміст у"
+
+# FAQ translations
+faq_heading: "Часті запитання"
+faq_description: "Знайдіть відповіді на поширені запитання з цієї теми."

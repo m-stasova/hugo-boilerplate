@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Sıkça Sorulan Sorular"
 language_selector_title: "Mevcut Diller"
 glossary_subtitle: "Kapsamlı terimler ve tanımlar listesi"
 glossary_title: "Sözlük"
+home_title: "Ana Sayfa"
 
+# Glossary translations
+glossary_eyebrow: "Sözlük"
+
+# Category page translations
+categories_title: "Kategoriler"
+categories_browse_all: "Tüm içeriği kategoriye göre göz atın"
+category_eyebrow: "Kategori"
+category_browse_content: "%s kategorisindeki tüm içeriğe göz atın"
+category_no_content_found: "Bu kategoride içerik bulunamadı"
+category_try_browsing: "Diğer kategorilere göz atmayı veya içerik aramayı deneyin"
+category_other_categories: "Diğer Kategoriler"
+
+# CTA translations
+cta_default_heading: "Kaynaklarımızla bilginizi genişletin"
+cta_default_description: "Temel kavramları daha iyi anlamak ve en son gelişmelerden haberdar olmak için kapsamlı makale, kılavuz ve öğretici kitaplığımızı keşfedin."
+cta_default_primary_text: "Kaynaklara göz atın"
+cta_default_secondary_text: "Uzmanlarımızla iletişime geçin"
+
+# Content type translations
+content_article_singular: "makale"
+content_article_plural: "makaleler"
 
 # Tags page translations
 tags_title: "Etiketler"
+tags_browse_all: "Tüm içeriğe konuya göre göz atın"
 tag_eyebrow: "Etiket"
 tag_browse_content: "Tüm %s ile etiketlenmiş içerikleri gözden geçirin"
 tag_no_content_found: "Bu etiketle içerik bulunamadı"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Analiz Çerezleri"
 cookie_settings_analytics_description: "Bu çerezler, ziyaretçilerin web sitemizle nasıl etkileşimde bulunduğunu anlamamıza yardımcı olur."
 cookie_settings_cancel: "İptal"
 cookie_settings_save: "Tercihleri Kaydet"
+
+# Pagination translations
+pagination_previous: "Önceki"
+pagination_next: "Sonraki"
+pagination_showing: "Gösteriliyor"
+pagination_to: "ila"
+pagination_of: "/"
+pagination_results: "sonuç"
+pagination_browse_all: "Tüm içeriğe göz atın:"
+
+# FAQ translations
+faq_heading: "Sıkça sorulan sorular"
+faq_description: "Bu konu hakkında sık sorulan soruların cevaplarını bulun."

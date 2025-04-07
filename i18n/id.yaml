@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Pertanyaan yang Sering Diajukan"
 language_selector_title: "Bahasa yang Tersedia"
 glossary_subtitle: "Daftar lengkap istilah dan definisi"
 glossary_title: "Glosarium"
+home_title: "Beranda"
 
+# Glossary translations
+glossary_eyebrow: "Glosarium"
+
+# Category page translations
+categories_title: "Kategori"
+categories_browse_all: "Telusuri semua konten berdasarkan kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Telusuri semua konten dalam kategori %s"
+category_no_content_found: "Tidak ada konten yang ditemukan dalam kategori ini"
+category_try_browsing: "Coba telusuri kategori lain atau cari konten"
+category_other_categories: "Kategori Lainnya"
+
+# CTA translations
+cta_default_heading: "Perluas pengetahuan Anda dengan sumber daya kami"
+cta_default_description: "Jelajahi perpustakaan komprehensif kami yang berisi artikel, panduan, dan tutorial untuk memperdalam pemahaman Anda tentang konsep-konsep utama dan tetap mengikuti perkembangan terbaru."
+cta_default_primary_text: "Telusuri sumber daya"
+cta_default_secondary_text: "Hubungi ahli kami"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikel"
 
 # Tags page translations
 tags_title: "Tag"
+tags_browse_all: "Telusuri semua konten berdasarkan topik"
 tag_eyebrow: "Tag"
 tag_browse_content: "Telusuri semua konten yang ditandai dengan %s"
 tag_no_content_found: "Tidak ada konten yang ditemukan dengan tag ini"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Cookie Analitik"
 cookie_settings_analytics_description: "Cookie ini membantu kami memahami bagaimana pengunjung berinteraksi dengan situs web kami."
 cookie_settings_cancel: "Batalkan"
 cookie_settings_save: "Simpan Preferensi"
+
+# Pagination translations
+pagination_previous: "Sebelumnya"
+pagination_next: "Selanjutnya"
+pagination_showing: "Menampilkan"
+pagination_to: "hingga"
+pagination_of: "dari"
+pagination_results: "hasil"
+pagination_browse_all: "Telusuri semua konten di"
+
+# FAQ translations
+faq_heading: "Pertanyaan yang sering diajukan"
+faq_description: "Temukan jawaban atas pertanyaan umum tentang topik ini."

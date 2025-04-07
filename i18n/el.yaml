@@ -1,12 +1,35 @@
-
 # Μεταφράσεις στα ελληνικά
 frequently_asked_questions: "Συχνές Ερωτήσεις"
 language_selector_title: "Διαθέσιμες Γλώσσες"
 glossary_subtitle: "Μία εκτενής λίστα όρων και ορισμών"
 glossary_title: "Γλωσσάριο"
+home_title: "Αρχική"
+
+# Glossary translations
+glossary_eyebrow: "Γλωσσάριο"
+
+# Category page translations
+categories_title: "Κατηγορίες"
+categories_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο ανά κατηγορία"
+category_eyebrow: "Κατηγορία"
+category_browse_content: "Περιηγηθείτε σε όλο το περιεχόμενο στην κατηγορία %s"
+category_no_content_found: "Δεν βρέθηκε περιεχόμενο σε αυτή την κατηγορία"
+category_try_browsing: "Δοκιμάστε να περιηγηθείτε σε άλλες κατηγορίες ή να αναζητήσετε περιεχόμενο"
+category_other_categories: "Άλλες Κατηγορίες"
+
+# CTA translations
+cta_default_heading: "Διευρύνετε τις γνώσεις σας με τους πόρους μας"
+cta_default_description: "Εξερευνήστε την εκτενή βιβλιοθήκη μας με άρθρα, οδηγούς και εκπαιδευτικό υλικό για να εμβαθύνετε την κατανόησή σας για βασικές έννοιες και να ενημερώνεστε για τις τελευταίες εξελίξεις."
+cta_default_primary_text: "Περιηγηθείτε στους πόρους"
+cta_default_secondary_text: "Επικοινωνήστε με τους ειδικούς μας"
+
+# Content type translations
+content_article_singular: "άρθρο"
+content_article_plural: "άρθρα"
 
 # Μεταφράσεις σελίδας ετικετών
 tags_title: "Ετικέτες"
+tags_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο ανά θέμα"
 tag_eyebrow: "Ετικέτα"
 tag_browse_content: "Περιηγηθείτε σε όλο το περιεχόμενο με ετικέτα %s"
 tag_no_content_found: "Δεν βρέθηκε περιεχόμενο με αυτή την ετικέτα"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Cookies Αναλυτικής"
 cookie_settings_analytics_description: "Αυτά τα cookies μας βοηθούν να κατανοήσουμε πώς οι επισκέπτες αλληλεπιδρούν με την ιστοσελίδα μας."
 cookie_settings_cancel: "Ακύρωση"
 cookie_settings_save: "Αποθήκευση Προτιμήσεων"
+
+# Pagination translations
+pagination_previous: "Προηγούμενη"
+pagination_next: "Επόμενη"
+pagination_showing: "Εμφάνιση"
+pagination_to: "έως"
+pagination_of: "από"
+pagination_results: "αποτελέσματα"
+pagination_browse_all: "Περιηγηθείτε σε όλο το περιεχόμενο σε"
+
+# FAQ translations
+faq_heading: "Συχνές ερωτήσεις"
+faq_description: "Βρείτε απαντήσεις σε συνήθεις ερωτήσεις σχετικά με αυτό το θέμα."

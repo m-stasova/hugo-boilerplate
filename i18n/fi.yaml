@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Usein Kysytyt Kysymykset"
 language_selector_title: "Saatavilla Olevat Kielet"
 glossary_subtitle: "Kattava lista termeistä ja määritelmistä"
 glossary_title: "Sanasto"
+home_title: "Etusivu"
 
+# Glossary translations
+glossary_eyebrow: "Sanasto"
+
+# Category page translations
+categories_title: "Kategoriat"
+categories_browse_all: "Selaa kaikkea sisältöä kategorioittain"
+category_eyebrow: "Kategoria"
+category_browse_content: "Selaa kaikkea sisältöä kategoriassa %s"
+category_no_content_found: "Tästä kategoriasta ei löytynyt sisältöä"
+category_try_browsing: "Kokeile selata muita kategorioita tai etsiä sisältöä"
+category_other_categories: "Muut kategoriat"
+
+# CTA translations
+cta_default_heading: "Laajenna tietämystäsi resurssiemme avulla"
+cta_default_description: "Tutustu kattavaan kirjastoomme, joka sisältää artikkeleita, oppaita ja tutoriaaleja syventääksesi ymmärrystäsi keskeisistä käsitteistä ja pysyäksesi ajan tasalla uusimmista kehityksistä."
+cta_default_primary_text: "Selaa resursseja"
+cta_default_secondary_text: "Ota yhteyttä asiantuntijoihimme"
+
+# Content type translations
+content_article_singular: "artikkeli"
+content_article_plural: "artikkelit"
 
 # Tags page translations
 tags_title: "Tunnisteet"
+tags_browse_all: "Selaa kaikkea sisältöä aiheen mukaan"
 tag_eyebrow: "Tunniste"
 tag_browse_content: "Selaa kaikkea sisältöä, johon on merkitty %s"
 tag_no_content_found: "Sisältöä ei löytynyt tällä tunnisteella"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Analytiikkaevästeet"
 cookie_settings_analytics_description: "Nämä evästeet auttavat meitä ymmärtämään, miten vierailijat ovat vuorovaikutuksessa verkkosivustomme kanssa."
 cookie_settings_cancel: "Peruuta"
 cookie_settings_save: "Tallenna Asetukset"
+
+# Pagination translations
+pagination_previous: "Edellinen"
+pagination_next: "Seuraava"
+pagination_showing: "Näytetään"
+pagination_to: "–"
+pagination_of: "/"
+pagination_results: "tulosta"
+pagination_browse_all: "Selaa kaikkea sisältöä kohteessa"
+
+# FAQ translations
+faq_heading: "Usein kysytyt kysymykset"
+faq_description: "Löydä vastauksia yleisiin kysymyksiin tästä aiheesta."

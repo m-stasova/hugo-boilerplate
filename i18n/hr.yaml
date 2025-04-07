@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Često postavljana pitanja"
 language_selector_title: "Dostupni jezici"
 glossary_subtitle: "Sveobuhvatan popis pojmova i definicija"
 glossary_title: "Rječnik"
+home_title: "Početna"
+
+# Glossary translations
+glossary_eyebrow: "Rječnik"
+
+# Category page translations
+categories_title: "Kategorije"
+categories_browse_all: "Pregledajte sav sadržaj po kategoriji"
+category_eyebrow: "Kategorija"
+category_browse_content: "Pregledajte sav sadržaj u kategoriji %s"
+category_no_content_found: "Nije pronađen sadržaj u ovoj kategoriji"
+category_try_browsing: "Pokušajte pregledati druge kategorije ili potražiti sadržaj"
+category_other_categories: "Ostale kategorije"
+
+# CTA translations
+cta_default_heading: "Proširite svoje znanje s našim resursima"
+cta_default_description: "Istražite našu sveobuhvatnu biblioteku članaka, vodiča i tutorijala kako biste produbili svoje razumijevanje ključnih koncepata i bili u toku s najnovijim razvojima."
+cta_default_primary_text: "Pregledajte resurse"
+cta_default_secondary_text: "Kontaktirajte naše stručnjake"
+
+# Content type translations
+content_article_singular: "članak"
+content_article_plural: "članci"
 
 # Tags page translations
 tags_title: "Oznake"
+tags_browse_all: "Pregledajte sav sadržaj po temi"
 tag_eyebrow: "Oznaka"
 tag_browse_content: "Pregledajte sav sadržaj označen s %s"
 tag_no_content_found: "Nema sadržaja s ovom oznakom"
@@ -30,4 +53,17 @@ cookie_settings_analytics_title: "Analitički kolačići"
 cookie_settings_analytics_description: "Ovi kolačići pomažu nam razumjeti kako posjetitelji interagiraju s našom web stranicom."
 cookie_settings_cancel: "Otkaži"
 cookie_settings_save: "Spremi postavke"
+
+# Pagination translations
+pagination_previous: "Prethodna"
+pagination_next: "Sljedeća"
+pagination_showing: "Prikazuje se"
+pagination_to: "do"
+pagination_of: "od"
+pagination_results: "rezultata"
+pagination_browse_all: "Pregledajte sav sadržaj u"
+
+# FAQ translations
+faq_heading: "Često postavljana pitanja"
+faq_description: "Pronađite odgovore na uobičajena pitanja o ovoj temi."
 

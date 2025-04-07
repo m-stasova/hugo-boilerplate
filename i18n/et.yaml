@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Korduma Kippuvad Küsimused"
 language_selector_title: "Saadaolevad Keeled"
 glossary_subtitle: "Põhjalik terminite ja definitsioonide loend"
 glossary_title: "Sõnastik"
+home_title: "Avaleht"
 
+# Glossary translations
+glossary_eyebrow: "Sõnastik"
+
+# Category page translations
+categories_title: "Kategooriad"
+categories_browse_all: "Sirvi kogu sisu kategooria järgi"
+category_eyebrow: "Kategooria"
+category_browse_content: "Sirvi kogu sisu kategoorias %s"
+category_no_content_found: "Selles kategoorias sisu ei leitud"
+category_try_browsing: "Proovi sirvida teisi kategooriaid või otsida sisu"
+category_other_categories: "Muud Kategooriad"
+
+# CTA translations
+cta_default_heading: "Laienda oma teadmisi meie ressurssidega"
+cta_default_description: "Uuri meie põhjalikku artiklite, juhendite ja õpetuste kogu, et süvendada oma arusaamist põhimõistetest ja hoida end kursis viimaste arengutega."
+cta_default_primary_text: "Sirvi ressursse"
+cta_default_secondary_text: "Võta ühendust meie ekspertidega"
+
+# Content type translations
+content_article_singular: "artikkel"
+content_article_plural: "artiklid"
 
 # Tags page translations
 tags_title: "Sildid"
+tags_browse_all: "Sirvi kogu sisu teema järgi"
 tag_eyebrow: "Silt"
 tag_browse_content: "Sirvi kõiki sildiga %s märgitud sisu"
 tag_no_content_found: "Selle sildiga sisu ei leitud"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Analüütilised Küpsised"
 cookie_settings_analytics_description: "Need küpsised aitavad meil mõista, kuidas külastajad meie veebisaidiga suhtlevad."
 cookie_settings_cancel: "Tühista"
 cookie_settings_save: "Salvesta Eelistused"
+
+# Pagination translations
+pagination_previous: "Eelmine"
+pagination_next: "Järgmine"
+pagination_showing: "Näitab"
+pagination_to: "kuni"
+pagination_of: "/"
+pagination_results: "tulemused"
+pagination_browse_all: "Sirvi kogu sisu kohas"
+
+# FAQ translations
+faq_heading: "Korduma kippuvad küsimused"
+faq_description: "Leia vastused selle teema kohta käivatele levinud küsimustele."

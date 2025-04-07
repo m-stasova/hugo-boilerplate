@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Bieži Uzdotie Jautājumi"
 language_selector_title: "Pieejamās Valodas"
 glossary_subtitle: "Visaptverošs terminu un definīciju saraksts"
 glossary_title: "Glosārijs"
+home_title: "Sākums"
 
+# Glossary translations
+glossary_eyebrow: "Glosārijs"
+
+# Category page translations
+categories_title: "Kategorijas"
+categories_browse_all: "Pārlūkojiet visu saturu pēc kategorijas"
+category_eyebrow: "Kategorija"
+category_browse_content: "Pārlūkojiet visu saturu kategorijā %s"
+category_no_content_found: "Šajā kategorijā saturs nav atrasts"
+category_try_browsing: "Mēģiniet pārlūkot citas kategorijas vai meklēt saturu"
+category_other_categories: "Citas Kategorijas"
+
+# CTA translations
+cta_default_heading: "Paplašiniet savas zināšanas ar mūsu resursiem"
+cta_default_description: "Izpētiet mūsu visaptverošo rakstu, ceļvežu un apmācību bibliotēku, lai padziļinātu savu izpratni par galvenajiem jēdzieniem un sekotu līdzi jaunākajiem notikumiem."
+cta_default_primary_text: "Pārlūkot resursus"
+cta_default_secondary_text: "Sazināties ar mūsu ekspertiem"
+
+# Content type translations
+content_article_singular: "raksts"
+content_article_plural: "raksti"
 
 # Tags page translations
 tags_title: "Tagi"
+tags_browse_all: "Pārlūkojiet visu saturu pēc tēmas"
 tag_eyebrow: "Tags"
 tag_browse_content: "Pārlūkojiet visu saturu ar atzīmi %s"
 tag_no_content_found: "Nav atrasts saturs ar šo tagu"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Analītiskās Sīkdatnes"
 cookie_settings_analytics_description: "Šīs sīkdatnes palīdz mums saprast, kā apmeklētāji mijiedarbojas ar mūsu vietni."
 cookie_settings_cancel: "Atcelt"
 cookie_settings_save: "Saglabāt Preferences"
+
+# Pagination translations
+pagination_previous: "Iepriekšējais"
+pagination_next: "Nākamais"
+pagination_showing: "Rāda"
+pagination_to: "līdz"
+pagination_of: "no"
+pagination_results: "rezultātiem"
+pagination_browse_all: "Pārlūkot visu saturu iekš"
+
+# FAQ translations
+faq_heading: "Bieži uzdotie jautājumi"
+faq_description: "Atrodiet atbildes uz biežiem jautājumiem par šo tēmu."

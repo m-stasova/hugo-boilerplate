@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Soalan Lazim"
 language_selector_title: "Bahasa yang Tersedia"
 glossary_subtitle: "Senarai istilah dan definisi yang komprehensif"
 glossary_title: "Glosari"
+home_title: "Utama"
+
+# Glossary translations
+glossary_eyebrow: "Glosari"
+
+# Category page translations
+categories_title: "Kategori"
+categories_browse_all: "Lihat semua kandungan mengikut kategori"
+category_eyebrow: "Kategori"
+category_browse_content: "Lihat semua kandungan dalam kategori %s"
+category_no_content_found: "Tiada kandungan dijumpai dalam kategori ini"
+category_try_browsing: "Cuba lihat kategori lain atau cari kandungan"
+category_other_categories: "Kategori Lain"
+
+# CTA translations
+cta_default_heading: "Perluas pengetahuan anda dengan sumber kami"
+cta_default_description: "Terokai perpustakaan kami yang komprehensif dengan artikel, panduan, dan tutorial untuk memperdalam pemahaman anda tentang konsep utama dan sentiasa dikemas kini dengan perkembangan terkini."
+cta_default_primary_text: "Lihat sumber"
+cta_default_secondary_text: "Hubungi pakar kami"
+
+# Content type translations
+content_article_singular: "artikel"
+content_article_plural: "artikel"
 
 # Tags page translations
 tags_title: "Tag"
+tags_browse_all: "Lihat semua kandungan mengikut topik"
 tag_eyebrow: "Tag"
 tag_browse_content: "Lihat semua kandungan yang ditandai dengan %s"
 tag_no_content_found: "Tiada kandungan dijumpai dengan tag ini"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Kuki Analitis"
 cookie_settings_analytics_description: "Kuki ini membantu kami memahami bagaimana pelawat berinteraksi dengan laman web kami."
 cookie_settings_cancel: "Batal"
 cookie_settings_save: "Simpan Keutamaan"
+
+# Pagination translations
+pagination_previous: "Sebelumnya"
+pagination_next: "Seterusnya"
+pagination_showing: "Memaparkan"
+pagination_to: "hingga"
+pagination_of: "daripada"
+pagination_results: "keputusan"
+pagination_browse_all: "Lihat semua kandungan dalam"
+
+# FAQ translations
+faq_heading: "Soalan lazim"
+faq_description: "Dapatkan jawapan untuk soalan umum tentang topik ini."

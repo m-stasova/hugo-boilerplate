@@ -1,13 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Algengar Spurningar"
 language_selector_title: "Tiltæk Tungumál"
 glossary_subtitle: "Yfirgripsmikill listi af hugtökum og skilgreiningum"
 glossary_title: "Hugtakasafn"
+home_title: "Heim"
 
+# Glossary translations
+glossary_eyebrow: "Hugtakasafn"
+
+# Category page translations
+categories_title: "Flokkar"
+categories_browse_all: "Skoða allt efni eftir flokki"
+category_eyebrow: "Flokkur"
+category_browse_content: "Skoða allt efni í flokknum %s"
+category_no_content_found: "Ekkert efni fannst í þessum flokki"
+category_try_browsing: "Prófaðu að skoða aðra flokka eða leita að efni"
+category_other_categories: "Aðrir Flokkar"
+
+# CTA translations
+cta_default_heading: "Útvíkkaðu þekkingu þína með úrræðum okkar"
+cta_default_description: "Kannaðu yfirgripsmikið safn greina, leiðbeininga og kennsluefnis til að dýpka skilning þinn á lykilhugtökum og fylgjast með nýjustu þróun."
+cta_default_primary_text: "Skoða úrræði"
+cta_default_secondary_text: "Hafa samband við sérfræðinga okkar"
+
+# Content type translations
+content_article_singular: "grein"
+content_article_plural: "greinar"
 
 # Tags page translations
 tags_title: "Tags"
+tags_browse_all: "Skoða allt efni eftir efnisflokki"
 tag_eyebrow: "Tag"
 tag_browse_content: "Skoða allan efni merkt með %s"
 tag_no_content_found: "Engin efni fundin með þessu tagi"
@@ -31,3 +53,16 @@ cookie_settings_analytics_title: "Greiningar Kökur"
 cookie_settings_analytics_description: "Þessar kökur hjálpa okkur að skilja hvernig gestir hafa samskipti við vefsíðu okkar."
 cookie_settings_cancel: "Hætta við"
 cookie_settings_save: "Vista Stillingar"
+
+# Pagination translations
+pagination_previous: "Fyrri"
+pagination_next: "Næsta"
+pagination_showing: "Sýni"
+pagination_to: "til"
+pagination_of: "af"
+pagination_results: "niðurstöður"
+pagination_browse_all: "Skoða allt efni í"
+
+# FAQ translations
+faq_heading: "Algengar spurningar"
+faq_description: "Finndu svör við algengum spurningum um þetta efni."

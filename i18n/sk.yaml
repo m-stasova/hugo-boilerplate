@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "Najčastejšie kladené otázky"
 language_selector_title: "Dostupné jazyky"
 glossary_subtitle: "Komplexný zoznam pojmov a definícií"
 glossary_title: "Glosár"
+home_title: "Domov"
+
+# Glossary translations
+glossary_eyebrow: "Glosár"
+
+# Category page translations
+categories_title: "Kategórie"
+categories_browse_all: "Prehliadať všetok obsah podľa kategórie"
+category_eyebrow: "Kategória"
+category_browse_content: "Prehľadávať všetok obsah v kategórii %s"
+category_no_content_found: "V tejto kategórii sa nenašiel žiadny obsah"
+category_try_browsing: "Skúste prehliadať iné kategórie alebo vyhľadať obsah"
+category_other_categories: "Iné kategórie"
+
+# CTA translations
+cta_default_heading: "Rozšírte svoje znalosti pomocou našich zdrojov"
+cta_default_description: "Preskúmajte našu komplexnú knižnicu článkov, príručiek a návodov pre prehĺbenie vášho porozumenia kľúčových konceptov a udržanie prehľadu o najnovších vývoji."
+cta_default_primary_text: "Prehliadať zdroje"
+cta_default_secondary_text: "Kontaktovať našich expertov"
+
+# Content type translations
+content_article_singular: "článok"
+content_article_plural: "články"
 
 # Tags page translations
 tags_title: "Tagy"
+tags_browse_all: "Prehliadať všetok obsah podľa témy"
 tag_eyebrow: "Tag"
 tag_browse_content: "Prehľadávať všetok obsah označený %s"
 tag_no_content_found: "Nenašiel sa žiadny obsah s týmto tagom"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "Analytické cookies"
 cookie_settings_analytics_description: "Tieto cookies nám pomáhajú pochopiť, ako návštevníci interagujú s našou webovou stránkou."
 cookie_settings_cancel: "Zrušiť"
 cookie_settings_save: "Uložiť preferencie"
+
+# Pagination translations
+pagination_previous: "Predchádzajúca"
+pagination_next: "Nasledujúca"
+pagination_showing: "Zobrazené"
+pagination_to: "až"
+pagination_of: "z"
+pagination_results: "výsledkov"
+pagination_browse_all: "Prehliadať všetok obsah v"
+
+# FAQ translations
+faq_heading: "Najčastejšie kladené otázky"
+faq_description: "Nájdite odpovede na bežné otázky o tejto téme."

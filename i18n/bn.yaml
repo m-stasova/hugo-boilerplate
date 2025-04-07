@@ -1,12 +1,35 @@
-
 # English translations
 frequently_asked_questions: "প্রায় জিজ্ঞাসিত প্রশ্নাবলী"
 language_selector_title: "উপলভ্য ভাষাসমূহ"
 glossary_subtitle: "শব্দ এবং সংজ্ঞার একটি বিস্তৃত তালিকা"
 glossary_title: "শব্দকোষ"
+home_title: "হোম"
+
+# Glossary translations
+glossary_eyebrow: "শব্দকোষ"
+
+# Category page translations
+categories_title: "বিভাগসমূহ"
+categories_browse_all: "বিভাগ অনুসারে সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+category_eyebrow: "বিভাগ"
+category_browse_content: "%s বিভাগের সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+category_no_content_found: "এই বিভাগে কোনো বিষয়বস্তু পাওয়া যায়নি"
+category_try_browsing: "অন্যান্য বিভাগ ব্রাউজ করতে বা বিষয়বস্তু অনুসন্ধান করতে চেষ্টা করুন"
+category_other_categories: "অন্যান্য বিভাগ"
+
+# CTA translations
+cta_default_heading: "আমাদের সম্পদ দিয়ে আপনার জ্ঞান বাড়ান"
+cta_default_description: "প্রধান ধারণাগুলি সম্পর্কে আপনার বোঝাপড়া গভীর করতে এবং সর্বশেষ উন্নয়ন সম্পর্কে আপডেট থাকতে আমাদের বিস্তৃত নিবন্ধ, গাইড এবং টিউটোরিয়াল লাইব্রেরি অন্বেষণ করুন।"
+cta_default_primary_text: "সম্পদ ব্রাউজ করুন"
+cta_default_secondary_text: "আমাদের বিশেষজ্ঞদের সাথে যোগাযোগ করুন"
+
+# Content type translations
+content_article_singular: "নিবন্ধ"
+content_article_plural: "নিবন্ধসমূহ"
 
 # Tags page translations
 tags_title: "ট্যাগসমূহ"
+tags_browse_all: "বিষয় অনুসারে সমস্ত বিষয়বস্তু ব্রাউজ করুন"
 tag_eyebrow: "ট্যাগ"
 tag_browse_content: "%s ট্যাগযুক্ত সমস্ত বিষয়বস্তু ব্রাউজ করুন"
 tag_no_content_found: "এই ট্যাগ সহ কোনো বিষয়বস্তু পাওয়া যায়নি"
@@ -30,3 +53,16 @@ cookie_settings_analytics_title: "বিশ্লেষণ কুকি"
 cookie_settings_analytics_description: "এই কুকিগুলি আমাদের বুঝতে সহায়তা করে যে দর্শকরা আমাদের ওয়েবসাইটের সাথে কীভাবে ইন্টারঅ্যাক্ট করে।"
 cookie_settings_cancel: "বাতিল করুন"
 cookie_settings_save: "পছন্দগুলি সংরক্ষণ করুন"
+
+# Pagination translations
+pagination_previous: "পূর্ববর্তী"
+pagination_next: "পরবর্তী"
+pagination_showing: "দেখাচ্ছে"
+pagination_to: "থেকে"
+pagination_of: "এর মধ্যে"
+pagination_results: "ফলাফল"
+pagination_browse_all: "সমস্ত বিষয়বস্তু ব্রাউজ করুন"
+
+# FAQ translations
+faq_heading: "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী"
+faq_description: "এই বিষয় সম্পর্কে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
