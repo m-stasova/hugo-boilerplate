@@ -195,7 +195,8 @@ def invoke_flow_for_translation(api_instance, content, target_lang, flow_id, wor
         # Prepare the request payload
         flow_invoke_request = flowhunt.FlowInvokeRequest(
             variables={
-                "target_language": language_name
+                "target_language": language_name,
+                "today": time.strftime("%Y-%m-%d"),
             }, 
             human_input=content
         )
@@ -371,6 +372,12 @@ def process_translations(translation_tasks, flow_id, workspace_id):
                             
                             # Write the translated content to the target file
                             with open(target_file, 'w', encoding='utf-8') as f:
+
+                                # is translated text starts or ends with ```, remove it
+                                if translated_text.startswith("```"):
+                                    translated_text = translated_text[3:]
+                                if translated_text.endswith("```"):
+                                    translated_text = translated_text[:-3]
                                 f.write(translated_text)
                             
                             # Add to completed tasks
