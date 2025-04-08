@@ -8,57 +8,117 @@
       <!-- Use page translations when available -->
       {{ range .Translations }}
         {{ $lang := .Language.Lang }}
-        <!-- Default flag emoji mapping -->
-        {{ $flagEmoji := "🏳️" }}
         
-        <!-- European Languages -->
-        {{ if eq $lang "en" }}{{ $flagEmoji = "🇬🇧" }} <!-- English (UK) -->
-        {{ else if eq $lang "en-us" }}{{ $flagEmoji = "🇺🇸" }} <!-- English (US) -->
-        {{ else if eq $lang "de" }}{{ $flagEmoji = "🇩🇪" }} <!-- German -->
-        {{ else if eq $lang "de-at" }}{{ $flagEmoji = "🇦🇹" }} <!-- Austrian German -->
-        {{ else if eq $lang "at" }}{{ $flagEmoji = "🇦🇹" }} <!-- Austrian German -->
-        {{ else if eq $lang "fr" }}{{ $flagEmoji = "🇫🇷" }} <!-- French -->
-        {{ else if eq $lang "es" }}{{ $flagEmoji = "🇪🇸" }} <!-- Spanish -->
-        {{ else if eq $lang "it" }}{{ $flagEmoji = "🇮🇹" }} <!-- Italian -->
-        {{ else if eq $lang "pt" }}{{ $flagEmoji = "🇵🇹" }} <!-- Portuguese -->
-        {{ else if eq $lang "nl" }}{{ $flagEmoji = "🇳🇱" }} <!-- Dutch -->
-        {{ else if eq $lang "be" }}{{ $flagEmoji = "🇧🇪" }} <!-- Belgian -->
-        {{ else if eq $lang "lu" }}{{ $flagEmoji = "🇱🇺" }} <!-- Luxembourgish -->
-        {{ else if eq $lang "da" }}{{ $flagEmoji = "🇩🇰" }} <!-- Danish -->
-        {{ else if eq $lang "sv" }}{{ $flagEmoji = "🇸🇪" }} <!-- Swedish -->
-        {{ else if eq $lang "fi" }}{{ $flagEmoji = "🇫🇮" }} <!-- Finnish -->
-        {{ else if eq $lang "no" }}{{ $flagEmoji = "🇳🇴" }} <!-- Norwegian -->
-        {{ else if eq $lang "is" }}{{ $flagEmoji = "🇮🇸" }} <!-- Icelandic -->
-        {{ else if eq $lang "el" }}{{ $flagEmoji = "🇬🇷" }} <!-- Greek -->
-        {{ else if eq $lang "cs" }}{{ $flagEmoji = "🇨🇿" }} <!-- Czech -->
-        {{ else if eq $lang "sk" }}{{ $flagEmoji = "🇸🇰" }} <!-- Slovak -->
-        {{ else if eq $lang "pl" }}{{ $flagEmoji = "🇵🇱" }} <!-- Polish -->
-        {{ else if eq $lang "hu" }}{{ $flagEmoji = "🇭🇺" }} <!-- Hungarian -->
-        {{ else if eq $lang "ro" }}{{ $flagEmoji = "🇷🇴" }} <!-- Romanian -->
-        {{ else if eq $lang "bg" }}{{ $flagEmoji = "🇧🇬" }} <!-- Bulgarian -->
-        {{ else if eq $lang "hr" }}{{ $flagEmoji = "🇭🇷" }} <!-- Croatian -->
-        {{ else if eq $lang "sl" }}{{ $flagEmoji = "🇸🇮" }} <!-- Slovenian -->
-        {{ else if eq $lang "sr" }}{{ $flagEmoji = "🇷🇸" }} <!-- Serbian -->
-        {{ else if eq $lang "mk" }}{{ $flagEmoji = "🇲🇰" }} <!-- Macedonian -->
-        {{ else if eq $lang "sq" }}{{ $flagEmoji = "🇦🇱" }} <!-- Albanian -->
-        {{ else if eq $lang "et" }}{{ $flagEmoji = "🇪🇪" }} <!-- Estonian -->
-        {{ else if eq $lang "lv" }}{{ $flagEmoji = "🇱🇻" }} <!-- Latvian -->
-        {{ else if eq $lang "lt" }}{{ $flagEmoji = "🇱🇹" }} <!-- Lithuanian -->
-        {{ else if eq $lang "mt" }}{{ $flagEmoji = "🇲🇹" }} <!-- Maltese -->
-        {{ else if eq $lang "ga" }}{{ $flagEmoji = "🇮🇪" }} <!-- Irish -->
-        {{ else if eq $lang "cy" }}{{ $flagEmoji = "🇬🇧" }} <!-- Welsh (UK) -->
-        {{ else if eq $lang "gd" }}{{ $flagEmoji = "🇬🇧" }} <!-- Scottish Gaelic (UK) -->
-        {{ else if eq $lang "ru" }}{{ $flagEmoji = "🇷🇺" }} <!-- Russian -->
-        {{ else if eq $lang "uk" }}{{ $flagEmoji = "🇺🇦" }} <!-- Ukrainian -->
-        {{ else if eq $lang "by" }}{{ $flagEmoji = "🇧🇾" }} <!-- Belarusian -->
-        {{ else if eq $lang "tr" }}{{ $flagEmoji = "🇹🇷" }} <!-- Turkish -->
+        <!-- Get country code for flag -->
+        {{ $countryCode := $lang }}
+        
+        <!-- Handle special cases -->
+        {{ if eq $lang "en" }}{{ $countryCode = "gb" }}
+        {{ else if eq $lang "en-us" }}{{ $countryCode = "us" }}
+        {{ else if eq $lang "de-at" }}{{ $countryCode = "at" }}
+        {{ else if eq $lang "cy" }}{{ $countryCode = "gb-wls" }}
+        {{ else if eq $lang "gd" }}{{ $countryCode = "gb-sct" }}
+        {{ else if eq $lang "by" }}{{ $countryCode = "by" }}
+        {{ else if eq $lang "cs" }}{{ $countryCode = "cz" }}
+        {{ else if eq $lang "da" }}{{ $countryCode = "dk" }}
+        {{ else if eq $lang "en-gb" }}{{ $countryCode = "gb" }}
+        {{ else if eq $lang "en-ca" }}{{ $countryCode = "ca" }}
+        {{ else if eq $lang "en-au" }}{{ $countryCode = "au" }}
+        {{ else if eq $lang "en-nz" }}{{ $countryCode = "nz" }}
+        {{ else if eq $lang "en-ie" }}{{ $countryCode = "ie" }}
+        {{ else if eq $lang "en-sg" }}{{ $countryCode = "sg" }}
+        {{ else if eq $lang "en-za" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "es-mx" }}{{ $countryCode = "mx" }}
+        {{ else if eq $lang "es-es" }}{{ $countryCode = "es" }}
+        {{ else if eq $lang "fr-ca" }}{{ $countryCode = "ca-fr" }}
+        {{ else if eq $lang "fr-ch" }}{{ $countryCode = "ch-fr" }}
+        {{ else if eq $lang "fr-be" }}{{ $countryCode = "be" }}
+        {{ else if eq $lang "fr-lu" }}{{ $countryCode = "lu" }}
+        {{ else if eq $lang "fr" }}{{ $countryCode = "fr" }}
+        {{ else if eq $lang "it-ch" }}{{ $countryCode = "ch-it" }}
+        {{ else if eq $lang "it" }}{{ $countryCode = "it" }}
+        {{ else if eq $lang "ja" }}{{ $countryCode = "jp" }}
+        {{ else if eq $lang "ko" }}{{ $countryCode = "kr" }}
+        {{ else if eq $lang "pl" }}{{ $countryCode = "pl" }}
+        {{ else if eq $lang "pt-br" }}{{ $countryCode = "br" }}
+        {{ else if eq $lang "pt-pt" }}{{ $countryCode = "pt" }}
+        {{ else if eq $lang "ro" }}{{ $countryCode = "ro" }}
+        {{ else if eq $lang "ru" }}{{ $countryCode = "ru" }}
+        {{ else if eq $lang "tr" }}{{ $countryCode = "tr" }}
+        {{ else if eq $lang "uk" }}{{ $countryCode = "ua" }}
+        {{ else if eq $lang "zh-hans" }}{{ $countryCode = "cn" }}
+        {{ else if eq $lang "zh-hant" }}{{ $countryCode = "tw" }}
+        {{ else if eq $lang "ar" }}{{ $countryCode = "ae" }}
+        {{ else if eq $lang "el" }}{{ $countryCode = "gr" }}
+        {{ else if eq $lang "hi" }}{{ $countryCode = "in" }}
+        {{ else if eq $lang "th" }}{{ $countryCode = "th" }}
+        {{ else if eq $lang "vi" }}{{ $countryCode = "vn" }}
+        {{ else if eq $lang "id" }}{{ $countryCode = "id" }}
+        {{ else if eq $lang "ms" }}{{ $countryCode = "my" }}
+        {{ else if eq $lang "bn" }}{{ $countryCode = "bd" }}
+        {{ else if eq $lang "fa" }}{{ $countryCode = "ir" }}
+        {{ else if eq $lang "sw" }}{{ $countryCode = "ke" }}
+        {{ else if eq $lang "tl" }}{{ $countryCode = "ph" }}
+        {{ else if eq $lang "zu" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "sw" }}{{ $countryCode = "tz" }}
+        {{ else if eq $lang "sq" }}{{ $countryCode = "al" }}
+        {{ else if eq $lang "hr" }}{{ $countryCode = "hr" }}
+        {{ else if eq $lang "sk" }}{{ $countryCode = "sk" }}
+        {{ else if eq $lang "sl" }}{{ $countryCode = "si" }}
+        {{ else if eq $lang "lv" }}{{ $countryCode = "lv" }}
+        {{ else if eq $lang "lt" }}{{ $countryCode = "lt" }}
+        {{ else if eq $lang "et" }}{{ $countryCode = "ee" }}
+        {{ else if eq $lang "is" }}{{ $countryCode = "is" }}
+        {{ else if eq $lang "mt" }}{{ $countryCode = "mt" }}
+        {{ else if eq $lang "no" }}{{ $countryCode = "no" }}
+        {{ else if eq $lang "fi" }}{{ $countryCode = "fi" }}
+        {{ else if eq $lang "da" }}{{ $countryCode = "dk" }}
+        {{ else if eq $lang "hu" }}{{ $countryCode = "hu" }}
+        {{ else if eq $lang "bg" }}{{ $countryCode = "bg" }}
+        {{ else if eq $lang "sr" }}{{ $countryCode = "rs" }}
+        {{ else if eq $lang "mk" }}{{ $countryCode = "mk" }}
+        {{ else if eq $lang "bs" }}{{ $countryCode = "ba" }}
+        {{ else if eq $lang "sq" }}{{ $countryCode = "al" }}
+        {{ else if eq $lang "tlh" }}{{ $countryCode = "tlh" }}
+        {{ else if eq $lang "cy" }}{{ $countryCode = "gb-wls" }}
+        {{ else if eq $lang "ga" }}{{ $countryCode = "ie" }}
+        {{ else if eq $lang "eu" }}{{ $countryCode = "es" }}
+        {{ else if eq $lang "ca" }}{{ $countryCode = "es" }}
+        {{ else if eq $lang "gl" }}{{ $countryCode = "es" }}
+        {{ else if eq $lang "la" }}{{ $countryCode = "va" }}
+        {{ else if eq $lang "sw" }}{{ $countryCode = "ke" }}
+        {{ else if eq $lang "zu" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "xh" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "st" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "tn" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ts" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "nr" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ss" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ve" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "xh" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "zu" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "st" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "tn" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ts" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "nr" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ss" }}{{ $countryCode = "za" }}
+        {{ else if eq $lang "ve" }}{{ $countryCode = "za" }}
+        
         {{ end }}
         
+        <!-- Create flag image url -->
+        {{ $flagUrl := printf "https://flagcdn.com/24x18/%s.png" $countryCode }}
+        
         <a href="{{ .Permalink }}" 
-           class="inline-flex items-center text-xl hover:opacity-75 transition-opacity" 
+           class="inline-flex items-center text-sm hover:opacity-75 transition-opacity" 
            title="{{ .Language.LanguageName }}"
            aria-label="{{ .Language.LanguageName }}">
-          <span role="img" aria-hidden="true">{{ $flagEmoji }}</span>
+          {{ partial "lazyimg" (dict 
+              "src" $flagUrl
+              "alt" .Language.LanguageName
+              "width" 24
+              "height" 18
+          ) }}
         </a>
       {{ end }}
     {{ end }}
