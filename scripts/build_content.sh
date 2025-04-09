@@ -97,4 +97,9 @@ echo -e "${GREEN}Image preprocessing completed!${NC}"
 # Deactivate the virtual environment
 deactivate
 
+# Execute the add_missing_date.sh script
+echo -e "${BLUE}=== Running add_missing_date.sh ===${NC}"
+bash "${SCRIPT_DIR}/add_missing_date.sh" --path "${HUGO_ROOT}/content"
+echo -e "${GREEN}add_missing_date.sh script executed successfully!${NC}"
+
 echo -e "${GREEN}Done! All content processing completed successfully.${NC}"
