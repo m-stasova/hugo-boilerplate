@@ -34,7 +34,7 @@
       {{ range $letters }}
         {{ $letter := . }}
         {{ $termsInCategory := where $glossaryTerms "Params.category" $letter }}
-        
+                
         {{ if $termsInCategory }}
           <div id="{{ $letter }}" class="scroll-mt-20">
             <h2 class="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">{{ $letter }}</h2>
@@ -63,11 +63,6 @@
                 </li>
               {{ end }}
             </ul>
-          </div>
-        {{ else }}
-          <div id="{{ $letter }}" class="scroll-mt-20">
-            <h2 class="text-3xl font-bold text-gray-900 border-b border-gray-200 pb-4">{{ $letter }}</h2>
-            <p class="mt-4 text-lg text-gray-500">{{ i18n "no_terms_available" }}</p>
           </div>
         {{ end }}
       {{ end }}
