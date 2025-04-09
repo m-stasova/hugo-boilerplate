@@ -315,7 +315,6 @@ def process_translations(translation_tasks, flow_id, workspace_id):
         return
     
     print(f"Translating {len(translation_tasks)} files")
-    max_concurrent=50
     check_interval=10
     # Initialize the API client
     with initialize_api_client() as api_client:
@@ -329,41 +328,47 @@ def process_translations(translation_tasks, flow_id, workspace_id):
         # Track progress
         progress_bar = tqdm(total=len(translation_tasks), desc="Scheduling translations")
         
-        # Process tasks in batches respecting max_concurrent
-        task_index = 0
-        while task_index < len(translation_tasks) or pending_tasks:
-            # Schedule new tasks up to max_concurrent
-            while task_index < len(translation_tasks) and len(pending_tasks) < max_concurrent:
-                file_path, content, target_lang, target_file = translation_tasks[task_index]
-                
-                # Invoke the translation flow
-                process_id = invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id)
-                
-                if process_id:
-                    # Add to pending tasks
-                    pending_tasks[process_id] = (file_path, target_lang, target_file)
-                else:
-                    # Failed to invoke flow
-                    failed_tasks.append((file_path, target_lang, target_file))
-                    progress_bar.update(1)
-                
-                task_index += 1
+        # Schedule all translation tasks at once
+        for file_path, content, target_lang, target_file in translation_tasks:
+            # Invoke the translation flow
+            process_id = invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id)
             
+            if process_id:
+                # Add to pending tasks
+                pending_tasks[process_id] = (file_path, target_lang, target_file)
+            else:
+                # Failed to invoke flow
+                failed_tasks.append((file_path, target_lang, target_file))
+                progress_bar.update(1)
+        
+        progress_bar.close()
+        print(f"Scheduled {len(pending_tasks)} translation tasks, now waiting for results...")
+        
+        # Process results until all tasks are completed
+        progress_bar = tqdm(total=len(pending_tasks), desc="Processing translations")
+        
+        # Continue checking for results until all tasks are completed
+        while pending_tasks:
             # Wait for the check interval before checking results
-            if pending_tasks:
-                print(f"Waiting for {check_interval} seconds before checking results...")
-                time.sleep(check_interval)
+            time.sleep(check_interval)
             
             # Check for completed tasks
             process_ids = list(pending_tasks.keys())
+            completed_in_batch = 0
+            
             for process_id in process_ids:
                 file_path, target_lang, target_file = pending_tasks[process_id]
                 
                 is_ready, translated_text = check_flow_results(api_instance, process_id, flow_id, workspace_id)
                 
+                # trim all whitespace from the translated text
+                if translated_text:
+                    translated_text = translated_text.strip()
+
                 if is_ready:
                     # Remove from pending tasks
                     del pending_tasks[process_id]
+                    completed_in_batch += 1
                     
                     if translated_text:
                         try:
@@ -391,13 +396,13 @@ def process_translations(translation_tasks, flow_id, workspace_id):
                         # Translation failed
                         failed_tasks.append((file_path, target_lang, target_file))
                         print(f"Failed to translate {file_path} to {target_lang}")
-                    
-                    # Update progress
-                    progress_bar.update(1)
             
-            # If no more tasks to schedule and no pending tasks, we're done
-            if task_index >= len(translation_tasks) and not pending_tasks:
-                break
+            # Update progress
+            progress_bar.update(completed_in_batch)
+            
+            # Print status update
+            if pending_tasks:
+                print(f"Still waiting for {len(pending_tasks)} tasks to complete...")
         
         # Close the progress bar
         progress_bar.close()
