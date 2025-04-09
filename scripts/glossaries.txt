@@ -1,7 +1,0 @@
-Frame Rate - The number of frames captured per second in video recording. Common rates are 15fps, 25fps, or 30fps.
-
-Fresnel Lens - The ridged, plastic lens covering the PIR sensor that focuses infrared radiation onto it, determining the sensor’s angle and range.
-
-Full HD 1080p - A resolution of 1920×1080 pixels, a common standard in trail camera video recording.
-
-Ghost Trigger - A false trigger that leads to empty shots, often caused by sudden temperature changes or moving vegetation that confuses the PIR sensor.
