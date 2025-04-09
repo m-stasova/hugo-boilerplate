@@ -30,7 +30,7 @@ find "$CONTENT_DIR" -type f -name "*.md" | while read -r file; do
     echo "Processing: $file"
     
     # Check if file has frontmatter and is missing the date parameter
-    if grep -q "^---\|^\+++" "$file" && ! grep -q "^date:" "$file"; then
+    if grep -q "^---\|^\+++" "$file" && ! grep -q "^date =" "$file"; then
         echo "  Found file with missing date: $file"
         
         # Determine frontmatter delimiter (--- or +++)
@@ -40,9 +40,9 @@ find "$CONTENT_DIR" -type f -name "*.md" | while read -r file; do
         tmp_file="${file}.tmp"
         
         # Add the date parameter to the beginning of the frontmatter
-        if awk -v date="date: $DEFAULT_DATE" -v dlm="$delimiter" '
+        if awk -v date="date = \"$DEFAULT_DATE\"" -v dlm="$delimiter" '
             BEGIN { added = 0 }
-            $0 ~ dlm && !added { print; print date; added = 1; next }
+            $0 == dlm && !added { print; print date; added = 1; next }
             { print }
         ' "$file" > "$tmp_file"; then
             # Only replace original if the temp file was created successfully
