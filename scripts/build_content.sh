@@ -20,6 +20,8 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+
+
 #print directories
 echo -e "${BLUE}=== Directories ===${NC}"
 echo -e "${BLUE}Script directory: ${SCRIPT_DIR}${NC}"
@@ -50,16 +52,6 @@ pip install --upgrade pip
 echo -e "${YELLOW}Installing requirements...${NC}"
 pip install -r "${SCRIPT_DIR}/requirements.txt"
 
-# Check for OpenAI API key
-if [ -z "$OPENAI_API_KEY" ]; then
-    echo -e "${YELLOW}Checking for OpenAI API key...${NC}"
-    if [ ! -f "${SCRIPT_DIR}/.env" ]; then
-        echo -e "${YELLOW}No .env file found. Please enter your OpenAI API key:${NC}"
-        read -p "OpenAI API Key: " api_key
-        echo "OPENAI_API_KEY=${api_key}" > "${SCRIPT_DIR}/.env"
-    fi
-fi
-
 # Check for FlowHunt API key
 if [ -z "$FLOWHUNT_API_KEY" ]; then
     echo -e "${YELLOW}Checking for FlowHunt API key...${NC}"
@@ -74,11 +66,36 @@ if [ -z "$FLOWHUNT_API_KEY" ]; then
     fi
 fi
 
+# STEP 0 validate if all content file are in the correct format with script validate_content.sh
+echo -e "${BLUE}=== Step 0: Validating Content Files ===${NC}"
+
+bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
+if [ $? -ne 0 ]; then
+    echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
+    exit 1
+fi
+echo -e "${GREEN}Content file validation completed!${NC}"
+
+
+
 # STEP 1: Run the translation script with FlowHunt
 echo -e "${BLUE}=== Step 1: Translating Missing Content with FlowHunt API ===${NC}"
 echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
 python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
+
+# after translation validate again
+echo -e "${BLUE}=== Step: Validating Content Files after translation ===${NC}"
+
+bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
+if [ $? -ne 0 ]; then
+    echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
+    exit 1
+fi
+echo -e "${GREEN}Content file validation completed!${NC}"
+
+
+
 
 # STEP 2: Generate Related Content
 echo -e "${BLUE}=== Step 2: Generating Related Content ===${NC}"
