@@ -53,7 +53,7 @@
             <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
               <div>
                 <p class="text-sm text-gray-700">
-                  {{ i18n "tag_pagination_page" $paginator.PageNumber $paginator.TotalPages (len $paginator.Pages) }}
+                  {{ i18n "tag_pagination_page" (dict "current" $paginator.PageNumber "total" $paginator.TotalPages "items" (len $paginator.Pages)) }}
                 </p>
               </div>
               <div>
