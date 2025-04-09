@@ -11,7 +11,7 @@
 <!-- Hero Section -->
 {{ partial "headers/centered_with_eyebrow.html" (dict 
   "heading" .Title
-  "description" (partial "utils/linkbuilding" (dict "content" (i18n "tag_browse_content" .Title) "page" .))
+  "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "tag_browse_content") .Title) "page" .))
   "eyebrow" (i18n "tag_eyebrow")
 ) }}
 
