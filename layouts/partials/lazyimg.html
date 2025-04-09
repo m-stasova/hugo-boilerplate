@@ -372,17 +372,20 @@
     </picture>
   {{ end }}
 {{ else }}
-  <!-- External image, just use as is -->
-  <img 
-    src="{{ $src }}" 
-    alt="{{ $alt }}" 
-    class="lazy-image {{ with $class }}{{ . }}{{ end }}"
-    {{ with $id }}id="{{ . }}"{{ end }}
-    {{ with $width }}width="{{ . }}"{{ end }}
-    {{ with $height }}height="{{ . }}"{{ end }}
-    loading="lazy"
-    decoding="async"
-    data-original-src="{{ $src }}"
-    {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
-  >
+  <!-- External image with true lazy loading -->
+  <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
+    <img 
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+      data-src="{{ $src }}" 
+      alt="{{ $alt }}" 
+      class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+      {{ with $id }}id="{{ . }}"{{ end }}
+      {{ with $width }}width="{{ . }}"{{ end }}
+      {{ with $height }}height="{{ . }}"{{ end }}
+      loading="lazy"
+      decoding="async"
+      data-original-src="{{ $src }}"
+      {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+    >
+  </picture>
 {{ end }}
