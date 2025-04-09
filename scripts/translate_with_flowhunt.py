@@ -195,6 +195,7 @@ def invoke_flow_for_translation(api_instance, content, target_lang, flow_id, wor
         # Prepare the request payload
         flow_invoke_request = flowhunt.FlowInvokeRequest(
             variables={
+                "source_language": "English",
                 "target_language": language_name,
                 "today": time.strftime("%Y-%m-%d"),
             }, 
