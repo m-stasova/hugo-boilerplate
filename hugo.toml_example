@@ -69,8 +69,8 @@ theme = 'boilerplate'
     weight = 1
     contentDir = "content/en"
     baseURL = "https://example.com"
-    bcp47Lang = "en-us"
     [languages.en.params]
+      bcp47Lang = "en-us"
       description = "English site description"
       gaMeasurementID = "G-PROD7890123"
     [[languages.en.menu.main]]
@@ -90,8 +90,8 @@ theme = 'boilerplate'
     weight = 2
     contentDir = "content/de"
     baseURL = "https://example.de"
-    bcp47Lang = "de"
     [languages.de.params]
+      bcp47Lang = "de"
       description = "Deutsche Seitenbeschreibung"
       gaMeasurementID = "G-GERMAN12345"
     [[languages.de.menu.main]]
@@ -111,8 +111,8 @@ theme = 'boilerplate'
     weight = 3
     contentDir = "content/sk"
     baseURL = "https://example.sk"
-    bcp47Lang = "sk"
     [languages.sk.params]
+      bcp47Lang = "sk"
       description = "Slovenský popis stránky"
       gaMeasurementID = "G-SLOVAK67890"
     [[languages.sk.menu.main]]

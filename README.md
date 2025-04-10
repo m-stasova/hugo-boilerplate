@@ -175,10 +175,9 @@ The theme supports multiple languages out of the box. Configure them in your `hu
     weight = 1
     contentDir = "content/en"
     baseURL = "https://example.com"
-    bcp47Lang = "en-us"
     [languages.en.params]
+      bcp47Lang = "en-us"
       description = "English site description"
-      flag = "🇺🇸"
 
   [languages.de]
     languageName = "Deutsch"
@@ -186,10 +185,9 @@ The theme supports multiple languages out of the box. Configure them in your `hu
     weight = 2
     contentDir = "content/de"
     baseURL = "https://example.de"
-    bcp47Lang = "de"
     [languages.de.params]
+      bcp47Lang = "de"
       description = "Deutsche Seitenbeschreibung"
-      flag = "🇩🇪"
 ```
 
 ### Image Processing Configuration
