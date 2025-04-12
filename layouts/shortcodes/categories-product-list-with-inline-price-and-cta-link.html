@@ -8,7 +8,38 @@
   - viewAllUrl: URL for the "View all" link (default: "#")
   - ctaText: Text for the CTA button that appears on hover (default: "View Product")
   
-  The products are predefined in the shortcode
+  Inner Content (optional JSON array):
+  - Array of product objects with the following structure:
+    - title: Product title
+    - category: Product category
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+  
+  Example usage with custom products:
+  {{< categories-product-list-with-inline-price-and-cta-link heading="Featured Products" >}}
+    [
+      {
+        "title": "Trail Camera Pro",
+        "category": "Wildlife Monitoring",
+        "url": "/products/trail-camera-pro",
+        "imageUrl": "/images/products/trail-camera-pro.jpg",
+        "imageAlt": "High-resolution trail camera with night vision capabilities",
+        "price": "$149"
+      },
+      {
+        "title": "Wildlife Sensor",
+        "category": "Accessories",
+        "url": "/products/wildlife-sensor",
+        "imageUrl": "/images/products/wildlife-sensor.jpg",
+        "imageAlt": "Motion detection sensor for wildlife photography",
+        "price": "$59"
+      }
+    ]
+  {{< /categories-product-list-with-inline-price-and-cta-link >}}
+  
+  If no inner content is provided, default products will be used.
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
@@ -17,7 +48,7 @@
 {{ $viewAllUrl := .Get "viewAllUrl" | default "#" }}
 {{ $ctaText := .Get "ctaText" | default "View Product" }}
 
-{{ $products := slice 
+{{ $defaultProducts := slice 
   (dict 
     "title" "Fusion"
     "category" "UI Kit"
@@ -51,6 +82,13 @@
     "price" "$59"
   )
 }}
+
+{{ $products := $defaultProducts }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $products = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "categories/product_list_with_inline_price_and_cta_link.html" (dict 
   "backgroundColor" $backgroundColor

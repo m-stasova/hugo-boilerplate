@@ -1,19 +1,36 @@
 {{/* Split Hero with Code Example Shortcode */}}
-{{ $logo := (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
-{{ $heading := (.Get 1) | default "Supercharge your web app" }}
-{{ $description := (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." }}
-{{ $primaryCtaText := (.Get 3) | default "Documentation" }}
-{{ $primaryCtaUrl := (.Get 4) | default "#" }}
-{{ $secondaryCtaText := (.Get 5) | default "View on GitHub" }}
-{{ $secondaryCtaUrl := (.Get 6) | default "#" }}
-{{ $badgeText := (.Get 7) | default "What's new" }}
-{{ $badgeVersion := (.Get 8) | default "Just shipped v0.1.0" }}
+{{- /*
+  Usage in markdown:
+  {{< hero-split-with-code 
+    logo="https://example.com/logo.svg"
+    heading="Build Modern Web Applications" 
+    description="Our platform helps you create scalable web applications with ease." 
+    primaryCtaText="Get Started" 
+    primaryCtaUrl="/docs/start" 
+    secondaryCtaText="View Demo" 
+    secondaryCtaUrl="/demo" 
+    badgeText="New Release" 
+    badgeVersion="v2.0 Available Now"
+    activeFile="Example.jsx"
+    inactiveFile="Config.jsx"
+    codeContent="// Your custom code example here
+const greeting = 'Hello, world!';
+console.log(greeting);"
+  >}}
+*/ -}}
 
-{{/* 
-  Note: For this shortcode, we're using the default code example from the partial.
-  In a real-world implementation, you might want to allow passing in custom code
-  through a structured data file or inner content.
-*/}}
+{{ $logo := .Get "logo" | default (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := .Get "heading" | default (.Get 1) | default "Supercharge your web app" }}
+{{ $description := .Get "description" | default (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default (.Get 3) | default "Documentation" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default (.Get 4) | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default (.Get 5) | default "View on GitHub" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default (.Get 6) | default "#" }}
+{{ $badgeText := .Get "badgeText" | default (.Get 7) | default "What's new" }}
+{{ $badgeVersion := .Get "badgeVersion" | default (.Get 8) | default "Just shipped v0.1.0" }}
+{{ $activeFile := .Get "activeFile" | default "NotificationSetting.jsx" }}
+{{ $inactiveFile := .Get "inactiveFile" | default "App.jsx" }}
+{{ $codeContent := .Get "codeContent" | default "// Add your code example here" }}
 
 {{ $badge := dict
   "text" $badgeText
@@ -25,10 +42,17 @@
   "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
 }}
 
+{{ $code := dict
+  "activeFile" $activeFile
+  "inactiveFile" $inactiveFile
+  "content" $codeContent
+}}
+
 {{ partial "hero/split_with_code_example.html" (dict 
   "logo" $logo
   "heading" $heading
   "description" $description
   "cta" $cta
   "badge" $badge
+  "code" $code
 ) }}

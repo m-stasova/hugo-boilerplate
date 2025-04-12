@@ -1,8 +1,19 @@
-{{ $videoID := (.Get 0) }}
-{{ $title := (.Get 1) | default "YouTube Video" }}
-{{ $class := (.Get 2) | default "" }}
-{{ $width := (.Get 3) | default "100%" }}
-{{ $height := (.Get 4) | default "auto" }}
+{{/* Lazy Loading YouTube Video Shortcode */}}
+{{/*
+Usage:
+{{< lazyvideo 
+  videoID="dQw4w9WgXcQ" 
+  title="Never Gonna Give You Up - Rick Astley" 
+  class="rounded-lg shadow-md" 
+  width="640px" 
+  height="360px" 
+>}}
+*/}}
+{{ $videoID := .Get "videoID" }}
+{{ $title := default "YouTube Video" (.Get "title") }}
+{{ $class := default "" (.Get "class") }}
+{{ $width := default "100%" (.Get "width") }}
+{{ $height := default "auto" (.Get "height") }}
 
 {{ partial "lazyvideo.html" (dict 
   "videoID" $videoID 

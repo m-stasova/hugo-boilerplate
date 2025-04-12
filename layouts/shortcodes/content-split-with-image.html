@@ -1,15 +1,45 @@
+{{- /*
+  Usage in markdown:
+  {{< content-split-with-image 
+    eyebrow="Innovative Solutions" 
+    heading="Transform Your Workflow" 
+    description="Discover how our tools can help you streamline your processes and achieve better results." 
+    image="https://example.com/image.jpg" 
+    imageAlt="Descriptive alt text for the image" 
+    bgColor="bg-gray-100" 
+    eyebrowColor="text-blue-500" 
+    headingColor="text-black" 
+    descriptionColor="text-gray-600" 
+    contentColor="text-gray-800" 
+    imageBgColor="bg-white" 
+  >}}
+  
+  Parameters:
+  1. eyebrow: Small text displayed above the main heading
+  2. heading: Main heading text
+  3. description: Description text below the main heading
+  4. image: URL of the image to display
+  5. imageAlt: Alt text for the image
+  6. bgColor: Background color class for the section
+  7. eyebrowColor: Text color class for the eyebrow text
+  8. headingColor: Text color class for the main heading
+  9. descriptionColor: Text color class for the description text
+  10. contentColor: Text color class for the main content
+  11. imageBgColor: Background color class for the image container
+*/ -}}
+
 {{/* Split with Image Content Shortcode */}}
-{{ $eyebrow := (.Get 0) | default "Deploy faster" }}
-{{ $heading := (.Get 1) | default "A better workflow" }}
-{{ $description := (.Get 2) | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
-{{ $image := (.Get 3) | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
-{{ $imageAlt := (.Get 4) | default "Featured image" }}
-{{ $bgColor := (.Get 5) | default "bg-white" }}
-{{ $eyebrowColor := (.Get 6) | default "text-indigo-600" }}
-{{ $headingColor := (.Get 7) | default "text-gray-900" }}
-{{ $descriptionColor := (.Get 8) | default "text-gray-700" }}
-{{ $contentColor := (.Get 9) | default "text-gray-700" }}
-{{ $imageBgColor := (.Get 10) | default "bg-gray-50" }}
+{{ $eyebrow := .Get "eyebrow" | default "Deploy faster" }}
+{{ $heading := .Get "heading" | default "A better workflow" }}
+{{ $description := .Get "description" | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
+{{ $image := .Get "image" | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
+{{ $imageAlt := .Get "imageAlt" | default "Featured image" }}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $eyebrowColor := .Get "eyebrowColor" | default "text-indigo-600" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
+{{ $contentColor := .Get "contentColor" | default "text-gray-700" }}
+{{ $imageBgColor := .Get "imageBgColor" | default "bg-gray-50" }}
 
 {{/* 
   Note: For this shortcode, we're using the default paragraphs from the partial.

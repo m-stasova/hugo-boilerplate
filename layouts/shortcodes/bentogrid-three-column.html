@@ -1,18 +1,114 @@
-{{/* Three Column Bento Grid Shortcode */}}
-{{ $tagline := (.Get 0) | default "Deploy faster" }}
-{{ $heading := (.Get 1) | default "Everything you need to deploy your app" }}
-{{ $backgroundColor := (.Get 2) | default "gray-50" }}
-{{ $taglineColor := (.Get 3) | default "indigo-600" }}
-
 {{/* 
-  Note: For this shortcode, we're using the default cards from the partial.
-  In a real-world implementation, you might want to allow passing in custom cards
-  through a structured data file.
+  Three Column Bento Grid Shortcode
+  
+  Usage:
+  {{< bentogrid-three-column 
+      tagline="Build faster" 
+      heading="Everything you need for your next project" 
+      backgroundColor="gray-50"
+      taglineColor="indigo-600"
+  >}}
+    [
+      {
+        "title": "Responsive Design",
+        "description": "Our components are fully responsive and work on all devices, from mobile to desktop.",
+        "image": "/images/responsive-design.webp",
+        "imageAlt": "Responsive design illustration",
+        "position": "large-left"
+      },
+      {
+        "title": "Performance",
+        "description": "Optimized for speed and efficiency to ensure your website loads quickly.",
+        "image": "/images/performance-metrics.webp",
+        "imageAlt": "Performance chart",
+        "position": "top-right"
+      },
+      {
+        "title": "Security",
+        "description": "Built with security in mind to protect your data and your users' information.",
+        "image": "/images/security-shield.webp",
+        "imageAlt": "Security shield icon",
+        "position": "bottom-middle"
+      },
+      {
+        "title": "Developer API",
+        "description": "Powerful and flexible API to extend functionality and integrate with other systems.",
+        "image": "",
+        "imageAlt": "",
+        "position": "large-right",
+        "codeExample": true,
+        "codeContent": "<pre class=\"text-sm text-gray-300\"><code>// Custom code example here</code></pre>"
+      }
+    ]
+  {{< /bentogrid-three-column >}}
+  
+  Parameters:
+  - tagline: Small text displayed above the main heading (default: "Deploy faster")
+  - heading: Main heading text (default: "Everything you need to deploy your app")
+  - backgroundColor: Background color class without the "bg-" prefix (default: "gray-50")
+  - taglineColor: Color class for the tagline without the "text-" prefix (default: "indigo-600")
+  
+  Inner Content (optional JSON array):
+  - Array of card objects with the following properties:
+    - title: Card title
+    - description: Card description
+    - image: URL to the image for the card
+    - imageAlt: Alt text for the image
+    - position: Position in the grid ("large-left", "top-right", "bottom-middle", "large-right")
+    - codeExample: Boolean, set to true for the code example card (optional)
+    - codeContent: Custom HTML code content for the code example card (optional)
+  
+  If inner content is not provided, default cards will be used.
 */}}
+
+{{ $tagline := .Get "tagline" | default "Deploy faster" }}
+{{ $heading := .Get "heading" | default "Everything you need to deploy your app" }}
+{{ $backgroundColor := .Get "backgroundColor" | default "gray-50" }}
+{{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
+
+{{ $defaultCards := slice
+  (dict
+    "title" "Mobile friendly"
+    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png"
+    "imageAlt" "Mobile friendly interface"
+    "position" "large-left"
+  )
+  (dict
+    "title" "Performance"
+    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
+    "imageAlt" "Performance metrics"
+    "position" "top-right"
+  )
+  (dict
+    "title" "Security"
+    "description" "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
+    "imageAlt" "Security shield"
+    "position" "bottom-middle"
+  )
+  (dict
+    "title" "Powerful APIs"
+    "description" "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida."
+    "image" ""
+    "imageAlt" ""
+    "position" "large-right"
+    "codeExample" true
+  )
+}}
+
+{{ $cards := $defaultCards }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $cards = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "bentogrids/three_column_bento_grid.html" (dict 
   "tagline" $tagline
   "heading" $heading
   "backgroundColor" $backgroundColor
   "taglineColor" $taglineColor
+  "cards" $cards
 ) }}

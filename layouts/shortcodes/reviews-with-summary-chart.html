@@ -1,6 +1,36 @@
 {{/* 
   Reviews shortcode with summary chart
   
+  Usage:
+  {{< reviews-with-summary-chart 
+      backgroundColor="bg-gray-50"
+      title="Product Reviews"
+      totalReviews="2048"
+      averageRating="4.7"
+      writeReviewUrl="/write-review"
+      writeReviewText="Share Your Experience"
+  >}}
+    {
+      "ratingDistribution": [1245, 430, 120, 85, 30],
+      "reviews": [
+        {
+          "name": "Maria Garcia",
+          "rating": 5,
+          "text": "This product exceeded all my expectations. Highly recommended!",
+          "imageUrl": "/images/testimonials/maria.jpg",
+          "imageAlt": "Maria Garcia"
+        },
+        {
+          "name": "Thomas Weber",
+          "rating": 4,
+          "text": "Great quality for the price. Just missing a few small features.",
+          "imageUrl": "/images/testimonials/thomas.jpg",
+          "imageAlt": "Thomas Weber"
+        }
+      ]
+    }
+  {{< /reviews-with-summary-chart >}}
+  
   Parameters:
   - backgroundColor: Background color class (default: "bg-white")
   - title: Main heading text (default: "Customer Reviews")
@@ -9,7 +39,16 @@
   - writeReviewUrl: URL for the "Write a review" button (default: "#")
   - writeReviewText: Text for the call to action (default: "Write a review")
   
-  The rating distribution and reviews are predefined in the shortcode
+  Inner Content (optional JSON object):
+  - ratingDistribution: Array of 5 integers representing distribution of ratings (5-star to 1-star)
+  - reviews: Array of review objects with the following structure:
+    - name: Reviewer name
+    - rating: Review rating (1-5)
+    - text: Review content
+    - imageUrl: URL to reviewer's avatar image
+    - imageAlt: Alt text for the reviewer's image
+  
+  If inner content is not provided, default values will be used.
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
@@ -19,9 +58,9 @@
 {{ $writeReviewUrl := .Get "writeReviewUrl" | default "#" }}
 {{ $writeReviewText := .Get "writeReviewText" | default "Write a review" }}
 
-{{ $ratingDistribution := slice 1019 162 97 199 147 }}
+{{ $defaultRatingDistribution := slice 1019 162 97 199 147 }}
 
-{{ $reviews := slice 
+{{ $defaultReviews := slice 
   (dict 
     "name" "Emily Selman" 
     "rating" 5
@@ -44,6 +83,23 @@
     "imageAlt" "Sarah Johnson."
   )
 }}
+
+{{ $customData := dict }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $customData = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $ratingDistribution := $defaultRatingDistribution }}
+{{ if isset $customData "ratingDistribution" }}
+  {{ $ratingDistribution = index $customData "ratingDistribution" }}
+{{ end }}
+
+{{ $reviews := $defaultReviews }}
+{{ if isset $customData "reviews" }}
+  {{ $reviews = index $customData "reviews" }}
+{{ end }}
 
 {{ partial "reviews/with_summary_chart.html" (dict 
   "backgroundColor" $backgroundColor

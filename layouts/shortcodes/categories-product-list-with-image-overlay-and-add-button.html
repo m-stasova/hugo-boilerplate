@@ -1,19 +1,44 @@
 {{/* 
   Categories shortcode with product list with image overlay and add button
   
+  Example usage:
+  {{< categories-product-list-with-image-overlay-and-add-button
+      backgroundColor="bg-gray-50"
+      heading="You May Also Like"
+      buttonText="Quick Add"
+  >}}
+  
+  With custom products:
+  {{< categories-product-list-with-image-overlay-and-add-button backgroundColor="bg-blue-50" heading="Featured Items" buttonText="Add Now" >}}
+    {{< product 
+        title="Leather Tote" 
+        variant="Brown leather"
+        url="/products/leather-tote"
+        imageUrl="/images/products/leather-tote.jpg"
+        imageAlt="Premium brown leather tote bag with brass hardware and adjustable straps"
+        price="$195"
+    >}}
+    {{< product 
+        title="Canvas Backpack" 
+        variant="Olive green"
+        url="/products/canvas-backpack"
+        imageUrl="/images/products/canvas-backpack.jpg"
+        imageAlt="Durable olive green canvas backpack with multiple pockets"
+        price="$120"
+    >}}
+  {{< /categories-product-list-with-image-overlay-and-add-button >}}
+  
   Parameters:
   - backgroundColor: Background color class (default: "bg-white")
   - heading: Main heading text (default: "Customers also bought")
   - buttonText: Text for the "Add to bag" button (default: "Add to bag")
-  
-  The products are predefined in the shortcode
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $heading := .Get "heading" | default "Customers also bought" }}
 {{ $buttonText := .Get "buttonText" | default "Add to bag" }}
 
-{{ $products := slice 
+{{ $defaultProducts := slice 
   (dict 
     "title" "Zip Tote Basket"
     "variant" "White and black"
@@ -47,6 +72,42 @@
     "price" "$70"
   )
 }}
+
+{{ $products := $defaultProducts }}
+
+{{ if .Inner }}
+  {{ $customProducts := slice }}
+  {{ $innerContent := .Inner | markdownify }}
+  {{ range $match := findRE "(?s){{<\\s*product[^>]*>}}" $innerContent }}
+    {{ $productShortcode := index (findRE "(?s){{<\\s*product\\s+(.*?)\\s*>}}" $match 1) 0 }}
+    {{ $productAttrs := split (trim $productShortcode " ") "\n" }}
+    
+    {{ $product := dict }}
+    {{ range $attr := $productAttrs }}
+      {{ $attr = strings.TrimPrefix " " $attr }}
+      {{ $attr = strings.TrimSuffix " " $attr }}
+      {{ if $attr }}
+        {{ $parts := split $attr "=" }}
+        {{ if ge (len $parts) 2 }}
+          {{ $key := trim (index $parts 0) " " }}
+          {{ $value := trim (delimit (after 1 $parts) "=") "\"" }}
+          {{ $value = trim $value " " }}
+          {{ $value = strings.TrimPrefix "\"" $value }}
+          {{ $value = strings.TrimSuffix "\"" $value }}
+          {{ $product = merge $product (dict $key $value) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if and (isset $product "title") (isset $product "imageUrl") }}
+      {{ $customProducts = $customProducts | append $product }}
+    {{ end }}
+  {{ end }}
+  
+  {{ if gt (len $customProducts) 0 }}
+    {{ $products = $customProducts }}
+  {{ end }}
+{{ end }}
 
 {{ partial "categories/product_list_with_image_overlay_and_add_button.html" (dict 
   "backgroundColor" $backgroundColor

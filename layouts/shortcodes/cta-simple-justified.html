@@ -1,11 +1,23 @@
 {{/* Simple Justified CTA Shortcode */}}
-{{ $heading := (.Get 0) | default "Ready to dive in? <br>Start your free trial today." }}
-{{ $primaryCtaText := (.Get 1) | default "Get started" }}
-{{ $primaryCtaUrl := (.Get 2) | default "#" }}
-{{ $secondaryCtaText := (.Get 3) | default "Learn more" }}
-{{ $secondaryCtaUrl := (.Get 4) | default "#" }}
-{{ $primaryCtaColor := (.Get 5) | default "indigo-600" }}
-{{ $primaryCtaHoverColor := (.Get 6) | default "indigo-500" }}
+{{/*
+Usage:
+{{< cta-simple-justified 
+  heading="Ready to enhance your business? <br>Start your free trial today."
+  primaryCtaText="Sign up now"
+  primaryCtaUrl="/signup"
+  secondaryCtaText="View demo"
+  secondaryCtaUrl="/demo"
+  primaryCtaColor="blue-700"
+  primaryCtaHoverColor="blue-600"
+>}}
+*/}}
+{{ $heading := .Get "heading" | default "Ready to dive in? <br>Start your free trial today." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default "Learn more" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
+{{ $primaryCtaColor := .Get "primaryCtaColor" | default "indigo-600" }}
+{{ $primaryCtaHoverColor := .Get "primaryCtaHoverColor" | default "indigo-500" }}
 
 {{ $primaryCta := dict 
   "text" $primaryCtaText

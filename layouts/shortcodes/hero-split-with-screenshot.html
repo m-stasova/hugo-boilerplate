@@ -1,15 +1,39 @@
+{{/*
+Example Usage:
+{{< hero-split-with-screenshot 
+  title="Your Hero Title" 
+  subtitle="Your Hero Subtitle" 
+  buttonText="Click Here" 
+  buttonLink="/example-link" 
+  imagePath="/path-to-image.jpg" 
+  altText="Descriptive Alt Text" 
+>}}
+
+Description:
+This shortcode renders a split hero section with a screenshot. It is designed to display a prominent title, subtitle, call-to-action button, and an accompanying image. The layout is ideal for showcasing a product, feature, or service.
+
+Parameters:
+- `title` (string): The main heading text for the hero section.
+- `subtitle` (string): The subheading text providing additional context.
+- `buttonText` (string): The text displayed on the call-to-action button.
+- `buttonLink` (string): The URL the button links to when clicked.
+- `imagePath` (string): The file path or URL of the image to be displayed.
+- `altText` (string): The alt text for the image, used for accessibility and SEO.
+
+*/}}
+
 {{/* Split Hero with Screenshot Shortcode */}}
-{{ $logo := (.Get 0) | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
-{{ $heading := (.Get 1) | default "Deploy to the cloud with confidence" }}
-{{ $description := (.Get 2) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
-{{ $primaryCtaText := (.Get 3) | default "Get started" }}
-{{ $primaryCtaUrl := (.Get 4) | default "#" }}
-{{ $secondaryCtaText := (.Get 5) | default "Learn more" }}
-{{ $secondaryCtaUrl := (.Get 6) | default "#" }}
-{{ $screenshotUrl := (.Get 7) | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
-{{ $screenshotAlt := (.Get 8) | default "App screenshot" }}
-{{ $badgeText := (.Get 9) | default "What's new" }}
-{{ $badgeVersion := (.Get 10) | default "Just shipped v1.0" }}
+{{ $logo := .Get "logo" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $heading := .Get "title" | default "Deploy to the cloud with confidence" }}
+{{ $description := .Get "subtitle" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default "Learn more" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
+{{ $screenshotUrl := .Get "imagePath" | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
+{{ $screenshotAlt := .Get "altText" | default "App screenshot" }}
+{{ $badgeText := .Get "badgeText" | default "What's new" }}
+{{ $badgeVersion := .Get "badgeVersion" | default "Just shipped v1.0" }}
 
 {{ $badge := dict
   "text" $badgeText

@@ -1,5 +1,24 @@
-{{/* 
-  Features shortcode with split image
+{{- /*
+  Usage in markdown:
+  {{< features-with-split-image 
+    backgroundColor="bg-white"
+    imageUrl="https://example.com/image.jpg" 
+    imageAlt="Description of the image" 
+    subheading="Leatherbound Daily Journal" 
+    heading="All in the Details" 
+    description="We've obsessed over every detail of this handcrafted journal." 
+  >}}
+    [
+      {
+        "title": "Durable",
+        "description": "The leather cover and machined steel disc binding stand up to daily use for years to come."
+      },
+      {
+        "title": "Refillable",
+        "description": "Buy it once and refill as often as you need. Subscribe and save on routine refills."
+      }
+    ]
+  {{< /features-with-split-image >}}
   
   Parameters:
   - backgroundColor: Background color class (default: "bg-white")
@@ -9,8 +28,9 @@
   - heading: Main heading text (default: "All in the Details")
   - description: Description text below the main heading
   
-  The features are predefined in the shortcode
-*/}}
+  Inner Content:
+  JSON array of feature objects with "title" and "description" properties
+*/ -}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $imageUrl := .Get "imageUrl" | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/confirmation-page-01-hero.jpg" }}
@@ -19,7 +39,7 @@
 {{ $heading := .Get "heading" | default "All in the Details" }}
 {{ $description := .Get "description" | default "We've obsessed over every detail of this handcrafted journal to bring you the best materials for daily use." }}
 
-{{ $features := slice 
+{{ $defaultFeatures := slice 
   (dict 
     "title" "Durable"
     "description" "The leather cover and machined steel disc binding stand up to daily use for years to come."
@@ -37,6 +57,13 @@
     "description" "Responsibly and sustainably made real close to wherever you are, somehow."
   )
 }}
+
+{{ $features := $defaultFeatures }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $features = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "features/with_split_image.html" (dict 
   "backgroundColor" $backgroundColor

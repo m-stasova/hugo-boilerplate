@@ -1,6 +1,31 @@
 {{/* 
   Categories shortcode with product list card with full details
   
+  Example usage:
+  {{< categories-product-list-card-with-full-details backgroundColor="bg-gray-50" heading="Featured Collection" >}}
+  
+  With custom products:
+  {{< categories-product-list-card-with-full-details backgroundColor="bg-blue-50" heading="Summer Collection" >}}
+    {{< product 
+        title="Summer T-Shirt" 
+        description="Light and breathable cotton t-shirt perfect for hot days."
+        url="/products/summer-tshirt"
+        imageUrl="/images/products/summer-tshirt.jpg"
+        imageAlt="Person wearing a light blue t-shirt on a sunny beach"
+        variant="3 colors"
+        price="$29.99"
+    >}}
+    {{< product 
+        title="Beach Shorts" 
+        description="Quick-dry beach shorts with comfortable elastic waistband."
+        url="/products/beach-shorts"
+        imageUrl="/images/products/beach-shorts.jpg"
+        imageAlt="Colorful beach shorts laid flat"
+        variant="Multiple patterns"
+        price="$34.99"
+    >}}
+  {{< /categories-product-list-card-with-full-details >}}
+  
   Parameters:
   - backgroundColor: Background color class (default: "bg-white")
   - heading: Main heading text (default: "Products", sr-only by default)
@@ -11,7 +36,7 @@
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $heading := .Get "heading" | default "Products" }}
 
-{{ $products := slice 
+{{ $defaultProducts := slice 
   (dict 
     "title" "Basic Tee 8-Pack"
     "description" "Get the full lineup of our Basic Tees. Have a fresh shirt all week, and an extra for laundry day."
@@ -40,6 +65,9 @@
     "price" "$75"
   )
 }}
+
+{{ $customProducts := .Inner | .Scratch.Set "customProducts" }}
+{{ $products := cond (eq (len $customProducts) 0) $defaultProducts $customProducts }}
 
 {{ partial "categories/product_list_card_with_full_details.html" (dict 
   "backgroundColor" $backgroundColor

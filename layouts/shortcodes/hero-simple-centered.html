@@ -1,14 +1,42 @@
+{{- /*
+  Usage in markdown:
+  {{< hero-simple-centered 
+    heading="Heading text" 
+    description="Description text" 
+    primaryCTAText="Primary CTA text" 
+    primaryCTAUrl="Primary CTA URL" 
+    secondaryCTAText="Secondary CTA text" 
+    secondaryCTAUrl="Secondary CTA URL" 
+    announcementEnabled="true/false" 
+    announcementText="Announcement text" 
+    announcementLinkText="Announcement link text" 
+    announcementLinkUrl="Announcement link URL" 
+  >}}
+  
+  Parameters:
+  - heading: Main heading text
+  - description: Description text below the heading
+  - primaryCTAText: Text for the primary call-to-action button
+  - primaryCTAUrl: URL for the primary call-to-action button
+  - secondaryCTAText: Text for the secondary call-to-action button
+  - secondaryCTAUrl: URL for the secondary call-to-action button
+  - announcementEnabled: Enable/disable the announcement banner (true/false)
+  - announcementText: Text for the announcement
+  - announcementLinkText: Text for the announcement link
+  - announcementLinkUrl: URL for the announcement link
+*/ -}}
+
 {{/* Simple Centered Hero Shortcode */}}
-{{ $heading := (.Get 0) | default "Data to enrich your online business" }}
-{{ $description := (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
-{{ $primaryCTAText := (.Get 2) | default "Get started" }}
-{{ $primaryCTAUrl := (.Get 3) | default "#" }}
-{{ $secondaryCTAText := (.Get 4) | default "Learn more" }}
-{{ $secondaryCTAUrl := (.Get 5) | default "#" }}
-{{ $announcementEnabled := (.Get 6) | default "true" }}
-{{ $announcementText := (.Get 7) | default "Announcing our next round of funding." }}
-{{ $announcementLinkText := (.Get 8) | default "Read more" }}
-{{ $announcementLinkUrl := (.Get 9) | default "#" }}
+{{ $heading := .Get "heading" | default (.Get 0) | default "Data to enrich your online business" }}
+{{ $description := .Get "description" | default (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "Get started" }}
+{{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "#" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default "Learn more" }}
+{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
+{{ $announcementEnabled := .Get "announcementEnabled" | default (.Get 6) | default "true" }}
+{{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
+{{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "Read more" }}
+{{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "#" }}
 
 {{ $announcement := dict 
   "enabled" (eq $announcementEnabled "true")

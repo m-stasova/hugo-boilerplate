@@ -1,13 +1,28 @@
-{{/* Centered CTA on Dark Panel Shortcode */}}
-{{ $heading := (.Get 0) | default "Boost your productivity today" }}
-{{ $description := (.Get 1) | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
-{{ $primaryCtaText := (.Get 2) | default "Get started" }}
-{{ $primaryCtaUrl := (.Get 3) | default "#" }}
-{{ $secondaryCtaText := (.Get 4) | default "Learn more" }}
-{{ $secondaryCtaUrl := (.Get 5) | default "#" }}
-{{ $gradientStartColor := (.Get 6) | default "#7775D6" }}
-{{ $gradientEndColor := (.Get 7) | default "#E935C1" }}
-{{ $gradientId := (.Get 8) | default "827591b1-ce8c-4110-b064-7cb85a0b1217" }}
+{{/* 
+Centered CTA on Dark Panel Shortcode 
+
+Usage:
+{{< cta-dark-panel 
+  heading="Your Custom Heading" 
+  description="Your custom description text here." 
+  primaryCtaText="Sign Up" 
+  primaryCtaUrl="/signup" 
+  secondaryCtaText="Learn More" 
+  secondaryCtaUrl="/learn-more" 
+  gradientStartColor="#123456" 
+  gradientEndColor="#654321" 
+  gradientId="unique-gradient-id" 
+>}}
+*/}}
+{{ $heading := (.Get "heading") | default "Boost your productivity today" }}
+{{ $description := (.Get "description") | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $primaryCtaText := (.Get "primaryCtaText") | default "Get started" }}
+{{ $primaryCtaUrl := (.Get "primaryCtaUrl") | default "#" }}
+{{ $secondaryCtaText := (.Get "secondaryCtaText") | default "Learn more" }}
+{{ $secondaryCtaUrl := (.Get "secondaryCtaUrl") | default "#" }}
+{{ $gradientStartColor := (.Get "gradientStartColor") | default "#7775D6" }}
+{{ $gradientEndColor := (.Get "gradientEndColor") | default "#E935C1" }}
+{{ $gradientId := (.Get "gradientId") | default "827591b1-ce8c-4110-b064-7cb85a0b1217" }}
 
 {{ $primaryCta := dict 
   "text" $primaryCtaText

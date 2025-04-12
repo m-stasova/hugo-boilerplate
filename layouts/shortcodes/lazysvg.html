@@ -1,9 +1,12 @@
-{{ $src := (.Get 0) }}
-{{ $alt := (.Get 1) | default "" }}
-{{ $class := (.Get 2) | default "" }}
-{{ $width := (.Get 3) | default "" }}
-{{ $height := (.Get 4) | default "" }}
-{{ $id := (.Get 5) | default "" }}
+{{/* Usage: 
+  {{< lazysvg src="path/to/image.svg" alt="Example Alt Text" class="example-class" width="100" height="100" id="example-id" >}} 
+*/}}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $class := .Get "class" | default "" }}
+{{ $width := .Get "width" | default "" }}
+{{ $height := .Get "height" | default "" }}
+{{ $id := .Get "id" | default "" }}
 
 {{ partial "lazysvg.html" (dict 
   "src" $src 

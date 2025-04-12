@@ -5,13 +5,44 @@
   - backgroundColor: Background color class (default: "bg-white")
   - heading: Main heading text (default: "Products", sr-only by default)
   
-  The products are predefined in the shortcode
+  Inner Content (optional JSON array):
+  - Array of product objects with the following structure:
+    - title: Product title
+    - variant: Product variant text (e.g., "3 sizes available")
+    - url: URL for the product link
+    - imageUrl: URL to product image
+    - imageAlt: Alt text for product image
+    - price: Product price
+  
+  Example usage with custom products:
+  {{< categories-product-list-with-tall-images heading="Featured Items" >}}
+    [
+      {
+        "title": "Pro Trail Camera",
+        "variant": "Black",
+        "url": "/products/pro-trail-camera",
+        "imageUrl": "/images/products/pro-trail-camera.jpg",
+        "imageAlt": "Pro trail camera with night vision and motion detection",
+        "price": "$129"
+      },
+      {
+        "title": "Solar Panel Kit",
+        "variant": "10W/20W available",
+        "url": "/products/solar-panel-kit",
+        "imageUrl": "/images/products/solar-panel-kit.jpg",
+        "imageAlt": "Solar panel charging kit for outdoor cameras",
+        "price": "$45"
+      }
+    ]
+  {{< /categories-product-list-with-tall-images >}}
+  
+  If no inner content is provided, default products will be used.
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $heading := .Get "heading" | default "Products" }}
 
-{{ $products := slice 
+{{ $defaultProducts := slice 
   (dict 
     "title" "Focus Paper Refill"
     "variant" "3 sizes available"
@@ -37,6 +68,13 @@
     "price" "$32"
   )
 }}
+
+{{ $products := $defaultProducts }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $products = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "categories/product_list_with_tall_images.html" (dict 
   "backgroundColor" $backgroundColor

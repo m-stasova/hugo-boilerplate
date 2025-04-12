@@ -1,11 +1,26 @@
-{{ $src := (.Get 0) }}
-{{ $alt := (.Get 1) | default "" }}
-{{ $class := (.Get 2) | default "" }}
-{{ $width := (.Get 3) | default "" }}
-{{ $height := (.Get 4) | default "" }}
-{{ $loading := (.Get 5) | default "lazy" }}
-{{ $decoding := (.Get 6) | default "async" }}
-{{ $sizes := (.Get 7) | default "" }}
+{{- /*
+  Usage in markdown:
+  {{< picture src="path/to/image.jpg" alt="Alt text" class="css-class" width="width" height="height" loading="lazy" decoding="async" sizes="sizes" >}}
+  
+  Parameters:
+  - src (required): Path to the image file
+  - alt: Alternative text for the image
+  - class: CSS class to apply to the image
+  - width: Width attribute for the image
+  - height: Height attribute for the image
+  - loading: Image loading attribute (default: "lazy")
+  - decoding: Image decoding attribute (default: "async")
+  - sizes: Sizes attribute for responsive images
+*/ -}}
+
+{{ $src := (.Get "src") }}
+{{ $alt := (.Get "alt") | default "" }}
+{{ $class := (.Get "class") | default "" }}
+{{ $width := (.Get "width") | default "" }}
+{{ $height := (.Get "height") | default "" }}
+{{ $loading := (.Get "loading") | default "lazy" }}
+{{ $decoding := (.Get "decoding") | default "async" }}
+{{ $sizes := (.Get "sizes") | default "" }}
 
 {{ partial "picture.html" (dict 
   "src" $src 

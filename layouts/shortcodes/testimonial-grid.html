@@ -1,3 +1,35 @@
+{{- /*
+  Usage in markdown:
+  {{< testimonial-grid 
+    headingTag="Heading tag text" 
+    heading="Main heading" 
+    bgColor="bg-white" 
+    padding="pt-24 pb-32 sm:pt-32" 
+    cardBgColor="bg-white" 
+    cardRingColor="ring-gray-900/5" 
+    cardShadow="shadow-lg" 
+    headingTagColor="text-indigo-600" 
+    headingColor="text-gray-900" 
+    gradientFrom="#ff80b5" 
+    gradientTo="#9089fc" 
+    showHeading="true" 
+  >}}
+  
+  Parameters:
+  1. headingTag: The text for the smaller heading/tag above the main heading
+  2. heading: The main heading text
+  3. bgColor: Background color class for the section
+  4. padding: Padding classes for the section
+  5. cardBgColor: Background color class for testimonial cards
+  6. cardRingColor: Ring color class for testimonial cards
+  7. cardShadow: Shadow class for testimonial cards
+  8. headingTagColor: Text color class for heading tag
+  9. headingColor: Text color class for main heading
+  10. gradientFrom: Starting color for gradient (hex)
+  11. gradientTo: Ending color for gradient (hex)
+  12. showHeading: Whether to show the heading section (true/false)
+*/ -}}
+
 {{/* Testimonials Grid Shortcode */}}
 {{ $headingTag := (.Get 0) | default "Testimonials" }}
 {{ $heading := (.Get 1) | default "We have worked with thousands of amazing people" }}

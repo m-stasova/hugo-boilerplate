@@ -8,7 +8,46 @@
   - heading: Main heading text (default: "Technical Specifications")
   - description: Subheading text below the main heading
   
-  The specifications are predefined in the shortcode
+  Inner Content (optional JSON array):
+  - Array of specification objects with the following structure:
+    - title: Specification title
+    - description: Specification description
+  
+  Example usage with custom specifications:
+  {{< features-with-fading-image 
+      heading="Product Specifications" 
+      imageUrl="/images/products/trail-camera-hero.jpg"
+      imageAlt="Trail camera mounted on a tree in forest setting"
+  >}}
+    [
+      {
+        "title": "Resolution",
+        "description": "20 megapixels with 4K video recording capability"
+      },
+      {
+        "title": "Detection Range",
+        "description": "Up to 65 feet with 120° detection angle"
+      },
+      {
+        "title": "Battery Life",
+        "description": "Up to 12 months with 8 AA batteries (not included)"
+      },
+      {
+        "title": "Weather Rating",
+        "description": "IP66 weatherproof for all-season outdoor use"
+      },
+      {
+        "title": "Storage",
+        "description": "Supports SD/SDHC/SDXC cards up to 512GB"
+      },
+      {
+        "title": "Warranty",
+        "description": "2-year limited manufacturer warranty"
+      }
+    ]
+  {{< /features-with-fading-image >}}
+  
+  If no inner content is provided, default specifications will be used.
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
@@ -17,7 +56,7 @@
 {{ $heading := .Get "heading" | default "Technical Specifications" }}
 {{ $description := .Get "description" | default "Organize is a system to keep your desk tidy and photo-worthy all day long. Procrastinate your work while you meticulously arrange items into dedicated trays." }}
 
-{{ $specifications := slice 
+{{ $defaultSpecifications := slice 
   (dict 
     "title" "Origin"
     "description" "Designed by Good Goods, Inc."
@@ -44,6 +83,13 @@
   )
 }}
 
+{{ $specifications := $defaultSpecifications }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $specifications = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
 {{ partial "features/with_fading_image.html" (dict 
   "backgroundColor" $backgroundColor
   "imageUrl" $imageUrl
@@ -51,4 +97,5 @@
   "heading" $heading
   "description" $description
   "specifications" $specifications
+  "page" $.Page
 ) }}

@@ -6,14 +6,45 @@
   - heading: Main heading text (default: "Protect your device")
   - description: Description text below the main heading
   
-  The features are predefined in the shortcode
+  Inner Content (optional JSON array):
+  - Array of feature objects with the following structure:
+    - title: Feature title
+    - description: Feature description
+    - imageUrl: URL to feature image
+    - imageAlt: Alt text for feature image
+    - imagePosition: Position of the image ("left" or "right")
+  
+  Example usage with custom features:
+  {{< features-with-alternating-sections 
+      heading="Our Product Features" 
+      description="Discover the thoughtful design and functionality of our products."
+  >}}
+    [
+      {
+        "title": "Advanced Sensor Technology",
+        "description": "Our cameras use cutting-edge sensor technology that captures crisp, clear images even in low light conditions.",
+        "imageUrl": "/images/features/advanced-sensor.jpg",
+        "imageAlt": "Close-up of the advanced sensor technology inside the camera",
+        "imagePosition": "right"
+      },
+      {
+        "title": "Weather-Resistant Design",
+        "description": "Built to withstand harsh outdoor conditions with a fully weatherproof enclosure that protects against rain, snow, and extreme temperatures.",
+        "imageUrl": "/images/features/weather-resistant.jpg",
+        "imageAlt": "Camera being tested under simulated rain conditions",
+        "imagePosition": "left"
+      }
+    ]
+  {{< /features-with-alternating-sections >}}
+  
+  If no inner content is provided, default features will be used.
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $heading := .Get "heading" | default "Protect your device" }}
 {{ $description := .Get "description" | default "As a digital creative, your laptop or tablet is at the center of your work. Keep your device safe with a fabric sleeve that matches in quality and looks." }}
 
-{{ $features := slice 
+{{ $defaultFeatures := slice 
   (dict 
     "title" "Minimal and thoughtful"
     "description" "Our laptop sleeve is compact and precisely fits 13\" devices. The zipper allows you to access the interior with ease, and the front pouch provides a convenient place for your charger cable."
@@ -30,9 +61,17 @@
   )
 }}
 
+{{ $features := $defaultFeatures }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $features = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
 {{ partial "features/with_alternating_sections.html" (dict 
   "backgroundColor" $backgroundColor
   "heading" $heading
   "description" $description
   "features" $features
+  "page" $.Page
 ) }}

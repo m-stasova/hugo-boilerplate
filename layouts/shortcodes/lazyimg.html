@@ -1,12 +1,27 @@
-{{ $src := (.Get 0) }}
-{{ $alt := (.Get 1) | default "" }}
-{{ $class := (.Get 2) | default "" }}
-{{ $id := (.Get 3) | default "" }}
-{{ $width := (.Get 4) | default "" }}
-{{ $height := (.Get 5) | default "" }}
-{{ $sizes := (.Get 6) | default "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px" }}
-{{ $dataImage := (.Get 7) | default $src }}
-{{ $isGallery := (.Get 8) | default false }}
+{{/* Lazy Loading Image Shortcode */}}
+{{/*
+Usage:
+{{< lazyimg 
+  src="/images/product-image.jpg"
+  alt="Product image description"
+  class="rounded-lg shadow-md"
+  id="product-image"
+  width="640"
+  height="480"
+  sizes="(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px"
+  dataImage="/images/product-image-full.jpg"
+  isGallery="false"
+>}}
+*/}}
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $class := .Get "class" | default "" }}
+{{ $id := .Get "id" | default "" }}
+{{ $width := .Get "width" | default "" }}
+{{ $height := .Get "height" | default "" }}
+{{ $sizes := .Get "sizes" | default "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px" }}
+{{ $dataImage := .Get "dataImage" | default $src }}
+{{ $isGallery := .Get "isGallery" | default false }}
 
 {{ partial "lazyimg.html" (dict 
   "src" $src 

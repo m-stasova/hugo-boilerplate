@@ -1,19 +1,28 @@
 {{/* Simple Grid Stats Shortcode */}}
-{{ $heading := (.Get 0) | default "Trusted by creators worldwide" }}
-{{ $description := (.Get 1) | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
-{{ $bgColor := (.Get 2) | default "bg-white" }}
-{{ $padding := (.Get 3) | default "py-24 sm:py-32" }}
-{{ $statBgColor := (.Get 4) | default "bg-gray-400/5" }}
-{{ $statPadding := (.Get 5) | default "p-8" }}
-{{ $headingColor := (.Get 6) | default "text-gray-900" }}
-{{ $descriptionColor := (.Get 7) | default "text-gray-600" }}
-{{ $showHeading := (.Get 8) | default "true" }}
-
-{{/* 
-  Note: For this shortcode, we're using the default stats from the partial.
-  In a real-world implementation, you might want to allow passing in custom stats
-  through a structured data file.
+{{/*
+Usage Example:
+{{< stats-simple-grid 
+  title="Our Impact in Numbers"
+  description="We've helped businesses achieve outstanding results across key metrics."
+  container-bg="bg-gray-50"
+  container-padding="py-16 sm:py-24"
+  card-bg="bg-white"
+  card-padding="p-6"
+  title-color="text-blue-900"
+  description-color="text-gray-600"
+  show-divider="true"
+>}}
 */}}
+
+{{ $heading := .Get "title" | default "Trusted by creators worldwide" }}
+{{ $description := .Get "description" | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
+{{ $bgColor := .Get "container-bg" | default "bg-white" }}
+{{ $padding := .Get "container-padding" | default "py-24 sm:py-32" }}
+{{ $statBgColor := .Get "card-bg" | default "bg-gray-400/5" }}
+{{ $statPadding := .Get "card-padding" | default "p-8" }}
+{{ $headingColor := .Get "title-color" | default "text-gray-900" }}
+{{ $descriptionColor := .Get "description-color" | default "text-gray-600" }}
+{{ $showHeading := .Get "show-divider" | default "true" }}
 
 {{ partial "stats/simple_grid.html" (dict 
   "heading" $heading

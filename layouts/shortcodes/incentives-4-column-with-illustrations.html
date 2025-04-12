@@ -1,15 +1,24 @@
 {{/* 
   4-column incentives shortcode with illustrations
   
+  Example usage:
+  {{< incentives-4-column-with-illustrations backgroundColor="bg-blue-100" >}}
+  
+  With custom incentives:
+  {{< incentives-4-column-with-illustrations backgroundColor="bg-blue-100" >}}
+    {{< incentive title="Custom Title" description="Custom description" iconUrl="path/to/icon.svg" iconAlt="Icon description" >}}
+    {{< incentive title="Another Title" description="Another description" iconUrl="path/to/icon2.svg" iconAlt="Another icon" >}}
+  {{< /incentives-4-column-with-illustrations >}}
+
   Parameters:
   - backgroundColor: Background color class (default: "bg-gray-50")
-  
-  The incentives are predefined in the shortcode but can be customized with the backgroundColor parameter
+  - Use nested {{< incentive >}} shortcodes to define custom incentives
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-gray-50" }}
+{{ $incentives := .Inner | trim }}
 
-{{ $incentives := slice 
+{{ $defaultIncentives := slice 
   (dict 
     "title" "Free Shipping" 
     "description" "It's not actually free we just price it into the products. Someone's paying for it, and it's not us." 
@@ -36,7 +45,12 @@
   )
 }}
 
+{{ $finalIncentives := $defaultIncentives }}
+{{ if ne $incentives "" }}
+  {{ $finalIncentives = .Scratch.Get "incentives" | default slice }}
+{{ end }}
+
 {{ partial "incentives/4-column_with_illustrations.html" (dict 
   "backgroundColor" $backgroundColor
-  "incentives" $incentives
+  "incentives" $finalIncentives
 ) }}

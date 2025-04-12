@@ -1,18 +1,145 @@
-{{/* Two Row Bento Grid Shortcode */}}
-{{ $tagline := (.Get 0) | default "Deploy faster" }}
-{{ $heading := (.Get 1) | default "Everything you need to deploy your app" }}
-{{ $backgroundColor := (.Get 2) | default "white" }}
-{{ $taglineColor := (.Get 3) | default "indigo-600" }}
-
 {{/* 
-  Note: For this shortcode, we're using the default cards from the partial.
-  In a real-world implementation, you might want to allow passing in custom cards
-  through a structured data file.
+  Two Row Bento Grid Shortcode
+  
+  Usage:
+  {{< bentogrid-two-row 
+      tagline="Build faster" 
+      heading="Everything you need for your project" 
+      backgroundColor="gray-50"
+      taglineColor="indigo-600"
+  >}}
+    [
+      {
+        "title": "Lightning-fast builds",
+        "category": "Performance",
+        "description": "Our platform offers incredibly fast build times to improve your development workflow.",
+        "image": "/images/bento-performance.jpg",
+        "imageAlt": "Performance dashboard showing fast build times",
+        "position": "large-top-left",
+        "categoryColor": "indigo-600"
+      },
+      {
+        "title": "Push to deploy",
+        "category": "Releases",
+        "description": "Deploy with a simple git push. Your changes go live instantly with zero downtime.",
+        "image": "/images/bento-releases.jpg",
+        "imageAlt": "Code deployment interface",
+        "position": "large-top-right",
+        "categoryColor": "indigo-600"
+      },
+      {
+        "title": "Built for power users",
+        "category": "Speed",
+        "description": "Advanced tools and features for developers who need more control and flexibility.",
+        "image": "/images/bento-speed.jpg",
+        "imageAlt": "Speed metrics dashboard",
+        "position": "small-bottom-left",
+        "categoryColor": "indigo-600"
+      },
+      {
+        "title": "Connect your favorite tools",
+        "category": "Integrations",
+        "description": "Seamlessly integrate with your existing workflow and favorite development tools.",
+        "image": "/images/bento-integrations.jpg",
+        "imageAlt": "Integration options panel",
+        "position": "small-bottom-middle",
+        "categoryColor": "indigo-600"
+      },
+      {
+        "title": "Globally distributed CDN",
+        "category": "Network",
+        "description": "Ultra-fast content delivery through our worldwide edge network.",
+        "image": "/images/bento-network.jpg",
+        "imageAlt": "Global network distribution map",
+        "position": "small-bottom-right",
+        "categoryColor": "indigo-600"
+      }
+    ]
+  {{< /bentogrid-two-row >}}
+  
+  Parameters:
+  - tagline: Small text displayed above the main heading (default: "Deploy faster")
+  - heading: Main heading text (default: "Everything you need to deploy your app")
+  - backgroundColor: Background color class (default: "white")
+  - taglineColor: Color class for the tagline (default: "indigo-600")
+  
+  Inner Content (optional JSON array):
+  - Array of card objects with the following properties:
+    - title: Card title
+    - category: Category label for the card
+    - description: Card description
+    - image: URL to the image for the card
+    - imageAlt: Alt text for the image
+    - position: Position in the grid ("large-top-left", "large-top-right", "small-bottom-left", "small-bottom-middle", "small-bottom-right")
+    - categoryColor: Color class for the category label (default: "indigo-600")
+  
+  If inner content is not provided, default cards will be used.
 */}}
+
+{{ $tagline := .Get "tagline" | default "Deploy faster" }}
+{{ $heading := .Get "heading" | default "Everything you need to deploy your app" }}
+{{ $backgroundColor := .Get "backgroundColor" | default "white" }}
+{{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
+
+{{ $defaultCards := slice
+  (dict
+    "title" "Lightning-fast builds"
+    "category" "Performance"
+    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
+    "imageAlt" "Performance dashboard"
+    "position" "large-top-left"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Push to deploy"
+    "category" "Releases"
+    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
+    "imageAlt" "Releases panel"
+    "position" "large-top-right"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Built for power users"
+    "category" "Speed"
+    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
+    "imageAlt" "Speed metrics"
+    "position" "small-bottom-left"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Connect your favorite tools"
+    "category" "Integrations"
+    "description" "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
+    "imageAlt" "Integrations panel"
+    "position" "small-bottom-middle"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Globally distributed CDN"
+    "category" "Network"
+    "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
+    "imageAlt" "Network map"
+    "position" "small-bottom-right"
+    "categoryColor" "indigo-600"
+  )
+}}
+
+{{ $cards := $defaultCards }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $cards = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "bentogrids/two_row_bento_grid.html" (dict 
   "tagline" $tagline
   "heading" $heading
   "backgroundColor" $backgroundColor
   "taglineColor" $taglineColor
+  "cards" $cards
 ) }}
