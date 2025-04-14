@@ -1,7 +1,7 @@
 {{/* Lazy Loading YouTube Video Shortcode */}}
 {{/*
 Usage:
-{{< lazyvideo 
+{{< youtubevideo 
   videoID="dQw4w9WgXcQ" 
   title="Never Gonna Give You Up - Rick Astley" 
   class="rounded-lg shadow-md" 
@@ -15,7 +15,7 @@ Usage:
 {{ $width := default "100%" (.Get "width") }}
 {{ $height := default "auto" (.Get "height") }}
 
-{{ partial "lazyvideo.html" (dict 
+{{ partial "youtubevideo.html" (dict 
   "videoID" $videoID 
   "title" $title 
   "class" $class
