@@ -481,8 +481,8 @@ Examples:
     target_langs = get_target_languages(content_dir)
     
     if not target_langs:
-        print("No target language directories found. Please create at least one target language directory.")
-        sys.exit(1)
+        print("No target language directories found.")
+        sys.exit(0)
     
     print(f"Content directory: {content_dir}")
     print(f"Source language: en")
