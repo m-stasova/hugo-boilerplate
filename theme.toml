@@ -1,31 +1,20 @@
-name = 'Hugo Boilerplate'
-license = 'MIT'
-licenselink = 'https://github.com/owner/repo/LICENSE'
+name = 'FlowHunt Boilerplate'
 description = 'A clean and minimal Hugo boilerplate theme'
+version = '1.0.0'
+license = 'MIT'
 
 # The home page of the theme, where the source can be found
-homepage = 'https://github.com/owner/repo'
+homepage = 'https://github.com/qualityunit/repo'
 
 # If you have a running demo of the theme
-demosite = 'https://owner.github.io/repo'
+demosite = 'https://www.flowhunt.io'
 
 # Taxonomy terms
 tags = ['blog', 'company']
 features = ['some', 'awesome', 'features']
 
-# If the theme has multiple authors
-authors = [
-  {name = 'Name of author', homepage = 'Website of author'},
-  {name = 'Name of author', homepage = 'Website of author'}
-]
-
 # If the theme has a single author
 [author]
-  name = 'Your name'
-  homepage = 'Your website'
+  name = 'Viktor Zeman'
+  homepage = 'https://www.flowhunt.io'
 
-# If porting an existing theme
-[original]
-  author = 'Name of original author'
-  homepage = 'Website of original author'
-  repo = 'https://github.com/owner/repo'
