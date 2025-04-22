@@ -101,7 +101,7 @@
   {{ $reviews = index $customData "reviews" }}
 {{ end }}
 
-{{ partial "reviews/with_summary_chart.html" (dict 
+{{ partial "sections/reviews/with_summary_chart.html" (dict 
   "backgroundColor" $backgroundColor
   "title" $title
   "totalReviews" $totalReviews

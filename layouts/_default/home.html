@@ -4,4 +4,12 @@
       {{ .Content }}
     </div>
   {{ end }}
+  {{ partial "sections/hero/split_with_code_example.html" (dict 
+      "logo" .Params.logo
+      "badge" .Params.badge
+      "heading" .Params.heading
+      "description" .Params.description
+      "cta" .Params.cta
+      "code" .Params.code
+  ) }}
 {{ end }}

@@ -19,7 +19,7 @@
 {{- $textColor := .Get "textColor" | default "text-white" -}}
 {{- $dismissButtonColor := .Get "dismissButtonColor" | default "text-white" -}}
 
-{{ partial "banners/on_brand" (dict 
+{{ partial "sections/banners/on_brand" (dict 
   "title" $title
   "message" $message
   "url" $url

@@ -33,7 +33,7 @@
 {{- $gradientFromColor := .Get "gradientFromColor" | default "from-[#ff80b5]" -}}
 {{- $gradientToColor := .Get "gradientToColor" | default "to-[#9089fc]" -}}
 
-{{ partial "banners/with_button" (dict 
+{{ partial "sections/banners/with_button" (dict 
   "title" $title
   "message" $message
   "buttonText" $buttonText

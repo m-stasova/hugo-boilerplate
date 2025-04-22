@@ -80,7 +80,7 @@
                 <button id="tabs-1-tab-{{ add $index 1 }}" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden" aria-controls="tabs-1-panel-{{ add $index 1 }}" role="tab" type="button">
                   <span class="sr-only">{{ $image.alt }}</span>
                   <span class="absolute inset-0 overflow-hidden rounded-md">
-                    {{ partial "lazyimg.html" (dict 
+                    {{ partial "components/media/lazyimg.html" (dict 
                       "src" $image.url
                       "alt" ""
                       "class" "size-full object-cover"
@@ -98,7 +98,7 @@
           {{ range $index, $image := $product.images }}
             <!-- Tab panel, show/hide based on tab state. -->
             <div id="tabs-1-panel-{{ add $index 1 }}" aria-labelledby="tabs-1-tab-{{ add $index 1 }}" role="tabpanel" tabindex="0" {{ if ne $index 0 }}class="hidden"{{ end }}>
-              {{ partial "lazyimg.html" (dict 
+              {{ partial "components/media/lazyimg.html" (dict 
                 "src" $image.url
                 "alt" $image.alt
                 "class" "aspect-square w-full object-cover sm:rounded-lg"

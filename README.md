@@ -94,14 +94,15 @@ This theme uses Tailwind CSS which requires PostCSS for processing. You **must**
 module.exports = {
   plugins: {
     tailwindcss: {
-      config: './themes/boilerplate/tailwind.config.js'
+      config: './themes/boilerplate/tailwind.config.js',
     },
-    autoprefixer: {}
-  }
-}
+    autoprefixer: {},
+  },
+};
 ```
 
 This configuration tells PostCSS to:
+
 1. Use the Tailwind CSS plugin with the configuration file located in the theme directory
 2. Apply autoprefixer for cross-browser compatibility
 
@@ -125,16 +126,16 @@ module.exports = {
     'postcss-import': {},
     'tailwindcss/nesting': {},
     tailwindcss: {
-      config: './themes/boilerplate/tailwind.config.js'
+      config: './themes/boilerplate/tailwind.config.js',
     },
     autoprefixer: {
-      flexbox: 'no-2009'
+      flexbox: 'no-2009',
     },
     'postcss-preset-env': {
-      features: { 'nesting-rules': false }
-    }
-  }
-}
+      features: { 'nesting-rules': false },
+    },
+  },
+};
 ```
 
 ## Configuration
@@ -284,7 +285,7 @@ Main content about the term goes here...
 The theme includes various shortcodes for common components:
 
 ```markdown
-{{< products-with-image-grid 
+{{< products-with-image-grid
   background="bg-gray-50"
   product="{ title: 'Product Title', ... }" >}}
 
@@ -299,7 +300,7 @@ The theme includes various shortcodes for common components:
 You can include partials in your templates:
 
 ```go
-{{ partial "headers/centered_with_eyebrow.html" (dict 
+{{ partial "layout/headers/centered_with_eyebrow.html" (dict
   "eyebrow" "Eyebrow Text"
   "heading" "Main Heading"
   "description" "Description text") }}

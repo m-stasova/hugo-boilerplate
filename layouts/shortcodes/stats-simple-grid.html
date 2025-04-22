@@ -24,7 +24,7 @@ Usage Example:
 {{ $descriptionColor := .Get "description-color" | default "text-gray-600" }}
 {{ $showHeading := .Get "show-divider" | default "true" }}
 
-{{ partial "stats/simple_grid.html" (dict 
+{{ partial "sections/stats/simple_grid.html" (dict 
   "heading" $heading
   "description" $description
   "bgColor" $bgColor

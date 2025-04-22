@@ -21,4 +21,4 @@
 {{- $itemsJson := .Get "items" | default "[]" -}}
 {{- $items := $itemsJson | unmarshal -}}
 
-{{ partial "breadcrumbs/basic" (dict "items" $items "separator" $separator) }}
+{{ partial "components/breadcrumbs/basic" (dict "items" $items "separator" $separator) }}

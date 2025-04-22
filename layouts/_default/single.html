@@ -10,10 +10,10 @@
   
   {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
   
-  {{ partial "breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
+  {{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
 
   <!-- Hero Section split with image-->
-  {{ partial "hero/split_with_image.html" (dict 
+  {{ partial "sections/hero/split_with_image.html" (dict 
     "heading" .Title
     "description" .Description
     "image" .Params.image
@@ -31,7 +31,7 @@
 
   <!-- FAQ Section if available -->
   {{ if .Params.faq }}
-  {{ partial "faqs/side-by-side" (dict 
+  {{ partial "sections/faq/side-by-side" (dict 
     "title" (i18n "faq_heading")
     "description" (i18n "faq_description")
     "items" .Params.faq
@@ -48,7 +48,7 @@
 {{ $showCTA := .Params.showCTA | default true }}
 
 {{ if $showCTA }}
-{{ partial "ctas/simple_centered_on_dark.html" (dict 
+{{ partial "sections/cta/simple_centered_on_dark.html" (dict 
   "heading" $ctaHeading
   "description" $ctaDescription
   "primaryCta" (dict 

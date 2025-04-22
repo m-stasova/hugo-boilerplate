@@ -22,7 +22,7 @@
 {{ $decoding := (.Get "decoding") | default "async" }}
 {{ $sizes := (.Get "sizes") | default "" }}
 
-{{ partial "picture.html" (dict 
+{{ partial "components/media/picture.html" (dict 
   "src" $src 
   "alt" $alt 
   "class" $class

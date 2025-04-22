@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- Breadcrumbs -->
-{{ partial "breadcrumbs/basic" (dict 
+{{ partial "components/breadcrumbs/basic" (dict 
   "items" (slice 
     (dict "title" (i18n "home_title") "url" (print "/" | relLangURL))
     (dict "title" (i18n "glossary_title") "url" (print "/glossary/" | relLangURL))
@@ -11,7 +11,7 @@
 
 <!-- Hero Section with Split Image -->
 {{ $shortDescription := .Params.shortDescription }}
-{{ partial "headers/centered_with_eyebrow.html" (dict 
+{{ partial "layout/headers/centered_with_eyebrow.html" (dict 
   "heading" .Params.term
   "description" (partial "utils/linkbuilding" (dict "content" $shortDescription "page" .) | safeHTML)
   "eyebrow" (i18n "glossary_eyebrow")
@@ -53,7 +53,7 @@
 {{ $showCTA := .Params.showCTA | default true }}
 
 {{ if $showCTA }}
-{{ partial "ctas/simple_centered_on_dark.html" (dict 
+{{ partial "sections/cta/simple_centered_on_dark.html" (dict 
   "heading" $ctaHeading
   "description" $ctaDescription
   "primaryCta" (dict 
@@ -69,7 +69,7 @@
 
 <!-- FAQ Section Side by Side -->
 {{ if .Params.faq }}
-{{ partial "faqs/side-by-side.html" (dict 
+{{ partial "sections/faq/side-by-side.html" (dict 
   "heading" (i18n "faq_heading")
   "faqs" .Params.faq
   "bgColor" "bg-white"

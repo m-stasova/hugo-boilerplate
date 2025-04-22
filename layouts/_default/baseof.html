@@ -4,7 +4,7 @@
   {{ partial "head.html" . }}
   
   <!-- Google Analytics with Consent Mode -->
-  {{ partial "analytics/google-analytics-consent.html" . }}
+  {{ partial "utils/analytics/google-analytics-consent.html" . }}
   
   <!-- Cookie Consent JS -->
   {{ $cookieConsent := resources.Get "js/cookie-consent.js" | resources.Minify | resources.Fingerprint }}
@@ -25,7 +25,7 @@
   </footer>
   
   <!-- Cookie Consent Banner -->
-  {{ partial "banners/cookie_consent_floating_at_bottom" (dict 
+  {{ partial "sections/banners/cookie_consent_floating_at_bottom" (dict 
     "title" "Cookie Consent"
     "message" "We use cookies to enhance your browsing experience and analyze our traffic."
     "acceptAllText" "Accept All"

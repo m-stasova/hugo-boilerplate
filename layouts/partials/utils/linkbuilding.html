@@ -1,18 +1,18 @@
-{{/* 
-  Linkbuilding Partial
-  
-  This partial processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml
-  
-  Parameters:
-  - content: The HTML content to process (when called directly)
+{{/*
+@component: Linkbuilding
+@description: Processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml.
+@params:
+  - content: The HTML content to process (when passing directly)
   - or a dict with:
     - content: The HTML content to process
     - page: The page context for tracking processed links
+@example:
+  {{ $processedContent := partial "utils/linkbuilding.html" .Content }}
   
-  Usage:
-  {{ $processedContent := partial "utils/linkbuilding" .Content }}
-  or
-  {{ $processedContent := partial "utils/linkbuilding" (dict "content" .Content "page" .) }}
+  or with page context tracking:
+  
+  {{ $processedContent := partial "utils/linkbuilding.html" (dict "content" .Content "page" .) }}
+@note: This utility enhances content by adding contextual links based on defined keywords. It prevents duplicate links and ensures proper HTML structure.
 */}}
 
 {{ $content := . }}

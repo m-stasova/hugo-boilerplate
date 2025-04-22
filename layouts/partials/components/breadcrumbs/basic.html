@@ -1,0 +1,50 @@
+{{/*
+@component: Basic Breadcrumbs
+@description: Displays a simple breadcrumb navigation with structured data markup for SEO.
+@params:
+  - items: Array of breadcrumb items, each with:
+    - title: Text to display for the breadcrumb link
+    - url: URL for the breadcrumb link
+  - separator: Symbol to display between items (optional, default: "/")
+@example:
+  {{ partial "components/breadcrumbs/basic.html" (dict
+    "items" (slice 
+      (dict "title" "UI Blocks" "url" "/plus/ui-blocks")
+      (dict "title" "Marketing" "url" "/plus/ui-blocks/marketing")
+      (dict "title" "Page Sections" "url" "/plus/ui-blocks/marketing#product-marketing-sections")
+    )
+    "separator" ">"
+  ) }}
+@note: The component includes structured Schema.org BreadcrumbList data to improve SEO.
+*/}}
+
+{{- $items := .items -}}
+{{- $separator := .separator | default "/" -}}
+
+<nav class="flex gap-2" aria-label="Breadcrumbs">
+  {{- range $index, $item := $items -}}
+    {{- if $index -}}
+      <p class="text-gray-400 select-none font-mono text-[0.8125rem]/6 font-medium tracking-widest text-pretty uppercase" aria-hidden="true">{{ $separator }}</p>
+    {{- end -}}
+    <a class="hover:text-gray-950 font-mono text-[0.8125rem]/6 font-medium tracking-widest text-pretty uppercase text-gray-600" href="{{ $item.url }}">{{ $item.title }}</a>
+  {{- end -}}
+</nav>
+
+<!-- Schema.org BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{- range $index, $item := $items -}}
+    {{- if $index -}},{{- end -}}
+    {
+      "@type": "ListItem",
+      "position": {{ add $index 1 }},
+      "name": "{{ $item.title }}",
+      "item": "{{ $item.url | absURL }}"
+    }
+    {{- end -}}
+  ]
+}
+</script>

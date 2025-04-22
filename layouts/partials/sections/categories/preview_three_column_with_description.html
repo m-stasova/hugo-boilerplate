@@ -1,0 +1,66 @@
+{{/* 
+  Categories partial with preview three-column with description
+  
+  Parameters:
+  - backgroundColor: Background color class (default: "bg-white")
+  - heading: Main heading text (default: "Shop by Collection")
+  - description: Description text below the main heading (default: "Each season, we collaborate with world-class designers to create a collection inspired by the natural world.")
+  - categories: Array of category objects with the following structure:
+    - title: Category title
+    - description: Category description
+    - url: URL for the category link
+    - imageUrl: URL to category image
+    - imageAlt: Alt text for category image
+*/}}
+
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
+{{ $heading := .heading | default "Shop by Collection" }}
+{{ $description := .description | default "Each season, we collaborate with world-class designers to create a collection inspired by the natural world." }}
+
+{{ $categories := .categories | default (slice 
+  (dict 
+    "title" "Handcrafted Collection"
+    "description" "Keep your phone, keys, and wallet together, so you can lose everything at once."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-01.jpg"
+    "imageAlt" "Brown leather key ring with brass metal loops and rivets on wood table."
+  )
+  (dict 
+    "title" "Organized Desk Collection"
+    "description" "The rest of the house will still be a mess, but your desk will look great."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-02.jpg"
+    "imageAlt" "Natural leather mouse pad on white desk next to porcelain mug and keyboard."
+  )
+  (dict 
+    "title" "Focus Collection"
+    "description" "Be more productive than enterprise project managers with a single piece of paper."
+    "url" "#"
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-01-collection-03.jpg"
+    "imageAlt" "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad."
+  )
+) }}
+
+<div class="{{ $backgroundColor }}">
+  <div class="mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ $heading }}</h2>
+    <p class="mt-4 text-base text-gray-500">{{ $description }}</p>
+
+    <div class="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+      {{ range $categories }}
+      <a href="{{ .url }}" class="group block">
+        <div class="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg group-hover:opacity-75 lg:aspect-w-5">
+          {{ partial "components/media/lazyimg.html" (dict 
+            "src" .imageUrl 
+            "alt" .imageAlt
+            "class" "size-full object-cover object-center"
+            "maxWidth" "600px"
+          ) }}
+        </div>
+        <h3 class="mt-4 text-base font-semibold text-gray-900">{{ .title }}</h3>
+        <p class="mt-2 text-sm text-gray-500">{{ .description }}</p>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

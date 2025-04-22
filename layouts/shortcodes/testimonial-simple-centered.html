@@ -29,7 +29,7 @@ Usage:
 {{ $personNameColor := .Get "personNameColor" | default "text-gray-800" }}
 {{ $personRoleColor := .Get "personRoleColor" | default "text-gray-600" }}
 
-{{ partial "testimonials/simple_centered.html" (dict 
+{{ partial "sections/testimonials/simple_centered.html" (dict 
   "quote" $quote
   "personName" $personName
   "personRole" $personRole
