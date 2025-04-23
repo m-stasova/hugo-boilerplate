@@ -1,15 +1,42 @@
-{{/* 
-  3-column incentives layout with illustrations and heading
-  
-  Parameters:
-  - backgroundColor: Background color class for the outer container (default: "bg-white")
-  - innerBackgroundColor: Background color class for the inner container (default: "bg-gray-50")
-  - title: Main heading text
-  - incentives: Array of incentive items, each with:
+{{/*
+@section: Three-Column Incentives with Illustrations and Heading
+@description: A section displaying incentives or benefits in a three-column layout with illustrations, contained within a colored background box with a centered heading.
+@params:
+  - backgroundColor: Background color class for the outer container (optional, default: "bg-white")
+  - innerBackgroundColor: Background color class for the inner container (optional, default: "bg-gray-50")
+  - title: Main heading text (optional, default: "We built our business on customer service")
+  - incentives: Array of incentive objects (optional, includes defaults)
     - title: Incentive title
     - description: Incentive description
     - iconUrl: URL for the incentive icon
     - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/3-column_with_illustrations_and_heading.html" (dict 
+      "title" "Why Choose Our Service" 
+      "incentives" (slice
+          (dict 
+              "title" "Fast Delivery" 
+              "description" "Get your products delivered to your doorstep within 24 hours of ordering."
+              "iconUrl" "/images/icons/delivery.svg"
+              "iconAlt" "Delivery icon"
+          )
+          (dict 
+              "title" "Quality Guarantee" 
+              "description" "All our products come with a quality guarantee that ensures satisfaction."
+              "iconUrl" "/images/icons/quality.svg"
+              "iconAlt" "Quality icon"
+          )
+          (dict 
+              "title" "Excellent Support" 
+              "description" "Our customer support team is available 24/7 to help you with any issues."
+              "iconUrl" "/images/icons/support.svg"
+              "iconAlt" "Support icon"
+          )
+      )
+      "backgroundColor" "bg-white"
+      "innerBackgroundColor" "bg-blue-50"
+  ) }}
+@note: This component features a responsive design, reorganizing the layout from centered grid on desktop to horizontal alignment on smaller screens.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}

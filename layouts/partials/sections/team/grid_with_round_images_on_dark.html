@@ -1,3 +1,56 @@
+{{/*
+@section: Team Grid with Round Images on Dark Background
+@description: A compact team showcase section with a dark background featuring small circular profile images in a multi-column grid layout, ideal for displaying larger teams with basic information.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Our team")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member profile image
+@example:
+  {{ partial "sections/team/grid_with_round_images_on_dark.html" (dict 
+      "heading" "Meet Our Team" 
+      "description" "Our diverse and talented team works collaboratively across the globe to deliver exceptional results and innovative solutions."
+      "teamMembers" (slice
+          (dict 
+              "name" "Jennifer Park" 
+              "role" "Head of Operations"
+              "image" "/images/team/jennifer-park.jpg"
+          )
+          (dict 
+              "name" "Miguel Santos" 
+              "role" "Frontend Developer"
+              "image" "/images/team/miguel-santos.jpg"
+          )
+          (dict 
+              "name" "Naomi Wright" 
+              "role" "Marketing Specialist"
+              "image" "/images/team/naomi-wright.jpg"
+          )
+          (dict 
+              "name" "Alex Johnson" 
+              "role" "Data Analyst"
+              "image" "/images/team/alex-johnson.jpg"
+          )
+          (dict 
+              "name" "Raj Patel" 
+              "role" "Customer Success"
+              "image" "/images/team/raj-patel.jpg"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+      "descriptionColor" "text-indigo-200"
+  ) }}
+@note: This is the dark-themed version of the team grid with round images component. The dark background creates a sophisticated, modern look that makes the profile images stand out. The highly responsive grid layout (2 columns on mobile to 6 columns on extra-large screens) makes this component perfect for showcasing larger teams in a space-efficient way. The simplified presentation with just names and roles creates a unified team appearance without overwhelming the viewer with too much detail.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

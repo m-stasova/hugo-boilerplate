@@ -1,3 +1,41 @@
+{{/*
+@section: Simple Centered Testimonial on Dark Background
+@description: A clean, centered testimonial layout on a dark background featuring a company logo, quote, and author information, enhanced with subtle gradient and geometric background elements.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "px-6 py-24 sm:py-32 lg:px-8")
+  - gradientColor: Color value for the background gradient (optional, default: "var(--color-indigo-900)")
+  - gradientOpacity: Opacity class for the gradient (optional, default: "opacity-20")
+  - skewBgColor: Background color class for the skewed background element (optional, default: "bg-gray-800")
+  - skewRingColor: Border color class for the skewed element (optional, default: "ring-gray-700")
+  - skewShadowColor: Shadow color class for the skewed element (optional, default: "shadow-indigo-500/20")
+  - logo: URL for the company logo image (optional, default: Tailwind asset)
+  - logoAlt: Alt text for the logo image (optional, default: "")
+  - logoHeight: Height class for the logo (optional, default: "h-12")
+  - quote: The testimonial text (optional, default: Lorem ipsum text)
+  - quoteColor: Color class for the quote text (optional, default: "text-white")
+  - personImage: URL for the person's avatar image (optional, default: Unsplash photo)
+  - personImageAlt: Alt text for the person image (optional, default: "")
+  - personName: Name of the testimonial author (optional, default: "Judith Black")
+  - personNameColor: Color class for the person name (optional, default: "text-white")
+  - personRole: Role/position of the testimonial author (optional, default: "CEO of Workcation")
+  - personRoleColor: Color class for the person role (optional, default: "text-gray-400")
+  - dotColor: Color class for the separator dot (optional, default: "fill-gray-500")
+@example:
+  {{ partial "sections/testimonials/simple_centered_on_dark.html" (dict 
+      "logo" "/images/logos/techinnovate.svg"
+      "logoAlt" "TechInnovate logo"
+      "quote" "Implementing this solution has been a game-changer for our organization. We've doubled our productivity and significantly improved customer satisfaction rates in just three months."
+      "personImage" "/images/testimonials/daniel-carter.jpg"
+      "personName" "Daniel Carter"
+      "personRole" "CTO, TechInnovate"
+      "gradientColor" "var(--color-blue-900)"
+      "skewBgColor" "bg-blue-950"
+      "skewRingColor" "ring-blue-800"
+  ) }}
+@note: This component creates a focused, visually striking testimonial display with the main emphasis on the quote itself. The dark background with decorative elements creates a premium feel, while the company logo adds credibility and brand recognition.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "px-6 py-24 sm:py-32 lg:px-8" }}

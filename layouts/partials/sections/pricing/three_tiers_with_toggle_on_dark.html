@@ -1,18 +1,18 @@
-{{/* 
-  Three Tiers with Toggle on Dark Pricing Section
-  
-  Parameters:
-  - tagline: Text above the heading (default: "Pricing")
-  - heading: Main heading text (default: "Pricing that grows with you")
-  - description: Text below the heading (default: "Choose an affordable plan...")
-  - backgroundColor: Background color for the section (default: "gray-900")
-  - taglineColor: Color for the tagline text (default: "indigo-400")
-  - headingColor: Color for the heading text (default: "white")
-  - descriptionColor: Color for the description text (default: "gray-400")
-  - toggleBgColor: Background color for the toggle (default: "white/5")
-  - toggleTextColor: Color for the toggle text (default: "white")
-  - toggleActiveBgColor: Color for the active toggle background (default: "indigo-500")
-  - tiers: Array of tier configurations, each with:
+{{/*
+@section: Three-Tier Pricing with Toggle on Dark Background
+@description: A pricing section featuring three tiers with a toggle between monthly and annual billing, displayed on a dark background for a premium feel.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color for the section (optional, default: "gray-900")
+  - taglineColor: Color for the tagline text (optional, default: "indigo-400")
+  - headingColor: Color for the heading text (optional, default: "white")
+  - descriptionColor: Color for the description text (optional, default: "gray-400")
+  - toggleBgColor: Background color for the toggle (optional, default: "white/5")
+  - toggleTextColor: Color for the toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color for the active toggle background (optional, default: "indigo-500")
+  - tiers: Array of tier objects (optional, includes defaults)
     - name: Name of the tier
     - id: ID for accessibility
     - monthlyPrice: Price for monthly billing
@@ -34,6 +34,80 @@
     - backgroundColor: Background color for the tier
     - borderColor: Border color for the tier
     - borderWidth: Border width for the tier (default: 1, use 2 for emphasis)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_toggle_on_dark.html" (dict 
+      "tagline" "Simple Pricing"
+      "heading" "The right price for you, whoever you are"
+      "description" "Choose the plan that fits your needs. All plans include a 14-day free trial with no credit card required."
+      "tiers" (slice
+          (dict 
+              "name" "Basic" 
+              "id" "tier-basic" 
+              "monthlyPrice" "$9" 
+              "annualPrice" "$7" 
+              "interval" "/month" 
+              "description" "Perfect for individuals and small projects." 
+              "popular" false 
+              "features" (slice 
+                  "3 projects" 
+                  "Up to 1,000 subscribers" 
+                  "Basic analytics" 
+                  "48-hour support"
+              )
+              "cta" (dict 
+                  "text" "Get started" 
+                  "url" "/signup/basic"
+              )
+          )
+          (dict 
+              "name" "Pro" 
+              "id" "tier-pro" 
+              "monthlyPrice" "$29" 
+              "annualPrice" "$24" 
+              "interval" "/month" 
+              "description" "Best for growing businesses and teams." 
+              "popular" true 
+              "features" (slice 
+                  "Unlimited projects" 
+                  "Up to 10,000 subscribers" 
+                  "Advanced analytics" 
+                  "24-hour support" 
+                  "Marketing automations"
+              )
+              "cta" (dict 
+                  "text" "Start free trial" 
+                  "url" "/signup/pro"
+              )
+              "backgroundColor" "white/5"
+              "borderColor" "indigo-500"
+              "borderWidth" 2
+          )
+          (dict 
+              "name" "Enterprise" 
+              "id" "tier-enterprise" 
+              "monthlyPrice" "$99" 
+              "annualPrice" "$89" 
+              "interval" "/month" 
+              "description" "Custom solutions for large organizations." 
+              "popular" false 
+              "features" (slice 
+                  "Unlimited everything" 
+                  "Advanced security" 
+                  "Custom integrations" 
+                  "Dedicated support" 
+                  "Advanced reporting" 
+                  "Custom branding"
+              )
+              "cta" (dict 
+                  "text" "Contact sales" 
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "backgroundColor" "slate-900"
+      "toggleActiveBgColor" "purple-500"
+  ) }}
+@note: This component features a toggle between monthly and annual pricing with JavaScript functionality that dynamically updates the displayed prices without a page refresh. The dark background creates a premium, high-contrast design that makes the pricing tiers stand out.
 */}}
 
 {{ $tagline := .tagline | default "Pricing" }}

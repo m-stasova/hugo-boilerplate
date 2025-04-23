@@ -1,3 +1,49 @@
+{{/*
+@section: Simple Grid Stats on Dark
+@description: A grid-based statistics section displaying key metrics in a dark-themed environment with subtle background effects and optional heading.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - statBgColor: Background color for individual stat items (optional, default: "bg-white/5")
+  - statPadding: Padding for individual stat items (optional, default: "p-8")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - heading: Main section heading (optional, default: "Trusted by creators worldwide")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "Lorem ipsum dolor sit amet consect adipisicing possimus.")
+  - descriptionColor: Description color class (optional, default: "text-gray-400")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The statistic value to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-white")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/stats/simple_grid_on_dark.html" (dict 
+      "heading" "Our Platform's Growth" 
+      "description" "Key performance indicators showcasing our platform's impact and reach."
+      "stats" (slice
+          (dict 
+              "value" "10M+" 
+              "label" "Monthly active users"
+          )
+          (dict 
+              "value" "99.9%" 
+              "label" "Service uptime"
+          )
+          (dict 
+              "value" "200+" 
+              "label" "Countries reached"
+          )
+          (dict 
+              "value" "$250M" 
+              "label" "Revenue processed"
+          )
+      )
+      "statBgColor" "bg-indigo-900/30"
+      "valueColor" "text-indigo-300"
+  ) }}
+@note: This component features a dark background with subtle grid pattern and glow effects, creating a modern, tech-forward aesthetic. The stats are presented in a connected grid layout with semi-transparent backgrounds for each stat card, enhancing the visual appeal while maintaining readability on dark backgrounds.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

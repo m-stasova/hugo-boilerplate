@@ -1,14 +1,27 @@
-{{- /*
-  Usage: partial "sections/banners/on_brand" (dict 
-    "title" "GeneriCon 2023"
-    "message" "Join us in Denver from June 7 – 9 to see what's coming next"
-    "url" "#"
-    "isDismissable" true
-    "backgroundColor" "bg-indigo-600"
-    "textColor" "text-white"
-    "dismissButtonColor" "text-white"
-  )
-*/ -}}
+{{/*
+@section: On-Brand Banner
+@description: A branded promotional banner with an optional dismissal button, used for announcements or special events.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next")
+  - url: URL for the banner link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-indigo-600")
+  - textColor: Text color class (optional, default: "text-white")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-white")
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/on_brand.html" (dict 
+      "title" "GeneriCon 2023"
+      "message" "Join us in Denver from June 7 – 9 to see what's coming next"
+      "url" "#"
+      "isDismissable" true
+      "backgroundColor" "bg-indigo-600"
+      "textColor" "text-white"
+      "dismissButtonColor" "text-white"
+  ) }}
+@note: The banner includes a dismiss button by default that can be toggled with the isDismissable parameter.
+*/}}
 
 {{- $title := .title | default "GeneriCon 2023" -}}
 {{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}

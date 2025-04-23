@@ -1,3 +1,45 @@
+{{/*
+@section: Stats with Description
+@description: A statistics section with heading, primary and secondary descriptions, and a column of key stats with value and label pairs.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-32")
+  - showHeading: Whether to display the heading (optional, default: true)
+  - heading: Main section heading (optional, default: "Our mission")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - mainDescription: Primary description text (optional, default: "Aliquet nec orci mattis amet...")
+  - mainDescriptionColor: Primary description color class (optional, default: "text-gray-600")
+  - secondaryDescription: Secondary description text (optional, default: "Faucibus commodo massa rhoncus...")
+  - secondaryDescriptionColor: Secondary description color class (optional, default: "text-gray-700")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: Statistic value (can include units)
+    - label: Description of what the statistic represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+@example:
+  {{ partial "sections/stats/with_description.html" (dict 
+      "heading" "Our impact" 
+      "mainDescription" "Since our founding, we've been dedicated to creating positive change in our industry and for our customers."
+      "secondaryDescription" "Our team works tirelessly to improve our platform, making it more accessible, powerful, and useful for users around the globe. These numbers reflect our commitment to excellence and growth."
+      "stats" (slice
+          (dict 
+              "value" "2.5M+" 
+              "label" "Active users worldwide"
+          )
+          (dict 
+              "value" "98%" 
+              "label" "Customer satisfaction rating"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Support availability"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This section presents statistics in a visually impactful way alongside descriptive text that provides context for the numbers. On desktop layouts, the descriptions appear on the left with the statistics column on the right.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-32" }}

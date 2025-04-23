@@ -1,3 +1,54 @@
+{{/*
+@section: Team Grid with Large Round Images
+@description: A team showcase section with large circular profile images displayed in a centered grid layout, featuring team members with their names, roles, and optional social media links.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - nameColor: Team member name color class (optional, default: "text-gray-900")
+  - roleColor: Team member role color class (optional, default: "text-gray-600")
+  - socialIconColor: Social media icon color class (optional, default: "text-gray-400")
+  - socialIconHoverColor: Social media icon hover color class (optional, default: "hover:text-gray-500")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member profile image
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/grid_with_large_round_images.html" (dict 
+      "heading" "Our Expert Team" 
+      "description" "Meet the dedicated professionals behind our success, combining decades of industry expertise with innovative thinking."
+      "teamMembers" (slice
+          (dict 
+              "name" "Sophia Martinez" 
+              "role" "Chief Operating Officer"
+              "image" "/images/team/sophia-martinez.jpg"
+              "twitter" "https://twitter.com/sophiamartinez"
+              "linkedin" "https://linkedin.com/in/sophiamartinez"
+          )
+          (dict 
+              "name" "David Thompson" 
+              "role" "Lead UX Researcher"
+              "image" "/images/team/david-thompson.jpg"
+              "linkedin" "https://linkedin.com/in/davidthompson"
+          )
+          (dict 
+              "name" "Aisha Khan" 
+              "role" "Head of Marketing"
+              "image" "/images/team/aisha-khan.jpg"
+              "twitter" "https://twitter.com/aishakhan"
+              "linkedin" "https://linkedin.com/in/aishakhan"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This component features a text-centered design with large circular profile images, creating a visually balanced and professional team presentation. The centered layout with consistent large circular images works particularly well for executive teams and leadership showcases.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-32" }}

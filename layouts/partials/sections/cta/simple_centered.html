@@ -1,24 +1,24 @@
 {{/*
 @section: Simple Centered CTA
-@description: Jednoduchá centrovaná CTA sekcia s nadpisom, popisom a dvoma tlačidlami pre výzvu na akciu.
+@description: A simple centered call-to-action section with heading, description, and two CTA buttons.
 @params:
-  - heading: Hlavný nadpis sekcie (voliteľné)
-  - description: Popis pod nadpisom (voliteľné)
-  - primaryCta: Objekt s konfiguráciou primárneho CTA tlačidla (voliteľné)
-    - text: Text tlačidla
-    - url: URL tlačidla
-  - secondaryCta: Objekt s konfiguráciou sekundárneho CTA tlačidla (voliteľné)
-    - text: Text tlačidla
-    - url: URL tlačidla
-  - primaryCtaColor: Farba primárneho tlačidla (voliteľné, predvolené: "indigo-600")
-  - primaryCtaHoverColor: Farba primárneho tlačidla pri hover efekte (voliteľné, predvolené: "indigo-500")
-  - page: Kontext stránky pre funkciu linkbuilding (povinné)
+  - heading: Main section heading (optional)
+  - description: Description text below heading (optional)
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - primaryCtaColor: Primary button color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-500")
+  - page: Page context for linkbuilding function (required)
 @example:
   {{ partial "sections/cta/simple_centered.html" (dict 
-      "heading" "Začnite používať náš produkt už dnes" 
-      "description" "Naše riešenie vám pomôže optimalizovať podnikanie a zvýšiť zisk. Vyskúšajte ho teraz."
-      "primaryCta" (dict "text" "Začať" "url" "/signup") 
-      "secondaryCta" (dict "text" "Viac informácií" "url" "/features")
+      "heading" "Start using our product today" 
+      "description" "Our solution will help you optimize your business and increase profits. Try it now."
+      "primaryCta" (dict "text" "Get started" "url" "/signup") 
+      "secondaryCta" (dict "text" "Learn more" "url" "/features")
       "primaryCtaColor" "indigo-600"
       "primaryCtaHoverColor" "indigo-500"
       "page" .

@@ -1,3 +1,52 @@
+{{/*
+@section: Stats with Background Image
+@description: A visually striking statistics section featuring key metrics against a dark background image with a gradient overlay for better contrast.
+@params:
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - bgImage: URL to the background image (optional, default: [Unsplash image URL])
+  - bgImageAlt: Alt text for the background image (optional, default: "Team working")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - headingTag: Small text displayed above the main heading (optional, default: "Our track record")
+  - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-400")
+  - heading: Main section heading (optional, default: "Trusted by thousands of creators worldwide")
+  - headingColor: Color class for the main heading (optional, default: "text-white")
+  - description: Section description text (optional, default: "Lorem ipsum...")
+  - descriptionColor: Color class for the description (optional, default: "text-gray-300")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The numerical value or metric to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-white")
+  - labelColor: Color class for statistic labels (optional, default: "text-white")
+  - borderColor: Color class for the left border of stat items (optional, default: "border-white/10")
+@example:
+  {{ partial "sections/stats/with_background_image.html" (dict 
+      "bgImage" "/images/backgrounds/team-collaboration.jpg"
+      "bgImageAlt" "Our global team collaborating"
+      "headingTag" "Global Impact"
+      "heading" "Making a difference across the world"
+      "description" "Our solutions have helped businesses of all sizes achieve their goals and reach new heights."
+      "stats" (slice 
+          (dict 
+              "value" "97%" 
+              "label" "Customer satisfaction rate"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Global support coverage"
+          )
+          (dict 
+              "value" "150+" 
+              "label" "Countries served"
+          )
+          (dict 
+              "value" "1M+" 
+              "label" "Happy customers"
+          )
+      )
+  ) }}
+@note: This section features a dramatic background image with a dark overlay and gradient for visual impact, making the white statistics stand out.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $padding := .padding | default "py-24 sm:py-32" }}
 {{ $bgImage := .bgImage | default "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply" }}

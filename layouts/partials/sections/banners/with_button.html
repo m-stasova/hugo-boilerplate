@@ -1,21 +1,40 @@
-{{- /*
-  Usage: partial "sections/banners/with_button" (dict 
-    "title" "GeneriCon 2023"
-    "message" "Join us in Denver from June 7 – 9 to see what's coming next."
-    "buttonText" "Register now"
-    "buttonUrl" "#"
-    "isDismissable" true
-    "backgroundColor" "bg-gray-50"
-    "textColor" "text-gray-900"
-    "buttonBackgroundColor" "bg-gray-900"
-    "buttonTextColor" "text-white"
-    "buttonHoverColor" "hover:bg-gray-700"
-    "buttonFocusColor" "focus-visible:outline-gray-900"
-    "dismissButtonColor" "text-gray-900"
-    "gradientFromColor" "from-[#ff80b5]"
-    "gradientToColor" "to-[#9089fc]"
-  )
-*/ -}}
+{{/*
+@section: Banner with Button
+@description: A promotional banner with a button call-to-action and optional dismissal option, featuring a subtle gradient background effect.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next.")
+  - buttonText: Text for the CTA button (optional, default: "Register now")
+  - buttonUrl: URL for the button link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - textColor: Text color class (optional, default: "text-gray-900")
+  - buttonBackgroundColor: Button background color class (optional, default: "bg-gray-900")
+  - buttonTextColor: Button text color class (optional, default: "text-white")
+  - buttonHoverColor: Button hover effect class (optional, default: "hover:bg-gray-700")
+  - buttonFocusColor: Button focus outline color class (optional, default: "focus-visible:outline-gray-900")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-gray-900")
+  - gradientFromColor: Starting color for background gradient (optional, default: "from-[#ff80b5]")
+  - gradientToColor: Ending color for background gradient (optional, default: "to-[#9089fc]")
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/with_button.html" (dict 
+      "title" "New Product Launch"
+      "message" "Our latest features are now available for all customers."
+      "buttonText" "See what's new"
+      "buttonUrl" "/features"
+      "isDismissable" true
+      "backgroundColor" "bg-indigo-50"
+      "textColor" "text-indigo-900"
+      "buttonBackgroundColor" "bg-indigo-600"
+      "buttonTextColor" "text-white"
+      "buttonHoverColor" "hover:bg-indigo-500"
+      "buttonFocusColor" "focus-visible:outline-indigo-600"
+      "dismissButtonColor" "text-indigo-900"
+  ) }}
+@note: The banner includes a gradient background effect and a dismiss button that can be toggled with the isDismissable parameter.
+*/}}
+
 
 {{- $title := .title | default "GeneriCon 2023" -}}
 {{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next." -}}

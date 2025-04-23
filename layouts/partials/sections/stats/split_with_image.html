@@ -1,3 +1,56 @@
+{{/*
+@section: Stats Split with Image
+@description: A statistics showcase section with a large side image, featuring a heading, description, and a grid of key statistics with values and labels.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - image: URL to the image (optional, defaults to a placeholder image)
+  - imageAlt: Alt text for the image (optional, default: "")
+  - imagePosition: Position of the image, "left" or "right" (optional, default: "left")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - headingTag: Small tag/label above the main heading (optional, default: "Our track record")
+  - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-600")
+  - heading: Main section heading (optional, default: "Trusted by thousands of creators worldwide")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "Lorem ipsum, dolor sit amet...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The statistic value to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+  - borderColor: Color class for the left border of stat items (optional, default: "border-gray-900/10")
+@example:
+  {{ partial "sections/stats/split_with_image.html" (dict 
+      "image" "/images/team-collaboration.jpg"
+      "imageAlt" "Team collaborating around a table with laptops"
+      "imagePosition" "right"
+      "headingTag" "Company Growth"
+      "heading" "Our journey in numbers" 
+      "description" "Since our founding, we've grown consistently by focusing on customer success and innovative solutions that deliver real value."
+      "stats" (slice
+          (dict 
+              "value" "15,000+" 
+              "label" "Global customers"
+          )
+          (dict 
+              "value" "97%" 
+              "label" "Customer retention"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Expert support"
+          )
+          (dict 
+              "value" "35+" 
+              "label" "Countries served"
+          )
+      )
+      "headingTagColor" "text-blue-600"
+      "borderColor" "border-blue-200"
+  ) }}
+@note: This component creates a visually balanced layout with a large image on one side and statistics on the other. The image can be positioned on either the left or right side to fit your page design. Statistics are displayed in a grid with a subtle left border, creating a clean, organized presentation. The component is particularly effective for showcasing company achievements, product benefits, or service statistics alongside a relevant, high-impact image.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $image := .image | default "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80" }}

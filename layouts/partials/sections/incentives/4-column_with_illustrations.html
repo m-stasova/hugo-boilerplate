@@ -1,13 +1,44 @@
-{{/* 
-  4-column incentives layout with illustrations
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-gray-50")
-  - incentives: Array of incentive items, each with:
+{{/*
+@section: Four-Column Incentives with Illustrations
+@description: A section displaying four incentives or key benefits in a grid layout, each with an illustration, title, and description. Ideal for highlighting multiple product or service features.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - incentives: Array of incentive objects (optional, includes defaults)
     - title: Incentive title
     - description: Incentive description
     - iconUrl: URL for the incentive icon
     - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/4-column_with_illustrations.html" (dict 
+      "incentives" (slice
+          (dict 
+              "title" "Free Delivery" 
+              "description" "Get free shipping on all orders over $50 with no minimum purchase required."
+              "iconUrl" "/images/icons/delivery.svg"
+              "iconAlt" "Delivery icon"
+          )
+          (dict 
+              "title" "24/7 Support" 
+              "description" "Our customer service team is available around the clock to answer your questions."
+              "iconUrl" "/images/icons/support.svg"
+              "iconAlt" "Support icon"
+          )
+          (dict 
+              "title" "Secure Checkout" 
+              "description" "Our payment process is fully encrypted and secure for worry-free transactions."
+              "iconUrl" "/images/icons/secure.svg"
+              "iconAlt" "Security icon"
+          )
+          (dict 
+              "title" "Loyalty Rewards" 
+              "description" "Earn points with every purchase that you can redeem for discounts on future orders."
+              "iconUrl" "/images/icons/rewards.svg"
+              "iconAlt" "Rewards icon"
+          )
+      )
+      "backgroundColor" "bg-gray-100"
+  ) }}
+@note: This component adapts responsively - displaying as a 4-column grid on desktop, 2-column grid on tablets, and a single column on mobile devices.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}

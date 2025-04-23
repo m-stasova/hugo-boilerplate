@@ -1,30 +1,30 @@
 {{/*
 @section: Simple Features
-@description: Jednoduchá sekcia pre zobrazenie zoznamu funkcií a vlastností s nadpisom a popisom.
+@description: A simple section for displaying a list of features with a heading and description.
 @params:
-  - heading: Hlavný nadpis sekcie (voliteľné)
-  - description: Popis pod nadpisom (voliteľné)
-  - features: Pole objektov s funkciami (voliteľné)
-    - title: Názov funkcie
-    - description: Popis funkcie
-  - columns: Počet stĺpcov v grille (voliteľné, predvolené: 3)
-  - page: Kontext stránky pre funkciu linkbuilding (povinné)
+  - heading: Main section heading (optional)
+  - description: Description below the heading (optional)
+  - features: Array of feature objects (optional)
+    - title: Feature title
+    - description: Feature description
+  - columns: Number of columns in the grid (optional, default: 3)
+  - page: Page context for linkbuilding function (required)
 @example:
   {{ partial "sections/features/simple.html" (dict 
-      "heading" "Všetko v jednej platforme" 
-      "description" "Naša platforma poskytuje všetky nástroje, ktoré potrebujete pre úspešné online podnikanie."
+      "heading" "All-in-one platform" 
+      "description" "Our platform provides all the tools you need for successful online business."
       "features" (slice
           (dict 
-              "title" "Jednoduchá integrácia" 
-              "description" "Rýchla a jednoduchá integrácia s vašimi existujúcimi systémami."
+              "title" "Simple integration" 
+              "description" "Fast and easy integration with your existing systems."
           )
           (dict 
-              "title" "Automatické zálohovanie" 
-              "description" "Vaše dáta sú automaticky zálohované a vždy v bezpečí."
+              "title" "Automatic backup" 
+              "description" "Your data is automatically backed up and always secure."
           )
           (dict 
-              "title" "Pokročilá analytika" 
-              "description" "Detailné štatistiky a prehľady pre lepšie rozhodovanie."
+              "title" "Advanced analytics" 
+              "description" "Detailed statistics and insights for better decision making."
           )
       )
       "columns" 3

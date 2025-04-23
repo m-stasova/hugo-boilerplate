@@ -1,16 +1,31 @@
-{{- /*
-  Usage: partial "sections/banners/with_background_glow" (dict 
-    "title" "GeneriCon 2023"
-    "message" "Join us in Denver from June 7 – 9 to see what's coming next"
-    "url" "#"
-    "isDismissable" true
-    "backgroundColor" "bg-gray-50"
-    "textColor" "text-gray-900"
-    "dismissButtonColor" "text-gray-900"
-    "gradientFromColor" "from-[#ff80b5]"
-    "gradientToColor" "to-[#9089fc]"
-  )
-*/ -}}
+{{/*
+@section: Banner with Background Glow
+@description: A promotional banner with a subtle gradient background glow effect and optional dismissal functionality.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next")
+  - url: URL for the banner link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - textColor: Text color class (optional, default: "text-gray-900")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-gray-900")
+  - gradientFromColor: Starting color for background gradient (optional, default: "from-[#ff80b5]")
+  - gradientToColor: Ending color for background gradient (optional, default: "to-[#9089fc]")
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/with_background_glow.html" (dict 
+      "title" "Special Announcement"
+      "message" "New features launching next week. Stay tuned for updates!"
+      "url" "/announcements"
+      "isDismissable" true
+      "backgroundColor" "bg-white"
+      "textColor" "text-gray-800"
+      "dismissButtonColor" "text-gray-600"
+      "gradientFromColor" "from-[#60a5fa]"
+      "gradientToColor" "to-[#34d399]"
+  ) }}
+@note: The banner includes a subtle gradient background glow effect and an optional dismiss button.
+*/}}
 
 {{- $title := .title | default "GeneriCon 2023" -}}
 {{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}

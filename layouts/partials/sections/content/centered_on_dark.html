@@ -1,3 +1,68 @@
+{{/*
+@section: Centered Content on Dark Background
+@description: A comprehensive, richly formatted content section with a dark background, featuring eyebrow text, heading, description, feature list, testimonial, image, and multiple content blocks for in-depth articles or documentation.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "px-6 py-32 lg:px-8")
+  - eyebrow: Small text displayed above heading (optional, default: "Introducing")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-400")
+  - heading: Main section heading (optional, default: "JavaScript for beginners")
+  - headingColor: Color class for heading (optional, default: "text-white")
+  - description: Section description text (optional, has default)
+  - descriptionColor: Color class for description (optional, default: "text-gray-300")
+  - contentColor: Color class for main content text (optional, default: "text-gray-300")
+  - paragraph1: First paragraph content (optional, has default)
+  - paragraph2: Second paragraph content (optional, has default)
+  - featureTextColor: Color class for feature description text (optional, default: "text-gray-400")
+  - featureHeadingColor: Color class for feature heading (optional, default: "text-white")
+  - iconColor: Color class for feature icons (optional, default: "text-indigo-400")
+  - features: Array of feature objects (optional, includes defaults)
+    - icon: SVG path for the feature icon
+    - title: Feature title text
+    - description: Feature description text
+  - subheading1: First subheading text (optional, default: "From beginner to expert in 3 hours")
+  - subheading1Color: Color class for first subheading (optional, default: "text-white")
+  - paragraph3: Third paragraph content (optional, has default)
+  - testimonialText: Testimonial quote text (optional, has default)
+  - testimonialTextColor: Color class for testimonial text (optional, default: "text-white")
+  - testimonialBorderColor: Color class for testimonial border (optional, default: "border-indigo-400")
+  - testimonialImage: URL to testimonial author image (optional, has default)
+  - testimonialName: Testimonial author name (optional, default: "Maria Hill")
+  - testimonialRole: Testimonial author role/title (optional, default: "Marketing Manager")
+  - paragraph4: Fourth paragraph content (optional, has default)
+  - featuredImage: URL to featured image (optional, has default)
+  - featuredImageAlt: Alt text for featured image (optional, default: "Featured image")
+  - featuredImageCaption: Caption text for featured image (optional, default: "Faucibus commodo massa rhoncus, volutpat.")
+  - captionColor: Color class for image caption (optional, default: "text-gray-400")
+  - captionIconColor: Color class for caption icon (optional, default: "text-gray-600")
+  - subheading2: Second subheading text (optional, default: "Everything you need to get up and running")
+  - subheading2Color: Color class for second subheading (optional, default: "text-white")
+  - paragraph5: Fifth paragraph content (optional, has default)
+  - paragraph6: Sixth paragraph content (optional, has default)
+@example:
+  {{ partial "sections/content/centered_on_dark.html" (dict 
+      "eyebrow" "Tutorial" 
+      "heading" "Building Modern Web Applications"
+      "description" "A comprehensive guide to creating responsive, accessible, and performant web applications using modern JavaScript frameworks."
+      "features" (slice
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z\" clip-rule=\"evenodd\" />" 
+              "title" "Component Architecture" 
+              "description" "Learn how to structure your application using reusable, maintainable components."
+          )
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z\" clip-rule=\"evenodd\" />" 
+              "title" "State Management" 
+              "description" "Master techniques for managing application state in complex user interfaces."
+          )
+      )
+      "testimonialName" "Alex Johnson"
+      "testimonialRole" "Senior Developer at TechCorp"
+      "testimonialText" "This guide completely transformed how I approach frontend development. The concepts are explained clearly and the examples are practical and relevant."
+  ) }}
+@note: This is a dark-themed variant of the centered content section, suitable for long-form content like tutorials, documentation, or in-depth articles. It includes multiple typographic elements and visual components to create a rich reading experience.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "px-6 py-32 lg:px-8" }}

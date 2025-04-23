@@ -1,20 +1,37 @@
-{{- /*
-  Usage: partial "sections/banners/privacy_notice_full_width" (dict 
-    "message" "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious."
-    "policyText" "cookie policy"
-    "policyUrl" "#"
-    "acceptText" "Accept all"
-    "rejectText" "Reject all"
-    "backgroundColor" "bg-white"
-    "textColor" "text-gray-900"
-    "linkColor" "text-indigo-600"
-    "acceptButtonBackgroundColor" "bg-gray-900"
-    "acceptButtonTextColor" "text-white"
-    "acceptButtonHoverColor" "hover:bg-gray-700"
-    "acceptButtonFocusColor" "focus-visible:outline-gray-900"
-    "rejectButtonTextColor" "text-gray-900"
-  )
-*/ -}}
+{{/*
+@section: Privacy Notice Full Width Banner
+@description: A full-width cookie consent or privacy notice banner that appears at the bottom of the viewport with accept/reject options and a link to the privacy policy.
+@params:
+  - message: Main message text about cookie usage (optional, default: "This website uses cookies...")
+  - policyText: Text for the privacy/cookie policy link (optional, default: "cookie policy")
+  - policyUrl: URL to the privacy/cookie policy (optional, default: "#")
+  - acceptText: Text for the accept button (optional, default: "Accept all")
+  - rejectText: Text for the reject button (optional, default: "Reject all")
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - textColor: Text color class (optional, default: "text-gray-900")
+  - linkColor: Link color class (optional, default: "text-indigo-600")
+  - acceptButtonBackgroundColor: Accept button background color class (optional, default: "bg-gray-900")
+  - acceptButtonTextColor: Accept button text color class (optional, default: "text-white")
+  - acceptButtonHoverColor: Accept button hover color class (optional, default: "hover:bg-gray-700")
+  - acceptButtonFocusColor: Accept button focus ring color class (optional, default: "focus-visible:outline-gray-900")
+  - rejectButtonTextColor: Reject button text color class (optional, default: "text-gray-900")
+  - id: Custom ID for the banner (optional, default: auto-generated from acceptText and rejectText)
+@example:
+  {{ partial "sections/banners/privacy_notice_full_width.html" (dict 
+      "message" "We use cookies to enhance your browsing experience and analyze our traffic."
+      "policyText" "privacy policy"
+      "policyUrl" "/privacy"
+      "acceptText" "Accept cookies"
+      "rejectText" "Decline"
+      "backgroundColor" "bg-gray-50"
+      "linkColor" "text-blue-600"
+      "acceptButtonBackgroundColor" "bg-blue-600"
+      "acceptButtonHoverColor" "hover:bg-blue-500"
+  ) }}
+@note: This banner appears fixed at the bottom of the viewport and spans the full width of the screen. It includes dismiss functionality through JavaScript and will be automatically removed from the DOM when either button is clicked.
+*/}}
+
+
 
 {{- $message := .message | default "This website uses cookies to supplement a balanced diet and provide a much deserved reward to the senses after consuming bland but nutritious meals. Accepting our cookies is optional but recommended, as they are delicious." -}}
 {{- $policyText := .policyText | default "cookie policy" -}}

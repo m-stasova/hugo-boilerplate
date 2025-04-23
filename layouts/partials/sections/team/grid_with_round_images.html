@@ -1,3 +1,55 @@
+{{/*
+@section: Team Grid with Round Images
+@description: A compact team showcase section featuring small circular profile images in a multi-column grid layout, ideal for displaying larger teams with basic information.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Our team")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - nameColor: Team member name color class (optional, default: "text-gray-900")
+  - roleColor: Team member role color class (optional, default: "text-gray-600")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member profile image
+@example:
+  {{ partial "sections/team/grid_with_round_images.html" (dict 
+      "heading" "Our Global Team" 
+      "description" "With team members across multiple continents, we bring diverse perspectives and round-the-clock support to all our client projects."
+      "teamMembers" (slice
+          (dict 
+              "name" "Keisha Williams" 
+              "role" "Sales Manager"
+              "image" "/images/team/keisha-williams.jpg"
+          )
+          (dict 
+              "name" "Thomas Clark" 
+              "role" "Backend Developer"
+              "image" "/images/team/thomas-clark.jpg"
+          )
+          (dict 
+              "name" "Mei Lin" 
+              "role" "UX Designer"
+              "image" "/images/team/mei-lin.jpg"
+          )
+          (dict 
+              "name" "Carlos Mendez" 
+              "role" "Customer Support"
+              "image" "/images/team/carlos-mendez.jpg"
+          )
+          (dict 
+              "name" "Aditya Patel" 
+              "role" "Product Manager"
+              "image" "/images/team/aditya-patel.jpg"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This component is designed for showcasing larger teams with a compact, efficient grid layout. The responsive grid adjusts from 2 columns on mobile up to 6 columns on extra-large screens, making it perfect for companies with many team members. The simplified design with just names and roles keeps the focus on the team as a whole rather than individual detailed information.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

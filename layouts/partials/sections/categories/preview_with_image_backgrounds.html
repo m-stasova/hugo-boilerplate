@@ -1,49 +1,66 @@
-{{/* 
-  Categories partial with preview with image backgrounds
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-gray-50")
-  - heading: Main heading text (default: "Shop by Category")
-  - browseAllText: Text for the "Browse all" link (default: "Browse all categories")
-  - browseAllUrl: URL for the "Browse all" link (default: "#")
-  - categories: Array of category objects with the following structure:
+{{/*
+@section: Preview with Image Backgrounds
+@description: A category preview section featuring categories displayed with full-width image backgrounds and prominent titles.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Shop by Category")
+  - subheading: Optional subheading text (optional, default: "")
+  - categories: Array of category objects (optional, includes defaults)
     - title: Category title
-    - actionText: Text for the action link (default: "Shop now")
     - url: URL for the category link
-    - imageUrl: URL to category image
+    - imageUrl: URL to category background image
     - imageAlt: Alt text for category image
-    - isLarge: Boolean indicating if this is the large featured category (default: false)
+@example:
+  {{ partial "sections/categories/preview_with_image_backgrounds.html" (dict 
+      "backgroundColor" "bg-gray-50"
+      "heading" "Explore Our Collections" 
+      "subheading" "Find products tailored to your needs"
+      "categories" (slice
+          (dict 
+              "title" "Home Office" 
+              "url" "/categories/home-office"
+              "imageUrl" "/images/categories/home-office.jpg"
+              "imageAlt" "Modern home office setup with desk, chair, and accessories."
+          )
+          (dict 
+              "title" "Kitchen Essentials" 
+              "url" "/categories/kitchen"
+              "imageUrl" "/images/categories/kitchen.jpg"
+              "imageAlt" "Contemporary kitchen with cooking utensils and appliances."
+          )
+          (dict 
+              "title" "Outdoor Living" 
+              "url" "/categories/outdoor"
+              "imageUrl" "/images/categories/outdoor.jpg"
+              "imageAlt" "Patio furniture set with plants and outdoor decor."
+          )
+      )
+  ) }}
+@note: This component creates a visually striking section where each category is represented by a full-width image background with an overlay title. The design draws attention to the category imagery while maintaining readability of the titles through careful contrast.
 */}}
 
-{{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}
+{{ $backgroundColor := .backgroundColor | default "bg-white" }}
 {{ $heading := .heading | default "Shop by Category" }}
-{{ $browseAllText := .browseAllText | default "Browse all categories" }}
-{{ $browseAllUrl := .browseAllUrl | default "#" }}
+{{ $subheading := .subheading | default "" }}
 
-{{ $categories := .categories | default (slice 
-  (dict 
-    "title" "New Arrivals"
-    "actionText" "Shop now"
+{{ $categories := .categories | default (slice
+  (dict
+    "title" "Desk and Office"
     "url" "#"
-    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-featured-category.jpg"
-    "imageAlt" "Two models wearing women's black cotton crewneck tee and off-white cotton crewneck tee."
-    "isLarge" true
+    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-02-edition-01.jpg"
+    "imageAlt" "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug."
   )
-  (dict 
+  (dict
     "title" "Accessories"
-    "actionText" "Shop now"
     "url" "#"
     "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-01.jpg"
     "imageAlt" "Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters."
-    "isLarge" false
   )
-  (dict 
+  (dict
     "title" "Workspace"
-    "actionText" "Shop now"
     "url" "#"
     "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/home-page-03-category-02.jpg"
     "imageAlt" "Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
-    "isLarge" false
   )
 ) }}
 
@@ -51,15 +68,14 @@
   <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
     <div class="sm:flex sm:items-baseline sm:justify-between">
       <h2 class="text-2xl font-bold tracking-tight text-gray-900">{{ $heading }}</h2>
-      <a href="{{ $browseAllUrl }}" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-        {{ $browseAllText }}
-        <span aria-hidden="true"> &rarr;</span>
-      </a>
+      {{ if $subheading }}
+        <p class="mt-2 text-sm text-gray-500">{{ $subheading }}</p>
+      {{ end }}
     </div>
 
-    <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
+    <div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-6 lg:gap-8">
       {{ range $categories }}
-        <div class="group relative {{ if .isLarge }}aspect-2/1 overflow-hidden rounded-lg sm:row-span-2 sm:aspect-square{{ else }}aspect-2/1 overflow-hidden rounded-lg sm:aspect-auto{{ end }}">
+        <div class="group relative aspect-2/1 overflow-hidden rounded-lg">
           {{ partial "components/media/lazyimg.html" (dict 
             "src" .imageUrl
             "alt" .imageAlt
@@ -75,18 +91,10 @@
                   {{ .title }}
                 </a>
               </h3>
-              <p aria-hidden="true" class="mt-1 text-sm text-white">{{ .actionText | default "Shop now" }}</p>
             </div>
           </div>
         </div>
       {{ end }}
-    </div>
-
-    <div class="mt-6 sm:hidden">
-      <a href="{{ $browseAllUrl }}" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-        {{ $browseAllText }}
-        <span aria-hidden="true"> &rarr;</span>
-      </a>
     </div>
   </div>
 </div>

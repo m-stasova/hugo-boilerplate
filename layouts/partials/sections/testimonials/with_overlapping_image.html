@@ -1,3 +1,33 @@
+{{/*
+@section: Testimonial with Overlapping Image on Dark Background
+@description: A bold testimonial layout featuring a dark background with an overlapping portrait image, creating a visually striking presentation for impactful customer quotes.
+@params:
+  - topBgColor: Background color class for the top section (optional, default: "bg-white")
+  - bottomBgColor: Background color class for the bottom section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the entire section (optional, default: "pt-24 pb-16 sm:pt-32 sm:pb-24 xl:pb-32")
+  - bottomPadding: Padding classes for the bottom section (optional, default: "pb-20 sm:pb-24 xl:pb-0")
+  - personImage: URL for the person's image (optional, default: Unsplash photo)
+  - personImageAlt: Alt text for the person image (optional, default: "")
+  - personImageBg: Background color class for the image (optional, default: "bg-gray-800")
+  - quoteStrokeColor: Color class for the quote icon stroke (optional, default: "stroke-white/20")
+  - quoteColor: Color class for the quote text (optional, default: "text-white")
+  - quote: The testimonial text (optional, default: Lorem ipsum text)
+  - personName: Name of the testimonial author (optional, default: "Judith Black")
+  - personNameColor: Color class for the person name (optional, default: "text-white")
+  - personRole: Role/position of the testimonial author (optional, default: "CEO of Workcation")
+  - personRoleColor: Color class for the person role (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/testimonials/with_overlapping_image.html" (dict 
+      "personImage" "/images/testimonials/richard-lee.jpg"
+      "personImageAlt" "Richard Lee, Chief Innovation Officer"
+      "quote" "Implementing this platform has completely transformed our approach to project management. The collaborative features have enabled our distributed team to work seamlessly, and the analytics dashboard gives us insights we never had before."
+      "personName" "Richard Lee"
+      "personRole" "Chief Innovation Officer, FutureTech"
+      "bottomBgColor" "bg-blue-950"
+  ) }}
+@note: This component uses a two-tone design with a light top section and a dark bottom section, creating a strong visual contrast that draws attention to both the testimonial author's image and their quote. The overlapping image creates a dynamic layout that works especially well for premium brands and services.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $topBgColor := .topBgColor | default "bg-white" }}
 {{ $bottomBgColor := .bottomBgColor | default "bg-gray-900" }}

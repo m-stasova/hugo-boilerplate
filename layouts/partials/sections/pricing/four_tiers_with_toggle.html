@@ -1,19 +1,19 @@
-{{/* 
-  Four Tiers with Toggle Pricing Section
-  
-  Parameters:
-  - tagline: Text above the heading (default: "Pricing")
-  - heading: Main heading text (default: "Pricing that grows with you")
-  - description: Text below the heading (default: "Choose an affordable plan...")
-  - backgroundColor: Background color for the section (default: "white")
-  - taglineColor: Color for the tagline text (default: "indigo-600")
-  - headingColor: Color for the heading text (default: "gray-900")
-  - descriptionColor: Color for the description text (default: "gray-600")
-  - toggleTextColor: Color for the toggle text (default: "gray-500")
-  - toggleActiveColor: Color for the active toggle text (default: "white")
-  - toggleActiveBgColor: Color for the active toggle background (default: "indigo-600")
-  - toggleBorderColor: Color for the toggle border (default: "gray-200")
-  - tiers: Array of tier configurations, each with:
+{{/*
+@section: Four-Tier Pricing with Toggle
+@description: A comprehensive pricing section featuring four pricing tiers with a toggle to switch between monthly and annual billing options, ideal for showcasing different pricing plans with various features.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color for the section (optional, default: "white")
+  - taglineColor: Color for the tagline text (optional, default: "indigo-600")
+  - headingColor: Color for the heading text (optional, default: "gray-900")
+  - descriptionColor: Color for the description text (optional, default: "gray-600")
+  - toggleTextColor: Color for the toggle text (optional, default: "gray-500")
+  - toggleActiveColor: Color for the active toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color for the active toggle background (optional, default: "indigo-600")
+  - toggleBorderColor: Color for the toggle border (optional, default: "gray-200")
+  - tiers: Array of tier objects (optional, includes defaults)
     - name: Name of the tier
     - id: ID for accessibility
     - monthlyPrice: Price for monthly billing
@@ -37,6 +37,98 @@
     - backgroundColor: Background color for the tier
     - borderColor: Border color for the tier
     - borderWidth: Border width for the tier (default: 1, use 2 for emphasis)
+@example:
+  {{ partial "sections/pricing/four_tiers_with_toggle.html" (dict 
+      "tagline" "Our Plans"
+      "heading" "Simple, transparent pricing"
+      "description" "Choose the plan that best fits your needs and budget. All plans include core features."
+      "tiers" (slice
+          (dict 
+              "name" "Free" 
+              "id" "tier-free" 
+              "monthlyPrice" "$0" 
+              "annualPrice" "$0" 
+              "interval" "/month" 
+              "description" "Perfect for individuals just getting started." 
+              "emphasized" false 
+              "features" (slice 
+                  "3 projects" 
+                  "1 user" 
+                  "Basic analytics"
+              )
+              "cta" (dict 
+                  "text" "Get started" 
+                  "url" "/signup/free"
+              )
+          )
+          (dict 
+              "name" "Pro" 
+              "id" "tier-pro" 
+              "monthlyPrice" "$29" 
+              "annualPrice" "$24" 
+              "interval" "/month" 
+              "description" "Everything you need for a growing business." 
+              "emphasized" true 
+              "features" (slice 
+                  "Unlimited projects" 
+                  "5 users" 
+                  "Advanced analytics" 
+                  "24-hour support" 
+                  "API access"
+              )
+              "cta" (dict 
+                  "text" "Start free trial" 
+                  "url" "/signup/pro"
+              )
+          )
+          (dict 
+              "name" "Team" 
+              "id" "tier-team" 
+              "monthlyPrice" "$59" 
+              "annualPrice" "$49" 
+              "interval" "/month" 
+              "description" "For teams that need more advanced features." 
+              "emphasized" false 
+              "features" (slice 
+                  "Unlimited projects" 
+                  "10 users" 
+                  "Advanced analytics" 
+                  "Priority support" 
+                  "API access" 
+                  "SSO"
+              )
+              "cta" (dict 
+                  "text" "Start free trial" 
+                  "url" "/signup/team"
+              )
+          )
+          (dict 
+              "name" "Enterprise" 
+              "id" "tier-enterprise" 
+              "monthlyPrice" "$99" 
+              "annualPrice" "$89" 
+              "interval" "/month" 
+              "description" "For large organizations with specific needs." 
+              "emphasized" false 
+              "features" (slice 
+                  "Unlimited projects" 
+                  "Unlimited users" 
+                  "Custom analytics" 
+                  "Dedicated support" 
+                  "API access" 
+                  "SSO" 
+                  "Custom integrations"
+              )
+              "cta" (dict 
+                  "text" "Contact sales" 
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "backgroundColor" "gray-50"
+      "toggleActiveBgColor" "blue-600"
+  ) }}
+@note: The component includes JavaScript functionality for toggling between monthly and annual pricing displays. When a user clicks on the toggle, the prices update dynamically without page refresh.
 */}}
 
 {{ $tagline := .tagline | default "Pricing" }}

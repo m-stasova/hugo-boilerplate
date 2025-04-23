@@ -1,3 +1,27 @@
+{{/*
+@section: Simple Stacked CTA
+@description: A minimalist call-to-action section with a heading and two horizontally aligned CTA buttons.
+@params:
+  - heading: Main section heading (optional, default: "Boost your productivity. Start using our app today.")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - primaryCtaColor: Primary button color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-500")
+@example:
+  {{ partial "sections/cta/simple_stacked.html" (dict 
+      "heading" "Take your business to the next level" 
+      "primaryCta" (dict "text" "Get started" "url" "/signup") 
+      "secondaryCta" (dict "text" "Learn more" "url" "/features")
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-500"
+  ) }}
+@note: This component provides a clean, minimal CTA layout with a prominent heading and clear action buttons.
+*/}}
+
 {{/* Simple Stacked CTA Section */}}
 {{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
 {{ $primaryCta := .primaryCta | default (dict 

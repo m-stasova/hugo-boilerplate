@@ -1,3 +1,68 @@
+{{/*
+@section: Team with Image and Short Paragraph on Dark Background
+@description: A team showcase section with a dark background featuring rectangular images, short biographies, and optional social links, displayed in a responsive grid with heading and description alongside team members.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 md:py-32 lg:py-40")
+  - heading: Main section heading (optional, default: "Our team")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-gray-300")
+  - bioColor: Team member biography color class (optional, default: "text-gray-300")
+  - socialIconColor: Social media icon color class (optional, default: "text-gray-400")
+  - socialIconHoverColor: Social media icon hover color class (optional, default: "hover:text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member image
+    - bio: Short biographical paragraph about the team member
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/with_image_and_short_paragraph_on_dark.html" (dict 
+      "heading" "Meet Our Team" 
+      "description" "Our diverse team of experts brings unique perspectives and specialized skills to create innovative solutions for our clients."
+      "teamMembers" (slice
+          (dict 
+              "name" "Daniel Morgan" 
+              "role" "Lead Developer"
+              "image" "/images/team/daniel-morgan.jpg"
+              "bio" "Daniel has over a decade of experience in software development with expertise in AI and machine learning technologies, leading our core development initiatives."
+              "twitter" "https://twitter.com/danielmorgan"
+              "linkedin" "https://linkedin.com/in/danielmorgan"
+          )
+          (dict 
+              "name" "Elise Zhang" 
+              "role" "Head of Design"
+              "image" "/images/team/elise-zhang.jpg"
+              "bio" "With a background in both UX and graphic design, Elise leads our creative team in crafting intuitive and visually stunning interfaces for all our products."
+              "linkedin" "https://linkedin.com/in/elisezhang"
+          )
+          (dict 
+              "name" "Omar Patel" 
+              "role" "Marketing Director"
+              "image" "/images/team/omar-patel.jpg"
+              "bio" "Omar combines data-driven strategies with creative campaigns to build our brand presence and connect our products with the right audiences globally."
+              "twitter" "https://twitter.com/omarpatel"
+              "linkedin" "https://linkedin.com/in/omarpatel"
+          )
+          (dict 
+              "name" "Naomi Rodriguez" 
+              "role" "Customer Success Manager"
+              "image" "/images/team/naomi-rodriguez.jpg"
+              "bio" "Naomi ensures our clients achieve their goals by providing exceptional support, training, and strategic guidance throughout their journey with our products."
+              "linkedin" "https://linkedin.com/in/naomirodriguez"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+      "descriptionColor" "text-indigo-200"
+      "bioColor" "text-indigo-200"
+  ) }}
+@note: This is the dark-themed version of the team with image and short paragraph component. The dark background creates a sophisticated, premium look that highlights team member photos and text. The unique layout with heading and description in a separate column from team member profiles creates visual interest and balance on desktop. The biographical paragraphs provide meaningful context about each team member's expertise and background, making this component ideal for leadership teams or specialized groups where individual expertise matters.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 md:py-32 lg:py-40" }}

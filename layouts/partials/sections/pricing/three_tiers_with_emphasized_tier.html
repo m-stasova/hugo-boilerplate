@@ -1,4 +1,116 @@
-{{/* Three Tiers with Emphasized Tier Pricing Section */}}
+{{/*
+@section: Three-Tier Pricing with Emphasized Tier
+@description: A pricing section displaying three pricing tiers with one visually emphasized tier, and an optional toggle between monthly and annual billing options.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class (optional, default: "white")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - headingColor: Color class for the heading (optional, default: "gray-900")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - showFrequencyToggle: Boolean to show/hide the billing frequency toggle (optional, default: true)
+  - toggleTextColor: Color class for the toggle text (optional, default: "gray-500")
+  - toggleActiveColor: Color class for the active toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color class for the active toggle background (optional, default: "indigo-600")
+  - toggleBorderColor: Color class for the toggle border (optional, default: "gray-200")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - monthlyPrice: Price for monthly billing
+    - annualPrice: Price for annual billing
+    - interval: Text after the price (e.g., "/month")
+    - description: Short description of the tier
+    - emphasized: Boolean to indicate if this is the emphasized tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - intervalColor: Color class for the interval text
+    - descriptionColor: Color class for the description
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background
+    - ctaHoverBgColor: Color class for the CTA button hover background
+    - backgroundColor: Background color class for the tier
+    - borderColor: Border color class for the tier
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_emphasized_tier.html" (dict 
+      "tagline" "Our Pricing" 
+      "heading" "Choose the perfect plan for your business"
+      "description" "All plans include a 14-day free trial period. No credit card required."
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "monthlyPrice" "$9"
+              "annualPrice" "$7"
+              "interval" "/month"
+              "description" "Great for personal projects and small teams."
+              "emphasized" false
+              "features" (slice
+                  "3 projects"
+                  "5 team members"
+                  "Basic analytics"
+                  "Email support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/basic"
+              )
+          )
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "monthlyPrice" "$29"
+              "annualPrice" "$24"
+              "interval" "/month"
+              "description" "Everything a growing business needs."
+              "emphasized" true
+              "features" (slice
+                  "Unlimited projects"
+                  "20 team members"
+                  "Advanced analytics"
+                  "Priority support"
+                  "Custom integrations"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/pro"
+              )
+              "backgroundColor" "blue-600"
+              "nameColor" "white"
+              "priceColor" "white"
+          )
+          (dict
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "monthlyPrice" "Custom"
+              "annualPrice" "Custom"
+              "interval" ""
+              "description" "Dedicated support and infrastructure for your company."
+              "emphasized" false
+              "features" (slice
+                  "Unlimited everything"
+                  "Dedicated account manager"
+                  "Custom reporting"
+                  "24/7 phone support"
+                  "SLA guarantees"
+                  "Advanced security"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "toggleActiveBgColor" "blue-500"
+  ) }}
+@note: This component adapts responsively to different screen sizes. The emphasized tier stands out with a different background color and styling, making it the focal point for users. The optional billing frequency toggle allows users to switch between monthly and annual pricing options.
+*/}}
+
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}

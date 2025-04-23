@@ -1,14 +1,46 @@
-{{/* 
-  2x2 grid incentives layout with illustrations
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-gray-50")
-  - srTitle: Screen reader title (default: "Our perks")
-  - incentives: Array of incentive items, each with:
+{{/*
+@section: 2x2 Grid Incentives with Illustrations
+@description: A section displaying incentives or benefits in a 2x2 grid layout with icons, each featuring a title and description. Ideal for showcasing multiple key features or advantages of your product or service.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - srTitle: Screen reader title for accessibility (optional, default: "Our perks")
+  - incentives: Array of incentive objects (optional, includes defaults)
     - title: Incentive title
     - description: Incentive description
     - iconUrl: URL for the incentive icon
     - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/2x2_grid_with_illustrations.html" (dict 
+      "srTitle" "Why Choose Us"
+      "incentives" (slice
+          (dict 
+              "title" "Free Shipping" 
+              "description" "We offer free shipping on all orders over $50 to anywhere in the continental US."
+              "iconUrl" "/images/icons/shipping.svg"
+              "iconAlt" "Shipping icon"
+          )
+          (dict 
+              "title" "Lifetime Warranty" 
+              "description" "All our products come with a lifetime warranty against manufacturing defects."
+              "iconUrl" "/images/icons/warranty.svg"
+              "iconAlt" "Warranty icon"
+          )
+          (dict 
+              "title" "Easy Returns" 
+              "description" "Not satisfied? Return any unused product within 30 days for a full refund."
+              "iconUrl" "/images/icons/returns.svg"
+              "iconAlt" "Returns icon"
+          )
+          (dict 
+              "title" "Eco-Friendly" 
+              "description" "We donate 1% of all sales to environmental conservation and use sustainable packaging."
+              "iconUrl" "/images/icons/eco.svg"
+              "iconAlt" "Eco-friendly icon"
+          )
+      )
+      "backgroundColor" "bg-gray-100"
+  ) }}
+@note: This component features responsive design that adapts to different screen sizes - on mobile it shows a vertical list with icons on the left, while on desktop it displays in a 2x2 grid format.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}

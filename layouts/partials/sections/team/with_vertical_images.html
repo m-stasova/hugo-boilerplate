@@ -1,3 +1,60 @@
+{{/*
+@section: Team with Vertical Images
+@description: A detailed team showcase with a vertical layout featuring portrait-oriented images, member bios, and social media links in a clean, list-style format.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the section (optional, default: "py-24 md:py-32")
+  - heading: Main heading text (optional, default: "About the team")
+  - headingColor: Color class for the heading text (optional, default: "text-gray-900")
+  - description: Descriptive text below the heading (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Color class for the description text (optional, default: "text-gray-600")
+  - nameColor: Color class for team member names (optional, default: "text-gray-900")
+  - roleColor: Color class for team member roles (optional, default: "text-gray-600")
+  - bioColor: Color class for team member biography text (optional, default: "text-gray-600")
+  - dividerColor: Color class for dividers between team members (optional, default: "divide-gray-200")
+  - socialIconColor: Color class for social media icons (optional, default: "text-gray-400")
+  - socialIconHoverColor: Color class for social media icons on hover (optional, default: "hover:text-gray-500")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Name of the team member
+    - role: Position or role of the team member
+    - image: URL to the team member's portrait image
+    - bio: Short biography or description of the team member
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/with_vertical_images.html" (dict 
+      "heading" "Meet Our Experts"
+      "description" "Our team brings together professionals with diverse backgrounds and specialties, united by a passion for excellence and innovation."
+      "teamMembers" (slice
+          (dict
+              "name" "Daniel Morgan"
+              "role" "Chief Financial Officer"
+              "image" "/images/team/daniel-morgan.jpg"
+              "bio" "Daniel brings over 15 years of experience in financial strategy and operations. His expertise has been crucial in guiding our company through periods of growth and transformation."
+              "twitter" "https://twitter.com/danielmorgan"
+              "linkedin" "https://linkedin.com/in/danielmorgan"
+          )
+          (dict
+              "name" "Sarah Williams"
+              "role" "Head of Research"
+              "image" "/images/team/sarah-williams.jpg"
+              "bio" "With a PhD in Computer Science and multiple published papers, Sarah leads our research initiatives, driving innovation and ensuring we stay at the cutting edge of technology."
+              "linkedin" "https://linkedin.com/in/sarahwilliams"
+          )
+          (dict
+              "name" "Robert Chen"
+              "role" "Lead Product Designer"
+              "image" "/images/team/robert-chen.jpg"
+              "bio" "Robert combines his background in psychology with exceptional design skills to create intuitive and engaging user experiences that resonate with our customers."
+              "twitter" "https://twitter.com/robertchen"
+              "linkedin" "https://linkedin.com/in/robertchen"
+          )
+      )
+      "bgColor" "bg-gray-50"
+  ) }}
+@note: This component is ideal for showcasing team members in greater detail, with space for longer biographies and personal information. The vertical layout with dividers creates a clean, readable presentation suitable for about pages and team introductions on corporate or professional services websites.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-24 md:py-32" }}

@@ -1,3 +1,66 @@
+{{/*
+@section: Testimonials Grid on Dark Background
+@description: A sophisticated testimonial grid displayed on a dark background with a featured testimonial and atmospheric gradient effects, creating a premium and modern appearance.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "pt-24 pb-32 sm:pt-32")
+  - cardBgColor: Background color class for testimonial cards (optional, default: "bg-gray-800")
+  - cardRingColor: Border color class for testimonial cards (optional, default: "ring-gray-700")
+  - cardShadow: Shadow class for testimonial cards (optional, default: "shadow-lg")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - headingTag: Small heading text above the main heading (optional, default: "Testimonials")
+  - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-400")
+  - heading: Main heading text (optional, default: "We have worked with thousands of amazing people")
+  - headingColor: Color class for the main heading (optional, default: "text-white")
+  - gradientFrom: Starting color for the background gradient (optional, default: "#4f46e5")
+  - gradientTo: Ending color for the background gradient (optional, default: "#9089fc")
+  - testimonials: Array of testimonial objects (optional, includes defaults)
+    - quote: The testimonial text
+    - personImage: URL for the person's avatar image
+    - personName: Name of the person
+    - personHandle: Social media handle or position of the person
+    - companyLogo: URL for the company logo (optional)
+    - companyLogoAlt: Alt text for the company logo (optional)
+    - featured: Boolean to indicate if this is a featured testimonial (optional)
+@example:
+  {{ partial "sections/testimonials/grid_on_dark.html" (dict 
+      "heading" "What people are saying"
+      "headingTag" "Customer Testimonials"
+      "gradientFrom" "#3b82f6"
+      "gradientTo" "#10b981"
+      "testimonials" (slice
+          (dict
+              "quote" "This platform has revolutionized our workflow. The AI-powered features saved us countless hours on routine tasks, allowing our team to focus on strategic initiatives."
+              "personImage" "/images/testimonials/robert-smith.jpg"
+              "personName" "Robert Smith"
+              "personHandle" "CTO, Enterprise Solutions"
+              "companyLogo" "/images/logos/enterprise-solutions.svg"
+              "companyLogoAlt" "Enterprise Solutions logo"
+              "featured" true
+          )
+          (dict
+              "quote" "Integration was seamless, and the support team was incredibly responsive whenever we had questions."
+              "personImage" "/images/testimonials/maria-garcia.jpg"
+              "personName" "Maria Garcia"
+              "personHandle" "Product Manager, TechStart"
+          )
+          (dict
+              "quote" "The analytics capabilities alone justify the investment. We've gained insights that were previously impossible to uncover."
+              "personImage" "/images/testimonials/david-wong.jpg"
+              "personName" "David Wong"
+              "personHandle" "Data Scientist, AnalyticsPlus"
+          )
+          (dict
+              "quote" "Intuitive interface, powerful features, and excellent support. Exactly what we needed for our growing business."
+              "personImage" "/images/testimonials/sarah-johnson.jpg"
+              "personName" "Sarah Johnson"
+              "personHandle" "Operations Manager, GrowFast"
+          )
+      )
+  ) }}
+@note: This component features a complex grid layout that highlights a featured testimonial and arranges others around it. The dark theme with gradient effects creates an elegant and premium aesthetic, ideal for showcasing high-profile client testimonials.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "pt-24 pb-32 sm:pt-32" }}

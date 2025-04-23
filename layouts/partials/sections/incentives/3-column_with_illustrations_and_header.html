@@ -1,15 +1,42 @@
-{{/* 
-  3-column incentives layout with illustrations and header
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-white")
-  - title: Main heading text
-  - description: Supporting text below the heading
-  - incentives: Array of incentive items, each with:
+{{/*
+@section: Three-Column Incentives with Illustrations and Header
+@description: A section showcasing key incentives or benefits in a three-column layout with illustrations, preceded by a header with title and description.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - title: Main heading text (optional, default: "We built our business on customer service")
+  - description: Supporting text below the heading (optional, default: "At the beginning at least...")
+  - incentives: Array of incentive objects (optional, includes defaults)
     - title: Incentive title
     - description: Incentive description
     - iconUrl: URL for the incentive icon
     - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/3-column_with_illustrations_and_header.html" (dict 
+      "title" "Why customers choose us" 
+      "description" "We're committed to providing the best experience possible with these key benefits."
+      "incentives" (slice
+          (dict 
+              "title" "24/7 Support" 
+              "description" "Our support team is available around the clock to help you with any questions or issues."
+              "iconUrl" "/images/icons/support.svg"
+              "iconAlt" "Support icon"
+          )
+          (dict 
+              "title" "Money-back Guarantee" 
+              "description" "If you're not satisfied with our product within 30 days, we'll refund your purchase, no questions asked."
+              "iconUrl" "/images/icons/guarantee.svg"
+              "iconAlt" "Guarantee icon"
+          )
+          (dict 
+              "title" "Secure Payments" 
+              "description" "All transactions are processed through secure and encrypted payment gateways to protect your information."
+              "iconUrl" "/images/icons/secure.svg"
+              "iconAlt" "Security icon"
+          )
+      )
+      "backgroundColor" "bg-gray-50"
+  ) }}
+@note: This section is responsive - on mobile/tablet screens, the incentives display with icons on the left, while on desktop they stack vertically in three columns.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}

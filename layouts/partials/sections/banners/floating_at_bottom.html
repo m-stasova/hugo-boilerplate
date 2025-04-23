@@ -1,18 +1,30 @@
-{{- /*
-  Usage: partial "sections/banners/floating_at_bottom" (dict 
-    "title" "GeneriCon 2023"
-    "message" "Join us in Denver from June 7 – 9 to see what's coming next"
-    "url" "#"
-    "isDismissable" true
-    "backgroundColor" "bg-gray-900"
-    "textColor" "text-white"
-    "dismissButtonColor" "text-white"
-    "paddingClass" "pb-16" (optional - add to your content container to prevent overlap)
-  )
+{{/*
+@section: Floating Banner at Bottom
+@description: A floating banner that sticks to the bottom of the viewport, ideal for important announcements or promotions, with optional dismissal functionality.
+@params:
+  - title: Banner title text (optional, default: "GeneriCon 2023")
+  - message: Main message text (optional, default: "Join us in Denver from June 7 – 9 to see what's coming next")
+  - url: URL for the entire banner link (optional, default: "#")
+  - isDismissable: Whether the banner can be dismissed (optional, default: true)
+  - backgroundColor: Background color class (optional, default: "bg-gray-900")
+  - textColor: Text color class (optional, default: "text-white")
+  - dismissButtonColor: Dismiss button color class (optional, default: "text-white")
+  - paddingClass: Padding class to add to your content container to prevent overlap (optional)
+  - id: Custom ID for the banner (optional, default: auto-generated from title and message)
+@example:
+  {{ partial "sections/banners/floating_at_bottom.html" (dict 
+      "title" "New feature release" 
+      "message" "Check out our latest updates with improved performance"
+      "url" "/updates"
+      "isDismissable" true
+      "backgroundColor" "bg-indigo-600"
+      "textColor" "text-white"
+      "dismissButtonColor" "text-white"
+  ) }}
+@note: Make sure to add some bottom padding to pages that include this banner to prevent your content from being obscured when the user scrolls to the bottom of the page. You can use the paddingClass parameter or add padding to your layout.
+*/}}
 
-  Note: Make sure you add some bottom padding to pages that include a sticky banner like this to prevent
-  your content from being obscured when the user scrolls to the bottom of the page.
-*/ -}}
+
 
 {{- $title := .title | default "GeneriCon 2023" -}}
 {{- $message := .message | default "Join us in Denver from June 7 – 9 to see what's coming next" -}}

@@ -1,3 +1,60 @@
+{{/*
+@section: Team with Vertical Images on Dark Background
+@description: A sophisticated team showcase with a vertical layout on a dark background, featuring portrait-oriented images, detailed member bios, and social media links in an elegant list format.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "py-24 md:py-32")
+  - heading: Main heading text (optional, default: "About the team")
+  - headingColor: Color class for the heading text (optional, default: "text-white")
+  - description: Descriptive text below the heading (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Color class for the description text (optional, default: "text-gray-300")
+  - nameColor: Color class for team member names (optional, default: "text-white")
+  - roleColor: Color class for team member roles (optional, default: "text-gray-300")
+  - bioColor: Color class for team member biography text (optional, default: "text-gray-300")
+  - dividerColor: Color class for dividers between team members (optional, default: "divide-gray-700")
+  - socialIconColor: Color class for social media icons (optional, default: "text-gray-400")
+  - socialIconHoverColor: Color class for social media icons on hover (optional, default: "hover:text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Name of the team member
+    - role: Position or role of the team member
+    - image: URL to the team member's portrait image
+    - bio: Short biography or description of the team member
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/with_vertical_images_on_dark.html" (dict 
+      "heading" "Our Leadership Team"
+      "description" "Meet the experienced professionals who guide our vision and strategy, bringing decades of industry expertise to help our clients succeed."
+      "teamMembers" (slice
+          (dict
+              "name" "Victoria Reynolds"
+              "role" "Chief Executive Officer"
+              "image" "/images/team/victoria-reynolds.jpg"
+              "bio" "Victoria has led multiple technology companies to successful acquisitions, with a focus on building innovative products that solve real business challenges. Her leadership approach emphasizes collaboration and continuous improvement."
+              "twitter" "https://twitter.com/victoriareynolds"
+              "linkedin" "https://linkedin.com/in/victoriareynolds"
+          )
+          (dict
+              "name" "David Kim"
+              "role" "Chief Technical Officer"
+              "image" "/images/team/david-kim.jpg"
+              "bio" "With a background in software architecture and machine learning, David oversees our technical strategy and engineering teams. He has multiple patents in AI and has been instrumental in developing our core technology platform."
+              "linkedin" "https://linkedin.com/in/davidkim"
+          )
+          (dict
+              "name" "Amara Johnson"
+              "role" "VP of Marketing"
+              "image" "/images/team/amara-johnson.jpg"
+              "bio" "Amara brings creative vision and data-driven strategy to our marketing efforts. Her campaigns have consistently delivered exceptional growth and brand recognition in competitive markets."
+              "twitter" "https://twitter.com/amarajohnson"
+              "linkedin" "https://linkedin.com/in/amarajohnson"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+  ) }}
+@note: This is the dark-themed version of the team with vertical images component. The dark background creates a premium, sophisticated presentation that highlights team member images and content effectively. The detailed layout with biographies makes this ideal for executive teams or when you want to provide more depth about team members' backgrounds and expertise.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 md:py-32" }}

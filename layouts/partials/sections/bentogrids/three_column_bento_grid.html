@@ -1,3 +1,57 @@
+{{/*
+@section: Three Column Bento Grid
+@description: A visually appealing layout featuring multiple content cards of varying sizes arranged in a three-column grid pattern, ideal for showcasing features or product highlights.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "Everything you need to deploy your app")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - backgroundColor: Background color class for the section (optional, default: "gray-50")
+  - cards: Array of card objects with varying positions and content (optional, includes defaults)
+    - title: Card title text
+    - description: Card description text
+    - image: URL to image (can be empty for code example cards)
+    - imageAlt: Alt text for the image
+    - position: Card position in the grid ("large-left", "top-right", "bottom-middle", "large-right")
+    - codeExample: Boolean indicating if the card should display code instead of an image (only for "large-right" position)
+    - codeContent: HTML content for the code example (optional, has default)
+@example:
+  {{ partial "sections/bentogrids/three_column_bento_grid.html" (dict 
+      "tagline" "Features" 
+      "heading" "Everything you need to build your application"
+      "backgroundColor" "white"
+      "cards" (slice
+          (dict
+              "title" "Responsive Design" 
+              "description" "Our platform automatically adapts to any device or screen size."
+              "image" "/images/features/responsive.png"
+              "imageAlt" "Responsive design illustration"
+              "position" "large-left"
+          )
+          (dict
+              "title" "Analytics" 
+              "description" "Detailed insights into your user behavior and application performance."
+              "image" "/images/features/analytics.png"
+              "imageAlt" "Analytics dashboard"
+              "position" "top-right"
+          )
+          (dict
+              "title" "Security" 
+              "description" "Enterprise-grade security with end-to-end encryption."
+              "image" "/images/features/security.png"
+              "imageAlt" "Security shield"
+              "position" "bottom-middle"
+          )
+          (dict
+              "title" "Developer API" 
+              "description" "Powerful and flexible API for integrating with your existing tools."
+              "position" "large-right"
+              "codeExample" true
+          )
+      )
+  ) }}
+@note: This section uses a bento grid layout with cards of varying sizes to create visual interest. The large-right position can display code examples using the codeExample parameter.
+*/}}
+
 {{/* Three Column Bento Grid Section */}}
 {{ $tagline := .tagline | default "Deploy faster" }}
 {{ $heading := .heading | default "Everything you need to deploy your app" }}

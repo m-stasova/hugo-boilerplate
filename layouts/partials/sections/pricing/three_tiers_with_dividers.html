@@ -1,4 +1,104 @@
-{{/* Three Tiers with Dividers Pricing Section */}}
+{{/*
+@section: Three-Tier Pricing with Dividers
+@description: A clean pricing section displaying three pricing tiers separated by dividers, with each tier featuring a list of included features and a prominent call-to-action button.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class (optional, default: "white")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - headingColor: Color class for the heading (optional, default: "gray-900")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - dividerColor: Color class for the dividers between tiers (optional, default: "gray-100")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - price: Price amount with currency symbol
+    - interval: Billing frequency (e.g., "/month")
+    - annualPrice: Description of annual pricing option
+    - summary: Short description of the tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - intervalColor: Color class for the interval text
+    - annualPriceColor: Color class for the annual price text
+    - summaryColor: Color class for the summary text
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background
+    - ctaHoverBgColor: Color class for the CTA button hover background
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_dividers.html" (dict 
+      "tagline" "Simple Pricing" 
+      "heading" "Choose the plan that's right for you"
+      "description" "All plans include a 30-day free trial with no credit card required. Cancel anytime."
+      "tiers" (slice
+          (dict
+              "name" "Starter"
+              "id" "tier-starter"
+              "price" "$12"
+              "interval" "/month"
+              "annualPrice" "$9 per month if paid annually"
+              "summary" "Perfect for individuals and small projects."
+              "features" (slice
+                  "3 projects"
+                  "Up to 1,000 subscribers"
+                  "Basic analytics"
+                  "Email support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/starter"
+              )
+          )
+          (dict
+              "name" "Team"
+              "id" "tier-team"
+              "price" "$32"
+              "interval" "/month"
+              "annualPrice" "$29 per month if paid annually"
+              "summary" "Everything in Starter, plus team collaboration tools."
+              "features" (slice
+                  "10 projects"
+                  "Up to 10,000 subscribers"
+                  "Advanced analytics"
+                  "Priority email support"
+                  "Team collaboration"
+              )
+              "cta" (dict
+                  "text" "Try free for 30 days"
+                  "url" "/signup/team"
+              )
+          )
+          (dict
+              "name" "Business"
+              "id" "tier-business"
+              "price" "$82"
+              "interval" "/month"
+              "annualPrice" "$69 per month if paid annually"
+              "summary" "Everything in Team, plus enterprise features and support."
+              "features" (slice
+                  "Unlimited projects"
+                  "Unlimited subscribers"
+                  "Custom analytics"
+                  "24/7 phone support"
+                  "Team collaboration"
+                  "SSO & advanced security"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+          )
+      )
+      "dividerColor" "gray-200"
+  ) }}
+@note: This component adapts responsively - on mobile screens, the tiers are stacked vertically with horizontal dividers, while on desktop they display side-by-side with vertical dividers between them.
+*/}}
+
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}

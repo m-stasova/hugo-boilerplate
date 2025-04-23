@@ -1,3 +1,76 @@
+{{/*
+@section: Team With Large Images on Dark Background
+@description: A team showcase component with a dark background featuring large rectangular profile images in a grid layout, with names, roles, and optional social media links for each team member.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Our team")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-gray-300")
+  - socialIconColor: Social media icon color class (optional, default: "text-gray-400")
+  - socialIconHoverColor: Social media icon hover color class (optional, default: "hover:text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member image
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/with_large_images_on_dark.html" (dict 
+      "heading" "Meet Our Creative Team" 
+      "description" "Our talented team combines expertise across diverse disciplines to deliver exceptional results for our clients."
+      "teamMembers" (slice
+          (dict 
+              "name" "Elena Kim" 
+              "role" "Creative Director"
+              "image" "/images/team/elena-kim.jpg"
+              "twitter" "https://twitter.com/elenakim"
+              "linkedin" "https://linkedin.com/in/elenakim"
+          )
+          (dict 
+              "name" "Chris Martinez" 
+              "role" "Lead Developer"
+              "image" "/images/team/chris-martinez.jpg"
+              "linkedin" "https://linkedin.com/in/chrismartinez"
+          )
+          (dict 
+              "name" "Amara Okafor" 
+              "role" "UX Specialist"
+              "image" "/images/team/amara-okafor.jpg"
+              "twitter" "https://twitter.com/amaraokafor"
+              "linkedin" "https://linkedin.com/in/amaraokafor"
+          )
+          (dict 
+              "name" "Sam Wilson" 
+              "role" "Content Strategist"
+              "image" "/images/team/sam-wilson.jpg"
+              "twitter" "https://twitter.com/samwilson"
+              "linkedin" "https://linkedin.com/in/samwilson"
+          )
+          (dict 
+              "name" "Ling Zhang" 
+              "role" "Project Manager"
+              "image" "/images/team/ling-zhang.jpg"
+              "linkedin" "https://linkedin.com/in/lingzhang"
+          )
+          (dict 
+              "name" "Jordan Hayes" 
+              "role" "Marketing Specialist"
+              "image" "/images/team/jordan-hayes.jpg"
+              "twitter" "https://twitter.com/jordanhayes"
+              "linkedin" "https://linkedin.com/in/jordanhayes"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+      "descriptionColor" "text-indigo-200"
+      "roleColor" "text-indigo-300"
+  ) }}
+@note: This dark-themed component creates a modern, striking presentation of team members with large, prominent images. The 3:2 aspect ratio of the images creates a consistent, contemporary look that works well for creative teams, agencies, and modern businesses. The grid layout (responsive from 1 column on mobile to 3 columns on desktop) balances visual impact with readability, while the option to include social media links adds connectivity.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

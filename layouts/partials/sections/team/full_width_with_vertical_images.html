@@ -1,3 +1,57 @@
+{{/*
+@section: Team Full Width with Vertical Images
+@description: A team showcase section featuring vertical portrait images aligned with team member details, providing a more personal look with space for longer biographies arranged in a responsive grid.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - nameColor: Team member name color class (optional, default: "text-gray-900")
+  - roleColor: Team member role color class (optional, default: "text-gray-600")
+  - bioColor: Team member biography color class (optional, default: "text-gray-600")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member image
+    - bio: Short biographical paragraph about the team member
+@example:
+  {{ partial "sections/team/full_width_with_vertical_images.html" (dict 
+      "heading" "Our Leadership Team" 
+      "description" "Meet the experts who drive our vision and guide our company toward continuous innovation and excellence."
+      "teamMembers" (slice
+          (dict 
+              "name" "Sarah Johnson" 
+              "role" "Chief Executive Officer"
+              "image" "/images/team/sarah-johnson.jpg"
+              "bio" "Sarah has over 20 years of experience in the industry and has successfully led our company through significant growth and transformation. Her strategic vision and commitment to excellence have established our position as a market leader."
+          )
+          (dict 
+              "name" "David Rodriguez" 
+              "role" "Chief Technology Officer"
+              "image" "/images/team/david-rodriguez.jpg"
+              "bio" "With a background in computer science and multiple technology patents, David leads our engineering teams and directs our technological innovation. His expertise has been crucial in developing our award-winning products."
+          )
+          (dict 
+              "name" "Michelle Lee" 
+              "role" "VP of Marketing"
+              "image" "/images/team/michelle-lee.jpg"
+              "bio" "Michelle brings creative vision and data-driven strategies to our marketing initiatives. Her previous experience with global brands has helped us establish a strong market presence and distinctive brand identity."
+          )
+          (dict 
+              "name" "Robert Taylor" 
+              "role" "Chief Financial Officer"
+              "image" "/images/team/robert-taylor.jpg"
+              "bio" "Robert oversees our financial operations with precision and foresight. His strategic financial planning has been instrumental in our sustainable growth and successful expansion into new markets."
+          )
+      )
+      "bgColor" "bg-gray-50"
+      "bioColor" "text-gray-700"
+  ) }}
+@note: This component provides a clean, professional presentation of team members with substantial biographical information. The layout, with vertical portrait images alongside text, creates visual interest while maintaining readability. The component is particularly well-suited for executive teams, boards of directors, or key personnel where detailed information adds value and credibility to the presentation.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

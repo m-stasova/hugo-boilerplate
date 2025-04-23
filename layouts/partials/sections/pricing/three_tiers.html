@@ -1,3 +1,114 @@
+{{/*
+@section: Three Tiers Pricing
+@description: A comprehensive pricing section featuring three pricing tiers with customizable features, colors, and call-to-action buttons.
+@params:
+  - tagline: Short tagline above main heading (optional, default: "Pricing")
+  - heading: Main section heading (optional, default: "Pricing that grows with you")
+  - description: Section description text (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color for the section (optional, default: "white")
+  - taglineColor: Tagline text color (optional, default: "indigo-600")
+  - headingColor: Heading text color (optional, default: "gray-900")
+  - descriptionColor: Description text color (optional, default: "gray-600")
+  - checkIcon: SVG path for the check icon (optional, includes default)
+  - tiers: Array of pricing tier objects (optional, includes defaults)
+    - name: Tier name
+    - id: Unique ID for the tier
+    - price: Price amount with currency symbol
+    - interval: Billing interval text
+    - description: Short tier description
+    - popular: Whether this tier should be highlighted (boolean)
+    - popularText: Text for the popular badge (if popular is true)
+    - popularBgColor: Background color for the popular badge
+    - popularTextColor: Text color for the popular badge
+    - features: Array of feature strings included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - nameColor: Tier name color
+    - priceColor: Price text color
+    - intervalColor: Interval text color
+    - descriptionColor: Tier description color
+    - featureColor: Feature text color
+    - checkColor: Check icon color
+    - ctaColor: CTA button text color
+    - ctaBgColor: CTA button background color (if empty, uses outline style)
+    - ctaHoverBgColor: CTA button hover background color
+    - ctaRingColor: CTA button outline color (for outline style)
+    - ctaHoverRingColor: CTA button hover outline color (for outline style)
+    - backgroundColor: Tier card background color
+    - borderColor: Tier card border color
+    - position: Position in the grid ("left", "center", or "right")
+@example:
+  {{ partial "sections/pricing/three_tiers.html" (dict 
+      "tagline" "Pricing Plans"
+      "heading" "Choose the right plan for your business"
+      "description" "All plans include a 14-day free trial. No credit card required."
+      "backgroundColor" "gray-50"
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "price" "$29"
+              "interval" "/month"
+              "description" "Perfect for small businesses and freelancers."
+              "popular" false
+              "features" (slice
+                  "10 projects"
+                  "5GB storage"
+                  "Basic reporting"
+                  "48-hour support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/basic"
+              )
+              "position" "left"
+          )
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "price" "$79"
+              "interval" "/month"
+              "description" "For growing teams and businesses."
+              "popular" true
+              "popularText" "Most popular"
+              "features" (slice
+                  "Unlimited projects"
+                  "50GB storage"
+                  "Advanced reporting"
+                  "24-hour support"
+                  "Custom integrations"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/pro"
+              )
+              "position" "center"
+          )
+          (dict
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "price" "$149"
+              "interval" "/month"
+              "description" "For organizations with advanced needs."
+              "popular" false
+              "features" (slice
+                  "Unlimited projects"
+                  "Unlimited storage"
+                  "Custom reporting"
+                  "Dedicated support"
+                  "Advanced security"
+                  "API access"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact"
+              )
+              "position" "right"
+          )
+      )
+  ) }}
+@note: The center tier can be highlighted as the popular option and will be visually elevated. Colors for all elements are fully customizable through parameters.
+*/}}
+
 {{/* Three Tiers Pricing Section */}}
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}

@@ -1,3 +1,56 @@
+{{/*
+@section: Team with Medium Images on Dark Background
+@description: A sophisticated, dark-themed team showcase featuring medium-sized profile images in a responsive grid layout, with each team member displayed with their name, role, and location.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - heading: Main heading text (optional, default: "Our team")
+  - headingColor: Color class for the heading text (optional, default: "text-white")
+  - description: Descriptive text below the heading (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Color class for the description text (optional, default: "text-gray-300")
+  - nameColor: Color class for team member names (optional, default: "text-white")
+  - roleColor: Color class for team member roles (optional, default: "text-gray-300")
+  - locationColor: Color class for team member locations (optional, default: "text-gray-500")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Name of the team member
+    - role: Position or role of the team member
+    - location: Geographic location of the team member
+    - image: URL to the team member's profile image
+@example:
+  {{ partial "sections/team/with_medium_images_on_dark.html" (dict 
+      "heading" "Meet Our Creative Team"
+      "description" "Our talented team brings together diverse perspectives and expertise to create innovative solutions for our clients worldwide."
+      "teamMembers" (slice
+          (dict
+              "name" "James Wilson"
+              "role" "Creative Director"
+              "location" "Los Angeles, USA"
+              "image" "/images/team/james-wilson.jpg"
+          )
+          (dict
+              "name" "Sophia Chen"
+              "role" "UI/UX Designer"
+              "location" "Singapore"
+              "image" "/images/team/sophia-chen.jpg"
+          )
+          (dict
+              "name" "Carlos Mendez"
+              "role" "Senior Developer"
+              "location" "Barcelona, Spain"
+              "image" "/images/team/carlos-mendez.jpg"
+          )
+          (dict
+              "name" "Amara Okafor"
+              "role" "Product Manager"
+              "location" "Lagos, Nigeria"
+              "image" "/images/team/amara-okafor.jpg"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+  ) }}
+@note: This is the dark-themed version of the team grid with medium images. The dark background creates an elegant, premium feel that works well for creative agencies, tech companies, and modern brands. The rectangular images provide a clean, contemporary aesthetic that highlights team members effectively.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

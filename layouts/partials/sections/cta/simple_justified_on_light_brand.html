@@ -1,4 +1,29 @@
-{{/* Simple Justified CTA Section on Light Brand Background */}}
+{{/*
+@section: Simple Justified CTA on Light Brand Background
+@description: A clean, horizontally justified call-to-action section with light brand color background and two CTA buttons.
+@params:
+  - heading: Main section heading (optional, default: "Ready to dive in? <br>Start your free trial today.")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - brandLightColor: Background color (optional, default: "indigo-100")
+  - primaryCtaColor: Primary button color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-500")
+@example:
+  {{ partial "sections/cta/simple_justified_on_light_brand.html" (dict 
+      "heading" "Ready to transform your workflow? <br>Try our platform today."
+      "primaryCta" (dict "text" "Start free trial" "url" "/signup") 
+      "secondaryCta" (dict "text" "Learn more" "url" "/features")
+      "brandLightColor" "blue-100"
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-500"
+  ) }}
+@note: This component uses a light brand color background that provides subtle brand presence while maintaining excellent readability. On larger screens, the heading and buttons are justified to opposite sides for a balanced layout.
+*/}}
+
 {{ $heading := .heading | default "Ready to dive in? <br>Start your free trial today." }}
 {{ $primaryCta := .primaryCta | default (dict 
   "text" "Get started"

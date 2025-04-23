@@ -1,3 +1,51 @@
+{{/*
+@section: Team with Small Images on Dark Background
+@description: A sleek, dark-themed team section displaying members in a grid layout with small circular avatar images, names, and roles, creating a professional and modern presentation.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-24 sm:py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-indigo-400")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Member name
+    - role: Member role or position
+    - image: URL to member's avatar image
+@example:
+  {{ partial "sections/team/with_small_images_on_dark.html" (dict 
+      "heading" "Our Leadership" 
+      "description" "Meet the talented individuals who drive our vision and innovation forward."
+      "teamMembers" (slice 
+          (dict 
+              "name" "Alexandra Rivera" 
+              "role" "Chief Executive Officer"
+              "image" "/images/team/alexandra-rivera.jpg"
+          )
+          (dict 
+              "name" "Marcus Chen" 
+              "role" "Chief Technology Officer"
+              "image" "/images/team/marcus-chen.jpg"
+          )
+          (dict 
+              "name" "Olivia Washington" 
+              "role" "VP of Marketing"
+              "image" "/images/team/olivia-washington.jpg"
+          )
+          (dict 
+              "name" "James Peterson" 
+              "role" "Director of Operations"
+              "image" "/images/team/james-peterson.jpg"
+          )
+      )
+      "bgColor" "bg-blue-950"
+      "roleColor" "text-blue-300"
+  ) }}
+@note: This is the dark-themed version of the team with small images component. The dark background with light text creates strong visual contrast that highlights team members in a professional, premium presentation. The split layout with description on one side and team members on the other creates a balanced, modern aesthetic suitable for corporate websites and tech companies.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

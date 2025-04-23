@@ -1,3 +1,40 @@
+{{/*
+@section: Side-by-Side FAQ
+@description: A two-column layout for frequently asked questions, with questions on the left and answers on the right, ideal for displaying FAQ content in a readable format.
+@params:
+  - heading: Main section heading (optional, default: "Frequently asked questions")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - bgColor: Background color class (optional, default: "bg-white")
+  - questionColor: Question text color class (optional, default: "text-gray-900")
+  - answerColor: Answer text color class (optional, default: "text-gray-600")
+  - dividerColor: Divider line color class (optional, default: "divide-gray-900/10")
+  - faqs: Array of objects with questions and answers (required)
+    - question: Question text
+    - answer: Answer text
+  - items: Alternative parameter name for faqs (will be used if faqs not provided)
+  - page: Page context for linkbuilding function (required)
+@example:
+  {{ partial "sections/faq/side-by-side.html" (dict 
+      "heading" "Common Questions" 
+      "faqs" (slice
+          (dict 
+              "question" "How does the 30-day free trial work?" 
+              "answer" "You can use all features of our platform for 30 days without any charge. No credit card required to start. After the trial period, you can choose a plan that fits your needs."
+          )
+          (dict 
+              "question" "What happens to my data if I cancel?" 
+              "answer" "Your data remains stored in our systems for 30 days after cancellation. During this period, you can export your data or reactivate your account. After 30 days, all data is permanently deleted."
+          )
+          (dict 
+              "question" "Do you offer discounts for nonprofits?" 
+              "answer" "Yes, we offer special pricing for nonprofit organizations. Please contact our sales team for more information about our nonprofit discount program."
+          )
+      )
+      "page" .
+  ) }}
+@note: This section automatically generates structured data (Schema.org FAQPage) for better SEO optimization. On desktop, the questions appear in the left column and answers in the right column, while on mobile they stack vertically.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 

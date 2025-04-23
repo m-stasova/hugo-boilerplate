@@ -1,3 +1,38 @@
+{{/*
+@section: Testimonial with Large Avatar on Dark Background
+@description: An elegant testimonial layout featuring a large avatar of the testimonial author displayed against a sophisticated dark background with gradient effects and geometric patterns.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-gray-900")
+  - padding: Padding classes for the container (optional, default: "px-6 lg:px-8")
+  - gradientColor: Color value for the background gradient (optional, default: "var(--color-indigo-900)")
+  - gradientOpacity: Opacity class for the gradient (optional, default: "opacity-20")
+  - skewBgColor: Background color class for the skewed background element (optional, default: "bg-gray-800")
+  - skewRingColor: Border color class for the skewed element (optional, default: "ring-gray-700")
+  - skewShadowColor: Shadow color class for the skewed element (optional, default: "shadow-indigo-500/20")
+  - quoteStrokeColor: Color class for the quote icon stroke (optional, default: "stroke-white/10")
+  - quote: The testimonial text (optional, default: Lorem ipsum text)
+  - quoteColor: Color class for the quote text (optional, default: "text-white")
+  - personImage: URL for the person's image (optional, default: Unsplash photo)
+  - personImageAlt: Alt text for the person image (optional, default: "")
+  - personImageBg: Background color class for the image (optional, default: "bg-indigo-900")
+  - personName: Name of the testimonial author (optional, default: "Judith Black")
+  - personNameColor: Color class for the person name (optional, default: "text-white")
+  - personRole: Role/position of the testimonial author (optional, default: "CEO of Workcation")
+  - personRoleColor: Color class for the person role (optional, default: "text-gray-400")
+@example:
+  {{ partial "sections/testimonials/with_large_avatar_on_dark.html" (dict 
+      "quote" "This platform has transformed how we approach our digital projects. The intuitive interface combined with powerful features has allowed our team to deliver results faster than ever before."
+      "personImage" "/images/testimonials/james-wilson.jpg"
+      "personImageAlt" "James Wilson, Director of Digital Innovation"
+      "personName" "James Wilson"
+      "personRole" "Director of Digital Innovation, TechForward"
+      "gradientColor" "var(--color-blue-900)"
+      "skewBgColor" "bg-blue-950"
+      "skewRingColor" "ring-blue-800"
+  ) }}
+@note: This component creates a premium, visually striking testimonial display with artistic background elements including a skewed background, gradient effects, and a subtle pattern overlay. The large avatar image creates a strong visual anchor that draws attention to the testimonial.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "px-6 lg:px-8" }}

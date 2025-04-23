@@ -1,3 +1,42 @@
+{{/*
+@section: Stats Split with Image on Dark
+@description: An elegant statistics component that combines a striking image with key metrics on a dark background. Features a sophisticated grid pattern and subtle glow effect that enhances the visual hierarchy while maintaining readability.
+@params:
+  bgColor: Background color class (default: "bg-gray-900")
+  padding: Padding classes (default: "py-24 sm:py-32")
+  
+  showHeading: Whether to show the heading section (default: true)
+  headingTag: Small heading above the main heading (default: "Deploy faster")
+  headingTagColor: Color class for the heading tag (default: "text-indigo-400")
+  heading: Main heading text (default: "A better workflow")
+  headingColor: Color class for the main heading (default: "text-white")
+  description: Description text below the heading (default: "Lorem ipsum...")
+  descriptionColor: Color class for the description text (default: "text-gray-300")
+  
+  image: Image source URL (default: "https://images.unsplash.com/...")
+  imageAlt: Alt text for the image (default: "App screenshot")
+  
+  stats: Array of statistics objects with "value" and "label" (default: predefined stats)
+  valueColor: Color class for the stat values (default: "text-white")
+  labelColor: Color class for the stat labels (default: "text-gray-300")
+  borderColor: Color class for the border (default: "border-white/10")
+@example:
+  {{ partial "sections/stats/split_with_image_on_dark.html" (dict
+    "headingTag" "Performance Metrics"
+    "heading" "Our impact by the numbers"
+    "description" "These key performance indicators highlight our growth and impact over the past fiscal year."
+    "image" "/images/dashboard-stats.jpg"
+    "imageAlt" "Dashboard statistics visualization"
+    "stats" (slice
+      (dict "value" "8K+" "label" "Companies")
+      (dict "value" "25K+" "label" "Active users")
+      (dict "value" "98%" "label" "Satisfaction rate")
+      (dict "value" "12M+" "label" "Transactions")
+    )
+  ) }}
+@note: This component works especially well for showcasing product screenshots or data visualizations alongside supporting statistics in a visually appealing dark-themed layout.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $image := .image | default "https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2850&q=80" }}

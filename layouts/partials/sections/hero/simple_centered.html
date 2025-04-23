@@ -1,30 +1,30 @@
 {{/*
 @section: Simple Centered Hero
-@description: Jednoduchá centrovaná hero sekcia s voliteľným oznámením, nadpisom, popisom a dvoma CTA tlačidlami.
+@description: A simple centered hero section with optional announcement, heading, description, and two CTA buttons.
 @params:
-  - announcement: Objekt s informáciami o oznámení (voliteľné)
-    - enabled: Či má byť oznámenie zobrazené (true/false)
-    - text: Text oznámenia
-    - linkText: Text odkazu v oznámení
-    - linkUrl: URL odkazu v oznámení
-  - heading: Hlavný nadpis sekcie (voliteľné)
-  - description: Popis pod nadpisom (voliteľné)
-  - cta: Objekt s informáciami o CTA tlačidlách (voliteľné)
-    - primary: Primárne CTA tlačidlo (text, url)
-    - secondary: Sekundárne CTA tlačidlo (text, url)
+  - announcement: Object with announcement information (optional)
+    - enabled: Whether the announcement should be displayed (true/false)
+    - text: Announcement text
+    - linkText: Text for the announcement link
+    - linkUrl: URL for the announcement link
+  - heading: Main section heading (optional)
+  - description: Description below the heading (optional)
+  - cta: Object with CTA buttons information (optional)
+    - primary: Primary CTA button (text, url)
+    - secondary: Secondary CTA button (text, url)
 @example:
   {{ partial "sections/hero/simple_centered.html" (dict 
       "announcement" (dict 
           "enabled" true 
-          "text" "Práve sme spustili novú verziu!" 
-          "linkText" "Prečítať viac" 
-          "linkUrl" "/blog/novy-produkt"
+          "text" "We've just launched a new version!" 
+          "linkText" "Read more" 
+          "linkUrl" "/blog/new-product"
       )
-      "heading" "Analýza dát pre váš online biznis" 
-      "description" "Naše riešenie vám pomôže lepšie porozumieť vašim zákazníkom a optimalizovať vaše podnikanie."
+      "heading" "Data analysis for your online business" 
+      "description" "Our solution helps you better understand your customers and optimize your business."
       "cta" (dict 
-          "primary" (dict "text" "Začať" "url" "/signup") 
-          "secondary" (dict "text" "Viac informácií" "url" "/features")
+          "primary" (dict "text" "Get started" "url" "/signup") 
+          "secondary" (dict "text" "Learn more" "url" "/features")
       )
   ) }}
 */}}

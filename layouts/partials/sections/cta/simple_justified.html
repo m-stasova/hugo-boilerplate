@@ -1,4 +1,27 @@
-{{/* Simple Justified CTA Section */}}
+{{/*
+@section: Simple Justified CTA
+@description: A clean call-to-action with heading and two buttons, aligned to opposite sides on larger screens.
+@params:
+  - heading: Main section heading (optional, default: "Ready to dive in? <br>Start your free trial today.")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - primaryCtaColor: Primary button color (optional, default: "indigo-600")
+  - primaryCtaHoverColor: Primary button hover color (optional, default: "indigo-500")
+@example:
+  {{ partial "sections/cta/simple_justified.html" (dict 
+      "heading" "Ready to transform your business? <br>Get started now."
+      "primaryCta" (dict "text" "Start your trial" "url" "/signup") 
+      "secondaryCta" (dict "text" "Learn more" "url" "/features")
+      "primaryCtaColor" "blue-600"
+      "primaryCtaHoverColor" "blue-500"
+  ) }}
+@note: This component provides a spacious, clean layout that works well as a section divider or page footer. On large screens, the heading and buttons are justified to opposite sides.
+*/}}
+
 {{ $heading := .heading | default "Ready to dive in? <br>Start your free trial today." }}
 {{ $primaryCta := .primaryCta | default (dict 
   "text" "Get started"

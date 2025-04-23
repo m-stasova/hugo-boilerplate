@@ -1,3 +1,47 @@
+{{/*
+@section: Two-Column FAQ
+@description: A two-column frequently asked questions section with a heading, supporting text, and structured Q&A content.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Frequently asked questions")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - supportingText: Supporting text below heading, can include HTML (optional)
+  - supportingTextColor: Supporting text color class (optional, default: "text-gray-600")
+  - supportingTextLinkColor: Color for links in supporting text (optional, default: "text-indigo-600")
+  - supportingTextLinkHoverColor: Hover color for links in supporting text (optional, default: "text-indigo-500")
+  - questionColor: Question text color class (optional, default: "text-gray-900")
+  - answerColor: Answer text color class (optional, default: "text-gray-600")
+  - faqs: Array of objects with questions and answers (required)
+    - question: Question text
+    - answer: Answer text (can include HTML)
+  - page: Page context for linkbuilding function (required)
+@example:
+  {{ partial "sections/faq/two_columns.html" (dict 
+      "heading" "Common Questions" 
+      "supportingText" "Can't find what you're looking for? <a href='/contact' class='font-semibold text-blue-600 hover:text-blue-500'>Contact us</a> for more help."
+      "faqs" (slice
+          (dict 
+              "question" "How do I get started with your service?" 
+              "answer" "Getting started is easy. Simply sign up for an account on our website, choose your plan, and you'll be guided through the setup process."
+          )
+          (dict 
+              "question" "What payment methods do you accept?" 
+              "answer" "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and bank transfers for annual plans."
+          )
+          (dict 
+              "question" "Is there a free trial available?" 
+              "answer" "Yes, we offer a 14-day free trial on all plans. No credit card required to start your trial."
+          )
+          (dict 
+              "question" "How can I cancel my subscription?" 
+              "answer" "You can cancel your subscription at any time from your account settings. If you cancel, you'll still have access until the end of your billing period."
+          )
+      )
+      "page" .
+  ) }}
+@note: This section automatically generates structured data (Schema.org FAQPage) for better SEO optimization.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 

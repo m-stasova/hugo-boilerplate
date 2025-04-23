@@ -1,3 +1,106 @@
+{{/*
+@section: Three-Tier Pricing with Feature Comparison
+@description: A comprehensive pricing section featuring three pricing tiers with a toggle between monthly and annual billing, and a detailed feature comparison table. Includes a dark-themed pricing card section with a centered highlighted tier.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - bgColor: Background color class for the top section (optional, default: "bg-gray-900")
+  - bgColorLight: Background color class for the comparison table section (optional, default: "bg-gray-50")
+  - monthlyLabel: Label for monthly toggle option (optional, default: "Monthly")
+  - annuallyLabel: Label for annual toggle option (optional, default: "Annually")
+  - toggleBgColor: Background color class for the toggle container (optional, default: "bg-white/5")
+  - toggleActiveBgColor: Background color class for the active toggle state (optional, default: "bg-indigo-500")
+  - toggleTextColor: Text color class for the toggle (optional, default: "text-white")
+  - tier1: Object with tier 1 settings (optional, includes defaults)
+    - name: Name of the tier (default: "Starter")
+    - id: ID for accessibility (default: "tier-starter")
+    - monthlyPrice: Price for monthly billing (default: "$19")
+    - annualPrice: Price for annual billing (default: "$15")
+    - interval: Billing frequency text (default: "/month")
+    - currency: Currency code (default: "USD")
+    - billingText: Billing description for monthly (default: "Billed monthly")
+    - billingTextAnnual: Billing description for annual (default: "Billed annually")
+    - buttonText: Button text (default: "Buy this plan")
+    - buttonUrl: Button URL (default: "#")
+    - description: Short description of the tier (default: "Everything you need to get started.")
+    - features: Array of features included in this tier
+  - tier2: Object with tier 2 settings (optional, includes defaults)
+    - Similar structure to tier1, featured/highlighted tier
+  - tier3: Object with tier 3 settings (optional, includes defaults)
+    - Similar structure to tier1
+  - featureCategories: Dictionary of feature categories for comparison table (optional, includes defaults)
+    - Keys are category names
+    - Values are arrays of feature objects with tier-specific values
+      - name: Feature name
+      - tier1: Boolean, string or number value for tier 1
+      - tier2: Boolean, string or number value for tier 2
+      - tier3: Boolean, string or number value for tier 3
+@example:
+  {{ partial "sections/pricing/three_tiers_with_feature_comparison.html" (dict 
+      "heading" "Professional pricing for teams of all sizes"
+      "description" "Choose the plan that best meets your needs. All plans include a 30-day free trial."
+      "tier1" (dict
+          "name" "Basic"
+          "monthlyPrice" "$29"
+          "annualPrice" "$24"
+          "description" "Perfect for individuals and small projects."
+          "features" (slice
+              "5 projects"
+              "10GB storage"
+              "Basic analytics"
+              "24-hour support"
+          )
+          "buttonText" "Start free trial"
+          "buttonUrl" "/signup/basic"
+      )
+      "tier2" (dict
+          "name" "Pro"
+          "monthlyPrice" "$79"
+          "annualPrice" "$69"
+          "description" "Best for growing teams and businesses."
+          "features" (slice
+              "Unlimited projects"
+              "50GB storage"
+              "Advanced analytics"
+              "Priority support"
+              "Team collaboration"
+              "Custom reporting"
+          )
+          "buttonText" "Start free trial"
+          "buttonUrl" "/signup/pro"
+      )
+      "tier3" (dict
+          "name" "Enterprise"
+          "monthlyPrice" "$129"
+          "annualPrice" "$109"
+          "description" "Advanced features for large organizations."
+          "features" (slice
+              "Unlimited everything"
+              "Advanced security"
+              "Custom integrations"
+              "Dedicated account manager"
+          )
+          "buttonText" "Contact sales"
+          "buttonUrl" "/contact/sales"
+      )
+      "featureCategories" (dict
+          "Core Features" (slice
+              (dict "name" "Storage" "tier1" "10GB" "tier2" "50GB" "tier3" "Unlimited")
+              (dict "name" "Users" "tier1" "3" "tier2" "20" "tier3" "Unlimited")
+              (dict "name" "API Access" "tier1" false "tier2" true "tier3" true)
+          )
+          "Security" (slice
+              (dict "name" "Two-factor authentication" "tier1" true "tier2" true "tier3" true)
+              (dict "name" "Advanced permissions" "tier1" false "tier2" true "tier3" true)
+              (dict "name" "SSO" "tier1" false "tier2" false "tier3" true)
+          )
+      )
+      "toggleActiveBgColor" "bg-blue-500"
+  ) }}
+@note: This component features interactive monthly/annual pricing toggle functionality powered by JavaScript. The top section displays the pricing cards with a highlighted center card, while the bottom section shows a detailed feature comparison table organized by categories.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}

@@ -1,3 +1,75 @@
+{{/*
+@section: Two Row Bento Grid
+@description: A visually appealing layout with a flexible grid of content cards arranged in two rows, ideal for showcasing features or categories with images and descriptions.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "Everything you need to deploy your app")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - backgroundColor: Background color class for the section (optional, default: "white")
+  - cards: Array of card objects with varying positions and content (optional, includes defaults)
+    - title: Card title text
+    - category: Category label displayed above the title
+    - description: Card description text
+    - image: URL to card image
+    - imageAlt: Alt text for the image
+    - position: Card position in the grid ("large-top-left", "large-top-right", "small-bottom-left", "small-bottom-middle", "small-bottom-right")
+    - categoryColor: Color class for the category text (optional, default: "indigo-600")
+@example:
+  {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
+      "tagline" "Our Services" 
+      "heading" "Solutions tailored to your business needs"
+      "backgroundColor" "gray-50"
+      "cards" (slice
+          (dict
+              "title" "Digital Transformation" 
+              "category" "Strategy"
+              "description" "Comprehensive digital transformation services to modernize your business processes and technology stack."
+              "image" "/images/services/digital-transformation.jpg"
+              "imageAlt" "Digital transformation illustration"
+              "position" "large-top-left"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Cloud Infrastructure" 
+              "category" "Technology"
+              "description" "Secure, scalable cloud solutions designed to optimize performance and reduce operational costs."
+              "image" "/images/services/cloud-infrastructure.jpg"
+              "imageAlt" "Cloud infrastructure diagram"
+              "position" "large-top-right"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Data Analytics" 
+              "category" "Insights"
+              "description" "Turn your data into actionable business insights with our advanced analytics solutions."
+              "image" "/images/services/data-analytics.jpg"
+              "imageAlt" "Data analytics dashboard"
+              "position" "small-bottom-left"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "API Integration" 
+              "category" "Connectivity"
+              "description" "Seamlessly connect your systems and applications with our API integration services."
+              "image" "/images/services/api-integration.jpg"
+              "imageAlt" "API integration flowchart"
+              "position" "small-bottom-middle"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Cybersecurity" 
+              "category" "Security"
+              "description" "Protect your business with enterprise-grade security solutions and best practices."
+              "image" "/images/services/cybersecurity.jpg"
+              "imageAlt" "Cybersecurity shield icon"
+              "position" "small-bottom-right"
+              "categoryColor" "blue-600"
+          )
+      )
+  ) }}
+@note: This section uses a responsive bento grid layout with larger cards in the top row and smaller cards in the bottom row. The cards feature rounded corners with distinctive rounded edges in each corner of the grid.
+*/}}
+
 {{/* Two Row Bento Grid Section */}}
 {{ $tagline := .tagline | default "Deploy faster" }}
 {{ $heading := .heading | default "Everything you need to deploy your app" }}

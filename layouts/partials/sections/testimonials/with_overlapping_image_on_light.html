@@ -1,3 +1,34 @@
+{{/*
+@section: Testimonial with Overlapping Image on Light
+@description: A testimonial section featuring a large quote with an overlapping image of the testimonial author on a light background, creating a modern and professional appearance.
+@params:
+  - topBgColor: Background color class for the top part (optional, default: "bg-gray-50")
+  - bottomBgColor: Background color class for the bottom part (optional, default: "bg-white")
+  - padding: Padding classes for the container (optional, default: "pt-24 pb-16 sm:pt-32 sm:pb-24 xl:pb-32")
+  - bottomPadding: Padding classes for the bottom part (optional, default: "pb-20 sm:pb-24 xl:pb-0")
+  - personImage: URL for the testimonial author's image (optional, default: Unsplash photo)
+  - personImageAlt: Alt text for the person image (optional, default: "")
+  - personImageBg: Background color class for the image (optional, default: "bg-indigo-50")
+  - quoteStrokeColor: Color class for the quote icon stroke (optional, default: "stroke-gray-900/10")
+  - quoteColor: Color class for the quote text (optional, default: "text-gray-900")
+  - quote: The testimonial text (optional, default: Lorem ipsum text)
+  - personName: Name of the testimonial author (optional, default: "Judith Black")
+  - personNameColor: Color class for the person name (optional, default: "text-gray-900")
+  - personRole: Role/position of the testimonial author (optional, default: "CEO of Workcation")
+  - personRoleColor: Color class for the person role (optional, default: "text-gray-500")
+@example:
+  {{ partial "sections/testimonials/with_overlapping_image_on_light.html" (dict 
+      "personImage" "/images/testimonials/jane-doe.jpg"
+      "personImageAlt" "Jane Doe, CEO of TechCorp"
+      "quote" "This product has completely transformed our workflow. We've seen a 40% increase in productivity since implementing it, and our team couldn't be happier."
+      "personName" "Jane Doe"
+      "personRole" "CEO, TechCorp"
+      "personImageBg" "bg-blue-50"
+      "quoteColor" "text-gray-800"
+  ) }}
+@note: This component creates a visually appealing testimonial layout with the author's image overlapping between the background sections. The component is responsive, adapting nicely to different screen sizes with the image position shifting appropriately.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $topBgColor := .topBgColor | default "bg-gray-50" }}
 {{ $bottomBgColor := .bottomBgColor | default "bg-white" }}

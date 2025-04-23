@@ -1,3 +1,52 @@
+{{/*
+@section: Side-by-Side Testimonials
+@description: A clean, light-themed dual testimonial layout featuring two testimonials side by side, each with a company logo, quote, and author information, presented in a professional and balanced format.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - borderColor: Color class for the dividing border (optional, default: "border-gray-900/10")
+  - firstLogo: URL for the first company logo (optional, default: Tailwind asset)
+  - firstLogoAlt: Alt text for the first logo (optional, default: "")
+  - firstLogoHeight: Height class for the first logo (optional, default: "h-12")
+  - firstQuote: The first testimonial text (optional, default: Lorem ipsum text)
+  - firstQuoteColor: Color class for the first quote (optional, default: "text-gray-900")
+  - firstPersonImage: URL for the first person's avatar (optional, default: Unsplash photo)
+  - firstPersonImageAlt: Alt text for the first person image (optional, default: "")
+  - firstPersonImageBg: Background color class for the first person image (optional, default: "bg-gray-50")
+  - firstPersonName: Name of the first testimonial author (optional, default: "Judith Black")
+  - firstPersonNameColor: Color class for the first person name (optional, default: "text-gray-900")
+  - firstPersonRole: Role/position of the first testimonial author (optional, default: "CEO of Tuple")
+  - firstPersonRoleColor: Color class for the first person role (optional, default: "text-gray-500")
+  - secondLogo: URL for the second company logo (optional, default: Tailwind asset)
+  - secondLogoAlt: Alt text for the second logo (optional, default: "")
+  - secondLogoHeight: Height class for the second logo (optional, default: "h-12")
+  - secondQuote: The second testimonial text (optional, default: Lorem ipsum text)
+  - secondQuoteColor: Color class for the second quote (optional, default: "text-gray-900")
+  - secondPersonImage: URL for the second person's avatar (optional, default: Unsplash photo)
+  - secondPersonImageAlt: Alt text for the second person image (optional, default: "")
+  - secondPersonImageBg: Background color class for the second person image (optional, default: "bg-gray-50")
+  - secondPersonName: Name of the second testimonial author (optional, default: "Joseph Rodriguez")
+  - secondPersonNameColor: Color class for the second person name (optional, default: "text-gray-900")
+  - secondPersonRole: Role/position of the second testimonial author (optional, default: "CEO of Reform")
+  - secondPersonRoleColor: Color class for the second person role (optional, default: "text-gray-500")
+@example:
+  {{ partial "sections/testimonials/side_by_side.html" (dict 
+      "firstLogo" "/images/logos/techflow.svg"
+      "firstLogoAlt" "TechFlow logo"
+      "firstQuote" "This platform has been instrumental in our digital transformation journey. It's intuitive enough for our non-technical staff while providing the depth of features our developers need."
+      "firstPersonImage" "/images/testimonials/emily-rodriguez.jpg"
+      "firstPersonName" "Emily Rodriguez"
+      "firstPersonRole" "Director of Digital Strategy, TechFlow"
+      "secondLogo" "/images/logos/innovatech.svg"
+      "secondLogoAlt" "InnovaTech logo"
+      "secondQuote" "The analytics capabilities alone have transformed how we approach our product development. We can now make data-driven decisions with confidence in real-time."
+      "secondPersonImage" "/images/testimonials/david-johnson.jpg"
+      "secondPersonName" "David Johnson"
+      "secondPersonRole" "Product Manager, InnovaTech"
+  ) }}
+@note: This component is the light-themed counterpart to the dark version, presenting two testimonials with equal visual weight in a clean, minimal design. It's perfect for showcasing complementary client testimonials in a professional context that fits well with light-themed websites.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

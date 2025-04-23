@@ -1,3 +1,55 @@
+{{/*
+@section: Split Content with Image
+@description: A responsive two-column layout with an image on one side and rich content on the other, ideal for feature highlights, product descriptions, or about sections.
+@params:
+  - bgColor: Background color class (optional, default: "bg-white")
+  - image: URL to the main image (optional, has default)
+  - imageAlt: Alt text for the image (optional, default: "Featured image")
+  - imageBgColor: Background color class for the image container (optional, default: "bg-gray-50")
+  - eyebrow: Small text displayed above heading (optional, default: "Deploy faster")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-600")
+  - heading: Main section heading (optional, default: "A better workflow")
+  - headingColor: Color class for heading (optional, default: "text-gray-900")
+  - description: Section description text (optional, has default)
+  - descriptionColor: Color class for description (optional, default: "text-gray-700")
+  - contentColor: Color class for main content text (optional, default: "text-gray-700")
+  - paragraph1: First paragraph content (optional, has default)
+  - paragraph2: Second paragraph content (optional, has default)
+  - subheading: Subheading text (optional, default: "No server? No problem.")
+  - subheadingColor: Color class for subheading (optional, default: "text-gray-900")
+  - paragraph3: Third paragraph content (optional, has default)
+  - featureTextColor: Color class for feature description text (optional, default: "text-gray-600")
+  - featureHeadingColor: Color class for feature heading (optional, default: "text-gray-900")
+  - iconColor: Color class for feature icons (optional, default: "text-indigo-600")
+  - features: Array of feature objects (optional, includes defaults)
+    - icon: SVG path for the feature icon
+    - title: Feature title text
+    - description: Feature description text
+@example:
+  {{ partial "sections/content/split_with_image.html" (dict 
+      "eyebrow" "Our Platform" 
+      "heading" "Designed for modern workflows"
+      "description" "Our platform streamlines development processes, enabling teams to deploy faster and collaborate more effectively."
+      "image" "/images/platform-dashboard.jpg"
+      "imageAlt" "Platform dashboard interface showing deployment metrics"
+      "features" (slice
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z\" clip-rule=\"evenodd\" />" 
+              "title" "One-click Deployment" 
+              "description" "Deploy your projects with a single click through our intuitive interface or API."
+          )
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z\" clip-rule=\"evenodd\" />" 
+              "title" "Enterprise Security" 
+              "description" "Bank-grade security protocols with automatic SSL certificates and advanced access controls."
+          )
+      )
+      "subheading" "Built for developers"
+      "paragraph3" "We've created a platform specifically designed for developer needs, with intuitive APIs, extensive documentation, and powerful debugging tools."
+  ) }}
+@note: This section has a responsive layout - on mobile the image appears above the content, while on desktop the image takes up half the width on the left side with content on the right. The image scales to fill its container while maintaining aspect ratio.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 

@@ -1,19 +1,19 @@
-{{/* 
-  Three Tiers with Toggle Pricing Section
-  
-  Parameters:
-  - tagline: Text above the heading (default: "Pricing")
-  - heading: Main heading text (default: "Pricing that grows with you")
-  - description: Text below the heading (default: "Choose an affordable plan...")
-  - backgroundColor: Background color for the section (default: "white")
-  - taglineColor: Color for the tagline text (default: "indigo-600")
-  - headingColor: Color for the heading text (default: "gray-900")
-  - descriptionColor: Color for the description text (default: "gray-600")
-  - toggleTextColor: Color for the toggle text (default: "gray-500")
-  - toggleActiveColor: Color for the active toggle text (default: "white")
-  - toggleActiveBgColor: Color for the active toggle background (default: "indigo-600")
-  - toggleBorderColor: Color for the toggle border (default: "gray-200")
-  - tiers: Array of tier configurations, each with:
+{{/*
+@section: Three-Tier Pricing with Toggle
+@description: A pricing section displaying three pricing tiers with a toggle to switch between monthly and annual billing options, including an option to highlight the most popular tier.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class (optional, default: "white")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - headingColor: Color class for the heading (optional, default: "gray-900")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - toggleTextColor: Color class for the inactive toggle text (optional, default: "gray-500")
+  - toggleActiveColor: Color class for the active toggle text (optional, default: "white")
+  - toggleActiveBgColor: Color class for the active toggle background (optional, default: "indigo-600")
+  - toggleBorderColor: Color class for the toggle border (optional, default: "gray-200")
+  - tiers: Array of tier objects (optional, includes defaults)
     - name: Name of the tier
     - id: ID for accessibility
     - monthlyPrice: Price for monthly billing
@@ -23,20 +23,102 @@
     - popular: Boolean to indicate if this is the most popular tier
     - features: Array of features included in this tier
     - cta: Object with text and url for the call-to-action button
-    - nameColor: Color for the tier name
-    - priceColor: Color for the price
-    - intervalColor: Color for the interval text
-    - descriptionColor: Color for the tier description
-    - featureColor: Color for the feature text
-    - checkColor: Color for the checkmark icons
-    - ctaColor: Color for the CTA button text
-    - ctaBgColor: Color for the CTA button background (for filled buttons)
-    - ctaHoverBgColor: Color for the CTA button hover background (for filled buttons)
-    - ctaBorderColor: Color for the CTA button border (for outline buttons)
-    - ctaHoverBorderColor: Color for the CTA button hover border (for outline buttons)
-    - backgroundColor: Background color for the tier
-    - borderColor: Border color for the tier
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - intervalColor: Color class for the interval text
+    - descriptionColor: Color class for the description
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaBgColor: Color class for the CTA button background (for popular tier)
+    - ctaHoverBgColor: Color class for the CTA button hover background (for popular tier)
+    - ctaBorderColor: Color class for the CTA button border (for non-popular tiers)
+    - ctaHoverBorderColor: Color class for the CTA button hover border (for non-popular tiers)
+    - backgroundColor: Background color class for the tier
+    - borderColor: Border color class for the tier
     - borderWidth: Border width for the tier (default: 1, use 2 for emphasis)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_toggle.html" (dict 
+      "tagline" "Our Plans" 
+      "heading" "Simple, transparent pricing"
+      "description" "Choose between monthly and annual billing. All plans include a 14-day free trial."
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "monthlyPrice" "$12"
+              "annualPrice" "$10"
+              "interval" "/month"
+              "description" "Everything you need for a small project."
+              "popular" false
+              "features" (slice
+                  "3 projects"
+                  "5GB storage"
+                  "Basic support"
+                  "48-hour response time"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/basic"
+              )
+              "nameColor" "blue-700"
+              "checkColor" "blue-500"
+              "ctaColor" "blue-600"
+          )
+          (dict
+              "name" "Professional"
+              "id" "tier-professional"
+              "monthlyPrice" "$39"
+              "annualPrice" "$32"
+              "interval" "/month"
+              "description" "For teams and growing businesses."
+              "popular" true
+              "features" (slice
+                  "Unlimited projects"
+                  "50GB storage"
+                  "Priority support"
+                  "24-hour response time"
+                  "Advanced analytics"
+                  "Team collaboration"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/professional"
+              )
+              "nameColor" "blue-600"
+              "ctaBgColor" "blue-600"
+              "ctaHoverBgColor" "blue-500"
+              "borderColor" "blue-600"
+              "borderWidth" 2
+          )
+          (dict
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "monthlyPrice" "$79"
+              "annualPrice" "$64"
+              "interval" "/month"
+              "description" "Dedicated support and infrastructure."
+              "popular" false
+              "features" (slice
+                  "Unlimited everything"
+                  "Dedicated support representative"
+                  "Custom integrations"
+                  "Advanced security features"
+                  "SLA guarantees"
+                  "API access"
+              )
+              "cta" (dict
+                  "text" "Contact sales"
+                  "url" "/contact/sales"
+              )
+              "nameColor" "blue-700"
+              "checkColor" "blue-500"
+              "ctaColor" "blue-600"
+          )
+      )
+      "toggleActiveBgColor" "blue-600"
+  ) }}
+@note: This component includes JavaScript functionality to toggle between monthly and annual prices. The popular tier can be visually emphasized with different border styling and a filled button.
 */}}
 
 {{ $tagline := .tagline | default "Pricing" }}

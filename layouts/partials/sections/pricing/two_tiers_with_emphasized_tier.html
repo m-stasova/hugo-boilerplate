@@ -1,4 +1,90 @@
-{{/* Pricing Section with Two Tiers and Emphasized Tier */}}
+{{/*
+@section: Two-Tier Pricing with Emphasized Tier
+@description: A pricing section displaying two pricing tiers side by side, with one tier visually emphasized as the recommended option, set against a subtle gradient background.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Choose the right plan for you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - backgroundColor: Background color class (optional, default: "white")
+  - gradientStartColor: Starting color for the background gradient (optional, default: "#ff80b5")
+  - gradientEndColor: Ending color for the background gradient (optional, default: "#9089fc")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - price: Price amount with currency symbol
+    - interval: Billing frequency (e.g., "/month")
+    - description: Short description of the tier
+    - features: Array of features included in this tier
+    - cta: Object with text and url for the call-to-action button
+    - highlighted: Boolean to indicate if this is the emphasized tier
+    - nameColor: Color class for the tier name
+    - priceColor: Color class for the price
+    - descriptionColor: Color class for the description
+    - featureColor: Color class for the feature text
+    - checkColor: Color class for the checkmark icons
+    - ctaColor: Color class for the CTA button text
+    - ctaRingColor: Color class for the CTA button ring (for outline buttons)
+    - ctaHoverRingColor: Color class for the CTA button hover ring (for outline buttons)
+    - ctaBgColor: Color class for the CTA button background (for filled buttons)
+    - ctaHoverBgColor: Color class for the CTA button hover background (for filled buttons)
+    - backgroundColor: Background color class for the tier
+    - borderColor: Border color class for the tier
+  - checkIcon: SVG path for the checkmark icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/two_tiers_with_emphasized_tier.html" (dict 
+      "tagline" "Plans & Pricing" 
+      "heading" "Find the perfect plan for your needs"
+      "description" "Whether you're a freelancer or a growing business, we have a plan that fits your requirements."
+      "tiers" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "price" "$19"
+              "interval" "/month"
+              "description" "All the essentials to provide your best work for clients."
+              "features" (slice
+                  "5 projects"
+                  "Up to 10 users"
+                  "Basic analytics"
+                  "Email support"
+              )
+              "cta" (dict
+                  "text" "Get started"
+                  "url" "/signup/basic"
+              )
+              "highlighted" false
+              "nameColor" "blue-600"
+          )
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "price" "$49"
+              "interval" "/month"
+              "description" "Everything in Basic, plus premium features to grow your business."
+              "features" (slice
+                  "Unlimited projects"
+                  "Unlimited users"
+                  "Advanced analytics"
+                  "Priority support"
+                  "Custom reporting"
+                  "API access"
+              )
+              "cta" (dict
+                  "text" "Start free trial"
+                  "url" "/signup/pro"
+              )
+              "highlighted" true
+              "backgroundColor" "blue-900"
+              "ctaBgColor" "blue-500"
+          )
+      )
+      "gradientStartColor" "#60a5fa"
+      "gradientEndColor" "#3730a3"
+  ) }}
+@note: This component features a responsive design that adapts to different screen sizes. On mobile, the tiers stack vertically, while on desktop they display side-by-side with the emphasized tier standing out with a contrasting background and styling.
+*/}}
+
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Choose the right plan for you" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}

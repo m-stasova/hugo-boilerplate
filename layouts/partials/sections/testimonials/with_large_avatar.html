@@ -1,3 +1,38 @@
+{{/*
+@section: Testimonial with Large Avatar
+@description: A clean, light-themed testimonial section featuring a large avatar of the testimonial author alongside a quote, with subtle gradient and geometric background elements.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the container (optional, default: "px-6 lg:px-8")
+  - gradientColor: Color value for the background gradient (optional, default: "var(--color-indigo-100)")
+  - gradientOpacity: Opacity class for the gradient (optional, default: "opacity-20")
+  - skewBgColor: Background color class for the skewed background element (optional, default: "bg-white")
+  - skewRingColor: Border color class for the skewed element (optional, default: "ring-indigo-50")
+  - skewShadowColor: Shadow color class for the skewed element (optional, default: "shadow-indigo-600/10")
+  - quoteStrokeColor: Color class for the quote icon stroke (optional, default: "stroke-gray-900/10")
+  - quote: The testimonial text (optional, default: Lorem ipsum text)
+  - quoteColor: Color class for the quote text (optional, default: "text-gray-900")
+  - personImage: URL for the person's image (optional, default: Unsplash photo)
+  - personImageAlt: Alt text for the person image (optional, default: "")
+  - personImageBg: Background color class for the image (optional, default: "bg-indigo-50")
+  - personName: Name of the testimonial author (optional, default: "Judith Black")
+  - personNameColor: Color class for the person name (optional, default: "text-gray-900")
+  - personRole: Role/position of the testimonial author (optional, default: "CEO of Workcation")
+  - personRoleColor: Color class for the person role (optional, default: "text-gray-500")
+@example:
+  {{ partial "sections/testimonials/with_large_avatar.html" (dict 
+      "quote" "Since implementing this solution, we've seen a 40% reduction in onboarding time and a significant improvement in team collaboration. The intuitive interface makes it easy for even non-technical team members to get started quickly."
+      "personImage" "/images/testimonials/michelle-chen.jpg"
+      "personImageAlt" "Michelle Chen, Head of Operations"
+      "personName" "Michelle Chen"
+      "personRole" "Head of Operations, InnovateX"
+      "gradientColor" "var(--color-blue-100)"
+      "skewRingColor" "ring-blue-50"
+      "skewShadowColor" "shadow-blue-600/10"
+  ) }}
+@note: This component is the light-themed counterpart to the dark version, featuring the same elegant layout with a large avatar image and sophisticated background elements, but with a brighter color scheme suitable for light-themed websites.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "px-6 lg:px-8" }}

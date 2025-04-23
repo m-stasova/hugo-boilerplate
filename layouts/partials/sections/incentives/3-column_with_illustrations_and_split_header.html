@@ -1,17 +1,46 @@
-{{/* 
-  3-column incentives layout with illustrations and split header
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-gray-50")
-  - title: Main heading text
-  - description: Supporting text below the heading
-  - imageUrl: URL for the header image
-  - imageAlt: Alt text for the header image
-  - incentives: Array of incentive items, each with:
+{{/*
+@section: Three-Column Incentives with Illustrations and Split Header
+@description: A section featuring a two-column header with text and image, followed by three columns of incentives with illustrations. Perfect for highlighting key benefits with visual explanation.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-50")
+  - title: Main heading text (optional, default: "We built our business on great customer service")
+  - description: Supporting text below the heading (optional, default is a longer paragraph)
+  - imageUrl: URL for the header image (optional, default is a Tailwind image)
+  - imageAlt: Alt text for the header image (optional, default: "")
+  - incentives: Array of incentive objects (optional, includes defaults)
     - title: Incentive title
     - description: Incentive description
     - iconUrl: URL for the incentive icon
     - iconAlt: Alt text for the incentive icon
+@example:
+  {{ partial "sections/incentives/3-column_with_illustrations_and_split_header.html" (dict 
+      "title" "Why Our Customers Love Us" 
+      "description" "Our customers are at the heart of everything we do. Here's what makes our service stand out."
+      "imageUrl" "/images/customer-service.jpg"
+      "imageAlt" "Customer service representative helping a client"
+      "incentives" (slice
+          (dict 
+              "title" "Fast Delivery" 
+              "description" "We deliver all orders within 24 hours of purchase confirmation."
+              "iconUrl" "/images/icons/delivery.svg"
+              "iconAlt" "Delivery icon"
+          )
+          (dict 
+              "title" "Quality Guarantee" 
+              "description" "All products come with our 10-year quality guarantee for peace of mind."
+              "iconUrl" "/images/icons/guarantee.svg"
+              "iconAlt" "Guarantee icon"
+          )
+          (dict 
+              "title" "Easy Returns" 
+              "description" "Not happy with your purchase? Return it within 30 days for a full refund."
+              "iconUrl" "/images/icons/returns.svg"
+              "iconAlt" "Returns icon"
+          )
+      )
+      "backgroundColor" "bg-white"
+  ) }}
+@note: The component features a responsive layout - on mobile displays the header stacks vertically, and the incentives display horizontally with icons on the left, while on desktop they arrange in a balanced grid format.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-gray-50" }}

@@ -1,3 +1,37 @@
+{{/*
+@section: Split CTA with Image
+@description: A two-column call-to-action section with a colorful image on one side and content with tagline, heading, description, and CTA button on the other.
+@params:
+  - tagline: Short text displayed above heading (optional, default: "Award winning support")
+  - heading: Main section heading (optional, default: "We're here to help")
+  - description: Descriptive text below heading (optional, default: "Lorem ipsum dolor sit amet...")
+  - cta: Object with CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - image: Object with image configuration (optional)
+    - url: Image URL
+    - alt: Alt text for the image
+  - taglineColor: Color class for the tagline text (optional, default: "indigo-400")
+  - gradientStartColor: Starting color for the gradient overlay (optional, default: "#776FFF")
+  - gradientEndColor: Ending color for the gradient overlay (optional, default: "#FF4694")
+  - gradientId: Unique ID for the gradient definition (optional, default: auto-generated)
+@example:
+  {{ partial "sections/cta/split_with_image.html" (dict 
+      "tagline" "24/7 Customer Support" 
+      "heading" "We're always here when you need us"
+      "description" "Our dedicated support team is available around the clock to answer your questions and help solve any issues you might encounter."
+      "cta" (dict "text" "Contact support" "url" "/support") 
+      "image" (dict 
+          "url" "/images/support-team.jpg"
+          "alt" "Our customer support team"
+      )
+      "taglineColor" "blue-400"
+      "gradientStartColor" "#4F46E5"
+      "gradientEndColor" "#EC4899"
+  ) }}
+@note: This component creates visual interest with a split layout and gradient overlay effect, drawing attention to both the image and the call-to-action message.
+*/}}
+
 {{/* Split CTA Section with Image */}}
 {{ $tagline := .tagline | default "Award winning support" }}
 {{ $heading := .heading | default "We're here to help" }}

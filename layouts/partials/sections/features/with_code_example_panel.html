@@ -1,3 +1,74 @@
+{{/*
+@section: Features with Code Example Panel
+@description: A feature showcase section with a tagline, heading, description, and feature list alongside a code example panel that can display syntax-highlighted code.
+@params:
+  - tagline: Short text displayed above main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "A better workflow")
+  - description: Section description text (optional, default: "Lorem ipsum, dolor sit amet...")
+  - features: Array of feature objects (optional, includes defaults)
+    - icon: SVG path data for the feature icon
+    - title: Feature title
+    - description: Feature description
+  - code: Object with code example configuration (optional)
+    - activeFile: Name of currently active file
+    - files: Array of file objects to show in tabs
+      - name: Filename to display
+      - active: Boolean indicating if this is the active file
+    - content: Code string to display in the panel
+  - panelColor: Main color class for the code panel (optional, default: "indigo-500")
+  - panelLightColor: Light color class for decorative panel effect (optional, default: "indigo-100")
+  - page: Page context for linkbuilding function (required)
+@example:
+  {{ partial "sections/features/with_code_example_panel.html" (dict 
+      "tagline" "API Integration"
+      "heading" "Simple to implement"
+      "description" "Our robust API makes integration straightforward for developers of all skill levels."
+      "features" (slice
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z\" clip-rule=\"evenodd\" />"
+              "title" "Cloud Integration"
+              "description" "Connect directly with your existing cloud infrastructure for seamless data flow."
+          )
+          (dict 
+              "icon" "<path fill-rule=\"evenodd\" d=\"M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z\" clip-rule=\"evenodd\" />"
+              "title" "Advanced Security"
+              "description" "Enterprise-grade security with OAuth2 authentication and role-based access control."
+          )
+      )
+      "code" (dict
+          "activeFile" "api-example.js"
+          "files" (slice
+              (dict "name" "api-example.js" "active" true)
+              (dict "name" "response.json" "active" false)
+          )
+          "content" "// Initialize the API client
+const client = new ApiClient({
+  apiKey: 'YOUR_API_KEY',
+  version: 'v2'
+});
+
+// Make a request
+client.getData({
+  endpoint: '/users',
+  params: {
+    limit: 10,
+    include: ['profile', 'settings']
+  }
+})
+.then(response => {
+  console.log('Success:', response.data);
+})
+.catch(error => {
+  console.error('Error:', error);
+});"
+      )
+      "panelColor" "blue-600"
+      "panelLightColor" "blue-200"
+      "page" .
+  ) }}
+@note: The code example panel supports syntax highlighting and can display multiple files as tabs, with one active file shown. This section is ideal for showcasing API features, SDK implementations, or code-related functionality.
+*/}}
+
 {{/* Feature Section with Code Example Panel */}}
 {{ $tagline := .tagline | default "Deploy faster" }}
 {{ $heading := .heading | default "A better workflow" }}

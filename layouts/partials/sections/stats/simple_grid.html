@@ -1,3 +1,49 @@
+{{/*
+@section: Simple Grid Stats
+@description: A clean, grid-based statistics section displaying key metrics in a responsive grid layout with optional background colors for each stat card.
+@params:
+  - bgColor: Background color class for the section (optional, default: "bg-white")
+  - padding: Padding classes for the section (optional, default: "py-24 sm:py-32")
+  - statBgColor: Background color for individual stat items (optional, default: "bg-gray-400/5")
+  - statPadding: Padding for individual stat items (optional, default: "p-8")
+  - showHeading: Whether to display the heading section (optional, default: true)
+  - heading: Main section heading (optional, default: "Trusted by creators worldwide")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - description: Section description text (optional, default: "Lorem ipsum dolor sit amet...")
+  - descriptionColor: Description color class (optional, default: "text-gray-600")
+  - stats: Array of statistic objects (optional, includes defaults)
+    - value: The statistic value to display
+    - label: Description of what the value represents
+  - valueColor: Color class for statistic values (optional, default: "text-gray-900")
+  - labelColor: Color class for statistic labels (optional, default: "text-gray-600")
+@example:
+  {{ partial "sections/stats/simple_grid.html" (dict 
+      "heading" "Our Company in Numbers" 
+      "description" "Key metrics that showcase our growth and performance over the past year."
+      "stats" (slice
+          (dict 
+              "value" "2.7M+" 
+              "label" "Active users worldwide"
+          )
+          (dict 
+              "value" "98%" 
+              "label" "Customer satisfaction"
+          )
+          (dict 
+              "value" "24/7" 
+              "label" "Customer support"
+          )
+          (dict 
+              "value" "$120M" 
+              "label" "Annual revenue"
+          )
+      )
+      "statBgColor" "bg-blue-50"
+      "valueColor" "text-blue-700"
+  ) }}
+@note: This component presents statistics in a modern grid layout with each stat in its own card. The design is clean and minimalist, ideal for highlighting important metrics in an organized, visually consistent way. The grid automatically adjusts based on screen size - from a single column on mobile to a 4-column layout on larger screens.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
 {{ $padding := .padding | default "py-24 sm:py-32" }}

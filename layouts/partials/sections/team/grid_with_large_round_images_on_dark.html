@@ -1,3 +1,61 @@
+{{/*
+@section: Team Grid with Large Round Images on Dark Background
+@description: A sophisticated team showcase section with large circular profile images on a dark background, displaying team members in a centered grid layout with their names, roles, and optional social media links.
+@params:
+  - bgColor: Background color class (optional, default: "bg-gray-900")
+  - padding: Padding classes (optional, default: "py-32")
+  - heading: Main section heading (optional, default: "Meet our leadership")
+  - headingColor: Heading color class (optional, default: "text-white")
+  - description: Section description text (optional, default: "We're a dynamic group of individuals...")
+  - descriptionColor: Description color class (optional, default: "text-gray-300")
+  - nameColor: Team member name color class (optional, default: "text-white")
+  - roleColor: Team member role color class (optional, default: "text-gray-300")
+  - socialIconColor: Social media icon color class (optional, default: "text-gray-400")
+  - socialIconHoverColor: Social media icon hover color class (optional, default: "hover:text-gray-300")
+  - teamMembers: Array of team member objects (optional, includes defaults)
+    - name: Team member name
+    - role: Team member role/position
+    - image: URL to team member profile image
+    - twitter: Twitter/X profile URL (optional)
+    - linkedin: LinkedIn profile URL (optional)
+@example:
+  {{ partial "sections/team/grid_with_large_round_images_on_dark.html" (dict 
+      "heading" "Meet Our Talented Team" 
+      "description" "Our team of experts brings diverse perspectives and deep expertise to every project we undertake."
+      "teamMembers" (slice
+          (dict 
+              "name" "Rebecca Torres" 
+              "role" "Chief Strategy Officer"
+              "image" "/images/team/rebecca-torres.jpg"
+              "twitter" "https://twitter.com/rebeccatorres"
+              "linkedin" "https://linkedin.com/in/rebeccatorres"
+          )
+          (dict 
+              "name" "Jason Lee" 
+              "role" "Principal Engineer"
+              "image" "/images/team/jason-lee.jpg"
+              "linkedin" "https://linkedin.com/in/jasonlee"
+          )
+          (dict 
+              "name" "Priya Sharma" 
+              "role" "Creative Director"
+              "image" "/images/team/priya-sharma.jpg"
+              "twitter" "https://twitter.com/priyasharma"
+              "linkedin" "https://linkedin.com/in/priyasharma"
+          )
+          (dict 
+              "name" "Gabriel Reyes" 
+              "role" "Senior Data Scientist"
+              "image" "/images/team/gabriel-reyes.jpg"
+              "linkedin" "https://linkedin.com/in/gabrielreyes"
+          )
+      )
+      "bgColor" "bg-indigo-950"
+      "roleColor" "text-indigo-300"
+  ) }}
+@note: This is the dark-themed version of the team grid with large round images component. The dark background creates a dramatic, premium look that highlights the team member photos and information effectively. The centered layout with large circular images creates a cohesive, professional presentation that works well for executive teams, creative agencies, and technology companies.
+*/}}
+
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-gray-900" }}
 {{ $padding := .padding | default "py-32" }}

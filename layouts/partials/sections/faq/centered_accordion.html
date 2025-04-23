@@ -1,37 +1,37 @@
 {{/*
 @section: Centered Accordion FAQ
-@description: Centrovaná sekcia s často kladenými otázkami vo forme akordeónu (rozbaľovacieho zoznamu).
+@description: Centered section with frequently asked questions in an accordion format (expandable list).
 @params:
-  - heading: Hlavný nadpis sekcie (voliteľné, predvolené: "Frequently asked questions")
-  - headingColor: Farba nadpisu (voliteľné, predvolené: "text-gray-900")
-  - bgColor: Farba pozadia sekcie (voliteľné, predvolené: "bg-white")
-  - questionColor: Farba textu otázky (voliteľné, predvolené: "text-gray-900")
-  - answerColor: Farba textu odpovede (voliteľné, predvolené: "text-gray-600")
-  - dividerColor: Farba oddeľovacej čiary (voliteľné, predvolené: "divide-gray-900/10")
-  - faqs: Pole objektov s otázkami a odpoveďami (povinné)
-    - question: Text otázky
-    - answer: Text odpovede
-  - page: Kontext stránky pre funkciu linkbuilding (povinné)
+  - heading: Main section heading (optional, default: "Frequently asked questions")
+  - headingColor: Heading color class (optional, default: "text-gray-900")
+  - bgColor: Background color class (optional, default: "bg-white")
+  - questionColor: Question text color class (optional, default: "text-gray-900")
+  - answerColor: Answer text color class (optional, default: "text-gray-600")
+  - dividerColor: Divider line color class (optional, default: "divide-gray-900/10")
+  - faqs: Array of objects with questions and answers (required)
+    - question: Question text
+    - answer: Answer text
+  - page: Page context for linkbuilding function (required)
 @example:
   {{ partial "sections/faq/centered_accordion.html" (dict 
-      "heading" "Často kladené otázky" 
+      "heading" "Frequently Asked Questions" 
       "faqs" (slice
           (dict 
-              "question" "Ako začnem používať vašu službu?" 
-              "answer" "Registrácia je jednoduchá a zaberie len niekoľko minút. Stačí kliknúť na tlačidlo 'Začať' a postupovať podľa pokynov."
+              "question" "How do I start using your service?" 
+              "answer" "Registration is simple and takes just a few minutes. Just click the 'Get Started' button and follow the instructions."
           )
           (dict 
-              "question" "Aké sú možnosti platby?" 
-              "answer" "Akceptujeme platby kartou (Visa, Mastercard) a bankové prevody. Všetky platby sú zabezpečené a šifrované."
+              "question" "What payment options are available?" 
+              "answer" "We accept card payments (Visa, Mastercard) and bank transfers. All payments are secure and encrypted."
           )
           (dict 
-              "question" "Ako môžem kontaktovať podporu?" 
-              "answer" "Našu podporu môžete kontaktovať e-mailom na support@example.com alebo prostredníctvom live chatu na našej stránke."
+              "question" "How can I contact support?" 
+              "answer" "You can contact our support team via email at support@example.com or through the live chat on our website."
           )
       )
       "page" .
   ) }}
-@note: Sekcia automaticky generuje štruktúrované dáta (Schema.org FAQPage) pre lepšiu SEO optimalizáciu.
+@note: The section automatically generates structured data (Schema.org FAQPage) for better SEO optimization.
 */}}
 
 {{/* Configurable variables */}}

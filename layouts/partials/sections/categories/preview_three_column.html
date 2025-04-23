@@ -1,15 +1,44 @@
-{{/* 
-  Categories partial with preview three-column layout
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-gray-100")
-  - heading: Main heading text (default: "Collections")
-  - categories: Array of category objects with the following structure:
+{{/*
+@section: Categories Preview Three Column
+@description: A responsive grid layout displaying category previews in three columns, each with an image, title, and description. Categories are clickable and feature a subtle hover effect.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-gray-100")
+  - heading: Main section heading (optional, default: "Collections")
+  - categories: Array of category objects (optional, includes defaults)
     - title: Category title (appears as smaller text above description)
     - description: Category description (appears as larger text below title)
     - url: URL for the category link
     - imageUrl: URL to category image
     - imageAlt: Alt text for category image
+@example:
+  {{ partial "sections/categories/preview_three_column.html" (dict 
+      "heading" "Browse Categories" 
+      "backgroundColor" "bg-white"
+      "categories" (slice
+          (dict 
+              "title" "Software Development" 
+              "description" "Tools and resources for developers"
+              "url" "/categories/development"
+              "imageUrl" "/images/categories/development.jpg"
+              "imageAlt" "Developer working on code at a desk with multiple monitors."
+          )
+          (dict 
+              "title" "Design Resources" 
+              "description" "UI kits, templates and assets"
+              "url" "/categories/design"
+              "imageUrl" "/images/categories/design.jpg"
+              "imageAlt" "Design workspace with tablet, stylus and color palettes."
+          )
+          (dict 
+              "title" "Productivity" 
+              "description" "Boost your workflow efficiency"
+              "url" "/categories/productivity"
+              "imageUrl" "/images/categories/productivity.jpg"
+              "imageAlt" "Organized workspace with notebook, calendar and productivity tools."
+          )
+      )
+  ) }}
+@note: This section's layout changes responsively - on mobile, categories stack vertically, while on desktop they display in a three-column grid.
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-gray-100" }}

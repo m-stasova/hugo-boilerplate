@@ -1,4 +1,41 @@
-{{/* CTA Section with Dark Panel and App Screenshot */}}
+{{/*
+@section: Dark Panel CTA with App Screenshot
+@description: A visually striking call-to-action section with a dark background, gradient effect, and an app screenshot. Features a heading, description, and two CTA buttons.
+@params:
+  - heading: Main section heading (optional, default: "Boost your productivity. Start using our app today.")
+  - description: Description text below heading (optional, default: "Ac euismod vel sit maecenas id pellentesque...")
+  - primaryCta: Object with primary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - secondaryCta: Object with secondary CTA button configuration (optional)
+    - text: Button text
+    - url: Button URL
+  - screenshot: Object with screenshot image configuration (optional)
+    - url: Image URL
+    - alt: Alt text for the image
+    - width: Image width
+    - height: Image height
+  - gradientStartColor: Starting color for the background gradient (optional, default: "#7775D6")
+  - gradientEndColor: Ending color for the background gradient (optional, default: "#E935C1")
+  - gradientId: Unique ID for the gradient definition (optional, default: auto-generated)
+@example:
+  {{ partial "sections/cta/dark_panel_with_app_screenshot.html" (dict 
+      "heading" "Experience the future of productivity" 
+      "description" "Our intuitive platform helps you streamline workflows and collaborate more effectively with your team."
+      "primaryCta" (dict "text" "Start free trial" "url" "/signup") 
+      "secondaryCta" (dict "text" "View demo" "url" "/demo")
+      "screenshot" (dict 
+          "url" "/images/app-screenshot.png"
+          "alt" "Dashboard view of our application"
+          "width" "1824"
+          "height" "1080"
+      )
+      "gradientStartColor" "#4F46E5"
+      "gradientEndColor" "#7C3AED"
+  ) }}
+@note: This section uses a large app screenshot to visually demonstrate the product while maintaining focus on the primary call-to-action. The dark panel with gradient effect creates visual interest and draws attention to the content.
+*/}}
+
 {{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
 {{ $description := .description | default "Ac euismod vel sit maecenas id pellentesque eu sed consectetur. Malesuada adipiscing sagittis vel nulla." }}
 {{ $primaryCta := .primaryCta | default (dict 

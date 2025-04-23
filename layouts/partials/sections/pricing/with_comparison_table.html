@@ -1,3 +1,106 @@
+{{/*
+@section: Pricing with Comparison Table
+@description: A comprehensive pricing section that displays multiple pricing tiers with a detailed feature comparison table, including both mobile and desktop views.
+@params:
+  - tagline: Text above the heading (optional, default: "Pricing")
+  - heading: Main heading text (optional, default: "Pricing that grows with you")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color for the section (optional, default: "white")
+  - taglineColor: Color for the tagline text (optional, default: "indigo-600")
+  - headingColor: Color for the heading text (optional, default: "gray-900")
+  - descriptionColor: Color for the description text (optional, default: "gray-600")
+  - checkColor: Color for the checkmark icons (optional, default: "indigo-600")
+  - dashColor: Color for the dash icons (optional, default: "gray-400")
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - price: Price for the tier
+    - interval: Text after the price (e.g., "/month")
+    - emphasized: Boolean to indicate if this is the emphasized tier
+    - cta: Object with text and url for the call-to-action button
+    - ctaColor: Color for the CTA button text
+    - ctaBgColor: Color for the CTA button background (for filled buttons)
+    - ctaHoverBgColor: Color for the CTA button hover background (for filled buttons)
+    - ctaBorderColor: Color for the CTA button border (for outline buttons)
+    - ctaHoverBorderColor: Color for the CTA button hover border (for outline buttons)
+  - featureCategories: Array of feature category objects (optional, includes defaults)
+    - name: Name of the category
+    - features: Array of feature objects
+      - name: Name of the feature
+      - tiers: Object with tier names as keys and feature values as values
+        (can be boolean, string, or number)
+@example:
+  {{ partial "sections/pricing/with_comparison_table.html" (dict 
+      "tagline" "Plans" 
+      "heading" "Find the right plan for your business"
+      "description" "Whether you're a startup or enterprise, we have a plan that fits your needs and budget."
+      "tiers" (slice
+          (dict 
+              "name" "Basic" 
+              "id" "tier-basic" 
+              "price" "$29" 
+              "interval" "/month" 
+              "emphasized" false 
+              "cta" (dict "text" "Get started" "url" "/signup/basic")
+              "ctaColor" "indigo-600" 
+              "ctaBorderColor" "indigo-200" 
+              "ctaHoverBorderColor" "indigo-300"
+          )
+          (dict 
+              "name" "Pro" 
+              "id" "tier-pro" 
+              "price" "$79" 
+              "interval" "/month" 
+              "emphasized" true 
+              "cta" (dict "text" "Get started" "url" "/signup/pro")
+              "ctaColor" "white" 
+              "ctaBgColor" "indigo-600" 
+              "ctaHoverBgColor" "indigo-500"
+          )
+          (dict 
+              "name" "Enterprise" 
+              "id" "tier-enterprise" 
+              "price" "$199" 
+              "interval" "/month" 
+              "emphasized" false 
+              "cta" (dict "text" "Contact sales" "url" "/contact")
+              "ctaColor" "indigo-600" 
+              "ctaBorderColor" "indigo-200" 
+              "ctaHoverBorderColor" "indigo-300"
+          )
+      )
+      "featureCategories" (slice
+          (dict 
+              "name" "Core Features" 
+              "features" (slice
+                  (dict 
+                      "name" "Storage" 
+                      "tiers" (dict "Basic" "10GB" "Pro" "50GB" "Enterprise" "Unlimited")
+                  )
+                  (dict 
+                      "name" "API access" 
+                      "tiers" (dict "Basic" false "Pro" true "Enterprise" true)
+                  )
+              )
+          )
+          (dict 
+              "name" "Support" 
+              "features" (slice
+                  (dict 
+                      "name" "Priority support" 
+                      "tiers" (dict "Basic" false "Pro" true "Enterprise" true)
+                  )
+                  (dict 
+                      "name" "Dedicated account manager" 
+                      "tiers" (dict "Basic" false "Pro" false "Enterprise" true)
+                  )
+              )
+          )
+      )
+  ) }}
+@note: This section automatically adapts between mobile and desktop views. On mobile, each tier is displayed as a card in a vertical stack, while on desktop it shows a full comparison table. The emphasized tier is visually highlighted to draw attention to your recommended plan.
+*/}}
+
 {{/* 
   With Comparison Table Pricing Section
   

@@ -1,17 +1,48 @@
-{{/* 
-  Categories partial with preview three-column with description
-  
-  Parameters:
-  - backgroundColor: Background color class (default: "bg-white")
-  - heading: Main heading text (default: "Shop by Collection")
-  - description: Description text below the main heading (default: "Each season, we collaborate with world-class designers to create a collection inspired by the natural world.")
-  - categories: Array of category objects with the following structure:
+{{/*
+@section: Categories Preview Three Column with Description
+@description: A responsive grid layout showing a collection of categories in three columns, each featuring an image, title, and descriptive text with a section introduction.
+@params:
+  - backgroundColor: Background color class (optional, default: "bg-white")
+  - heading: Main section heading (optional, default: "Shop by Collection")
+  - description: Section description text displayed below the heading (optional, default: "Each season, we collaborate with world-class designers...")
+  - categories: Array of category objects (optional, includes defaults)
     - title: Category title
     - description: Category description
     - url: URL for the category link
     - imageUrl: URL to category image
     - imageAlt: Alt text for category image
+@example:
+  {{ partial "sections/categories/preview_three_column_with_description.html" (dict 
+      "heading" "Explore Our Product Lines" 
+      "description" "We've carefully curated these collections to help you find exactly what you need for any project or workspace."
+      "backgroundColor" "bg-gray-50"
+      "categories" (slice
+          (dict 
+              "title" "Home Office Essentials" 
+              "description" "Everything you need to create a productive and comfortable work environment at home."
+              "url" "/collections/home-office"
+              "imageUrl" "/images/collections/home-office.jpg"
+              "imageAlt" "Stylish home office setup with ergonomic chair and wooden desk."
+          )
+          (dict 
+              "title" "Writing Instruments" 
+              "description" "From everyday pens to luxury fountain pens for special occasions."
+              "url" "/collections/writing"
+              "imageUrl" "/images/collections/writing.jpg"
+              "imageAlt" "Collection of premium writing instruments arranged on a desk."
+          )
+          (dict 
+              "title" "Organization Tools" 
+              "description" "Planners, notebooks and accessories to keep your life and work organized."
+              "url" "/collections/organization"
+              "imageUrl" "/images/collections/organization.jpg"
+              "imageAlt" "Neatly arranged productivity tools including planner, notebook and binders."
+          )
+      )
+  ) }}
+@note: Unlike the basic three-column preview, this section includes an introductory text below the heading to provide additional context about the categories. The layout is responsive, shifting from a three-column grid on desktop to a vertical stack on mobile.
 */}}
+
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}
 {{ $heading := .heading | default "Shop by Collection" }}

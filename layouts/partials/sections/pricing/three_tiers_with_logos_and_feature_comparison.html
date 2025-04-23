@@ -1,4 +1,138 @@
-{{/* Pricing Section with Three Tiers, Logos and Feature Comparison */}}
+{{/*
+@section: Three-Tier Pricing with Logos and Feature Comparison
+@description: A comprehensive pricing section featuring three pricing tiers with customer logos and an extensive feature comparison table. Ideal for SaaS products with complex feature sets that need detailed comparison.
+@params:
+  - heading: Main heading text (optional, default: "Pricing that grows with your team size")
+  - description: Text below the heading (optional, default: "Choose an affordable plan...")
+  - backgroundColor: Background color class for the section (optional, default: "white")
+  - gradientColors: Object with gradient color values (optional, default includes start/middle/end colors)
+  - headingColor: Color class for the heading (optional, default: "gray-950")
+  - descriptionColor: Color class for the description (optional, default: "gray-600")
+  - tierTitleColor: Color class for tier titles (optional, default: "indigo-600")
+  - logos: Array of logo objects (optional, includes defaults)
+    - name: Company/client name
+    - url: Logo image URL
+  - tiers: Array of tier objects (optional, includes defaults)
+    - name: Name of the tier
+    - id: ID for accessibility
+    - description: Short description of the tier
+    - price: Price value with currency symbol
+    - currency: Currency code
+    - interval: Billing frequency text
+    - ctaText: Call-to-action button text
+    - ctaUrl: Call-to-action button URL
+    - features: Array of feature objects for this tier
+      - name: Feature name
+      - included: Boolean indicating if feature is included
+      - value: Optional specific value for the feature (e.g., "Unlimited")
+  - featureCategories: Array of feature category objects (optional, includes defaults)
+    - name: Category name
+    - features: Array of features in this category
+      - name: Feature name
+      - values: Optional array of specific values for each tier
+      - included: Optional array of booleans indicating inclusion for each tier
+  - plusIcon: SVG path for the plus icon (optional, has default)
+  - minusIcon: SVG path for the minus icon (optional, has default)
+  - checkIcon: SVG path for the check icon (optional, has default)
+@example:
+  {{ partial "sections/pricing/three_tiers_with_logos_and_feature_comparison.html" (dict 
+      "heading" "Enterprise-ready pricing options"
+      "description" "Choose the plan that works best for your team with transparent pricing and flexible options."
+      "logos" (slice
+          (dict 
+              "name" "Acme Corp" 
+              "url" "/images/logos/acme.svg"
+          )
+          (dict 
+              "name" "Globex" 
+              "url" "/images/logos/globex.svg"
+          )
+          (dict 
+              "name" "Initech" 
+              "url" "/images/logos/initech.svg"
+          )
+          (dict 
+              "name" "Umbrella" 
+              "url" "/images/logos/umbrella.svg"
+          )
+          (dict 
+              "name" "Cyberdyne" 
+              "url" "/images/logos/cyberdyne.svg"
+          )
+      )
+      "tiers" (slice
+          (dict 
+              "name" "Basic"
+              "id" "tier-basic"
+              "description" "Essential features for small teams."
+              "price" "$29"
+              "currency" "USD"
+              "interval" "per user/month"
+              "ctaText" "Start free trial"
+              "ctaUrl" "/signup/basic"
+              "features" (slice
+                  (dict "name" "Custom domains" "included" true "value" "1")
+                  (dict "name" "Advanced analytics" "included" true)
+                  (dict "name" "Team members" "included" true "value" "5")
+                  (dict "name" "Priority support" "included" false)
+              )
+          )
+          (dict 
+              "name" "Business"
+              "id" "tier-business"
+              "description" "Everything growing teams need."
+              "price" "$79"
+              "currency" "USD"
+              "interval" "per user/month"
+              "ctaText" "Start free trial"
+              "ctaUrl" "/signup/business"
+              "features" (slice
+                  (dict "name" "Custom domains" "included" true "value" "5")
+                  (dict "name" "Advanced analytics" "included" true)
+                  (dict "name" "Team members" "included" true "value" "20")
+                  (dict "name" "Priority support" "included" true)
+              )
+          )
+          (dict 
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "description" "Advanced features for large organizations."
+              "price" "$129"
+              "currency" "USD"
+              "interval" "per user/month"
+              "ctaText" "Contact sales"
+              "ctaUrl" "/contact/sales"
+              "features" (slice
+                  (dict "name" "Custom domains" "included" true "value" "Unlimited")
+                  (dict "name" "Advanced analytics" "included" true)
+                  (dict "name" "Team members" "included" true "value" "Unlimited")
+                  (dict "name" "Priority support" "included" true)
+              )
+          )
+      )
+      "featureCategories" (slice
+          (dict
+              "name" "Core Features"
+              "features" (slice
+                  (dict "name" "Team members" "values" (slice "5" "20" "Unlimited"))
+                  (dict "name" "Custom domains" "values" (slice "1" "5" "Unlimited"))
+                  (dict "name" "API access" "included" (slice false true true))
+              )
+          )
+          (dict
+              "name" "Security"
+              "features" (slice
+                  (dict "name" "Two-factor authentication" "included" (slice true true true))
+                  (dict "name" "SSO integration" "included" (slice false true true))
+                  (dict "name" "Custom permissions" "included" (slice false false true))
+              )
+          )
+      )
+      "gradientColors" (dict "start" "#4F46E5" "middle" "#7C3AED" "end" "#1E293B")
+  ) }}
+@note: This component includes responsive design with a mobile tab interface for the feature comparison table and dynamic feature checks. The gradient background creates a visual separation between the pricing cards and comparison table sections.
+*/}}
+
 {{ $heading := .heading | default "Pricing that grows with your team size" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
 {{ $backgroundColor := .backgroundColor | default "white" }}
