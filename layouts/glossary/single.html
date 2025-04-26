@@ -10,12 +10,21 @@
 ) }}
 
 <!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription }}
-{{ partial "headers/centered_with_eyebrow.html" (dict 
-  "heading" .Params.term
-  "description" (partial "utils/linkbuilding" (dict "content" $shortDescription "page" .) | safeHTML)
-  "eyebrow" (i18n "glossary_eyebrow")
-) }}
+{{ $shortDescription := .Params.shortDescription | default "" }}
+{{ if .Params.image }}
+  {{ partial "hero/split_with_image.html" (dict 
+    "heading" .Params.term
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
+    "image" .Params.image
+  ) }}
+{{ else }}
+  {{ partial "headers/centered_with_eyebrow.html" (dict 
+    "heading" .Params.term
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
+  ) }}
+{{ end }}
 
 <!-- Tags Section -->
 <div class="bg-white py-12">

@@ -12,15 +12,22 @@
   
   {{ partial "breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
 
-  <!-- Hero Section split with image-->
+<!-- Hero Section with Split Image -->
+{{ $shortDescription := .Params.shortDescription | default "" }}
+{{ if .Params.image }}
   {{ partial "hero/split_with_image.html" (dict 
-    "heading" .Title
-    "description" .Description
+    "heading" .Params.term
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
     "image" .Params.image
-    "tags" .Params.tags
-    "categories" .Params.categories
-    "eyebrow" (i18n "category_eyebrow")
   ) }}
+{{ else }}
+  {{ partial "headers/centered_with_eyebrow.html" (dict 
+    "heading" .Params.term
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
+  ) }}
+{{ end }}
   
   <!-- Main Content -->
 <div class="bg-white px-6 py-32 lg:px-8 mx-auto max-w-7xl">
