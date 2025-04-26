@@ -13,7 +13,7 @@
 {{- $items := .items -}}
 {{- $separator := .separator | default "/" -}}
 
-<nav class="flex gap-2" aria-label="Breadcrumbs">
+<nav class="flex gap-2 py-4" aria-label="Breadcrumbs">
   {{- range $index, $item := $items -}}
     {{- if $index -}}
       <p class="text-gray-400 select-none font-mono text-[0.8125rem]/6 font-medium tracking-widest text-pretty uppercase" aria-hidden="true">{{ $separator }}</p>
