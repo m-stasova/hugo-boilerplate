@@ -13,17 +13,17 @@
   {{ partial "breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
 
 <!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription | default "" }}
+{{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
 {{ if .Params.image }}
   {{ partial "hero/split_with_image.html" (dict 
-    "heading" .Params.term
+    "heading" .Params.title
     "description" (markdownify $shortDescription)
     "eyebrow" (i18n "glossary_eyebrow")
     "image" .Params.image
   ) }}
 {{ else }}
   {{ partial "headers/centered_with_eyebrow.html" (dict 
-    "heading" .Params.term
+    "heading" .Params.title
     "description" (markdownify $shortDescription)
     "eyebrow" (i18n "glossary_eyebrow")
   ) }}
