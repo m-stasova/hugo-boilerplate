@@ -1,21 +1,30 @@
 {{ define "main" }}
 
 <!-- Breadcrumbs -->
-{{ partial "components/breadcrumbs/basic" (dict 
-  "items" (slice 
-    (dict "title" (i18n "home_title") "url" (print "/" | relLangURL))
-    (dict "title" (i18n "glossary_title") "url" (print "/glossary/" | relLangURL))
-    (dict "title" .Params.term "url" .Permalink)
-  )
+{{ partial "components/breadcrumbs/basic" (dict
+"items" (slice
+(dict "title" (i18n "home_title") "url" (print "/" | relLangURL))
+(dict "title" (i18n "glossary_title") "url" (print "/glossary/" | relLangURL))
+(dict "title" .Params.term "url" .Permalink)
+)
 ) }}
 
 <!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription }}
-{{ partial "layout/headers/centered_with_eyebrow.html" (dict 
-  "heading" .Params.term
-  "description" (partial "utils/linkbuilding" (dict "content" $shortDescription "page" .) | safeHTML)
-  "eyebrow" (i18n "glossary_eyebrow")
+{{ $shortDescription := .Params.shortDescription | default "" }}
+{{ if .Params.image }}
+{{ partial "hero/split_with_image.html" (dict
+"heading" .Params.term
+"description" (markdownify $shortDescription)
+"eyebrow" (i18n "glossary_eyebrow")
+"image" .Params.image
 ) }}
+{{ else }}
+{{ partial "headers/centered_with_eyebrow.html" (dict
+"heading" .Params.term
+"description" (markdownify $shortDescription)
+"eyebrow" (i18n "glossary_eyebrow")
+) }}
+{{ end }}
 
 <!-- Tags Section -->
 <div class="bg-white py-12">
@@ -25,7 +34,8 @@
         {{ if .Params.tags }}
         <div class="flex flex-wrap items-center justify-center gap-2">
           {{ range .Params.tags }}
-          <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800 hover:bg-gray-200 transition-colors">
+          <a href="{{ print " /tags/" (. | urlize) | relLangURL }}"
+            class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800 hover:bg-gray-200 transition-colors">
             {{ . }}
           </a>
           {{ end }}
@@ -38,7 +48,8 @@
 
 <!-- Main Content -->
 <div class="bg-white px-6 py-32 lg:px-8 mx-auto max-w-7xl">
-  <div class="mx-auto prose prose-lg prose-indigo prose-headings:font-semibold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+  <div
+    class="mx-auto prose prose-lg prose-indigo prose-headings:font-semibold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
     {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
   </div>
 </div>
@@ -53,27 +64,27 @@
 {{ $showCTA := .Params.showCTA | default true }}
 
 {{ if $showCTA }}
-{{ partial "sections/cta/simple_centered_on_dark.html" (dict 
-  "heading" $ctaHeading
-  "description" $ctaDescription
-  "primaryCta" (dict 
-    "text" $ctaPrimaryText
-    "url" $ctaPrimaryURL
-  )
-  "secondaryCta" (dict 
-    "text" $ctaSecondaryText
-    "url" $ctaSecondaryURL
-  )
+{{ partial "sections/cta/simple_centered_on_dark.html" (dict
+"heading" $ctaHeading
+"description" $ctaDescription
+"primaryCta" (dict
+"text" $ctaPrimaryText
+"url" $ctaPrimaryURL
+)
+"secondaryCta" (dict
+"text" $ctaSecondaryText
+"url" $ctaSecondaryURL
+)
 ) }}
 {{ end }}
 
 <!-- FAQ Section Side by Side -->
 {{ if .Params.faq }}
-{{ partial "sections/faq/side-by-side.html" (dict 
-  "heading" (i18n "faq_heading")
-  "faqs" .Params.faq
-  "bgColor" "bg-white"
-  "page" .
+{{ partial "sections/faq/side-by-side.html" (dict
+"heading" (i18n "faq_heading")
+"faqs" .Params.faq
+"bgColor" "bg-white"
+"page" .
 ) }}
 {{ end }}
 
