@@ -1,6 +1,6 @@
 {{ define "main" }}
 <!-- Breadcrumbs -->
-{{ partial "breadcrumbs/basic" (dict 
+{{ partial "components/breadcrumbs/basic" (dict 
   "items" (slice 
     (dict "title" (i18n "home_title") "url" (print "/" | relLangURL))
     (dict "title" (i18n "tags_title") "url" (print "/tags/" | relLangURL))
@@ -9,7 +9,7 @@
 ) }}
 
 <!-- Hero Section -->
-{{ partial "headers/centered_with_eyebrow.html" (dict 
+{{ partial "layout/headers/centered_with_eyebrow.html" (dict 
   "heading" .Title
   "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "tag_browse_content") .Title) "page" .))
   "eyebrow" (i18n "tag_eyebrow")
@@ -29,7 +29,7 @@
       {{ else }}
         <div class="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {{ range $paginator.Pages }}
-            {{ partial "cards/post_card.html" . }}
+            {{ partial "components/cards/post_card.html" . }}
           {{ end }}
         </div>
         

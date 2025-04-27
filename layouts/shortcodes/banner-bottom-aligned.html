@@ -22,7 +22,7 @@
 {{- $textColor := .Get "textColor" | default "text-white" -}}
 {{- $dismissButtonColor := .Get "dismissButtonColor" | default "text-white" -}}
 
-{{ partial "banners/bottom_aligned" (dict 
+{{ partial "sections/banners/bottom_aligned" (dict 
   "title" $title
   "message" $message
   "url" $url

@@ -23,7 +23,7 @@ Usage:
 {{ $dataImage := .Get "dataImage" | default $src }}
 {{ $isGallery := .Get "isGallery" | default false }}
 
-{{ partial "lazyimg.html" (dict 
+{{ partial "components/media/lazyimg.html" (dict 
   "src" $src 
   "alt" $alt 
   "class" $class

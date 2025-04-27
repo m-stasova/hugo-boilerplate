@@ -45,7 +45,7 @@
 
 {{ $features := .Get "features" | default $defaultFeatures }}
 
-{{ partial "features/with_square_images.html" (dict 
+{{ partial "sections/features/with_square_images.html" (dict 
   "backgroundColor" $backgroundColor
   "subheading" $subheading
   "heading" $heading

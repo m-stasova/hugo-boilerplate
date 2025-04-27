@@ -1,0 +1,222 @@
+{{/*
+@section: Two Row Bento Grid
+@description: A visually appealing layout with a flexible grid of content cards arranged in two rows, ideal for showcasing features or categories with images and descriptions.
+@params:
+  - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
+  - heading: Main section heading (optional, default: "Everything you need to deploy your app")
+  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - backgroundColor: Background color class for the section (optional, default: "white")
+  - cards: Array of card objects with varying positions and content (optional, includes defaults)
+    - title: Card title text
+    - category: Category label displayed above the title
+    - description: Card description text
+    - image: URL to card image
+    - imageAlt: Alt text for the image
+    - position: Card position in the grid ("large-top-left", "large-top-right", "small-bottom-left", "small-bottom-middle", "small-bottom-right")
+    - categoryColor: Color class for the category text (optional, default: "indigo-600")
+@example:
+  {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
+      "tagline" "Our Services" 
+      "heading" "Solutions tailored to your business needs"
+      "backgroundColor" "gray-50"
+      "cards" (slice
+          (dict
+              "title" "Digital Transformation" 
+              "category" "Strategy"
+              "description" "Comprehensive digital transformation services to modernize your business processes and technology stack."
+              "image" "/images/services/digital-transformation.jpg"
+              "imageAlt" "Digital transformation illustration"
+              "position" "large-top-left"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Cloud Infrastructure" 
+              "category" "Technology"
+              "description" "Secure, scalable cloud solutions designed to optimize performance and reduce operational costs."
+              "image" "/images/services/cloud-infrastructure.jpg"
+              "imageAlt" "Cloud infrastructure diagram"
+              "position" "large-top-right"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Data Analytics" 
+              "category" "Insights"
+              "description" "Turn your data into actionable business insights with our advanced analytics solutions."
+              "image" "/images/services/data-analytics.jpg"
+              "imageAlt" "Data analytics dashboard"
+              "position" "small-bottom-left"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "API Integration" 
+              "category" "Connectivity"
+              "description" "Seamlessly connect your systems and applications with our API integration services."
+              "image" "/images/services/api-integration.jpg"
+              "imageAlt" "API integration flowchart"
+              "position" "small-bottom-middle"
+              "categoryColor" "blue-600"
+          )
+          (dict
+              "title" "Cybersecurity" 
+              "category" "Security"
+              "description" "Protect your business with enterprise-grade security solutions and best practices."
+              "image" "/images/services/cybersecurity.jpg"
+              "imageAlt" "Cybersecurity shield icon"
+              "position" "small-bottom-right"
+              "categoryColor" "blue-600"
+          )
+      )
+  ) }}
+@note: This section uses a responsive bento grid layout with larger cards in the top row and smaller cards in the bottom row. The cards feature rounded corners with distinctive rounded edges in each corner of the grid.
+*/}}
+
+{{/* Two Row Bento Grid Section */}}
+{{ $tagline := .tagline | default "Deploy faster" }}
+{{ $heading := .heading | default "Everything you need to deploy your app" }}
+{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $backgroundColor := .backgroundColor | default "white" }}
+
+{{ $cards := .cards | default (slice
+  (dict
+    "title" "Lightning-fast builds"
+    "category" "Performance"
+    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
+    "imageAlt" "Performance dashboard"
+    "position" "large-top-left"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Push to deploy"
+    "category" "Releases"
+    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
+    "imageAlt" "Releases panel"
+    "position" "large-top-right"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Built for power users"
+    "category" "Speed"
+    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
+    "imageAlt" "Speed metrics"
+    "position" "small-bottom-left"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Connect your favorite tools"
+    "category" "Integrations"
+    "description" "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
+    "imageAlt" "Integrations panel"
+    "position" "small-bottom-middle"
+    "categoryColor" "indigo-600"
+  )
+  (dict
+    "title" "Globally distributed CDN"
+    "category" "Network"
+    "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
+    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
+    "imageAlt" "Network map"
+    "position" "small-bottom-right"
+    "categoryColor" "indigo-600"
+  )
+) }}
+
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+  <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-gray-950 sm:text-5xl">{{ $heading }}</p>
+    <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
+      {{ range $index, $card := $cards }}
+        {{ if eq $card.position "large-top-left" }}
+        <div class="relative lg:col-span-3">
+          <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]"></div>
+          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)] lg:rounded-tl-[calc(2rem+1px)]">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left"
+            ) }}
+            <div class="p-10 pt-4">
+              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]"></div>
+        </div>
+        {{ else if eq $card.position "large-top-right" }}
+        <div class="relative lg:col-span-3">
+          <div class="absolute inset-px rounded-lg bg-white lg:rounded-tr-[2rem]"></div>
+          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-tr-[calc(2rem+1px)]">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left lg:object-right"
+            ) }}
+            <div class="p-10 pt-4">
+              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-tr-[2rem]"></div>
+        </div>
+        {{ else if eq $card.position "small-bottom-left" }}
+        <div class="relative lg:col-span-2">
+          <div class="absolute inset-px rounded-lg bg-white lg:rounded-bl-[2rem]"></div>
+          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-bl-[calc(2rem+1px)]">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover object-left"
+            ) }}
+            <div class="p-10 pt-4">
+              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-bl-[2rem]"></div>
+        </div>
+        {{ else if eq $card.position "small-bottom-middle" }}
+        <div class="relative lg:col-span-2">
+          <div class="absolute inset-px rounded-lg bg-white"></div>
+          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover"
+            ) }}
+            <div class="p-10 pt-4">
+              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
+        </div>
+        {{ else if eq $card.position "small-bottom-right" }}
+        <div class="relative lg:col-span-2">
+          <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]"></div>
+          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-br-[calc(2rem+1px)]">
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $card.image
+              "alt" $card.imageAlt
+              "class" "h-80 object-cover"
+            ) }}
+            <div class="p-10 pt-4">
+              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+            </div>
+          </div>
+          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]"></div>
+        </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

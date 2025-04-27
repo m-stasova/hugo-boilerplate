@@ -23,7 +23,7 @@
 {{- $gradientFromColor := .Get "gradientFromColor" | default "from-[#ff80b5]" -}}
 {{- $gradientToColor := .Get "gradientToColor" | default "to-[#9089fc]" -}}
 
-{{ partial "banners/with_background_glow" (dict 
+{{ partial "sections/banners/with_background_glow" (dict 
   "title" $title
   "message" $message
   "url" $url

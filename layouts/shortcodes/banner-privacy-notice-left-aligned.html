@@ -31,7 +31,7 @@
 {{- $acceptButtonFocusColor := .Get "acceptButtonFocusColor" | default "focus-visible:outline-gray-900" -}}
 {{- $rejectButtonTextColor := .Get "rejectButtonTextColor" | default "text-gray-900" -}}
 
-{{ partial "banners/privacy_notice_left_aligned" (dict 
+{{ partial "sections/banners/privacy_notice_left_aligned" (dict 
   "message" $message
   "policyText" $policyText
   "policyUrl" $policyUrl

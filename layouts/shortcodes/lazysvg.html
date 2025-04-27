@@ -8,7 +8,7 @@
 {{ $height := .Get "height" | default "" }}
 {{ $id := .Get "id" | default "" }}
 
-{{ partial "lazysvg.html" (dict 
+{{ partial "components/media/lazysvg.html" (dict 
   "src" $src 
   "alt" $alt 
   "class" $class

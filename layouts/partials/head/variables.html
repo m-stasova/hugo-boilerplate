@@ -1,3 +1,13 @@
+{{/*
+@component: CSS Variables
+@description: Defines CSS custom properties (variables) based on theme configuration parameters.
+@params:
+  None - this component sets CSS variables using values from site configuration (Site.Params.theme.colors).
+@example:
+  {{ partial "head/variables.html" . }}
+@note: This component generates a set of CSS variables for colors, backgrounds, and gradients that can be used throughout the site for consistent theming.
+*/}}
+
 <style>
   :root {
     /* === Primary Theme Colors === */

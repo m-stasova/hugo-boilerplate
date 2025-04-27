@@ -55,7 +55,7 @@
 {{ $mainImage := .Get "mainImage" | default $defaultMainImage }}
 {{ $smallImages := .Get "smallImages" | default $defaultSmallImages }}
 
-{{ partial "features/with_tiered_images.html" (dict 
+{{ partial "sections/features/with_tiered_images.html" (dict 
   "backgroundColor" $backgroundColor
   "subheading" $subheading
   "heading" $heading

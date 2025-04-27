@@ -1,3 +1,13 @@
+{{/*
+@component: CSS Assets Loader
+@description: Processes and loads CSS assets with PostCSS/Tailwind processing, minification, and integrity hashing.
+@params:
+  None - this component handles CSS assets based on configuration in the theme.
+@example:
+  {{ partial "head/css.html" . }}
+@note: This component processes main.css with PostCSS (for Tailwind CSS) and also loads additional CSS files like lazy-images.css and lazy-videos.css. In production, all CSS is minified and fingerprinted with integrity hashes.
+*/}}
+
 {{/* Process main.css with PostCSS (Tailwind) */}}
 {{- $css := resources.Get "css/main.css" -}}
 {{- $opts := dict "inlineImports" true -}}

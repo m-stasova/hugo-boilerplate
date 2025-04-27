@@ -97,7 +97,7 @@
             <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
           {{ end }}
           
-          {{ partial "lazyimg.html" (dict 
+          {{ partial "components/media/lazyimg.html" (dict 
             "src" $image.url
             "alt" $image.alt
             "class" $image.class
@@ -107,7 +107,7 @@
             </div>
           {{ end }}
         {{ else }}
-          {{ partial "lazyimg.html" (dict 
+          {{ partial "components/media/lazyimg.html" (dict 
             "src" $image.url
             "alt" $image.alt
             "class" $image.class

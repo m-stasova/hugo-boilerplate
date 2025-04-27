@@ -1,12 +1,11 @@
-{{/* 
-  Image processing partial that generates alternative sizes and formats
-  This partial is meant to be called during build time to process images
-  
-  It processes all images in the static/images directory and creates:
-  - Multiple sizes (1024px, 300px, 150px)
-  - WebP format for each size
-  
-  The processed images are physically saved to the public directory
+{{/*
+@component: Process Images
+@description: Utility for generating optimized image variants in multiple sizes and formats.
+@params:
+  None - this component automatically processes all images in the static/images directory.
+@example:
+  {{ partial "utils/process-images.html" . }}
+@note: This utility generates multiple sizes (1024px, 300px, 150px) and WebP format for each size. It creates shell scripts in the layouts/partials/utils directory that can be executed manually to process the images. In non-production environments, it also displays debug information.
 */}}
 
 {{ $smallWidth := 150 }}

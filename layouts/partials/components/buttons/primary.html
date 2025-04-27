@@ -1,0 +1,56 @@
+{{/*
+@component: Button - Primary
+@description: Primary button component with customizable text, URL, and colors
+@params:
+  - text: Button text content (required)
+  - url: URL for the button link (required)
+  - textColor: Text color (default: "white")
+  - bgColor: Background color (default: "indigo-600")
+  - hoverBgColor: Hover background color (default: "indigo-500")
+  - classes: Additional CSS classes to add
+  - target: Link target attribute (default: "_self")
+  - rel: Link rel attribute
+  - id: Button element ID
+  - ariaLabel: ARIA label for accessibility
+@example:
+  {{ partial "components/buttons/primary.html" (dict 
+      "text" "Get Started" 
+      "url" "/signup" 
+      "textColor" "white" 
+      "bgColor" "blue-600" 
+      "hoverBgColor" "blue-500"
+  ) }}
+*/}}
+
+{{/* Get parameters with defaults */}}
+{{ $text := .text }}
+{{ $url := .url }}
+{{ $textColor := .textColor | default "white" }}
+{{ $bgColor := .bgColor | default "indigo-600" }}
+{{ $hoverBgColor := .hoverBgColor | default "indigo-500" }}
+{{ $classes := .classes | default "" }}
+{{ $target := .target | default "_self" }}
+{{ $rel := .rel | default "" }}
+{{ $id := .id | default "" }}
+{{ $ariaLabel := .ariaLabel | default $text }}
+
+{{/* Validate required parameters */}}
+{{ if and $text $url }}
+<a 
+  href="{{ $url }}" 
+  {{ with $id }}id="{{ . }}"{{ end }}
+  {{ with $target }}target="{{ . }}"{{ end }}
+  {{ with $rel }}rel="{{ . }}"{{ end }}
+  aria-label="{{ $ariaLabel }}"
+  class="inline-flex items-center justify-center px-5 py-2.5 text-base font-medium rounded-md shadow-sm 
+         text-{{ $textColor }} bg-{{ $bgColor }} hover:bg-{{ $hoverBgColor }}
+         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-{{ $bgColor }}
+         transition-colors duration-200 ease-in-out {{ $classes }}">
+  {{ $text }}
+</a>
+{{ else }}
+<!-- Error: Missing required parameters -->
+<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
+  Error: Button requires both "text" and "url" parameters
+</div>
+{{ end }}

@@ -100,7 +100,7 @@
 
     <!-- Product image -->
     <div class="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
-      {{ partial "lazyimg.html" (dict 
+      {{ partial "components/media/lazyimg.html" (dict 
         "src" $product.image.url
         "alt" $product.image.alt
         "class" "aspect-square w-full rounded-lg object-cover"

@@ -1,0 +1,399 @@
+{{/*
+@component: Lazy Image
+@description: Displays images with lazy-loading and automatic WebP support, responsive sizes, and optimization for different screens.
+@params:
+  - src: Path to the source image (required)
+  - alt: Alternative text for accessibility (required)
+  - class: Additional CSS classes (optional)
+  - id: Image ID (optional)
+  - width: Image width (optional)
+  - height: Image height (optional)
+  - sizes: Sizes attribute for responsive display (optional)
+  - maxWidth: Maximum image width for loading (optional, default: 1024)
+  - dataImage: Data attribute for gallery functions (optional)
+  - isGallery: Set to true for gallery thumbnails (optional)
+@example:
+  {{ partial "components/media/lazyimg.html" (dict 
+      "src" "/images/blog/featured-image.jpg" 
+      "alt" "Featured blog image" 
+      "class" "rounded-lg shadow-md"
+      "maxWidth" 800
+  ) }}
+@note: The component automatically looks for preprocessed image versions in the /images/processed/ directory
+*/}}
+
+{{ $src := .src }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "" }}
+{{ $id := .id | default "" }}
+{{ $width := .width | default "" }}
+{{ $height := .height | default "" }}
+{{ $maxWidth := .maxWidth | default 1024 }}
+{{ $sizes := .sizes | default (printf "(max-width: 480px) 150px, (max-width: 768px) 300px, %dpx" (cond (lt $maxWidth 1024) $maxWidth 1024)) }}
+{{ $dataImage := .dataImage | default $src }}
+{{ $isGallery := .isGallery | default false }}
+
+{{ $isExternal := or (hasPrefix $src "http://") (hasPrefix $src "https://") }}
+
+{{ if not $isExternal }}
+  {{ $image := false }}
+  {{ $isStaticFile := false }}
+  {{ $staticFilePath := $src }}
+  
+  <!-- Check if this is a static file -->
+  {{ if hasPrefix $src "/images/" }}
+    {{ $isStaticFile = true }}
+  {{ end }}
+  
+  <!-- Try to get the image from resources -->
+  {{ with resources.Get $src }}
+    {{ $image = . }}
+  {{ end }}
+  
+  {{ if $image }}
+    <!-- Process the image using Hugo's image processing -->
+    {{ $isJPEG := or (strings.HasSuffix $src ".jpg") (strings.HasSuffix $src ".jpeg") }}
+    {{ $isPNG := strings.HasSuffix $src ".png" }}
+    {{ $isWebP := strings.HasSuffix $src ".webp" }}
+    {{ $isWebPSupported := or $isJPEG $isPNG $isWebP }}
+
+    {{ if $isWebPSupported }}
+      {{ $originalWidth := $image.Width }}
+      
+      {{ $smallWidth := 150 }}
+      {{ $mediumWidth := 300 }}
+      {{ $largeWidth := $maxWidth }}
+      {{ if gt $originalWidth $largeWidth }}
+        {{ $largeWidth = $maxWidth }}
+      {{ else }}
+        {{ $largeWidth = $originalWidth }}
+      {{ end }}
+      
+      <!-- Use original image as fallback -->
+      {{ $smallSrc := $image }}
+      {{ $mediumSrc := $image }}
+      {{ $largeSrc := $image }}
+      {{ $smallWebp := $image }}
+      {{ $mediumWebp := $image }}
+      {{ $largeWebp := $image }}
+      
+      <!-- Extract filename for processed image paths -->
+      {{ $filename := path.Base $src }}
+      {{ $extension := path.Ext $filename }}
+      {{ $basename := replace $filename $extension "" }}
+      {{ $dirPath := path.Dir $src }}
+      {{ if eq $dirPath "." }}
+        {{ $dirPath = "" }}
+      {{ else if not (hasSuffix $dirPath "/") }}
+        {{ $dirPath = printf "%s/" $dirPath }}
+      {{ end }}
+      
+      <!-- Define paths to preprocessed images -->
+      {{ $smallSrcPath := printf "/images/processed/%s-%d%s" $basename $smallWidth $extension }}
+      {{ $mediumSrcPath := printf "/images/processed/%s-%d%s" $basename $mediumWidth $extension }}
+      {{ $largeSrcPath := printf "/images/processed/%s-%d%s" $basename $largeWidth $extension }}
+      
+      {{ $smallWebpPath := printf "/images/processed/%s-%d.webp" $basename $smallWidth }}
+      {{ $mediumWebpPath := printf "/images/processed/%s-%d.webp" $basename $mediumWidth }}
+      {{ $largeWebpPath := printf "/images/processed/%s-%d.webp" $basename $largeWidth }}
+      {{ $originalWebpPath := printf "/images/processed/%s.webp" $basename }}
+      
+      <!-- Check if preprocessed images exist and use them -->
+      {{ $useSmallSrc := fileExists (printf "static%s" $smallSrcPath) }}
+      {{ $useMediumSrc := fileExists (printf "static%s" $mediumSrcPath) }}
+      {{ $useLargeSrc := fileExists (printf "static%s" $largeSrcPath) }}
+      
+      {{ $useSmallWebp := fileExists (printf "static%s" $smallWebpPath) }}
+      {{ $useMediumWebp := fileExists (printf "static%s" $mediumWebpPath) }}
+      {{ $useLargeWebp := fileExists (printf "static%s" $largeWebpPath) }}
+      {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
+      
+      <!-- Build srcset for original format -->
+      {{ $origSrcset := "" }}
+      {{ if $useSmallSrc }}
+        {{ $origSrcset = printf "%s %dw" $smallSrcPath $smallWidth }}
+      {{ end }}
+      
+      {{ if $useMediumSrc }}
+        {{ if $origSrcset }}
+          {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrcPath $mediumWidth }}
+        {{ else }}
+          {{ $origSrcset = printf "%s %dw" $mediumSrcPath $mediumWidth }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if $useLargeSrc }}
+        {{ if $origSrcset }}
+          {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrcPath $largeWidth }}
+        {{ else }}
+          {{ $origSrcset = printf "%s %dw" $largeSrcPath $largeWidth }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- If no processed images exist, use original -->
+      {{ if not $origSrcset }}
+        {{ $origSrcset = printf "%s %dw" $src $originalWidth }}
+      {{ end }}
+      
+      <!-- Build srcset for WebP format -->
+      {{ $webpSrcset := "" }}
+      {{ if $useSmallWebp }}
+        {{ $webpSrcset = printf "%s %dw" $smallWebpPath $smallWidth }}
+      {{ end }}
+      
+      {{ if $useMediumWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
+        {{ else }}
+          {{ $webpSrcset = printf "%s %dw" $mediumWebpPath $mediumWidth }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if $useLargeWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebpPath $largeWidth }}
+        {{ else }}
+          {{ $webpSrcset = printf "%s %dw" $largeWebpPath $largeWidth }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if $useOriginalWebp }}
+        {{ if $webpSrcset }}
+          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath $originalWidth }}
+        {{ else }}
+          {{ $webpSrcset = printf "%s %dw" $originalWebpPath $originalWidth }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- If no WebP images exist, use original -->
+      {{ if not $webpSrcset }}
+        {{ if $isWebP }}
+          {{ $webpSrcset = printf "%s %dw" $src $originalWidth }}
+        {{ else }}
+          <!-- Don't include WebP source if no WebP version exists -->
+          {{ $webpSrcset = "" }}
+        {{ end }}
+      {{ end }}
+      
+      <!-- Determine fallback image -->
+      {{ $fallbackSrc := $src }}
+      {{ if $useSmallWebp }}
+        {{ $fallbackSrc = $smallWebpPath }}
+      {{ else if $useSmallSrc }}
+        {{ $fallbackSrc = $smallSrcPath }}
+      {{ end }}
+      
+      <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
+        <!-- WebP sources with lazy loading -->
+        {{ if $webpSrcset }}
+        <source 
+          type="image/webp" 
+          srcset="{{ $webpSrcset }}"
+          sizes="{{ $sizes }}"
+          data-original-src="{{ $src }}"
+        >
+        {{ end }}
+        
+        <!-- Original format sources with lazy loading -->
+        <source 
+          type="{{ cond $isJPEG "image/jpeg" (cond $isPNG "image/png" "image/webp") }}"
+          srcset="{{ $origSrcset }}"
+          sizes="{{ $sizes }}"
+          data-original-src="{{ $src }}"
+        >
+        
+        <!-- Fallback image with lazy loading -->
+        <img 
+          src="{{ $fallbackSrc }}"
+          alt="{{ $alt }}" 
+          class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+          {{ with $id }}id="{{ . }}"{{ end }}
+          {{ with $width }}width="{{ . }}"{{ end }}
+          {{ with $height }}height="{{ . }}"{{ end }}
+          loading="lazy"
+          decoding="async"
+          data-original-src="{{ $src }}"
+          {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+        >
+      </picture>
+    {{ else }}
+      <!-- Non-supported image format, just use as is -->
+      <img 
+        src="{{ $image.RelPermalink }}" 
+        alt="{{ $alt }}" 
+        class="{{ with $class }}{{ . }}{{ end }}"
+        {{ with $id }}id="{{ . }}"{{ end }}
+        {{ with $width }}width="{{ . }}"{{ end }}
+        {{ with $height }}height="{{ . }}"{{ end }}
+        loading="lazy"
+        decoding="async"
+        data-original-src="{{ $src }}"
+        {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+      >
+    {{ end }}
+  {{ else }}
+    <!-- For static files or files that couldn't be processed -->
+    {{ $fileExt := path.Ext $src }}
+    {{ $filenameWithoutExt := $src }}
+    {{ if $fileExt }}
+      {{ $filenameWithoutExt = substr $src 0 (sub (len $src) (len $fileExt)) }}
+    {{ end }}
+    
+    <!-- Extract filename for processed image paths -->
+    {{ $filename := path.Base $src }}
+    {{ $extension := path.Ext $filename }}
+    {{ $basename := replace $filename $extension "" }}
+    {{ $dirPath := path.Dir $src }}
+    {{ if eq $dirPath "." }}
+      {{ $dirPath = "" }}
+    {{ else if not (hasSuffix $dirPath "/") }}
+      {{ $dirPath = printf "%s/" $dirPath }}
+    {{ end }}
+    
+    <!-- Define image sizes -->
+    {{ $smallWidth := 150 }}
+    {{ $mediumWidth := 300 }}
+    {{ $largeWidth := $maxWidth }}
+    {{ if gt 1024 $maxWidth }}
+      {{ $largeWidth = $maxWidth }}
+    {{ else }}
+      {{ $largeWidth = 1024 }}
+    {{ end }}
+    
+    <!-- Define paths to preprocessed images -->
+    {{ $smallSrcPath := printf "/images/processed/%s-%d%s" $basename $smallWidth $extension }}
+    {{ $mediumSrcPath := printf "/images/processed/%s-%d%s" $basename $mediumWidth $extension }}
+    {{ $largeSrcPath := printf "/images/processed/%s-%d%s" $basename $largeWidth $extension }}
+    
+    {{ $smallWebpPath := printf "/images/processed/%s-%d.webp" $basename $smallWidth }}
+    {{ $mediumWebpPath := printf "/images/processed/%s-%d.webp" $basename $mediumWidth }}
+    {{ $largeWebpPath := printf "/images/processed/%s-%d.webp" $basename $largeWidth }}
+    {{ $originalWebpPath := printf "/images/processed/%s.webp" $basename }}
+    
+    <!-- Check if preprocessed images exist and use them -->
+    {{ $useSmallSrc := fileExists (printf "static%s" $smallSrcPath) }}
+    {{ $useMediumSrc := fileExists (printf "static%s" $mediumSrcPath) }}
+    {{ $useLargeSrc := fileExists (printf "static%s" $largeSrcPath) }}
+    
+    {{ $useSmallWebp := fileExists (printf "static%s" $smallWebpPath) }}
+    {{ $useMediumWebp := fileExists (printf "static%s" $mediumWebpPath) }}
+    {{ $useLargeWebp := fileExists (printf "static%s" $largeWebpPath) }}
+    {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
+    
+    <!-- Build srcset for original format -->
+    {{ $origSrcset := "" }}
+    {{ if $useSmallSrc }}
+      {{ $origSrcset = printf "%s %dw" $smallSrcPath $smallWidth }}
+    {{ end }}
+    
+    {{ if $useMediumSrc }}
+      {{ if $origSrcset }}
+        {{ $origSrcset = printf "%s, %s %dw" $origSrcset $mediumSrcPath $mediumWidth }}
+      {{ else }}
+        {{ $origSrcset = printf "%s %dw" $mediumSrcPath $mediumWidth }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $useLargeSrc }}
+      {{ if $origSrcset }}
+        {{ $origSrcset = printf "%s, %s %dw" $origSrcset $largeSrcPath $largeWidth }}
+      {{ else }}
+        {{ $origSrcset = printf "%s %dw" $largeSrcPath $largeWidth }}
+      {{ end }}
+    {{ end }}
+    
+    <!-- If no processed images exist, use original -->
+    {{ if not $origSrcset }}
+      {{ $origSrcset = printf "%s %dw" $src 1024 }}
+    {{ end }}
+    
+    <!-- Build srcset for WebP format -->
+    {{ $webpSrcset := "" }}
+    {{ if $useSmallWebp }}
+      {{ $webpSrcset = printf "%s %dw" $smallWebpPath $smallWidth }}
+    {{ end }}
+    
+    {{ if $useMediumWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $mediumWebpPath $mediumWidth }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $mediumWebpPath $mediumWidth }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $useLargeWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $largeWebpPath $largeWidth }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $largeWebpPath $largeWidth }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $useOriginalWebp }}
+      {{ if $webpSrcset }}
+        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath 1024 }}
+      {{ else }}
+        {{ $webpSrcset = printf "%s %dw" $originalWebpPath 1024 }}
+      {{ end }}
+    {{ end }}
+    
+    <!-- Determine fallback image -->
+    {{ $fallbackSrc := $src }}
+    {{ if $useSmallWebp }}
+      {{ $fallbackSrc = $smallWebpPath }}
+    {{ else if $useSmallSrc }}
+      {{ $fallbackSrc = $smallSrcPath }}
+    {{ end }}
+    
+    <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
+      <!-- WebP sources with lazy loading -->
+      {{ if $webpSrcset }}
+      <source 
+        type="image/webp" 
+        srcset="{{ $webpSrcset }}"
+        sizes="{{ $sizes }}"
+        data-original-src="{{ $src }}"
+      >
+      {{ end }}
+      
+      <!-- Original format sources with lazy loading -->
+      <source 
+        type="{{ cond (or (strings.HasSuffix $src ".jpg") (strings.HasSuffix $src ".jpeg")) "image/jpeg" (cond (strings.HasSuffix $src ".png") "image/png" "image/webp") }}"
+        srcset="{{ $origSrcset }}"
+        sizes="{{ $sizes }}"
+        data-original-src="{{ $src }}"
+      >
+      
+      <!-- Fallback image with lazy loading -->
+      <img 
+        src="{{ $fallbackSrc }}"
+        alt="{{ $alt }}" 
+        class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+        {{ with $id }}id="{{ . }}"{{ end }}
+        {{ with $width }}width="{{ . }}"{{ end }}
+        {{ with $height }}height="{{ . }}"{{ end }}
+        loading="lazy"
+        decoding="async"
+        data-original-src="{{ $src }}"
+        {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+      >
+    </picture>
+  {{ end }}
+{{ else }}
+  <!-- External image with true lazy loading -->
+  <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
+    <img 
+      src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3C/svg%3E"
+      data-src="{{ $src }}" 
+      alt="{{ $alt }}" 
+      class="lazy-image {{ with $class }}{{ . }}{{ end }}"
+      {{ with $id }}id="{{ . }}"{{ end }}
+      {{ with $width }}width="{{ . }}"{{ end }}
+      {{ with $height }}height="{{ . }}"{{ end }}
+      loading="lazy"
+      decoding="async"
+      data-original-src="{{ $src }}"
+      {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}
+    >
+  </picture>
+{{ end }}

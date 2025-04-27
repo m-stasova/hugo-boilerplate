@@ -1,0 +1,254 @@
+{{/*
+@component: Flyout Menu - Full Width
+@description: A full-width flyout menu with a grid layout for menu items and a footer section with action links.
+@params:
+  - buttonText: Text displayed on the dropdown button (optional, default: "Solutions")
+  - buttonTextColor: Text color class for button (optional, default: "text-gray-900")
+  - iconBgColor: Background color for icons (optional, default: "bg-gray-50")
+  - iconColor: Color for icons (optional, default: "text-gray-600")
+  - iconHoverColor: Hover color for icons (optional, default: "text-indigo-600")
+  - titleColor: Text color for item titles (optional, default: "text-gray-900")
+  - descriptionColor: Text color for item descriptions (optional, default: "text-gray-600")
+  - footerBgColor: Background color for footer (optional, default: "bg-gray-50")
+  - footerLinkColor: Text color for footer links (optional, default: "text-gray-900")
+  - footerLinkHoverBgColor: Hover background for footer links (optional, default: "hover:bg-gray-100")
+  - footerLinkIconColor: Color for footer link icons (optional, default: "text-gray-400")
+  - menuItems: Array of menu item objects, each with:
+    - title: Item title
+    - description: Item description
+    - url: URL for the item link
+    - icon: Icon identifier (chart-pie, sparkles, fingerprint, etc.)
+  - footerLinks: Array of footer link objects, each with:
+    - text: Link text
+    - url: Link URL
+    - icon: Icon identifier (user-group, heart, chart-bar, etc.)
+@example:
+  {{ partial "components/menus/flyout_menu_full_width.html" (dict 
+      "buttonText" "Company"
+      "menuItems" (slice 
+        (dict 
+          "title" "About Us" 
+          "description" "Learn about our story and mission" 
+          "url" "/about" 
+          "icon" "information-circle"
+        )
+        (dict 
+          "title" "Careers" 
+          "description" "Join our team and help us build the future" 
+          "url" "/careers" 
+          "icon" "briefcase"
+        )
+      )
+      "footerLinks" (slice 
+        (dict 
+          "text" "Leadership Team" 
+          "url" "/team" 
+          "icon" "user-group"
+        )
+        (dict 
+          "text" "Our Values" 
+          "url" "/values" 
+          "icon" "heart"
+        )
+      )
+  ) }}
+@note: This component spans the full width of the screen and includes JavaScript for toggling the menu visibility with smooth transitions.
+*/}}
+
+{{- $buttonText := .buttonText | default "Solutions" -}}
+{{- $buttonTextColor := .buttonTextColor | default "text-gray-900" -}}
+{{- $iconBgColor := .iconBgColor | default "bg-gray-50" -}}
+{{- $iconColor := .iconColor | default "text-gray-600" -}}
+{{- $iconHoverColor := .iconHoverColor | default "text-indigo-600" -}}
+{{- $titleColor := .titleColor | default "text-gray-900" -}}
+{{- $descriptionColor := .descriptionColor | default "text-gray-600" -}}
+{{- $footerBgColor := .footerBgColor | default "bg-gray-50" -}}
+{{- $footerLinkColor := .footerLinkColor | default "text-gray-900" -}}
+{{- $footerLinkHoverBgColor := .footerLinkHoverBgColor | default "hover:bg-gray-100" -}}
+{{- $footerLinkIconColor := .footerLinkIconColor | default "text-gray-400" -}}
+
+{{- $menuItems := .menuItems | default (slice 
+  (dict 
+    "title" "Analytics" 
+    "description" "Get a better understanding of where your traffic is coming from" 
+    "url" "#" 
+    "icon" "chart-pie"
+  )
+  (dict 
+    "title" "Engagement" 
+    "description" "Speak directly to your customers with our engagement tool" 
+    "url" "#" 
+    "icon" "sparkles"
+  )
+  (dict 
+    "title" "Security" 
+    "description" "Your customers' data will be safe and secure" 
+    "url" "#" 
+    "icon" "fingerprint"
+  )
+  (dict 
+    "title" "Integrations" 
+    "description" "Connect with third-party tools and services" 
+    "url" "#" 
+    "icon" "squares-2x2"
+  )
+) -}}
+
+{{- $footerLinks := .footerLinks | default (slice 
+  (dict 
+    "text" "Meet our leadership" 
+    "url" "#" 
+    "icon" "user-group"
+  )
+  (dict 
+    "text" "Values" 
+    "url" "#" 
+    "icon" "heart"
+  )
+  (dict 
+    "text" "Investor relations" 
+    "url" "#" 
+    "icon" "chart-bar"
+  )
+) -}}
+
+{{- $menuId := printf "flyout-menu-%d" (now.UnixNano) -}}
+
+<div class="relative">
+  <button type="button" class="inline-flex items-center gap-x-1 text-sm/6 font-semibold {{ $buttonTextColor }}" aria-expanded="false" aria-controls="{{ $menuId }}">
+    <span>{{ $buttonText }}</span>
+    <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+      <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <!-- Flyout menu content, hidden by default -->
+  <div id="{{ $menuId }}" class="fixed left-1/2 z-10 mt-5 w-screen max-w-screen-xl -translate-x-1/2 opacity-0 translate-y-1 transition-all duration-200 ease-in hidden">
+    <div class="w-full flex-auto overflow-hidden rounded-3xl bg-white text-sm/6 ring-1 shadow-lg ring-gray-900/5">
+      <div class="mx-auto grid max-w-7xl grid-cols-1 gap-2 p-4 py-6 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 sm:py-8 lg:grid-cols-4 lg:gap-4 lg:px-6 xl:gap-6">
+        {{- range $menuItems -}}
+        <div class="group relative flex gap-4 rounded-lg p-3 text-sm/6 hover:bg-gray-50 sm:flex-col sm:p-4">
+          <div class="mt-1 flex size-10 flex-none items-center justify-center rounded-lg {{ $iconBgColor }} group-hover:bg-white">
+            {{- if eq .icon "chart-pie" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+            </svg>
+            {{- else if eq .icon "sparkles" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+            </svg>
+            {{- else if eq .icon "fingerprint" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
+            </svg>
+            {{- else if eq .icon "squares-2x2" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 0 0 2.25-2.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v2.25A2.25 2.25 0 0 0 6 10.5Zm0 9.75h2.25A2.25 2.25 0 0 0 10.5 18v-2.25a2.25 2.25 0 0 0-2.25-2.25H6a2.25 2.25 0 0 0-2.25 2.25V18A2.25 2.25 0 0 0 6 20.25Zm9.75-9.75H18a2.25 2.25 0 0 0 2.25-2.25V6A2.25 2.25 0 0 0 18 3.75h-2.25A2.25 2.25 0 0 0 13.5 6v2.25a2.25 2.25 0 0 0 2.25 2.25Z" />
+            </svg>
+            {{- else if eq .icon "information-circle" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+            {{- else if eq .icon "users" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+            </svg>
+            {{- else if eq .icon "newspaper" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" />
+            </svg>
+            {{- else if eq .icon "briefcase" -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+            </svg>
+            {{- else -}}
+            <svg class="size-6 {{ $iconColor }} group-hover:{{ $iconHoverColor }}" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
+            </svg>
+            {{- end -}}
+          </div>
+          <div>
+            <a href="{{ .url }}" class="font-semibold {{ $titleColor }}">
+              {{ .title }}
+              <span class="absolute inset-0"></span>
+            </a>
+            <p class="mt-1 {{ $descriptionColor }}">{{ .description }}</p>
+          </div>
+        </div>
+        {{- end -}}
+      </div>
+      <div class="{{ $footerBgColor }}">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-6">
+          <div class="grid grid-cols-1 divide-y divide-gray-900/5 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:border-x sm:border-gray-900/5">
+            {{- range $footerLinks -}}
+            <a href="{{ .url }}" class="flex items-center gap-x-2.5 p-3 px-4 text-sm/6 font-semibold {{ $footerLinkColor }} {{ $footerLinkHoverBgColor }} sm:justify-center sm:px-0">
+              {{- if eq .icon "user-group" -}}
+              <svg class="size-5 flex-none {{ $footerLinkIconColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
+              </svg>
+              {{- else if eq .icon "heart" -}}
+              <svg class="size-5 flex-none {{ $footerLinkIconColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path d="m9.653 16.915-.005-.003-.019-.01a20.759 20.759 0 0 1-1.162-.682 22.045 22.045 0 0 1-2.582-1.9C4.045 12.733 2 10.352 2 7.5a4.5 4.5 0 0 1 8-2.828A4.5 4.5 0 0 1 18 7.5c0 2.852-2.044 5.233-3.885 6.82a22.049 22.049 0 0 1-3.744 2.582l-.019.01-.005.003h-.002a.739.739 0 0 1-.69.001l-.002-.001Z" />
+              </svg>
+              {{- else if eq .icon "chart-bar" -}}
+              <svg class="size-5 flex-none {{ $footerLinkIconColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path d="M15.5 2A1.5 1.5 0 0 0 14 3.5v13a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 16.5 2h-1ZM9.5 6A1.5 1.5 0 0 0 8 7.5v9A1.5 1.5 0 0 0 9.5 18h1a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 10.5 6h-1ZM3.5 10A1.5 1.5 0 0 0 2 11.5v5A1.5 1.5 0 0 0 3.5 18h1A1.5 1.5 0 0 0 6 16.5v-5A1.5 1.5 0 0 0 4.5 10h-1Z" />
+              </svg>
+              {{- else -}}
+              <svg class="size-5 flex-none {{ $footerLinkIconColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path d="M3 4a2 2 0 0 0-2 2v1.161l8.441 4.221a1.25 1.25 0 0 0 1.118 0L19 7.162V6a2 2 0 0 0-2-2H3Z" />
+                <path d="m19 8.839-7.77 3.885a2.75 2.75 0 0 1-2.46 0L1 8.839V14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.839Z" />
+              </svg>
+              {{- end -}}
+              {{ .text }}
+            </a>
+            {{- end -}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('[aria-controls="{{ $menuId }}"]');
+    const menu = document.getElementById('{{ $menuId }}');
+    
+    if (button && menu) {
+      button.addEventListener('click', function() {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+        
+        if (expanded) {
+          // Close menu
+          button.setAttribute('aria-expanded', 'false');
+          menu.classList.add('opacity-0', 'translate-y-1');
+          menu.classList.remove('opacity-100', 'translate-y-0');
+          
+          // Hide after transition completes
+          setTimeout(() => {
+            menu.classList.add('hidden');
+          }, 150);
+        } else {
+          // Open menu
+          button.setAttribute('aria-expanded', 'true');
+          menu.classList.remove('hidden');
+          
+          // Trigger reflow to ensure transition works
+          menu.offsetHeight;
+          
+          menu.classList.add('opacity-100', 'translate-y-0');
+          menu.classList.remove('opacity-0', 'translate-y-1');
+        }
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!menu.contains(event.target) && !button.contains(event.target) && button.getAttribute('aria-expanded') === 'true') {
+          button.click();
+        }
+      });
+    }
+  });
+</script>
