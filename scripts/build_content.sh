@@ -84,8 +84,13 @@ echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
 python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
 
+# STEP 1.5: Validate the content files again after translation
+echo -e "${BLUE}=== Step 1.5: Validating Content Files after translation ===${NC}"
+python "${SCRIPT_DIR}/sync_content_attributes.py"
+echo -e "${GREEN}Content attributes sync completed!${NC}"
+
 # after translation validate again
-echo -e "${BLUE}=== Step: Validating Content Files after translation ===${NC}"
+echo -e "${BLUE}=== Step 1.6: Validating Content Files after translation ===${NC}"
 
 bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
 if [ $? -ne 0 ]; then
@@ -114,9 +119,5 @@ echo -e "${GREEN}Image preprocessing completed!${NC}"
 # Deactivate the virtual environment
 deactivate
 
-# Execute the add_missing_date.sh script
-echo -e "${BLUE}=== Running add_missing_date.sh ===${NC}"
-bash "${SCRIPT_DIR}/add_missing_date.sh" --path "${HUGO_ROOT}/content"
-echo -e "${GREEN}add_missing_date.sh script executed successfully!${NC}"
 
 echo -e "${GREEN}Done! All content processing completed successfully.${NC}"

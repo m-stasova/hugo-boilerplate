@@ -8,4 +8,5 @@ markdown
 beautifulsoup4
 tqdm
 python-dotenv
+toml
 git+https://github.com/qualityunit/flowhunt-python-sdk.git
