@@ -7,6 +7,13 @@
 {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
 {{ end }}
 {{ end }}
+{{ $image := .Params.image }}
+{{ if not $image }}
+  {{ if .Params.youtubeVideoID }}
+    {{ $image = printf "https://img.youtube.com/vi/%s/hqdefault.jpg" .Params.youtubeVideoID }}
+  {{ end }}
+{{ end }}
+
 
 {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
 
@@ -18,17 +25,17 @@
   {{ partial "sections/hero/split_with_youtube_video.html" (dict 
   "heading" .Params.title
   "description" (markdownify $shortDescription)
-  "eyebrow" (i18n "glossary_eyebrow")
-  "image" .Params.image
+  "eyebrow" .Params.eyebrow
+  "image" $image
+  "videoTitle" (.Params.youtubeTitle | default .Params.title)
   "videoID" .Params.youtubeVideoID
-  "videoTitle" .Params.youtubeTitle
   ) }}
-{{ else if .Params.image }}
+{{ else if $image }}
   {{ partial "sections/hero/split_with_image.html" (dict 
     "heading" .Params.title
     "description" (markdownify $shortDescription)
     "eyebrow" (i18n "glossary_eyebrow")
-    "image" .Params.image
+    "image" $image
   ) }}
 {{ else }}
   {{ partial "layout/headers/centered_with_eyebrow.html" (dict 

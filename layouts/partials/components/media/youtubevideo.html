@@ -23,6 +23,32 @@
 {{ $width := .width | default "100%" }}
 {{ $height := .height | default "auto" }}
 {{ $id := .id | default (print "youtube-" $videoID) }}
+{{ $description := .description | default $title }}
+{{ $uploadDate := .uploadDate | default (now.Format "2006-01-02T15:04:05Z07:00") }}
+{{ $duration := .duration | default "PT0M0S" }}
+
+<!-- Schema.org VideoObject metadata -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": {{ $title | jsonify }},
+  "description": {{ $description | jsonify }},
+  "thumbnailUrl": "https://img.youtube.com/vi/{{ $videoID }}/maxresdefault.jpg",
+  "uploadDate": {{ $uploadDate | jsonify }},
+  "duration": {{ $duration | jsonify }},
+  "contentUrl": "https://www.youtube.com/watch?v={{ $videoID }}",
+  "embedUrl": "https://www.youtube.com/embed/{{ $videoID }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | default "Website" | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ .Site.Params.logo | default "" | jsonify }}
+    }
+  }
+}
+</script>
 
 <div 
   class="lazy-video-container {{ with $class }}{{ . }}{{ end }}"

@@ -1,5 +1,5 @@
 <section class="bg-white py-16 px-6">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <div class="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
       {{ if .eyebrow }}
       <p class="text-sm font-semibold text-indigo-600 uppercase">{{ .eyebrow }}</p>
@@ -7,10 +7,10 @@
       <h1 class="mt-2 text-3xl font-extrabold text-gray-900">{{ .heading }}</h1>
       <div class="mt-4 text-lg text-gray-600">{{ .description | safeHTML }}</div>
     </div>
-    <div class="w-full relative" style="padding-top:56.25%;">aaa
+    <div class="w-full relative">
         {{ partial "components/media/youtubevideo.html" (dict 
-            "videoID" "{{ .videoID }}" 
-            "title" "{{ .videoTitle }}" 
+            "videoID" .videoID
+            "title" .videoTitle
             "class" "my-8 rounded-xl shadow-lg"
         ) }}
     </div>
