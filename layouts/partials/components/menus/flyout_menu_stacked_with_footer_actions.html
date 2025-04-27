@@ -143,6 +143,7 @@
         </div>
         {{ end }}
       </div>
+      {{ if and $footerActions (gt (len $footerActions) 0) }}
       <div class="grid grid-cols-{{ len $footerActions }} divide-x divide-gray-900/5 {{ $footerBackgroundColor }}">
         {{ range $footerActions }}
         <a href="{{ .url }}" class="flex items-center justify-center gap-x-2.5 p-3 font-semibold {{ $footerTextColor }} {{ $footerHoverColor }}">
@@ -168,6 +169,7 @@
         </a>
         {{ end }}
       </div>
+      {{ end }}
     </div>
   </div>
 </div>

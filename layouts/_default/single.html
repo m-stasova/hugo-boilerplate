@@ -13,20 +13,20 @@
 {{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
 
 <!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription | default "" }}
+{{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
 {{ if .Params.image }}
-{{ partial "hero/split_with_image.html" (dict
-"heading" .Params.term
-"description" (markdownify $shortDescription)
-"eyebrow" (i18n "glossary_eyebrow")
-"image" .Params.image
-) }}
+  {{ partial "hero/split_with_image.html" (dict 
+    "heading" .Params.title
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
+    "image" .Params.image
+  ) }}
 {{ else }}
-{{ partial "headers/centered_with_eyebrow.html" (dict
-"heading" .Params.term
-"description" (markdownify $shortDescription)
-"eyebrow" (i18n "glossary_eyebrow")
-) }}
+  {{ partial "headers/centered_with_eyebrow.html" (dict 
+    "heading" .Params.title
+    "description" (markdownify $shortDescription)
+    "eyebrow" (i18n "glossary_eyebrow")
+  ) }}
 {{ end }}
 
 <!-- Main Content -->
