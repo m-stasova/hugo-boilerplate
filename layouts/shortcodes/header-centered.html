@@ -27,7 +27,7 @@
 {{ $descriptionColor := .Get "descriptionColor" | default "text-gray-500" }}
 {{ $maxWidth := .Get "maxWidth" | default "max-w-2xl" }}
 
-{{ partial "headers/centered.html" (dict 
+{{ partial "layout/headers/centered.html" (dict 
   "heading" $heading
   "description" $description
   "bgColor" $bgColor

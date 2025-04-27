@@ -20,7 +20,7 @@ Usage:
 {{ $descriptionColor := .Get "descriptionColor" | default (.Get 5) | default "text-gray-500" }}
 {{ $maxWidth := .Get "maxWidth" | default (.Get 6) | default "max-w-2xl" }}
 
-{{ partial "headers/simple.html" (dict 
+{{ partial "layout/headers/simple.html" (dict 
   "heading" $heading
   "description" $description
   "bgColor" $bgColor

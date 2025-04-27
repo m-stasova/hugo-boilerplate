@@ -344,7 +344,7 @@ The theme includes various shortcodes for common components:
 You can include partials in your templates:
 
 ```go
-{{ partial "headers/centered_with_eyebrow.html" (dict
+{{ partial "layout/headers/centered_with_eyebrow.html" (dict
   "eyebrow" "Eyebrow Text"
   "heading" "Main Heading"
   "description" "Description text") }}
