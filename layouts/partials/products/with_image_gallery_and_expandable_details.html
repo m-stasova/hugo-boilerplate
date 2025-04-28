@@ -34,22 +34,18 @@
     (dict 
       "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-01.jpg"
       "alt" "Angled front view with bag zipped and handles upright."
-      "thumbnail" true
     )
     (dict 
       "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-02.jpg"
       "alt" "Side view with bag open showing interior organization."
-      "thumbnail" true
     )
     (dict 
       "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-03.jpg"
       "alt" "Top down view of bag with straps extended out."
-      "thumbnail" true
     )
     (dict 
       "url" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-03-product-04.jpg"
       "alt" "Close up view of front zipper and pulls."
-      "thumbnail" true
     )
   )
 ) }}
@@ -63,28 +59,26 @@
         <div class="mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none">
           <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
             {{ range $index, $image := $product.images }}
-              {{ if $image.thumbnail }}
-                <button id="tabs-1-tab-{{ add $index 1 }}" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden" aria-controls="tabs-1-panel-{{ add $index 1 }}" role="tab" type="button">
+                <button id="tabs-1-tab-{{ add $index 1 }}" class="relative flex h-24 cursor-pointer items-center justify-center rounded-md bg-white text-sm font-medium text-gray-900 uppercase hover:bg-gray-50 focus:ring-3 focus:ring-indigo-500/50 focus:ring-offset-4 focus:outline-hidden product-thumbnail-btn" aria-controls="tabs-1-panel-{{ add $index 1 }}" role="tab" type="button" data-index="{{ $index }}">
                   <span class="sr-only">{{ $image.alt }}</span>
                   <span class="absolute inset-0 overflow-hidden rounded-md">
                     {{ partial "components/media/lazyimg.html" (dict 
                       "src" $image.url
-                      "alt" ""
+                      "alt" $image.alt
                       "class" "size-full object-cover"
                     ) }}
                   </span>
                   <!-- Selected: "ring-indigo-500", Not Selected: "ring-transparent" -->
                   <span class="pointer-events-none absolute inset-0 rounded-md ring-2 {{ if eq $index 0 }}ring-indigo-500{{ else }}ring-transparent{{ end }} ring-offset-2" aria-hidden="true"></span>
                 </button>
-              {{ end }}
             {{ end }}
           </div>
         </div>
 
-        <div>
+        <div id="product-main-images">
           {{ range $index, $image := $product.images }}
             <!-- Tab panel, show/hide based on tab state. -->
-            <div id="tabs-1-panel-{{ add $index 1 }}" aria-labelledby="tabs-1-tab-{{ add $index 1 }}" role="tabpanel" tabindex="0" {{ if ne $index 0 }}class="hidden"{{ end }}>
+            <div id="tabs-1-panel-{{ add $index 1 }}" aria-labelledby="tabs-1-tab-{{ add $index 1 }}" role="tabpanel" tabindex="0" class="{{ if ne $index 0 }}hidden{{ end }} product-main-image-panel">
               {{ partial "components/media/lazyimg.html" (dict 
                 "src" $image.url
                 "alt" $image.alt
@@ -93,6 +87,28 @@
             </div>
           {{ end }}
         </div>
+        <script>
+        // Simple vanilla JS for switching main image on thumbnail click
+        document.addEventListener('DOMContentLoaded', function() {
+          const thumbnails = document.querySelectorAll('.product-thumbnail-btn');
+          const panels = document.querySelectorAll('.product-main-image-panel');
+          const rings = document.querySelectorAll('.product-thumbnail-btn .pointer-events-none');
+          thumbnails.forEach((btn, idx) => {
+            btn.addEventListener('click', function() {
+              // Hide all panels
+              panels.forEach(panel => panel.classList.add('hidden'));
+              // Remove ring from all
+              rings.forEach(ring => ring.classList.remove('ring-indigo-500'));
+              rings.forEach(ring => ring.classList.add('ring-transparent'));
+              // Show selected panel
+              document.getElementById('tabs-1-panel-' + (idx + 1)).classList.remove('hidden');
+              // Add ring to selected
+              rings[idx].classList.remove('ring-transparent');
+              rings[idx].classList.add('ring-indigo-500');
+            });
+          });
+        });
+        </script>
       </div>
 
       <!-- Product info -->
