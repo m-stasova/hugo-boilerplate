@@ -20,10 +20,9 @@ TARGET_DIR="$HUGO_ROOT/static/images/processed"
 # Create the processed directory if it doesn't exist
 mkdir -p "$TARGET_DIR"
 
-# Define image sizes
-SMALL_WIDTH=150
-MEDIUM_WIDTH=300
-LARGE_WIDTH=1024
+# Define image widths - can be adjusted or extended without changing the code logic
+# Each width will create a resized version of the image
+IMAGE_WIDTHS=(150 300 768 1024)
 
 # Quality settings
 QUALITY_JPG=85
@@ -60,12 +59,18 @@ get_file_size() {
 # Function to process an image
 process_image() {
     local source="$1"
+    local rel_path="${source#$SOURCE_DIR/}"
+    local rel_dir=$(dirname "$rel_path")
     local filename=$(basename "$source")
     local extension="${filename##*.}"
     local basename="${filename%.*}"
     local is_webp=false
     
-    echo "Processing: $filename"
+    echo "Processing: $rel_path"
+    
+    # Create the target directory structure that mirrors the source directory
+    local target_dir="$TARGET_DIR/$rel_dir"
+    mkdir -p "$target_dir"
     
     # Check if it's a WebP image
     if [[ "$extension" == "webp" ]]; then
@@ -78,87 +83,40 @@ process_image() {
     
     echo "  Original width: $original_width px, size: $original_size bytes"
     
-    # Process small size if original is larger
-    if [ "$original_width" -gt "$SMALL_WIDTH" ]; then
-        local small_target="$TARGET_DIR/${basename}-${SMALL_WIDTH}.${extension}"
-        
-        if needs_processing "$source" "$small_target"; then
-            echo "  Creating small size ($SMALL_WIDTH px)"
+    # Process each width for the image
+    for width in "${IMAGE_WIDTHS[@]}"; do
+        # Only process if original is larger than target width
+        if [ "$original_width" -gt "$width" ]; then
+            local target_file="$target_dir/${basename}-${width}.${extension}"
             
-            if [ "$is_webp" = true ]; then
-                # For WebP, just resize
-                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_WEBP" "$small_target"
-            else
-                # For other formats, create both original format and WebP
-                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_JPG" "$small_target"
-                magick "$source" -resize "${SMALL_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${SMALL_WIDTH}.webp"
-            fi
-            
-            # Check if the processed image is larger than the original
-            local processed_size=$(get_file_size "$small_target")
-            if [ "$processed_size" -gt "$original_size" ]; then
-                echo "  Warning: Small size is larger than original, removing"
-                rm "$small_target"
-            fi
-        fi
-    fi
-    
-    # Process medium size if original is larger
-    if [ "$original_width" -gt "$MEDIUM_WIDTH" ]; then
-        local medium_target="$TARGET_DIR/${basename}-${MEDIUM_WIDTH}.${extension}"
-        
-        if needs_processing "$source" "$medium_target"; then
-            echo "  Creating medium size ($MEDIUM_WIDTH px)"
-            
-            if [ "$is_webp" = true ]; then
-                # For WebP, just resize
-                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_WEBP" "$medium_target"
-            else
-                # For other formats, create both original format and WebP
-                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_JPG" "$medium_target"
-                magick "$source" -resize "${MEDIUM_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${MEDIUM_WIDTH}.webp"
-            fi
-            
-            # Check if the processed image is larger than the original
-            local processed_size=$(get_file_size "$medium_target")
-            if [ "$processed_size" -gt "$original_size" ]; then
-                echo "  Warning: Medium size is larger than original, removing"
-                rm "$medium_target"
+            if needs_processing "$source" "$target_file"; then
+                echo "  Creating ${width}px width version in $target_dir"
+                
+                if [ "$is_webp" = true ]; then
+                    # For WebP, just resize
+                    magick "$source" -resize "${width}x>" -quality "$QUALITY_WEBP" "$target_file"
+                else
+                    # For other formats, create both original format and WebP
+                    magick "$source" -resize "${width}x>" -quality "$QUALITY_JPG" "$target_file"
+                    magick "$source" -resize "${width}x>" -quality "$QUALITY_WEBP" "$target_dir/${basename}-${width}.webp"
+                fi
+                
+                # Check if the processed image is larger than the original
+                local processed_size=$(get_file_size "$target_file")
+                if [ "$processed_size" -gt "$original_size" ]; then
+                    echo "  Warning: ${width}px version is larger than original, removing"
+                    rm "$target_file"
+                fi
             fi
         fi
-    fi
-    
-    # Process large size if original is larger
-    if [ "$original_width" -gt "$LARGE_WIDTH" ]; then
-        local large_target="$TARGET_DIR/${basename}-${LARGE_WIDTH}.${extension}"
-        
-        if needs_processing "$source" "$large_target"; then
-            echo "  Creating large size ($LARGE_WIDTH px)"
-            
-            if [ "$is_webp" = true ]; then
-                # For WebP, just resize
-                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_WEBP" "$large_target"
-            else
-                # For other formats, create both original format and WebP
-                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_JPG" "$large_target"
-                magick "$source" -resize "${LARGE_WIDTH}x>" -quality "$QUALITY_WEBP" "$TARGET_DIR/${basename}-${LARGE_WIDTH}.webp"
-            fi
-            
-            # Check if the processed image is larger than the original
-            local processed_size=$(get_file_size "$large_target")
-            if [ "$processed_size" -gt "$original_size" ]; then
-                echo "  Warning: Large size is larger than original, removing"
-                rm "$large_target"
-            fi
-        fi
-    fi
+    done
     
     # For non-WebP images, create a WebP version of the original
     if [ "$is_webp" = false ]; then
-        local webp_target="$TARGET_DIR/${basename}.webp"
+        local webp_target="$target_dir/${basename}.webp"
         
         if needs_processing "$source" "$webp_target"; then
-            echo "  Creating WebP version"
+            echo "  Creating WebP version of original in $target_dir"
             magick "$source" -quality "$QUALITY_WEBP" "$webp_target"
             
             # Check if the processed image is larger than the original

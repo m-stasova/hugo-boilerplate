@@ -303,7 +303,7 @@
       </div>
       <div class="flex justify-between py-16 opacity-60 max-sm:mx-auto max-sm:max-w-md max-sm:flex-wrap max-sm:justify-evenly max-sm:gap-x-4 max-sm:gap-y-4 sm:py-24">
         {{ range $logo := $logos }}
-          {{ partial "components/media/lazyimg.html" (dict "src" $logo.url "alt" $logo.name "class" "h-9 max-sm:mx-auto sm:h-8 lg:h-12" "maxWidth" "200px") }}
+          {{ partial "components/media/lazyimg.html" (dict "src" $logo.url "alt" $logo.name "class" "h-9 max-sm:mx-auto sm:h-8 lg:h-12" "maxWidth" 200) }}
         {{ end }}
       </div>
     </div>
