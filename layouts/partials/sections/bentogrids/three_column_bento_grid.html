@@ -6,13 +6,12 @@
   - heading: Main section heading (optional, default: "Everything you need to deploy your app")
   - taglineColor: Color class for the tagline (optional, default: "indigo-600")
   - backgroundColor: Background color class for the section (optional, default: "gray-50")
-  - cards: Array of card objects with varying positions and content (optional, includes defaults)
+  - cards: Array of card objects with content (optional, includes defaults)
     - title: Card title text
     - description: Card description text
     - image: URL to image (can be empty for code example cards)
     - imageAlt: Alt text for the image
-    - position: Card position in the grid ("large-left", "top-right", "bottom-middle", "large-right")
-    - codeExample: Boolean indicating if the card should display code instead of an image (only for "large-right" position)
+    - codeExample: Boolean indicating if the card should display code instead of an image
     - codeContent: HTML content for the code example (optional, has default)
 @example:
   {{ partial "sections/bentogrids/three_column_bento_grid.html" (dict 
@@ -25,31 +24,27 @@
               "description" "Our platform automatically adapts to any device or screen size."
               "image" "/images/features/responsive.png"
               "imageAlt" "Responsive design illustration"
-              "position" "large-left"
           )
           (dict
               "title" "Analytics" 
               "description" "Detailed insights into your user behavior and application performance."
               "image" "/images/features/analytics.png"
               "imageAlt" "Analytics dashboard"
-              "position" "top-right"
           )
           (dict
               "title" "Security" 
               "description" "Enterprise-grade security with end-to-end encryption."
               "image" "/images/features/security.png"
               "imageAlt" "Security shield"
-              "position" "bottom-middle"
           )
           (dict
               "title" "Developer API" 
               "description" "Powerful and flexible API for integrating with your existing tools."
-              "position" "large-right"
               "codeExample" true
           )
       )
   ) }}
-@note: This section uses a bento grid layout with cards of varying sizes to create visual interest. The large-right position can display code examples using the codeExample parameter.
+@note: This section uses a bento grid layout with cards of varying sizes to create visual interest. The system automatically determines the optimal layout position for each card based on its index. Each fourth card with codeExample=true will display code instead of an image.
 */}}
 
 {{/* Three Column Bento Grid Section */}}
@@ -64,28 +59,24 @@
     "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png"
     "imageAlt" "Mobile friendly interface"
-    "position" "large-left"
   )
   (dict
     "title" "Performance"
     "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
     "imageAlt" "Performance metrics"
-    "position" "top-right"
   )
   (dict
     "title" "Security"
     "description" "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
     "imageAlt" "Security shield"
-    "position" "bottom-middle"
   )
   (dict
     "title" "Powerful APIs"
     "description" "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida."
     "image" ""
     "imageAlt" ""
-    "position" "large-right"
     "codeExample" true
   )
 ) }}
@@ -96,8 +87,54 @@
     <p class="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-gray-950 sm:text-5xl">{{ $heading }}</p>
     <div class="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
       {{ range $index, $card := $cards }}
-        {{ if eq $card.position "large-left" }}
-        <div class="relative lg:row-span-2">
+        {{ $cardPosition := "" }}
+        {{ $rowSpan := "" }}
+        {{ $columnStart := "" }}
+        {{ $rowStart := "" }}
+        
+        {{/* Determine card position pattern based on index within a chunk of 4 cards */}}
+        {{ $positionIndex := mod $index 4 }}
+        
+        {{ if eq $positionIndex 0 }}
+          {{ $cardPosition = "large-left" }}
+          {{ $rowSpan = "lg:row-span-2" }}
+        {{ else if eq $positionIndex 1 }}
+          {{ $cardPosition = "top-right" }}
+          {{ $columnStart = "lg:col-start-2" }}
+          {{ $rowStart = "lg:row-start-1" }}
+        {{ else if eq $positionIndex 2 }}
+          {{ $cardPosition = "bottom-middle" }}
+          {{ $columnStart = "lg:col-start-2" }}
+          {{ $rowStart = "lg:row-start-2" }}
+        {{ else }}
+          {{ $cardPosition = "large-right" }}
+          {{ $columnStart = "lg:col-start-3" }}
+          {{ $rowSpan = "lg:row-span-2" }}
+        {{ end }}
+
+        {{ $chunkIndex := div $index 4 }}
+        {{ if gt $chunkIndex 0 }}
+          {{ $rowStart = printf "lg:row-start-%d" (add (mul $chunkIndex 2) 1) }}
+          {{ if or (eq $positionIndex 2) }}
+            {{ $rowStart = printf "lg:row-start-%d" (add (mul $chunkIndex 2) 2) }}
+          {{ end }}
+        {{ end }}
+        
+        {{/* Determine special mobile row ordering based on overall layout */}}
+        {{ $mobileRowStart := "" }}
+        {{ if eq $positionIndex 0 }}
+          {{ $mobileRowStart = printf "max-lg:row-start-%d" (add (mul $chunkIndex 4) 1) }}
+        {{ else if eq $positionIndex 1 }}
+          {{ $mobileRowStart = printf "max-lg:row-start-%d" (add (mul $chunkIndex 4) 2) }}
+        {{ else if eq $positionIndex 2 }}
+          {{ $mobileRowStart = printf "max-lg:row-start-%d" (add (mul $chunkIndex 4) 3) }}
+        {{ else }}
+          {{ $mobileRowStart = printf "max-lg:row-start-%d" (add (mul $chunkIndex 4) 4) }}
+        {{ end }}
+        
+        {{/* Apply position specific styling */}}
+        {{ if eq $cardPosition "large-left" }}
+        <div class="relative {{ $rowSpan }} {{ $mobileRowStart }}">
           <div class="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
             <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
@@ -112,8 +149,8 @@
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 lg:rounded-l-[2rem]"></div>
         </div>
-        {{ else if eq $card.position "top-right" }}
-        <div class="relative max-lg:row-start-1">
+        {{ else if eq $cardPosition "top-right" }}
+        <div class="relative {{ $mobileRowStart }} {{ $columnStart }} {{ $rowStart }}">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -126,8 +163,8 @@
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-t-[2rem]"></div>
         </div>
-        {{ else if eq $card.position "bottom-middle" }}
-        <div class="relative max-lg:row-start-3 lg:col-start-2 lg:row-start-2">
+        {{ else if eq $cardPosition "bottom-middle" }}
+        <div class="relative {{ $mobileRowStart }} {{ $columnStart }} {{ $rowStart }}">
           <div class="absolute inset-px rounded-lg bg-white"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
             <div class="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -140,14 +177,15 @@
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
         </div>
-        {{ else if eq $card.position "large-right" }}
-        <div class="relative lg:row-span-2">
+        {{ else if eq $cardPosition "large-right" }}
+        <div class="relative {{ $rowSpan }} {{ $mobileRowStart }} {{ $columnStart }}">
           <div class="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
           <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
             <div class="px-8 pt-8 pb-3 sm:px-10 sm:pt-10 sm:pb-0">
               <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">{{ $card.title }}</p>
               <p class="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">{{ $card.description }}</p>
             </div>
+            {{ if $card.codeExample }}
             <div class="relative min-h-[30rem] w-full grow">
               <div class="absolute top-10 right-0 bottom-0 left-10 overflow-hidden rounded-tl-xl bg-gray-900 shadow-2xl">
                 <div class="flex bg-gray-800/40 ring-1 ring-white/5">
@@ -187,6 +225,11 @@
                 </div>
               </div>
             </div>
+            {{ else }}
+            <div class="@container flex flex-1 items-center justify-center px-8 max-lg:pt-10 max-lg:pb-12 sm:px-10 lg:pb-2">
+              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" $card.imageAlt "class" "w-full max-lg:max-w-xs") }}
+            </div>
+            {{ end }}
           </div>
           <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
         </div>
