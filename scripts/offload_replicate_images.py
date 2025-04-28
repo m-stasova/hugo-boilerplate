@@ -8,9 +8,17 @@ from urllib.parse import urlparse
 CONTENT_DIR = Path(__file__).parents[3] / 'content'
 STATIC_IMAGES_DIR = Path(__file__).parents[3] / 'static' / 'images'
 
-IMG_URL_PREFIX = 'https://replicate.delivery/'
-IMG_PATTERN = re.compile(r'!\[[^\]]*\]\((https://replicate.delivery/[^\s)]+)(?:\s+"([^"]+)")?\)')
+IMG_URL_PREFIXES = [
+    'https://replicate.delivery/',
+    'https://www.wachman.eu/',
+]
+IMG_PATTERN = re.compile(
+    r'!\[[^\]]*\]\(((?:' + '|'.join(re.escape(p) for p in IMG_URL_PREFIXES) + r')[^\s)]+)(?:\s+"([^"]+)")?\)'
+)
 TITLE_PATTERN = re.compile(r'title:\s*"([^"]+)"', re.IGNORECASE)
+
+def url_matches_prefix(url):
+    return any(url.startswith(prefix) for prefix in IMG_URL_PREFIXES)
 
 def get_effective_rel_folder(md_path):
     rel_folder = md_path.parent.relative_to(CONTENT_DIR)
@@ -50,7 +58,7 @@ def process_md_file(md_path):
     if toml_section:
         data = toml.loads(toml_section)
         # Main image
-        if 'image' in data and isinstance(data['image'], str) and data['image'].startswith(IMG_URL_PREFIX):
+        if 'image' in data and isinstance(data['image'], str) and url_matches_prefix(data['image']):
             url = data['image']
             ext = os.path.splitext(urlparse(url).path)[1]
             out_dir = STATIC_IMAGES_DIR / rel_folder
@@ -69,7 +77,7 @@ def process_md_file(md_path):
         # Cards images
         if 'cards' in data and isinstance(data['cards'], list):
             for card in data['cards']:
-                if 'image' in card and isinstance(card['image'], str) and card['image'].startswith(IMG_URL_PREFIX):
+                if 'image' in card and isinstance(card['image'], str) and url_matches_prefix(card['image']):
                     url = card['image']
                     ext = os.path.splitext(urlparse(url).path)[1]
                     card_title = card.get('title', 'untitled')
@@ -95,8 +103,11 @@ def process_md_file(md_path):
     # Process body images
     lines = body.splitlines()
     for idx, line in enumerate(lines):
+        # Markdown image syntax
         for match in IMG_PATTERN.finditer(line):
             url = match.group(1)
+            if not url_matches_prefix(url):
+                continue
             # Find title for filename
             title = match.group(2) or find_title_near_line(lines, idx)
             ext = os.path.splitext(urlparse(url).path)[1]
@@ -117,6 +128,26 @@ def process_md_file(md_path):
             new_img_md = f'![{safe_title}]({local_url} "{title}")'
             line = line.replace(match.group(0), new_img_md)
             changed = True
+        # Shortcode lazyimg src attribute
+        lazyimg_match = re.search(r'\{\{<\s*lazyimg[^\n]*src="([^"]+)"', line)
+        if lazyimg_match:
+            url = lazyimg_match.group(1)
+            if url_matches_prefix(url):
+                ext = os.path.splitext(urlparse(url).path)[1]
+                out_dir = STATIC_IMAGES_DIR / rel_folder
+                out_dir.mkdir(parents=True, exist_ok=True)
+                safe_title = f"lazyimg_{idx}"
+                out_filename = f"{md_stem}_{safe_title}{ext}"
+                out_path = out_dir / out_filename
+                if not out_path.exists():
+                    resp = requests.get(url)
+                    resp.raise_for_status()
+                    with open(out_path, 'wb') as imgf:
+                        imgf.write(resp.content)
+                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
+                # Replace only the src attribute value
+                line = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', line)
+                changed = True
         lines[idx] = line
     if changed:
         body = '\n'.join(lines)

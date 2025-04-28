@@ -15,7 +15,7 @@ Usage:
 {{ $width := default "100%" (.Get "width") }}
 {{ $height := default "auto" (.Get "height") }}
 
-{{ partial "youtubevideo.html" (dict 
+{{ partial "components/media/youtubevideo.html" (dict 
   "videoID" $videoID 
   "title" $title 
   "class" $class

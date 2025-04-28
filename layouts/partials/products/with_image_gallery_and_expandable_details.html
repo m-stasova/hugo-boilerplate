@@ -20,20 +20,7 @@
   "price" "$140"
   "rating" 4
   "description" "The Zip Tote Basket is the perfect midpoint between shopping tote and comfy backpack. With convertible straps, you can hand carry, should sling, or backpack this convenient and spacious bag. The zip top and durable canvas construction keeps your goods protected for all-day use."
-  "colors" (slice 
-    (dict 
-      "name" "Washed Black"
-      "class" "bg-gray-700"
-    )
-    (dict 
-      "name" "White"
-      "class" "bg-white"
-    )
-    (dict 
-      "name" "Washed Gray"
-      "class" "bg-gray-500"
-    )
-  )
+
   "features" (slice 
     "Multiple strap configurations"
     "Spacious interior with top zip"
@@ -145,7 +132,7 @@
             <p>{{ $product.description }}</p>
           </div>
         </div>
-
+        {{ if $product.colors }}
         <form class="mt-6">
           <!-- Colors -->
           <div>
@@ -175,6 +162,32 @@
             </button>
           </div>
         </form>
+        {{ end }}
+
+
+        {{ if $product.tags }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $tag := $product.tags }}
+                <li>
+                  <a href="/tags/{{ $tag | urlize }}" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $tag }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+        {{ if $product.categories }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $category := $product.categories }}
+                <li>
+                  <a href="/categories/{{ $category | urlize }}" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $category }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
 
         <section aria-labelledby="details-heading" class="mt-12">
           <h2 id="details-heading" class="sr-only">Additional details</h2>
