@@ -77,6 +77,10 @@ fi
 echo -e "${GREEN}Content file validation completed!${NC}"
 
 
+# Step offload images from replicate
+echo -e "${BLUE}=== Step Offload Images from Replicate ===${NC}"
+python "${SCRIPT_DIR}/offload_replicate_images.py"
+echo -e "${GREEN}Offloading images completed!${NC}"
 
 # STEP 1: Run the translation script with FlowHunt
 echo -e "${BLUE}=== Step 1: Translating Missing Content with FlowHunt API ===${NC}"
