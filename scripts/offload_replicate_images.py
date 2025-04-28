@@ -54,6 +54,8 @@ def process_md_file(md_path):
         toml_section = ''
         body = content
     changed = False
+    toml_changed = False
+    body_changed = False
     # Parse TOML frontmatter
     if toml_section:
         data = toml.loads(toml_section)
@@ -73,6 +75,7 @@ def process_md_file(md_path):
                     imgf.write(resp.content)
             local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
             data['image'] = local_url
+            toml_changed = True
             changed = True
         # Cards images
         if 'cards' in data and isinstance(data['cards'], list):
@@ -93,13 +96,14 @@ def process_md_file(md_path):
                             imgf.write(resp.content)
                     local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
                     card['image'] = local_url
+                    toml_changed = True
                     changed = True
-        # Write back TOML if changed
-        if changed:
+        if toml_changed:
             new_toml = toml.dumps(data)
-            content = f"+++\n{new_toml}+++{body}"
-            with open(md_path, 'w', encoding='utf-8') as f:
-                f.write(content)
+        else:
+            new_toml = toml_section
+    else:
+        new_toml = toml_section
     # Process body images
     lines = body.splitlines()
     for idx, line in enumerate(lines):
@@ -111,22 +115,20 @@ def process_md_file(md_path):
             # Find title for filename
             title = match.group(2) or find_title_near_line(lines, idx)
             ext = os.path.splitext(urlparse(url).path)[1]
-            # Determine subfolder (relative to content/)
             out_dir = STATIC_IMAGES_DIR / rel_folder
             out_dir.mkdir(parents=True, exist_ok=True)
             safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', title)
             out_filename = f"{md_stem}_{safe_title}{ext}"
             out_path = out_dir / out_filename
-            # Download if not exists
             if not out_path.exists():
                 resp = requests.get(url)
                 resp.raise_for_status()
                 with open(out_path, 'wb') as imgf:
                     imgf.write(resp.content)
-            # Replace URL in line
             local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
             new_img_md = f'![{safe_title}]({local_url} "{title}")'
             line = line.replace(match.group(0), new_img_md)
+            body_changed = True
             changed = True
         # Shortcode lazyimg src attribute
         lazyimg_match = re.search(r'\{\{<\s*lazyimg[^\n]*src="([^"]+)"', line)
@@ -145,14 +147,15 @@ def process_md_file(md_path):
                     with open(out_path, 'wb') as imgf:
                         imgf.write(resp.content)
                 local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                # Replace only the src attribute value
                 line = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', line)
+                body_changed = True
                 changed = True
         lines[idx] = line
     if changed:
         body = '\n'.join(lines)
+        # Write both TOML and body together, always
         with open(md_path, 'w', encoding='utf-8') as f:
-            f.write(f"+++\n{toml_section}\n\n+++\n\n{body}")
+            f.write(f"+++\n{new_toml}\n+++\n{body}")
 
 def main():
     for root, _, files in os.walk(CONTENT_DIR):

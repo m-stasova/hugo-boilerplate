@@ -68,19 +68,21 @@ def process_file(en_file_path):
                 # Update front matter with synced attributes
                 updated = False
                 for attr in attributes_to_sync:
-                    # Add attribute from English version if it exists
-                    if attr in en_front_matter:
-                        if translated_front_matter.get(attr) != en_front_matter[attr]:
+                    # Always sync 'date' (add if missing)
+                    if attr == 'date':
+                        if attr not in translated_front_matter:
+                            import datetime
+                            translated_front_matter[attr] = en_front_matter.get(attr, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            updated = True
+                        elif attr in en_front_matter and translated_front_matter.get(attr) != en_front_matter[attr]:
                             translated_front_matter[attr] = en_front_matter[attr]
                             updated = True
-                    # Add empty string if attribute is missing in both files (except date)
-                    elif attr not in translated_front_matter:
-                        if attr == 'date':
-                            import datetime
-                            translated_front_matter[attr] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                        else:
-                            translated_front_matter[attr] = ""
-                        updated = True
+                    else:
+                        # Only sync if present in English version
+                        if attr in en_front_matter:
+                            if translated_front_matter.get(attr) != en_front_matter[attr]:
+                                translated_front_matter[attr] = en_front_matter[attr]
+                                updated = True
                 
                 if updated:
                     print(f"Updating {translated_file}")
