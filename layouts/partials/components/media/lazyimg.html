@@ -28,20 +28,21 @@
 {{ $width := .width | default "" }}
 {{ $height := .height | default "" }}
 {{ $maxWidth := .maxWidth | default 1024 }}
+{{ $fallbackSrc := $src }}
 
 <!-- Set size multiplier to always load one size larger than CSS breakpoint -->
 {{ $sizeMultiplier := 1.5 }}
 
 <!-- Define all the available image widths in ascending order -->
-{{ $availableWidths := slice 150 300 1024 }}
+{{ $availableWidths := slice 150 300 768 1024 }}
 
-<!-- Find optimal width based on maxWidth and sizeMultiplier -->
-{{ $targetWidth := int (mul $maxWidth $sizeMultiplier) }}
+<!-- Find optimal width based on maxWidth -->
+{{ $targetWidth := $maxWidth }}
 {{ $optimalWidth := 0 }}
 
 <!-- Select the nearest width that's larger than the target width -->
 {{ range $availableWidths }}
-  {{ if and (gt . $maxWidth) (or (eq $optimalWidth 0) (lt . $optimalWidth)) }}
+  {{ if and (ge . $targetWidth) (or (eq $optimalWidth 0) (lt . $optimalWidth)) }}
     {{ $optimalWidth = . }}
   {{ end }}
 {{ end }}
@@ -73,7 +74,7 @@
     <!-- Middle breakpoints -->
     {{ $sizesAttr = printf "%s, (max-width: %dpx) %dpx" $sizesAttr $breakpoint $width }}
   {{ else }}
-    <!-- Last breakpoint (default) -->
+    <!-- Last breakpoint (default) - use the exact maxWidth specified -->
     {{ $sizesAttr = printf "%s, %dpx" $sizesAttr $maxWidth }}
   {{ end }}
 {{ end }}
@@ -131,97 +132,25 @@
       {{ $origSrcset := "" }}
       {{ $webpSrcset := "" }}
       
-      <!-- Original WebP path -->
-      {{ $originalWebpPath := printf "%s%s.webp" $processedDirPath $basename }}
-      {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
+      <!-- Sort available widths in ASCENDING order (smallest first) for srcset -->
+      {{ $availableSrcWidths = sort $availableSrcWidths "width" "asc" }}
+      {{ $availableWebpWidths = sort $availableWebpWidths "width" "asc" }}
       
-      <!-- Variable to track the best fallback image -->
-      {{ $fallbackSrc := $src }}
-      {{ $bestFallbackWidth := 0 }}
-      
-      <!-- Collect available widths into maps for processed images -->
-      {{ $availableSrcWidths := slice }}
-      {{ $availableWebpWidths := slice }}
-      
-      <!-- Process each available width -->
-      {{ range $availableWidths }}
-        {{ $currentWidth := . }}
-        
-        <!-- Only consider widths that are useful for this image -->
-        {{ if le $currentWidth $originalWidth }}
-          <!-- Define paths to preprocessed images with directory structure -->
-          {{ $currentSrcPath := printf "%s%s-%d%s" $processedDirPath $basename $currentWidth $extension }}
-          {{ $currentWebpPath := printf "%s%s-%d.webp" $processedDirPath $basename $currentWidth }}
-          
-          <!-- Check if preprocessed images exist -->
-          {{ $useSrc := fileExists (printf "static%s" $currentSrcPath) }}
-          {{ $useWebp := fileExists (printf "static%s" $currentWebpPath) }}
-          
-          <!-- Add to available widths if exists -->
-          {{ if $useSrc }}
-            {{ $availableSrcWidths = $availableSrcWidths | append (dict "width" $currentWidth "path" $currentSrcPath) }}
-          {{ end }}
-          
-          {{ if $useWebp }}
-            {{ $availableWebpWidths = $availableWebpWidths | append (dict "width" $currentWidth "path" $currentWebpPath) }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-      
-      <!-- Sort available widths in DESCENDING order (largest first) -->
-      {{ $availableSrcWidths = sort $availableSrcWidths "width" "desc" }}
-      {{ $availableWebpWidths = sort $availableWebpWidths "width" "desc" }}
-      
-      <!-- Build srcset with largest sizes first -->
+      <!-- Build srcset with smallest sizes first -->
       {{ range $availableSrcWidths }}
         {{ if $origSrcset }}
           {{ $origSrcset = printf "%s, %s %dw" $origSrcset .path .width }}
         {{ else }}
           {{ $origSrcset = printf "%s %dw" .path .width }}
         {{ end }}
-        
-        <!-- Select the first fallback that's larger than maxWidth -->
-        {{ if and (ge .width $maxWidth) (eq $bestFallbackWidth 0) }}
-          {{ $fallbackSrc = .path }}
-          {{ $bestFallbackWidth = .width }}
-        {{ end }}
       {{ end }}
       
-      <!-- If no suitable fallback found, use the largest available -->
-      {{ if eq $bestFallbackWidth 0 }}
-        {{ with index $availableSrcWidths 0 }}
-          {{ $fallbackSrc = .path }}
-          {{ $bestFallbackWidth = .width }}
-        {{ end }}
-      {{ end }}
-      
-      <!-- Build WebP srcset with largest sizes first -->
+      <!-- Build WebP srcset with smallest sizes first -->
       {{ range $availableWebpWidths }}
         {{ if $webpSrcset }}
           {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset .path .width }}
         {{ else }}
           {{ $webpSrcset = printf "%s %dw" .path .width }}
-        {{ end }}
-        
-        <!-- If no fallback found yet, consider WebP -->
-        {{ if eq $bestFallbackWidth 0 }}
-          {{ $fallbackSrc = .path }}
-          {{ $bestFallbackWidth = .width }}
-        {{ end }}
-      {{ end }}
-      
-      <!-- Add original WebP to srcset if available -->
-      {{ if $useOriginalWebp }}
-        {{ if $webpSrcset }}
-          {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath $originalWidth }}
-        {{ else }}
-          {{ $webpSrcset = printf "%s %dw" $originalWebpPath $originalWidth }}
-        {{ end }}
-        
-        <!-- Consider original WebP as potential fallback -->
-        {{ if eq $bestFallbackWidth 0 }}
-          {{ $fallbackSrc = $originalWebpPath }}
-          {{ $bestFallbackWidth = $originalWidth }}
         {{ end }}
       {{ end }}
       
@@ -238,6 +167,9 @@
           {{ $webpSrcset = "" }}
         {{ end }}
       {{ end }}
+      
+      <!-- Calculate explicit sizes attribute to force browser to use the correct size -->
+      {{ $explicitSizes := printf "%dpx" $maxWidth }}
       
       <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
         <!-- WebP sources with lazy loading -->
@@ -289,7 +221,6 @@
     {{ end }}
   {{ else }}
     <!-- For static files or files that couldn't be processed -->
-    <!-- Create processed directory path that mirrors original structure -->
     {{ $relativePath := $dirPath }}
     {{ if hasPrefix $dirPath "/images/" }}
       {{ $relativePath = substr $dirPath 8 }}
@@ -310,9 +241,24 @@
     {{ $originalWebpPath := printf "%s%s.webp" $processedDirPath $basename }}
     {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
     
-    <!-- Variable to track the best fallback image -->
+    <!-- Use original if maxWidth is greater than available processed sizes -->
+    {{ $useOriginal := ge $maxWidth (slice 150 300 1024 ) }}
+    {{ if $useOriginal }}
+      {{ $useOriginal = false }}
+      {{ $largestProcessed := 0 }}
+      {{ range $availableWidths }}
+        {{ $currentWidth := . }}
+        {{ $processedPath := printf "%s%s-%d%s" $processedDirPath $basename $currentWidth $extension }}
+        {{ if and (fileExists (printf "static%s" $processedPath)) (gt $currentWidth $largestProcessed) }}
+          {{ $largestProcessed = $currentWidth }}
+        {{ end }}
+      {{ end }}
+      <!-- If maxWidth is larger than largest processed image, use original -->
+      {{ $useOriginal = gt $maxWidth $largestProcessed }}
+    {{ end }}
+    
+    <!-- Default to original as fallback -->
     {{ $fallbackSrc := $src }}
-    {{ $bestFallbackWidth := 0 }}
     
     <!-- Collect available widths into maps for processed images -->
     {{ $availableSrcWidths := slice }}
@@ -340,67 +286,35 @@
       {{ end }}
     {{ end }}
     
-    <!-- Sort available widths in DESCENDING order (largest first) -->
-    {{ $availableSrcWidths = sort $availableSrcWidths "width" "desc" }}
-    {{ $availableWebpWidths = sort $availableWebpWidths "width" "desc" }}
+    <!-- Sort available widths in ASCENDING order (smallest first) for srcset -->
+    {{ $availableSrcWidths = sort $availableSrcWidths "width" "asc" }}
+    {{ $availableWebpWidths = sort $availableWebpWidths "width" "asc" }}
     
-    <!-- Build srcset with largest sizes first -->
+    <!-- Build srcset with smallest sizes first -->
     {{ range $availableSrcWidths }}
       {{ if $origSrcset }}
         {{ $origSrcset = printf "%s, %s %dw" $origSrcset .path .width }}
       {{ else }}
         {{ $origSrcset = printf "%s %dw" .path .width }}
       {{ end }}
-      
-      <!-- Select the first fallback that's larger than maxWidth -->
-      {{ if and (ge .width $maxWidth) (eq $bestFallbackWidth 0) }}
-        {{ $fallbackSrc = .path }}
-        {{ $bestFallbackWidth = .width }}
-      {{ end }}
     {{ end }}
     
-    <!-- If no suitable fallback found, use the largest available -->
-    {{ if eq $bestFallbackWidth 0 }}
-      {{ with index $availableSrcWidths 0 }}
-        {{ $fallbackSrc = .path }}
-        {{ $bestFallbackWidth = .width }}
-      {{ end }}
-    {{ end }}
-    
-    <!-- Build WebP srcset with largest sizes first -->
+    <!-- Build WebP srcset with smallest sizes first -->
     {{ range $availableWebpWidths }}
       {{ if $webpSrcset }}
         {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset .path .width }}
       {{ else }}
         {{ $webpSrcset = printf "%s %dw" .path .width }}
       {{ end }}
-      
-      <!-- If no fallback found yet, consider WebP -->
-      {{ if eq $bestFallbackWidth 0 }}
-        {{ $fallbackSrc = .path }}
-        {{ $bestFallbackWidth = .width }}
-      {{ end }}
-    {{ end }}
-    
-    <!-- Add original WebP to srcset if available -->
-    {{ if $useOriginalWebp }}
-      {{ if $webpSrcset }}
-        {{ $webpSrcset = printf "%s, %s %dw" $webpSrcset $originalWebpPath $maxWidth }}
-      {{ else }}
-        {{ $webpSrcset = printf "%s %dw" $originalWebpPath $maxWidth }}
-      {{ end }}
-      
-      <!-- Consider original WebP as potential fallback -->
-      {{ if eq $bestFallbackWidth 0 }}
-        {{ $fallbackSrc = $originalWebpPath }}
-        {{ $bestFallbackWidth = $maxWidth }}
-      {{ end }}
     {{ end }}
     
     <!-- If no processed images exist, use original -->
     {{ if not $origSrcset }}
-      {{ $origSrcset = printf "%s %dw" $src $maxWidth }}
+      {{ $origSrcset = printf "%s %dw" $src 768 }} <!-- Assign a large width to original image -->
     {{ end }}
+    
+    <!-- Calculate explicit sizes attribute to force browser to use the correct size -->
+    {{ $explicitSizes := printf "%dpx" $maxWidth }}
     
     <picture class="lazy-picture" {{ if $isGallery }}data-image="{{ $dataImage }}"{{ end }}>
       <!-- WebP sources with lazy loading -->
