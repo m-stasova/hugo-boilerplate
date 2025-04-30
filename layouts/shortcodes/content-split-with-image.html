@@ -3,7 +3,7 @@
   {{< content-split-with-image 
     eyebrow="Innovative Solutions" 
     heading="Transform Your Workflow" 
-    description="Discover how our tools can help you streamline your processes and achieve better results." 
+    markdownContent="Discover how our tools can help you streamline your processes and achieve better results." 
     image="https://example.com/image.jpg" 
     imageAlt="Descriptive alt text for the image" 
     bgColor="bg-gray-100" 
@@ -31,7 +31,6 @@
 {{/* Split with Image Content Shortcode */}}
 {{ $eyebrow := .Get "eyebrow" | default "Deploy faster" }}
 {{ $heading := .Get "heading" | default "A better workflow" }}
-{{ $description := .Get "description" | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
 {{ $image := .Get "image" | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
 {{ $imageAlt := .Get "imageAlt" | default "Featured image" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
@@ -47,10 +46,9 @@
   through a structured data file or inner content.
 */}}
 
-{{ partial "content/split_with_image.html" (dict 
+{{ partial "sections/content/split_with_image.html" (dict 
   "eyebrow" $eyebrow
   "heading" $heading
-  "description" $description
   "image" $image
   "imageAlt" $imageAlt
   "bgColor" $bgColor
@@ -59,4 +57,5 @@
   "descriptionColor" $descriptionColor
   "contentColor" $contentColor
   "imageBgColor" $imageBgColor
+  "markdownContent" (.Get "markdownContent")
 ) }}
