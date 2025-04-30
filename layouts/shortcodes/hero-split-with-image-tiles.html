@@ -50,31 +50,16 @@
 {{/* Split Hero with Image Tiles Shortcode */}}
 {{ $heading := .Get "heading" | default "We're changing the way people connect" }}
 {{ $description := .Get "description" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt." }}
-{{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
-{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
-{{ $secondaryCtaText := .Get "secondaryCtaText" | default "Live demo" }}
-{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
 
-{{ $cta := dict 
-  "primary" (dict "text" $primaryCtaText "url" $primaryCtaUrl)
-  "secondary" (dict "text" $secondaryCtaText "url" $secondaryCtaUrl)
-}}
 
-{{ $defaultImages := slice
-  (dict "url" "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" "alt" "Person working on laptop")
-  (dict "url" "https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" "alt" "People in a meeting")
-  (dict "url" "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80" "alt" "Person using smartphone")
-  (dict "url" "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80" "alt" "Business meeting")
-  (dict "url" "https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" "alt" "Person working on computer")
-}}
-
-{{ $images := $defaultImages }}
+{{ $images := .Get "images" | default (slice) }}
+{{ $cta := .Get "cta" | default (slice)}}
+{{ $images := .Get "images" | default (slice) }}
 {{ with .Inner }}
   {{ if . }}
     {{ $images = . | unmarshal }}
   {{ end }}
 {{ end }}
-
 {{ partial "sections/hero/split_with_image_tiles.html" (dict 
   "heading" $heading
   "description" $description

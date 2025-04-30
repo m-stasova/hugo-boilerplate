@@ -66,39 +66,7 @@
 {{ $backgroundColor := .Get "backgroundColor" | default "gray-50" }}
 {{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
 
-{{ $defaultCards := slice
-  (dict
-    "title" "Mobile friendly"
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png"
-    "imageAlt" "Mobile friendly interface"
-    "position" "large-left"
-  )
-  (dict
-    "title" "Performance"
-    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
-    "imageAlt" "Performance metrics"
-    "position" "top-right"
-  )
-  (dict
-    "title" "Security"
-    "description" "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
-    "imageAlt" "Security shield"
-    "position" "bottom-middle"
-  )
-  (dict
-    "title" "Powerful APIs"
-    "description" "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida."
-    "image" ""
-    "imageAlt" ""
-    "position" "large-right"
-    "codeExample" true
-  )
-}}
-
-{{ $cards := $defaultCards }}
+{{ $cards := (slice) }}
 {{ with .Inner }}
   {{ if . }}
     {{ $cards = . | unmarshal }}

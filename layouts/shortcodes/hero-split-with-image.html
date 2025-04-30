@@ -22,10 +22,10 @@ Example usage of Split Hero with Image Shortcode:
 {{ $description := .Get "description" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $imageUrl := .Get "imageUrl" | default "https://images.unsplash.com/photo-1487017159836-4e23ece2e4cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80" }}
 {{ $imageAlt := .Get "imageAlt" | default "Hero image" }}
-{{ $primaryCTAText := .Get "primaryCTAText" | default "Get started" }}
-{{ $primaryCTAUrl := .Get "primaryCTAUrl" | default "#" }}
-{{ $secondaryCTAText := .Get "secondaryCTAText" | default "Learn more" }}
-{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default "#" }}
+{{ $primaryCTAText := .Get "primaryCTAText" }}
+{{ $primaryCTAUrl := .Get "primaryCTAUrl" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" }}
+{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" }}
 {{ $logo := .Get "logo" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
 {{ $announcementEnabled := .Get "announcementEnabled" | default "true" }}
 {{ $announcementText := .Get "announcementText" | default "Anim aute id magna aliqua ad ad non deserunt sunt." }}
@@ -39,10 +39,15 @@ Example usage of Split Hero with Image Shortcode:
   "linkUrl" $announcementLinkUrl
 }}
 
-{{ $cta := dict 
-  "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)
-  "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)
-}}
+{{ $cta := dict }}
+
+{{ if $primaryCTAText }}
+  {{ $cta = merge $cta (dict "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)) }}
+{{ end }}
+
+{{ if $secondaryCTAText }}
+  {{ $cta = merge $cta (dict "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)) }}
+{{ end }}
 
 {{ $image := dict
   "url" $imageUrl
