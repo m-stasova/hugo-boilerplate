@@ -69,36 +69,20 @@
 {{ $logoAlt := .logoAlt | default "Company name" }}
 
 {{/* Navigation columns */}}
-{{ $column1Title := .column1Title | default "Solutions" }}
-{{ $column1Links := .column1Links | default (slice 
-  (dict "text" "Marketing" "url" "#")
-  (dict "text" "Analytics" "url" "#")
-  (dict "text" "Automation" "url" "#")
-  (dict "text" "Commerce" "url" "#")
-  (dict "text" "Insights" "url" "#")
-) }}
+{{ $column1Title := .column1Title }}
+{{ $column1Links := .column1Links }}
 
-{{ $column2Title := .column2Title | default "Support" }}
-{{ $column2Links := .column2Links | default (slice 
-  (dict "text" "Submit ticket" "url" "#")
-  (dict "text" "Documentation" "url" "#")
-  (dict "text" "Guides" "url" "#")
-) }}
+{{ $column2Title := .column2Title }}
+{{ $column2Links := .column2Links }}
 
-{{ $column3Title := .column3Title | default "Company" }}
-{{ $column3Links := .column3Links | default (slice 
-  (dict "text" "About" "url" "#")
-  (dict "text" "Blog" "url" "#")
-  (dict "text" "Jobs" "url" "#")
-  (dict "text" "Press" "url" "#")
-) }}
+{{ $column3Title := .column3Title }}
+{{ $column3Links := .column3Links }}
 
-{{ $column4Title := .column4Title | default "Legal" }}
-{{ $column4Links := .column4Links | default (slice 
-  (dict "text" "Terms of service" "url" "#")
-  (dict "text" "Privacy policy" "url" "#")
-  (dict "text" "License" "url" "#")
-) }}
+{{ $column3Title := .column3Title }}
+{{ $column3Links := .column3Links }}
+
+{{ $column4Title := .column4Title }}
+{{ $column4Links := .column4Links }}
 
 {{ $headingColor := .headingColor | default "text-white" }}
 {{ $linkColor := .linkColor | default "text-gray-400" }}
@@ -142,6 +126,7 @@
       ) }}
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-8">
+          {{ if $column1Title }}
           <div>
             <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column1Title }}</h3>
             <ul role="list" class="mt-6 space-y-4">
@@ -152,6 +137,8 @@
               {{ end }}
             </ul>
           </div>
+          {{ end }}
+          {{ if $column2Title }}
           <div class="mt-10 md:mt-0">
             <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column2Title }}</h3>
             <ul role="list" class="mt-6 space-y-4">
@@ -162,8 +149,11 @@
               {{ end }}
             </ul>
           </div>
+          {{ end }}
         </div>
+        
         <div class="md:grid md:grid-cols-2 md:gap-8">
+          {{ if $column3Title }}
           <div>
             <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column3Title }}</h3>
             <ul role="list" class="mt-6 space-y-4">
@@ -174,6 +164,8 @@
               {{ end }}
             </ul>
           </div>
+          {{ end }}
+          {{ if $column4Title }}
           <div class="mt-10 md:mt-0">
             <h3 class="text-sm/6 font-semibold {{ $headingColor }}">{{ $column4Title }}</h3>
             <ul role="list" class="mt-6 space-y-4">
@@ -184,6 +176,7 @@
               {{ end }}
             </ul>
           </div>
+          {{ end }}
         </div>
       </div>
     </div>
