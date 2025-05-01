@@ -11,7 +11,7 @@
 <!-- Hero Section -->
 {{ partial "layout/headers/centered_with_eyebrow.html" (dict 
   "heading" .Title
-  "description" (partial "utils/linkbuilding" (dict "content" (i18n "category_browse_content" .Title) "page" .))
+  "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "category_browse_content") .Title) "page" .))
   "eyebrow" (i18n "category_eyebrow")
 ) }}
 
@@ -53,7 +53,7 @@
             <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
               <div>
                 <p class="text-sm text-gray-700">
-                  {{ i18n "pagination_showing" }} <span class="font-medium">{{ $paginator.FirstItemIndex }}</span> {{ i18n "pagination_to" }} <span class="font-medium">{{ $paginator.LastItemIndex }}</span> {{ i18n "pagination_of" }} <span class="font-medium">{{ $paginator.TotalNumberOfElements }}</span> {{ i18n "pagination_results" }}
+                  {{ i18n "pagination_showing" }} <span class="font-medium">{{ $paginator.PageNumber }}</span> {{ i18n "pagination_of" }} <span class="font-medium">{{ $paginator.TotalPages }}</span> {{ i18n "pagination_pages" }}
                 </p>
               </div>
               <div>
