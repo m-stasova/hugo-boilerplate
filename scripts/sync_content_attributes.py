@@ -1,5 +1,13 @@
 attributes_to_sync = [
     'image',
+    'tags',
+    'categories',
+    'brands',
+    'brandCompanyName',
+    'contactAddress',
+    'contactEmail',
+    'contactPhone',
+    'brandUrl',
     'youtubeVideoID',
     'date',
 ]

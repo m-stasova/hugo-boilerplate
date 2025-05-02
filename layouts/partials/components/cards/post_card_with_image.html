@@ -12,6 +12,7 @@
   - Section: The content section (e.g., "blog")
   - Params.tags: Array of post tags (optional)
   - Params.author: Post author name (optional)
+  - imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
 @example:
   {{ partial "components/cards/post_card_with_image.html" . }}
 @note: This component is similar to post_card.html but always includes an image. It will use a placeholder image if none is specified.
@@ -24,22 +25,46 @@
 {{ $readingTime := .ReadingTime }}
 {{ $permalink := .RelPermalink }}
 {{ $section := .Section }}
+{{ $imageBgColor := .Params.imageBgColor | default "#ffffff" }}
 
+<style>
+  /* Post card image container */
+  .post-card-image-container {
+    height: 10rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Post card image styling */
+  .post-card-image {
+    max-height: 10rem !important;
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    padding: 5px; /* 2px padding around the image */
+  }
+</style>
 
 <article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
   {{ if $image }}
-  <!-- Image -->
-  <div class="h-40 overflow-hidden rounded-t-lg">
+  <!-- Image Container with custom CSS classes -->
+  <div class="post-card-image-container" style="background-color: {{ $imageBgColor }};">
     {{ partial "components/media/lazyimg.html" (dict
       "src" $image
       "alt" $title
-      "class" "h-full w-full object-cover object-center group-hover:opacity-90 transition-opacity"
+      "class" "post-card-image group-hover:opacity-90 transition-opacity"
       "maxWidth" 300
     ) }}
   </div>
   {{ end }}
   
   <div class="p-4 flex flex-col flex-grow">
+    {{ if .Date }}
     <!-- Date and Section -->
     <div class="flex items-center gap-x-4 text-xs mb-2">
       <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
@@ -47,6 +72,7 @@
         <a href="{{ print "/" $section "/" | relLangURL }}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1 font-medium text-gray-600 hover:bg-gray-100">{{ humanize $section }}</a>
       {{ end }}
     </div>
+    {{ end }}
     
     <!-- Title and Description -->
     <h3 class="text-base font-semibold text-gray-900 group-hover:text-indigo-600">

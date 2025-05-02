@@ -177,6 +177,17 @@
           </div>
         </form>
         
+        {{ if $product.brands }}
+          <div class="mt-6 flex items-center gap-x-4">
+            <ul role="list" class="flex flex-wrap gap-x-2 gap-y-1">
+              {{ range $brand := $product.brands }}
+                <li>
+                  <a href="/brands/{{ $brand | urlize }}" class="inline-block rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-200">{{ $brand }}</a>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        {{ end }}
 
 
         {{ if $product.tags }}
@@ -190,6 +201,7 @@
             </ul>
           </div>
         {{ end }}
+
 
         {{ if $product.categories }}
           <div class="mt-6 flex items-center gap-x-4">

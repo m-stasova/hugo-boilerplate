@@ -26,6 +26,7 @@
 {{ $section := .Section }}
 
 <article class="group relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+  {{ if .Date }}
   <!-- Date and Section -->
   <div class="flex items-center gap-x-4 text-xs mb-3">
     <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
@@ -33,7 +34,8 @@
       <a href="{{ print "/" $section "/" | relLangURL }}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100">{{ humanize $section }}</a>
     {{ end }}
   </div>
-  
+  {{ end }}
+
   <!-- Title and Description -->
   <h3 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600">
     <a href="{{ $permalink }}" class="hover:text-indigo-600 focus:outline-none">
