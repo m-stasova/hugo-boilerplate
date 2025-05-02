@@ -16,7 +16,7 @@
         {{ $paginator := .Paginate .Pages 90 }}
         {{ range $paginator.Pages }}
           <li>
-            {{ partial "components/cards/post_card_with_image.html" . }}
+            {{ partial "components/cards/post_card_with_image.html" (dict "page" .) }}
           </li>
         {{ end }}
       </ul>

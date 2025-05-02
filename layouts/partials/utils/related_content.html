@@ -43,7 +43,7 @@
             
             <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {{ range first 3 $relatedPages }}
-                {{ partial "components/cards/post_card_with_image.html" . }}
+                {{ partial "components/cards/post_card_with_image.html" (dict "page" .) }}
               {{ end }}
             </div>
           </div>

@@ -13,24 +13,31 @@
   - Params.tags: Array of post tags (optional)
   - Params.author: Post author name (optional)
   - imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
+  - cardHeight: Height of the card in pixels (optional, default: 300)
 @example:
-  {{ partial "components/cards/post_card_with_image.html" . }}
+  {{ partial "components/cards/post_card_with_image.html" (dict "page" .) }}
 @note: This component is similar to post_card.html but always includes an image. It will use a placeholder image if none is specified.
 */}}
 
-{{ $image := .Params.image }}
-{{ $title := .Title }}
-{{ $description := .Params.description | default .Description | default .Summary }}
-{{ $date := .Date.Format "Jan 2, 2006" }}
-{{ $readingTime := .ReadingTime }}
-{{ $permalink := .RelPermalink }}
-{{ $section := .Section }}
-{{ $imageBgColor := .Params.imageBgColor | default "#ffffff" }}
+{{ $cardHeight := 300 }}
+{{ if (isset . "cardHeight") }}
+  {{ $cardHeight = .cardHeight }}
+{{ end }}
+{{ $page := .page | default . }}
+{{ $imageSectionHeight := div (mul $cardHeight 2) 3 }} {{/* 40% of cardHeight */}}
+{{ $image := $page.Params.image }}
+{{ $title := $page.Title }}
+{{ $description := $page.Params.description | default $page.Description | default $page.Summary }}
+{{ $date := $page.Date.Format "Jan 2, 2006" }}
+{{ $readingTime := $page.ReadingTime }}
+{{ $permalink := $page.RelPermalink }}
+{{ $section := $page.Section }}
+{{ $imageBgColor := $page.Params.imageBgColor | default "#ffffff" }}
 
 <style>
   /* Post card image container */
   .post-card-image-container {
-    height: 10rem;
+    height: {{ $imageSectionHeight }}px;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     overflow: hidden;
@@ -41,16 +48,17 @@
   
   /* Post card image styling */
   .post-card-image {
-    max-height: 10rem !important;
+    max-height: {{ $imageSectionHeight }}px !important;
     max-width: 100% !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
     padding: 5px; /* 2px padding around the image */
+    border-radius: 0.5rem; /* Added for rounded corners */
   }
 </style>
 
-<article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+<article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col" style="height: {{ $cardHeight }}px;">
   {{ if $image }}
   <!-- Image Container with custom CSS classes -->
   <div class="post-card-image-container" style="background-color: {{ $imageBgColor }};">
@@ -64,10 +72,10 @@
   {{ end }}
   
   <div class="p-4 flex flex-col flex-grow">
-    {{ if .Date }}
+    {{ if $page.Date }}
     <!-- Date and Section -->
     <div class="flex items-center gap-x-4 text-xs mb-2">
-      <time datetime="{{ .Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
       {{ if $section }}
         <a href="{{ print "/" $section "/" | relLangURL }}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1 font-medium text-gray-600 hover:bg-gray-100">{{ humanize $section }}</a>
       {{ end }}
@@ -86,16 +94,16 @@
     <!-- Tags and Author -->
     <div class="mt-2 flex items-center justify-between">
       <!-- Tags (limited to 2) -->
-      {{ if .Params.tags }}
+      {{ if $page.Params.tags }}
         <div class="flex flex-wrap gap-1">
-          {{ range first 2 .Params.tags }}
+          {{ range first 2 $page.Params.tags }}
             <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 hover:bg-gray-200">
               {{ . }}
             </a>
           {{ end }}
-          {{ if gt (len .Params.tags) 2 }}
+          {{ if gt (len $page.Params.tags) 2 }}
             <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800">
-              +{{ sub (len .Params.tags) 2 }}
+              +{{ sub (len $page.Params.tags) 2 }}
             </span>
           {{ end }}
         </div>
@@ -103,8 +111,8 @@
       
       <!-- Reading Time -->
       <div class="text-xs text-gray-500">
-        {{ if .Params.author }}
-          <span class="mr-1">{{ .Params.author }}</span>
+        {{ if $page.Params.author }}
+          <span class="mr-1">{{ $page.Params.author }}</span>
           <span class="mx-1">•</span>
         {{ end }}
         <span>{{ $readingTime }} min</span>
