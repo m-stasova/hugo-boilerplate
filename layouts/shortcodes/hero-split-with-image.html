@@ -26,7 +26,7 @@ Example usage of Split Hero with Image Shortcode:
 {{ $primaryCTAUrl := .Get "primaryCTAUrl" }}
 {{ $secondaryCTAText := .Get "secondaryCTAText" }}
 {{ $secondaryCTAUrl := .Get "secondaryCTAUrl" }}
-{{ $logo := .Get "logo" | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
+{{ $logo := .Get "logo" }}
 {{ $announcementEnabled := .Get "announcementEnabled" | default "true" }}
 {{ $announcementText := .Get "announcementText" | default "Anim aute id magna aliqua ad ad non deserunt sunt." }}
 {{ $announcementLinkText := .Get "announcementLinkText" | default "Read more" }}
