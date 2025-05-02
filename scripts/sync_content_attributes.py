@@ -16,6 +16,7 @@ import os
 import re
 import toml
 from pathlib import Path
+import datetime
 
 # Base content directory
 content_dir = Path(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../content')))
@@ -27,7 +28,7 @@ def extract_front_matter(file_path):
         content = f.read()
     
     # Look for front matter between +++ delimiters
-    match = re.match(r'^\+\+\+\s*\n(.*?)\n\+\+\+\s*\n', content, re.DOTALL)
+    match = re.match(r'^\+\+\+\s*\n*(.*?)\n*\+\+\+\s*\n*', content, re.DOTALL)
     if match:
         front_matter_text = match.group(1)
         try:
@@ -36,7 +37,7 @@ def extract_front_matter(file_path):
             return front_matter, remaining_content
         except toml.TomlDecodeError as e:
             print(f"Error parsing front matter in {file_path}: {e}")
-            return {}, content
+            raise e
     return {}, content
 
 def update_front_matter(file_path, updated_front_matter, remaining_content):
@@ -53,8 +54,16 @@ def process_file(en_file_path):
     rel_path = en_file_path.relative_to(en_content_dir)
     
     # Extract front matter from English file
-    en_front_matter, _ = extract_front_matter(en_file_path)
-    
+    try:
+        en_front_matter, remaining_content = extract_front_matter(en_file_path)
+    except toml.TomlDecodeError as e:
+        print(f"!!!!! Error processing {en_file_path}: {e}")
+        return
+
+    if 'date' not in en_front_matter:
+        en_front_matter['date'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        update_front_matter(en_file_path, en_front_matter, remaining_content)
+
     # Create a dictionary with only the attributes we want to sync
     sync_attributes = {}
     for attr in attributes_to_sync:
@@ -68,42 +77,30 @@ def process_file(en_file_path):
     for lang_dir in content_dir.iterdir():
         if lang_dir.is_dir() and lang_dir.name != 'en':
             translated_file = lang_dir / rel_path
-            
+
             if translated_file.exists():
                 # Extract front matter from translated file
-                translated_front_matter, remaining_content = extract_front_matter(translated_file)
-                
-                # Update front matter with synced attributes
-                updated = False
-                for attr in attributes_to_sync:
-                    # Always sync 'date' (add if missing)
-                    if attr == 'date':
-                        if attr not in translated_front_matter:
-                            import datetime
-                            translated_front_matter[attr] = en_front_matter.get(attr, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                try:
+                    translated_front_matter, remaining_content = extract_front_matter(translated_file)
+
+                    # Update front matter with synced attributes
+                    updated = False
+                    for attr, value in sync_attributes.items():
+                        if translated_front_matter.get(attr) != value:
+                            translated_front_matter[attr] = value
                             updated = True
-                        elif attr in en_front_matter and translated_front_matter.get(attr) != en_front_matter[attr]:
-                            translated_front_matter[attr] = en_front_matter[attr]
-                            updated = True
-                    else:
-                        # Only sync if present in English version
-                        if attr in en_front_matter:
-                            if translated_front_matter.get(attr) != en_front_matter[attr]:
-                                translated_front_matter[attr] = en_front_matter[attr]
-                                updated = True
-                
-                if updated:
-                    print(f"Updating {translated_file}")
-                    update_front_matter(translated_file, translated_front_matter, remaining_content)
+
+                    if updated:
+                        print(f"Updating {translated_file}")
+                        update_front_matter(translated_file, translated_front_matter, remaining_content)
+                except Exception as e:
+                    print(f"Error processing {translated_file}: {e}")
+                    continue
 
 def main():
-    """Main function to sync content attributes"""
-    print(f"Syncing content attributes: {', '.join(attributes_to_sync)}")
-    
     # Find all markdown files in the English content directory
     for file_path in en_content_dir.glob('**/*.md'):
         if file_path.is_file():
-            print(f"Processing {file_path.relative_to(content_dir)}")
             process_file(file_path)
     
     print("Content attributes sync complete.")
