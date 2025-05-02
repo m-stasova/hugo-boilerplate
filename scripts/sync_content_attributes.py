@@ -91,7 +91,6 @@ def process_file(en_file_path):
                             updated = True
 
                     if updated:
-                        print(f"Updating {translated_file}")
                         update_front_matter(translated_file, translated_front_matter, remaining_content)
                 except Exception as e:
                     print(f"Error processing {translated_file}: {e}")
