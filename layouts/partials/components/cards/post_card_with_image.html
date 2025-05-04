@@ -12,6 +12,7 @@
   - Section: The content section (e.g., "blog")
   - Params.tags: Array of post tags (optional)
   - Params.author: Post author name (optional)
+  - Params.price (optional): Price of the product (if applicable) in EUR
   - imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
   - cardHeight: Height of the card in pixels (optional, default: 300)
 @example:
@@ -109,14 +110,19 @@
         </div>
       {{ end }}
       
-      <!-- Reading Time -->
-      <div class="text-xs text-gray-500">
-        {{ if $page.Params.author }}
-          <span class="mr-1">{{ $page.Params.author }}</span>
-          <span class="mx-1">•</span>
+      <!-- Price (if applicable) -->
+      {{ if $page.Params.price }}
+        <div class="text-sm font-semibold text-gray-900 mt-2">
+          {{ printf "%.2f€" (float $page.Params.price) }}
+        </div>
+      {{ else }}
+        <!-- Reading Time -->
+        {{ if $readingTime }}
+          <div class="text-sm text-gray-500 mt-2">
+            {{ printf "%d min read" $readingTime }}
+          </div>
         {{ end }}
-        <span>{{ $readingTime }} min</span>
-      </div>
+      {{ end }}
     </div>
   </div>
 </article>
