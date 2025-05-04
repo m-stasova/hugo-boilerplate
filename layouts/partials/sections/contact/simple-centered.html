@@ -20,21 +20,22 @@
           "description" "Ut cursus est ut amet. Lobortis eget egestas leo vitae eget porttitor risus blandit."
           "linkText" "Contact us"
           "linkUrl" "#"
-          "icon" "envelope"
+          "icon" '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+          </svg>
+          '
         )
         (dict
           "title" "Bug reports"
           "description" "Expedita qui non ut quia ipsum voluptatum ipsam pariatur. Culpa vitae ipsum minus eius vero quo quibusdam."
           "linkText" "Report a bug"
           "linkUrl" "#"
-          "icon" "bug-ant"
         )
         (dict
           "title" "Technical support"
           "description" "Sint aut modi porro consequatur architecto commodi qui consequatur. Dignissimos adipisci minima."
           "linkText" "Join our Discord"
           "linkUrl" "#"
-          "icon" "question-mark-circle"
         )
       )
   ) }}
@@ -44,22 +45,22 @@
     <h2 class="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">{{ .title }}</h2>
     <p class="mt-2 text-lg/8 text-gray-600">{{ .description }}</p>
   </div>
-  <div class="mx-auto mt-20 max-w-lg space-y-16">
-    {{ range .contacts }}
-    <div class="flex gap-x-6">
-      <div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-indigo-600">
-        {{ $iconStyle := "solid" }}
-        {{ if isset . "iconStyle" }}{{ $iconStyle = .iconStyle }}{{ end }}
-        <span class="icon-heroicons-{{ $iconStyle }}-{{ .icon }} size-6 text-white"></span>
+  <div class="mx-auto mt-20 max-w-7xl">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {{ range .contacts }}
+      <div class="flex gap-x-6">
+        {{ if isset . "icon" }}
+          {{ .icon }}
+        {{ end }}
+        <div>
+          <h3 class="text-base/7 font-semibold text-gray-900">{{ .title }}</h3>
+          <p class="mt-2 text-base/7 text-gray-600">{{ .description }}</p>
+          <p class="mt-4 text-sm/6 font-semibold">
+            <a href="{{ .linkUrl }}" class="text-indigo-600">{{ .linkText }} <span aria-hidden="true">&rarr;</span></a>
+          </p>
+        </div>
       </div>
-      <div>
-        <h3 class="text-base/7 font-semibold text-gray-900">{{ .title }}</h3>
-        <p class="mt-2 text-base/7 text-gray-600">{{ .description }}</p>
-        <p class="mt-4 text-sm/6 font-semibold">
-          <a href="{{ .linkUrl }}" class="text-indigo-600">{{ .linkText }} <span aria-hidden="true">&rarr;</span></a>
-        </p>
-      </div>
+      {{ end }}
     </div>
-    {{ end }}
   </div>
 </div>
