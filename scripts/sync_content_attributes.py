@@ -7,9 +7,12 @@ attributes_to_sync = [
     'contactAddress',
     'contactEmail',
     'contactPhone',
+    'getSupportUrl',
     'brandUrl',
     'youtubeVideoID',
     'date',
+    'homePageUrl',
+    'images',
 ]
 
 import os
