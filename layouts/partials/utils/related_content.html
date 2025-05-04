@@ -18,8 +18,6 @@
 {{ $pageRelatedContent := index $sectionData $slug | default slice }}
 
 {{ if gt (len $pageRelatedContent) 0 }}
-<div class="bg-white py-16">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
     {{ $relatedPages := slice }}
 
@@ -33,24 +31,29 @@
     {{ end }}
     
     {{ if gt (len $relatedPages) 0 }}
-      <div class="bg-gray-50 py-12">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="mx-auto">
-            <div class="text-center mb-8">
-              <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Related Content</h2>
-              <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-500">Explore these related topics to expand your knowledge.</p>
-            </div>
-            
-            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {{ range first 3 $relatedPages }}
-                {{ partial "components/cards/post_card_with_image.html" (dict "page" .) }}
-              {{ end }}
-            </div>
-          </div>
+      <div class="bg-white py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8"></div>
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Related Content</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-500">Explore these related topics to expand your knowledge.</p>
+        </div>
+        
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {{ $validPages := 0 }}
+          {{ range first 3 $relatedPages }}
+            {{ if . }}
+              {{ partial "components/cards/post_card_with_image.html" (dict "page" .) }}
+              {{ $validPages = add $validPages 1 }}
+            {{ end }}
+          {{ end }}
+          
+          {{ if eq $validPages 0 }}
+            <!-- If we got here but no valid pages were rendered, hide the entire section -->
+            <style>
+              .text-center.mb-8 { display: none; }
+            </style>
+          {{ end }}
         </div>
       </div>
-    {{ end }}
-
-  </div>
-</div>
+      {{ end }}
 {{ end }}
