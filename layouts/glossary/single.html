@@ -21,14 +21,14 @@
 {{ partial "sections/hero/split_with_image.html" (dict
 "heading" .Params.term
 "description" (markdownify $shortDescription)
-"eyebrow" (i18n "glossary_eyebrow")
+"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow") | default "")
 "image" .Params.image
 ) }}
 {{ else }}
 {{ partial "layout/headers/centered_with_eyebrow.html" (dict
 "heading" .Params.term
 "description" (markdownify $shortDescription)
-"eyebrow" (i18n "glossary_eyebrow")
+"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow") | default "")
 ) }}
 {{ end }}
 

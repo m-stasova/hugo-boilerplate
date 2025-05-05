@@ -27,8 +27,7 @@
 {{ $padding := .padding | default "px-6 py-24 sm:py-32 lg:px-8" }}
 
 {{/* Eyebrow */}}
-{{ $showEyebrow := .showEyebrow | default true }}
-{{ $eyebrow := .eyebrow | default "Get the help you need" }}
+{{ $eyebrow := .eyebrow | default "" }}
 {{ $eyebrowColor := .eyebrowColor | default "text-indigo-600" }}
 
 {{/* Heading */}}
@@ -42,7 +41,7 @@
 
 <div class="{{ $bgColor }} {{ $padding }}">
   <div class="mx-auto {{ $maxWidth }} text-center">
-    {{ if $showEyebrow }}
+    {{ if $eyebrow }}
     <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
     {{ end }}
     <h2 class="mt-2 text-5xl font-semibold tracking-tight {{ $headingColor }} sm:text-7xl">{{ $heading }}</h2>

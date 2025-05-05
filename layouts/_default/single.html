@@ -35,14 +35,14 @@
   {{ partial "sections/hero/split_with_image.html" (dict 
     "heading" .Params.title
     "description" (markdownify $shortDescription)
-    "eyebrow" (i18n "glossary_eyebrow")
+    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
     "image" $image
   ) }}
 {{ else }}
   {{ partial "layout/headers/centered_with_eyebrow.html" (dict 
     "heading" .Params.title
     "description" (markdownify $shortDescription)
-    "eyebrow" (i18n "glossary_eyebrow")
+    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
   ) }}
 {{ end }}
 
@@ -67,9 +67,9 @@
 {{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
 {{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
 {{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
-{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "/resources/" }}
+{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "https://app.flowhunt.io/photoai/" }}
 {{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
-{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "/contact/" }}
+{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "https://www.flowhunt.io/about-us/#contact-us" }}
 {{ $showCTA := .Params.showCTA | default true }}
 
 {{ if $showCTA }}
