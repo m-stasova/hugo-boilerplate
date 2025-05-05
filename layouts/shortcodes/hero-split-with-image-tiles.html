@@ -37,10 +37,10 @@
   Parameters:
   - heading: Main heading text (default: "We're changing the way people connect")
   - description: Supporting text below the heading
-  - primaryCtaText: Text for primary call-to-action button (default: "Get started")
-  - primaryCtaUrl: URL for primary call-to-action button (default: "#")
-  - secondaryCtaText: Text for secondary call-to-action link (default: "Live demo")
-  - secondaryCtaUrl: URL for secondary call-to-action link (default: "#")
+  - primaryCtaText: Text for primary call-to-action button
+  - primaryCtaUrl: URL for primary call-to-action button
+  - secondaryCtaText: Text for secondary call-to-action link
+  - secondaryCtaUrl: URL for secondary call-to-action link
   
   Inner Content (optional JSON array):
   - Array of 5 image objects with "url" and "alt" properties
@@ -50,19 +50,24 @@
 {{/* Split Hero with Image Tiles Shortcode */}}
 {{ $heading := .Get "heading" | default "We're changing the way people connect" }}
 {{ $description := .Get "description" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt." }}
+{{ $primaryCtaText := .Get "primaryCtaText" | default "" }}
+{{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default "" }}
+{{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
 
-
-{{ $images := .Get "images" | default (slice) }}
-{{ $cta := .Get "cta" | default (slice)}}
-{{ $images := .Get "images" | default (slice) }}
+{{ $images := slice }}
 {{ with .Inner }}
   {{ if . }}
     {{ $images = . | unmarshal }}
   {{ end }}
 {{ end }}
+
 {{ partial "sections/hero/split_with_image_tiles.html" (dict 
   "heading" $heading
   "description" $description
-  "cta" $cta
+  "primaryCtaText" $primaryCtaText
+  "primaryCtaUrl" $primaryCtaUrl
+  "secondaryCtaText" $secondaryCtaText
+  "secondaryCtaUrl" $secondaryCtaUrl
   "images" $images
 ) }}
