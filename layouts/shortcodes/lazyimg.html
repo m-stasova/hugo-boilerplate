@@ -8,9 +8,6 @@ Usage:
   id="product-image"
   width="640"
   height="480"
-  sizes="(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px"
-  dataImage="/images/product-image-full.jpg"
-  isGallery="false"
 >}}
 */}}
 {{ $src := .Get "src" }}
@@ -19,9 +16,6 @@ Usage:
 {{ $id := .Get "id" | default "" }}
 {{ $width := .Get "width" | default "" }}
 {{ $height := .Get "height" | default "" }}
-{{ $sizes := .Get "sizes" | default "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px" }}
-{{ $dataImage := .Get "dataImage" | default $src }}
-{{ $isGallery := .Get "isGallery" | default false }}
 
 {{ partial "components/media/lazyimg.html" (dict 
   "src" $src 
@@ -30,7 +24,4 @@ Usage:
   "id" $id
   "width" $width
   "height" $height
-  "sizes" $sizes
-  "dataImage" $dataImage
-  "isGallery" $isGallery
 ) }}
