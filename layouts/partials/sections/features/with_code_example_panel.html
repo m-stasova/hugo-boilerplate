@@ -71,25 +71,10 @@ client.getData({
 
 {{/* Feature Section with Code Example Panel */}}
 {{ $tagline := .tagline | default "Deploy faster" }}
+{{ $wrapCode := .wrapCode | default true }}
 {{ $heading := .heading | default "A better workflow" }}
-{{ $description := .description | default "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione." }}
-{{ $features := .features | default (slice
-  (dict 
-    "icon" "<path fill-rule=\"evenodd\" d=\"M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z\" clip-rule=\"evenodd\" />"
-    "title" "Push to deploy."
-    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione."
-  )
-  (dict 
-    "icon" "<path fill-rule=\"evenodd\" d=\"M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z\" clip-rule=\"evenodd\" />"
-    "title" "SSL certificates."
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-  )
-  (dict 
-    "icon" "<path d=\"M4.632 3.533A2 2 0 0 1 6.577 2h6.846a2 2 0 0 1 1.945 1.533l1.976 8.234A3.489 3.489 0 0 0 16 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234Z\" /><path fill-rule=\"evenodd\" d=\"M4 13a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4H4Zm11.24 2a.75.75 0 1 1 .75-.75H16a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75h-.01a.75.75 0 0 1-.75-.75V15Zm-2.25-.75a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-.01Z\" clip-rule=\"evenodd\" />"
-    "title" "Database backups."
-    "description" "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis."
-  )
-) }}
+{{ $description := .description | default "" }}
+{{ $features := .features | default (slice) }}
 {{ $code := .code | default (dict
   "activeFile" "example.js"
   "files" (slice
@@ -129,7 +114,7 @@ client.getData({
         <div class="relative isolate overflow-hidden bg-{{ $panelColor }} px-6 pt-8 sm:mx-auto sm:max-w-2xl sm:rounded-3xl sm:pt-16 sm:pr-0 sm:pl-16 lg:mx-0 lg:max-w-none">
           <div class="absolute -inset-y-px -left-3 -z-10 w-full origin-bottom-left skew-x-[-30deg] bg-{{ $panelLightColor }} opacity-20 ring-1 ring-white ring-inset" aria-hidden="true"></div>
           <div class="mx-auto max-w-2xl sm:mx-0 sm:max-w-none">
-            <div class="w-screen overflow-hidden rounded-tl-xl bg-gray-900 ring-1 ring-white/10">
+            <div class="overflow-hidden rounded-tl-xl bg-gray-900 ring-1 ring-white/10">
               <div class="flex bg-gray-800/40 ring-1 ring-white/5">
                 <div class="-mb-px flex text-sm/6 font-medium text-gray-400">
                   {{ range $code.files }}
@@ -137,8 +122,14 @@ client.getData({
                   {{ end }}
                 </div>
               </div>
-              <div class="px-6 pt-6 pb-14">
-                <pre class="text-sm text-gray-300"><code>{{ $code.content }}</code></pre>
+              <div class="px-6 pt-6 pb-14 overflow-x-auto">
+                {{ if $wrapCode }}
+                  <div class="max-w-full overflow-hidden">
+                    <pre style="white-space: pre-wrap; word-break: break-word; overflow-wrap: break-word;" class="text-sm text-gray-300">{{ $code.content }}</pre>
+                  </div>
+                {{ else }}
+                  <pre class="text-sm text-gray-300"><code>{{ $code.content }}</code></pre>
+                {{ end }}
               </div>
             </div>
           </div>
