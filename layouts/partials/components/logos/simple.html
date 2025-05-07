@@ -38,68 +38,22 @@
 
 {{/* Logos */}}
 {{ $logoColor := .logoColor | default "gray-900" }}
-{{ $logos := .logos | default (slice 
-  (dict 
-    "name" "Transistor" 
-    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/transistor-logo-gray-900.svg"
-    "width" "158"
-    "height" "48"
-  )
-  (dict 
-    "name" "Reform" 
-    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/reform-logo-gray-900.svg"
-    "width" "158"
-    "height" "48"
-  )
-  (dict 
-    "name" "Tuple" 
-    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/tuple-logo-gray-900.svg"
-    "width" "158"
-    "height" "48"
-  )
-  (dict 
-    "name" "SavvyCal" 
-    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/savvycal-logo-gray-900.svg"
-    "width" "158"
-    "height" "48"
-  )
-  (dict 
-    "name" "Statamic" 
-    "url" "https://tailwindcss.com/plus-assets/img/logos/158x48/statamic-logo-gray-900.svg"
-    "width" "158"
-    "height" "48"
-  )
-) }}
+{{ $logos := .logos | default (slice) }}
 
 <div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 justify-center">
+    <div class="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
       {{ range $index, $logo := $logos }}
-        {{ if eq $index 3 }}
+        <div class="col-span-1 flex items-center justify-center">
+          {{ $class := "max-h-12 w-full object-contain" }}
           {{ partial "components/media/lazyimg.html" (dict 
             "src" $logo.url 
             "alt" $logo.name 
-            "class" "col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" 
+            "class" $class
             "loading" "lazy" 
             "decoding" "async"
           ) }}
-        {{ else if eq $index 4 }}
-          {{ partial "components/media/lazyimg.html" (dict 
-            "src" $logo.url 
-            "alt" $logo.name 
-            "class" "col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" 
-            "loading" "lazy" 
-            "decoding" "async"
-          ) }}
-        {{ else }}
-          {{ partial "components/media/lazyimg.html" (dict 
-            "src" $logo.url 
-            "alt" $logo.name 
-            "class" "col-span-2 max-h-12 w-full object-contain lg:col-span-1" 
-            "loading" "lazy" 
-            "decoding" "async"
-          ) }}
-        {{ end }}
+        </div>
       {{ end }}
     </div>
   </div>

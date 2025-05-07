@@ -12,18 +12,21 @@
   - bgColor: Background color class (default: "bg-white")
   - padding: CSS padding classes (default: "py-24 sm:py-32")
   - logoColor: Color of the logos (default: "gray-900")
-  - logos: Reference to data file containing logo information (e.g., "data.partner_logos")
+  - logos: Reference to data file containing logo information (e.g., "partner_logos")
   
-  Logo data structure example (in data file):
-  partner_logos:
-    - name: "Company Name"
-      url: "/images/logos/company-logo.svg"
-      width: "158"
-      height: "48"
-    - name: "Another Company"
-      url: "/images/logos/another-logo.svg"
-      width: "158"
-      height: "48"
+Logo data structure example (in data file):
+[[partner_logos]]
+  name = "Company Name"
+  url = "/images/logos/company-logo.svg"
+  width = "158"
+  height = "48"
+
+[[partner_logos]]
+  name = "Another Company"
+  url = "/images/logos/another-logo.svg"
+  width = "158"
+  height = "48"
+
 */ -}}
 
 {{ $bgColor := .Get "bgColor" | default (.Get 0) | default "bg-white" }}
@@ -39,17 +42,11 @@
 
 {{/* Add logos parameter if provided */}}
 {{ if ne $logosReference "" }}
-  {{ if hasPrefix $logosReference "data." }}
-    {{ $dataPath := strings.TrimPrefix "data." $logosReference }}
-    {{ $dataPathParts := split $dataPath "." }}
-    {{ $dataValue := index site.Data (index $dataPathParts 0) }}
-    
-    {{ range $i, $part := after 1 $dataPathParts }}
-      {{ $dataValue = index $dataValue $part }}
-    {{ end }}
-    
-    {{ $params = merge $params (dict "logos" $dataValue) }}
+  {{ if isset .Page.Params $logosReference }}
+    {{ $params = merge $params (dict "logos" (index .Page.Params $logosReference)) }}
+  {{ else }}
+    {{ $params = merge $params (dict "logos" $logosReference) }}
   {{ end }}
 {{ end }}
 
-{{ partial "logos/simple.html" $params }}
+{{ partial "components/logos/simple.html" $params }}
