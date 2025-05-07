@@ -220,33 +220,33 @@
 
 {{ $checkIcon := .checkIcon | default "<path fill-rule=\"evenodd\" d=\"M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z\" clip-rule=\"evenodd\" />" }}
 
-<div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
+<div class="bg-{{ $backgroundColor }} py-24 sm:py-3">
   <div class="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
       <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
       <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColor }} sm:text-6xl">{{ $heading }}</p>
     </div>
     <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
-    <div class="isolate mx-auto mt-16 flex flex-col items-center gap-y-8 sm:mt-20 lg:flex-row lg:justify-center lg:gap-x-16">
+    <div class="isolate mx-auto mt-16 grid grid-cols-1 gap-y-8 sm:mt-20 lg:grid-cols-3 lg:gap-x-8">
       {{ range $tier := $tiers }}
-      <div class="flex flex-col justify-between rounded-3xl bg-{{ $tier.backgroundColor }} p-8 ring-1 ring-{{ $tier.borderColor }} w-[350px] sm:w-[450px] md:w-[500px] lg:w-[320px] xl:w-[400px] 2xl:w-[450px]
-        {{- if eq $tier.position "left" }} lg:mt-8 lg:rounded-r-none{{ end }}
-        {{- if eq $tier.position "center" }} lg:z-10 lg:rounded-b-none{{ end }}
-        {{- if eq $tier.position "right" }} lg:mt-8 lg:rounded-l-none{{ end }}
+      <div class="flex flex-col h-full rounded-3xl bg-{{ $tier.backgroundColor }} p-8 ring-1 ring-{{ $tier.borderColor }} w-full
+        {{- if eq $tier.position "left" }} lg:rounded-r-none{{ end }}
+        {{- if eq $tier.position "center" }} lg:z-10{{ end }}
+        {{- if eq $tier.position "right" }} lg:rounded-l-none{{ end }}
         xl:p-10">
-        <div>
-          <div class="flex items-center justify-between gap-x-4">
+        <div class="flex flex-col flex-grow">
+          <div class="flex items-center justify-between gap-x-4 h-10">
             <h3 id="{{ $tier.id }}" class="text-lg/8 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
             {{ if $tier.popular }}
             <p class="rounded-full bg-{{ $tier.popularBgColor }} px-2.5 py-1 text-xs/5 font-semibold text-{{ $tier.popularTextColor }}">{{ $tier.popularText }}</p>
             {{ end }}
           </div>
-          <p class="mt-4 text-sm/6 text-{{ $tier.descriptionColor }}">{{ $tier.description }}</p>
-          <p class="mt-6 flex items-baseline gap-x-1">
+          <p class="mt-4 text-sm/6 text-{{ $tier.descriptionColor }} min-h-[3rem]">{{ $tier.description }}</p>
+          <p class="mt-6 flex items-baseline gap-x-1 h-12">
             <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
             <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
           </p>
-          <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }}">
+          <ul role="list" class="mt-8 space-y-3 text-sm/6 text-{{ $tier.featureColor }} flex-grow min-h-[12rem]">
             {{ range $feature := $tier.features }}
             <li class="flex gap-x-3">
               <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -257,11 +257,13 @@
             {{ end }}
           </ul>
         </div>
-        {{ if $tier.ctaBgColor }}
-        <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
-        {{ else }}
-        <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
-        {{ end }}
+        <div class="mt-8">
+          {{ if $tier.ctaBgColor }}
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
+          {{ else }}
+          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
+          {{ end }}
+        </div>
       </div>
       {{ end }}
     </div>
