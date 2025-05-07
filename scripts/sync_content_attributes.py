@@ -65,7 +65,7 @@ def process_file(en_file_path):
         return
 
     if 'date' not in en_front_matter:
-        en_front_matter['date'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        en_front_matter['date'] = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
         update_front_matter(en_file_path, en_front_matter, remaining_content)
 
     # Create a dictionary with only the attributes we want to sync
