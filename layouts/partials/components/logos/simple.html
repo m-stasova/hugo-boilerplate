@@ -7,7 +7,8 @@
   - logoColor: Color of the logos (optional, default: "gray-900")
   - logos: Array of logo objects, each with:
     - name: Company/brand name
-    - url: URL to the logo image
+    - image: URL to the logo image
+    - url: Link to company homepage (optional)
     - width: Logo width
     - height: Logo height
 @example:
@@ -17,13 +18,14 @@
       "logos" (slice 
         (dict 
           "name" "Company A" 
-          "url" "/images/logos/company-a.svg"
+          "image" "/images/logos/company-a.svg"
+          "url" "https://example-a.com"
           "width" "158"
           "height" "48"
         )
         (dict 
           "name" "Company B" 
-          "url" "/images/logos/company-b.svg"
+          "image" "/images/logos/company-b.svg"
           "width" "158"
           "height" "48"
         )
@@ -46,13 +48,25 @@
       {{ range $index, $logo := $logos }}
         <div class="col-span-1 flex items-center justify-center">
           {{ $class := "max-h-12 w-full object-contain" }}
-          {{ partial "components/media/lazyimg.html" (dict 
-            "src" $logo.url 
-            "alt" $logo.name 
-            "class" $class
-            "loading" "lazy" 
-            "decoding" "async"
-          ) }}
+          {{ if $logo.url }}
+            <a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $logo.image 
+                "alt" $logo.name 
+                "class" $class
+                "loading" "lazy" 
+                "decoding" "async"
+              ) }}
+            </a>
+          {{ else }}
+            {{ partial "components/media/lazyimg.html" (dict 
+              "src" $logo.image 
+              "alt" $logo.name 
+              "class" $class
+              "loading" "lazy" 
+              "decoding" "async"
+            ) }}
+          {{ end }}
         </div>
       {{ end }}
     </div>
