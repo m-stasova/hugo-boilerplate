@@ -13,7 +13,10 @@ attributes_to_sync = [
     'date',
     'homePageUrl',
     'images',
-    'price'
+    'price',
+    'styles',
+    'effects',
+    'models',
 ]
 
 import os
