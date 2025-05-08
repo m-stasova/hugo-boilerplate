@@ -12,6 +12,7 @@
     - description: Card description text
     - image: URL to card image
     - imageAlt: Alt text for the image
+    - url: URL for the card link (optional)
 @example:
   {{ partial "sections/bentogrids/two_row_bento_grid_on_dark.html" (dict 
       "tagline" "Our Solutions" 
@@ -25,6 +26,7 @@
               "description" "Streamline your business processes with intelligent automation tools that reduce manual work."
               "image" "/images/solutions/automation.jpg"
               "imageAlt" "Workflow automation diagram"
+              "url" "/solutions/automation"  
           )
           (dict
               "title" "Advanced Analytics" 
@@ -32,6 +34,7 @@
               "description" "Powerful analytics tools to track and visualize your business performance."
               "image" "/images/solutions/analytics.jpg"
               "imageAlt" "Analytics dashboard"
+              "url" "/solutions/analytics"  
           )
           (dict
               "title" "Enterprise Security" 
@@ -65,6 +68,7 @@
     "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-02-releases.png"
     "imageAlt" "Releases dashboard"
+    "url" "/releases"
   )
   (dict
     "title" "Connect your favorite tools"
@@ -108,6 +112,9 @@
               {{ if and $isLast (eq $modulo 3) }}max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]{{ end }}
               {{ if and (not $isFirst) (not $isLast) (eq $modulo 0) }}lg:rounded-l-lg{{ end }}
               {{ if and (not $isFirst) (not $isLast) (eq $modulo 3) }}lg:rounded-r-lg{{ end }}">
+              {{ if $card.url }}
+              <a href="{{ $card.url }}" class="block h-full hover:opacity-90 transition-opacity">
+              {{ end }}
               <div class="aspect-square w-full overflow-hidden">
                 {{ partial "components/media/lazyimg.html" (dict 
                   "src" $card.image
@@ -120,7 +127,20 @@
                 <h3 class="text-sm/4 font-semibold text-gray-400">{{ $card.category }}</h3>
                 <p class="mt-2 text-lg font-medium tracking-tight text-white">{{ $card.title }}</p>
                 <p class="mt-2 max-w-lg text-sm/6 text-gray-400">{{ $card.description }}</p>
+                {{ if $card.url }}
+                <div class="mt-4">
+                  <span class="inline-flex items-center text-sm font-medium text-{{ $taglineColor }} group">
+                    <span>Learn more</span>
+                    <svg class="ml-1 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+                {{ end }}
               </div>
+              {{ if $card.url }}
+              </a>
+              {{ end }}
             </div>
           </div>
         {{ else }}
@@ -131,6 +151,9 @@
               {{ if and $isLast (eq $modulo 2) }}max-lg:rounded-b-[2rem] lg:rounded-bl-[2rem]{{ end }}
               {{ if and (eq $modulo 1) (not $isFirst) }}lg:rounded-r-lg{{ end }}
               {{ if and (eq $modulo 2) (not $isLast) }}lg:rounded-l-lg{{ end }}">
+              {{ if $card.url }}
+              <a href="{{ $card.url }}" class="block h-full hover:opacity-90 transition-opacity">
+              {{ end }}
               <div class="aspect-square w-full overflow-hidden">
                 {{ partial "components/media/lazyimg.html" (dict 
                   "src" $card.image
@@ -143,7 +166,20 @@
                 <h3 class="text-sm/4 font-semibold text-gray-400">{{ $card.category }}</h3>
                 <p class="mt-2 text-lg font-medium tracking-tight text-white">{{ $card.title }}</p>
                 <p class="mt-2 max-w-lg text-sm/6 text-gray-400">{{ $card.description }}</p>
+                {{ if $card.url }}
+                <div class="mt-4">
+                  <span class="inline-flex items-center text-sm font-medium text-{{ $taglineColor }} group">
+                    <span>Learn more</span>
+                    <svg class="ml-1 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+                {{ end }}
               </div>
+              {{ if $card.url }}
+              </a>
+              {{ end }}
             </div>
           </div>
         {{ end }}
