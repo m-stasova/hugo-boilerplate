@@ -13,7 +13,7 @@ IMG_URL_PREFIXES = [
     'https://www.wachman.eu/',
 ]
 IMG_PATTERN = re.compile(
-    r'!\[[^\]]*\]\(((?:' + '|'.join(re.escape(p) for p in IMG_URL_PREFIXES) + r')[^\s)]+)(?:\s+"([^"]+)")?\)'
+    r'!\[([^\]]*)\]\(((?:' + '|'.join(re.escape(p) for p in IMG_URL_PREFIXES) + r')[^\s)]+)(?:\s+"([^"]+)")?\)'
 )
 TITLE_PATTERN = re.compile(r'title:\s*"([^"]+)"', re.IGNORECASE)
 
@@ -113,11 +113,18 @@ def process_md_file(md_path):
     for idx, line in enumerate(lines):
         # Markdown image syntax
         for match in IMG_PATTERN.finditer(line):
-            url = match.group(1)
+            alt_text = match.group(1)  # Get alt text inside []
+            url = match.group(2)
+            explicit_title = match.group(3)  # Title after URL in quotes
+            
             if not url_matches_prefix(url):
                 continue
-            # Find title for filename
-            title = match.group(2) or find_title_near_line(lines, idx)
+                
+            # Priority: 1. Explicit title in quotes, 2. Alt text, 3. Title from nearby TOML
+            title = explicit_title or alt_text or find_title_near_line(lines, idx)
+            if not title or title.strip() == '':
+                title = 'untitled'
+                
             ext = os.path.splitext(urlparse(url).path)[1]
             out_dir = STATIC_IMAGES_DIR / rel_folder
             out_dir.mkdir(parents=True, exist_ok=True)
@@ -130,10 +137,11 @@ def process_md_file(md_path):
                 with open(out_path, 'wb') as imgf:
                     imgf.write(resp.content)
             local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-            new_img_md = f'![{safe_title}]({local_url} "{title}")'
+            new_img_md = f'![{alt_text}]({local_url} "{title}")'
             line = line.replace(match.group(0), new_img_md)
             body_changed = True
             changed = True
+            
         # Shortcode lazyimg src attribute
         lazyimg_match = re.search(r'\{\{<\s*lazyimg[^\n]*src="([^"]+)"', line)
         if lazyimg_match:
