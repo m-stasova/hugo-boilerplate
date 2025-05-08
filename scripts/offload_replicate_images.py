@@ -58,7 +58,11 @@ def process_md_file(md_path):
     body_changed = False
     # Parse TOML frontmatter
     if toml_section:
-        data = toml.loads(toml_section)
+        try:
+            data = toml.loads(toml_section)
+        except toml.TomlDecodeError as e:
+            print(f"!!! ERROR decoding TOML in {md_path}: {e}")
+            return
         # Main image
         if 'image' in data and isinstance(data['image'], str) and url_matches_prefix(data['image']):
             url = data['image']
