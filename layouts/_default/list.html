@@ -13,7 +13,7 @@
     <!-- Content list -->
     <div class="mt-12">
       <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {{ $paginator := .Paginate .Pages 90 }}
+        {{ $paginator := .Paginate (.Pages.ByTitle) 60 }}
         {{ range $paginator.Pages }}
           <li>
             {{ partial "components/cards/post_card_with_image.html" (dict "page" . "cardHeight" 450) }}
