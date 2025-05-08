@@ -19,6 +19,9 @@ attributes_to_sync = [
     'models',
 ]
 
+#unset_attributes = [ 'cards' ]
+unset_attributes = [  ]
+
 import os
 import re
 import toml
@@ -71,6 +74,12 @@ def process_file(en_file_path):
         en_front_matter['date'] = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime('%Y-%m-%d %H:%M:%S')
         update_front_matter(en_file_path, en_front_matter, remaining_content)
 
+    # unset attributes we don't want
+    for attr in unset_attributes:
+        if attr in en_front_matter:
+            del en_front_matter[attr]
+            update_front_matter(en_file_path, en_front_matter, remaining_content)
+
     # Create a dictionary with only the attributes we want to sync
     sync_attributes = {}
     for attr in attributes_to_sync:
@@ -95,6 +104,12 @@ def process_file(en_file_path):
                     for attr, value in sync_attributes.items():
                         if translated_front_matter.get(attr) != value:
                             translated_front_matter[attr] = value
+                            updated = True
+
+                    # Remove unset attributes
+                    for attr in unset_attributes:
+                        if attr in translated_front_matter:
+                            del translated_front_matter[attr]
                             updated = True
 
                     if updated:
