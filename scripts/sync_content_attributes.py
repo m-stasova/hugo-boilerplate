@@ -14,7 +14,7 @@ attributes_to_sync = [
     'homePageUrl',
     'images',
     'price',
-    'styles',
+    'ai-image-generator',
     'effects',
     'models',
 ]
