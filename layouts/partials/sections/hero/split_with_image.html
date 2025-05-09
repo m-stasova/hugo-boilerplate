@@ -48,6 +48,7 @@
 {{ $heading := .heading | default "Data to enrich your business" }}
 {{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $cta := .cta }}
+{{ $imageClass := .imageClass | default "aspect-3/2 w-full object-contain lg:absolute lg:inset-0 lg:aspect-auto lg:h-full" }}
 {{ $tags := .tags }}
 {{ $categories := .categories }}
 
@@ -130,7 +131,7 @@
       {{ partial "components/media/lazyimg.html" (dict 
         "src" $imageSrc 
         "alt" $imageAlt
-        "class" "aspect-3/2 w-full object-contain lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
+        "class" $imageClass
         "maxWidth" 1024
       ) }}
     </div>
