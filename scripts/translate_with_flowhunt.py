@@ -197,7 +197,7 @@ def invoke_flow_for_translation(api_instance, content, target_lang, flow_id, wor
             variables={
                 "source_language": "English",
                 "target_language": language_name,
-                "today": time.strftime("%Y-%m-%d"),
+                "today": time.strftime("%Y-%m-%d %H:00:00"),
             }, 
             human_input=content
         )
