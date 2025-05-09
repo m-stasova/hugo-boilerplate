@@ -1,17 +1,24 @@
 # Hugo Boilerplate Theme
 
-A clean and minimal Hugo theme designed for modern websites with a focus on performance, SEO, and responsive design. This theme includes Tailwind CSS integration, comprehensive SEO features, responsive image processing, and multilingual support out of the box.
+A clean and minimal Hugo theme designed for QualityUnit websites with a focus on performance, SEO, and responsive design. 
+This theme includes Tailwind CSS integration, comprehensive SEO features, responsive image processing, and multilingual support out of the box.
+
+## Notes For developers
+- Many partials and shortcodes are not correct, we need to fix them.
+- If shortcode or partial is used already in any project, always make sure your changes are compatible with old data, new parameters needs to be optional
+- Make sure all texts can be translated, add texts to translation files in theme
+- complex structures you want to pass to shortcode can be done through frontmatter section and in shortcode use reference to variable in frontmatter section
 
 ## Features
 
-- **Tailwind CSS Integration** - Modern utility-first CSS framework
+- **Tailwind CSS Integration** - we have bought license from [https://tailwindcss.com/plus/ui-blocks/marketing](https://tailwindcss.com/plus/ui-blocks/marketing), we should try to keep the similar naming convention for our own elements
 - **Responsive Design** - Optimized for all device sizes
 - **Multilingual Support** - Built-in support for multiple languages
-- **SEO Optimized** - Comprehensive metadata and structured data
-- **Responsive Images** - Automatic image processing with WebP conversion
-- **Lazy Loading** - Performance-optimized image and video loading
-- **Glossary System** - Built-in glossary with alphabetical navigation
-- **Tag & Category System** - Comprehensive taxonomy management
+- **SEO Optimized** - Preprocessing of data done by `scripts/build_content.sh` script (linkbuilding, relations of content, image preprocessing, attributes syncing)
+- **Responsive Images** - Automatic image processing with WebP conversion (`scripts/build_content.sh`)
+- **Lazy Loading** - Performance-optimized image and video loading (shorcode `lazyimg` should be used in markdown and in partials)
+- **Glossary System** - Built-in glossary with alphabetical navigation - this is just example post type, we can add more post types to share them accross projects
+- **Tag & Category System** - Comprehensive taxonomy management, custom taxonomies are allowed per domain
 - **Component Library** - Extensive collection of pre-built components:
   - Headers and navigation menus
   - Product showcases and listings
