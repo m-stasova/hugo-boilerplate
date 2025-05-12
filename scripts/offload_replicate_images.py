@@ -4,13 +4,14 @@ import requests
 import toml
 from pathlib import Path
 from urllib.parse import urlparse
+import random
 
 CONTENT_DIR = Path(__file__).parents[3] / 'content'
 STATIC_IMAGES_DIR = Path(__file__).parents[3] / 'static' / 'images'
 
 IMG_URL_PREFIXES = [
-    'https://replicate.delivery/',
-    'https://www.wachman.eu/',
+    'http://',
+    'https://',
 ]
 IMG_PATTERN = re.compile(
     r'!\[([^\]]*)\]\(((?:' + '|'.join(re.escape(p) for p in IMG_URL_PREFIXES) + r')[^\s)]+)(?:\s+"([^"]+)")?\)'
@@ -67,9 +68,29 @@ def process_md_file(md_path):
         if 'image' in data and isinstance(data['image'], str) and url_matches_prefix(data['image']):
             url = data['image']
             ext = os.path.splitext(urlparse(url).path)[1]
+            if not ext:
+                # Try to get extension from Content-Type header
+                resp = requests.head(url, allow_redirects=True)
+                content_type = resp.headers.get('Content-Type', '')
+                if 'image/' in content_type:
+                    ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
+                else:
+                    ext = '.jpg'  # fallback
             out_dir = STATIC_IMAGES_DIR / rel_folder
             out_dir.mkdir(parents=True, exist_ok=True)
-            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', data.get('title', 'untitled'))
+            # Try to generate a safe title: 1. from TOML 'title', 2. from URL filename, 3. 'untitled'
+            orig_title = data.get('title')
+            if orig_title and orig_title.strip():
+                base_title = orig_title
+            else:
+                url_path = urlparse(url).path
+                url_filename = os.path.splitext(os.path.basename(url_path))[0]
+                if url_filename:
+                    base_title = url_filename
+                else:
+                    # Add random number to 'untitled' to make it unique
+                    base_title = f"untitled_{random.randint(1000, 9999)}"
+            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
             out_filename = f"{md_stem}_{safe_title}{ext}"
             out_path = out_dir / out_filename
             if not out_path.exists():
@@ -142,15 +163,27 @@ def process_md_file(md_path):
             body_changed = True
             changed = True
             
-        # Shortcode lazyimg src attribute
+        # Shortcode lazyimg src attribute (single line)
         lazyimg_match = re.search(r'\{\{<\s*lazyimg[^\n]*src="([^"]+)"', line)
         if lazyimg_match:
             url = lazyimg_match.group(1)
             if url_matches_prefix(url):
+                # Extract alt attribute if it exists in the shortcode
+                alt_match = re.search(r'alt="([^"]+)"', line)
+                alt_text = alt_match.group(1) if alt_match else f"lazyimg_{idx}"
+                
                 ext = os.path.splitext(urlparse(url).path)[1]
+                if not ext:
+                    # Try to get extension from Content-Type header
+                    resp = requests.head(url, allow_redirects=True)
+                    content_type = resp.headers.get('Content-Type', '')
+                    if 'image/' in content_type:
+                        ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
+                    else:
+                        ext = '.jpg'  # fallback
                 out_dir = STATIC_IMAGES_DIR / rel_folder
                 out_dir.mkdir(parents=True, exist_ok=True)
-                safe_title = f"lazyimg_{idx}"
+                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', alt_text)
                 out_filename = f"{md_stem}_{safe_title}{ext}"
                 out_path = out_dir / out_filename
                 if not out_path.exists():
@@ -163,8 +196,44 @@ def process_md_file(md_path):
                 body_changed = True
                 changed = True
         lines[idx] = line
+        
+    # Handle multi-line lazyimg shortcodes
+    full_content = '\n'.join(lines)
+    multi_lazyimg_pattern = re.compile(r'\{\{<\s*lazyimg\s+[^>]*?src="([^"]+)"[^>]*?>}}', re.DOTALL)
+    for match in multi_lazyimg_pattern.finditer(full_content):
+        url = match.group(1)
+        if url_matches_prefix(url):
+            try:
+                # Extract alt attribute if it exists in the shortcode
+                shortcode = match.group(0)
+                alt_match = re.search(r'alt="([^"]+)"', shortcode)
+                alt_text = alt_match.group(1) if alt_match else "lazyimg_multi"
+                
+                ext = os.path.splitext(urlparse(url).path)[1]
+                out_dir = STATIC_IMAGES_DIR / rel_folder
+                out_dir.mkdir(parents=True, exist_ok=True)
+                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', alt_text)
+                out_filename = f"{md_stem}_{safe_title}{ext}"
+                out_path = out_dir / out_filename
+                if not out_path.exists():
+                    resp = requests.get(url)
+                    resp.raise_for_status()
+                    with open(out_path, 'wb') as imgf:
+                        imgf.write(resp.content)
+                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
+                # Replace just the src attribute value
+                new_shortcode = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', shortcode)
+                full_content = full_content.replace(shortcode, new_shortcode)
+                body_changed = True
+                changed = True
+            except requests.RequestException as e:
+                print(f"!!! ERROR downloading image from {url}: {e}")
+                return
+            
+    if body_changed:
+        body = full_content
+        
     if changed:
-        body = '\n'.join(lines)
         # Write both TOML and body together, always
         with open(md_path, 'w', encoding='utf-8') as f:
             f.write(f"+++\n{new_toml}\n+++\n{body}")
