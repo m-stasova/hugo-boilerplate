@@ -38,9 +38,7 @@
         {{ range $features }}
         <div class="flex flex-col">
           <dt class="flex items-center gap-x-3 text-base/7 font-semibold text-white">
-            <svg class="size-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              {{ .icon | safeHTML }}
-            </svg>
+            {{ partial "components/media/icon.html" (dict "icon" .icon) }}
             {{ .title }}
           </dt>
           <dd class="mt-4 flex flex-auto flex-col text-base/7 text-gray-300">

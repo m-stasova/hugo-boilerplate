@@ -71,9 +71,7 @@
       {{ range $features }}
       <div class="relative pl-9">
         <dt class="inline font-semibold text-white">
-          <svg class="absolute top-1 left-1 size-5 text-indigo-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-            {{ .icon | safeHTML }}
-          </svg>
+          {{ partial "components/media/icon.html" (dict "icon" .icon) }}
           {{ .title }}
         </dt>
         <dd class="inline">{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</dd>

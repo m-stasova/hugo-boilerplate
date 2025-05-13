@@ -117,9 +117,7 @@ The system automatically scales based on your needs, so you never have to worry 
           <ul role="list" class="mt-8 space-y-8 {{ $featureTextColor }}">
             {{ range $features }}
             <li class="flex gap-x-3">
-              <svg class="mt-1 size-5 flex-none {{ $iconColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                {{ .icon | safeHTML }}
-              </svg>
+              {{ partial "components/media/icon.html" (dict "icon" .icon) }}
               <span><strong class="font-semibold {{ $featureHeadingColor }}">{{ .title }}.</strong> {{ .description }}</span>
             </li>
             {{ end }}
