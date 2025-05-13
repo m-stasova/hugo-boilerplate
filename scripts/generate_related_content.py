@@ -61,8 +61,12 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Generate related content YAML")
     parser.add_argument("--lang", type=str,
                         help="Language to process (if only processing one language)")
-    parser.add_argument("--path", type=str, 
-                        help="Absolute path to the content directory")
+    parser.add_argument(
+        "--path",
+        type=str,
+        default=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "content")),
+        help="Absolute path to the content directory (default: two levels up from script in 'content' folder)"
+    )
     parser.add_argument("--content-dir", type=str, default="content",
                         help="Content directory relative to Hugo root (default: content)")
     parser.add_argument("--output-dir", type=str, default="data/related_content",
@@ -71,8 +75,9 @@ def parse_args():
                         help="Sections or files to exclude")
     parser.add_argument("--model", type=str, default=MODEL_NAME,
                         help=f"Model name to use (default: {MODEL_NAME})")
-    parser.add_argument("--hugo-root", type=str, default=os.getcwd(),
-                        help="Hugo root directory (default: current directory)")
+    parser.add_argument("--hugo-root", type=str, 
+                        default=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")),
+                        help="Hugo root directory (default: two levels up from script location)")
     return parser.parse_args()
 
 def extract_text_from_markdown(content):
@@ -128,17 +133,27 @@ def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_s
                 path_parts = rel_path.split(os.sep)
                 section = path_parts[0] if len(path_parts) > 1 else ""
                 
-                # Skip _index.md files
-                if "index.md" in file.lower():
-                    continue
+                # Check if this is an index file
+                is_index = file.lower() == "_index.md"
                 
                 try:
                     # Parse frontmatter and content
                     with open(file_path, "r", encoding="utf-8") as f:
                         post = frontmatter.load(f)
                     
-                    # Extract slug from frontmatter or filename
-                    slug = post.get("slug", os.path.splitext(file)[0])
+                    # Extract slug - handle index files differently
+                    if is_index:
+                        # For _index.md files, use the directory path as the slug
+                        parent_dir = os.path.dirname(rel_path)
+                        if parent_dir:
+                            # Get the last part of the directory path
+                            slug = os.path.basename(parent_dir)
+                        else:
+                            # If it's in the root, use the section
+                            slug = section if section else "index"
+                    else:
+                        # For regular files, use the slug from frontmatter or filename
+                        slug = post.get("slug", os.path.splitext(file)[0])
                     
                     # Extract title from frontmatter
                     title = post.get("title", "")
@@ -156,7 +171,8 @@ def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_s
                         "section": section,
                         "slug": slug,
                         "title": title,
-                        "text": text
+                        "text": text,
+                        "is_index": is_index
                     })
                 except Exception as e:
                     print(f"Error processing file {file_path}: {e}")
@@ -221,6 +237,7 @@ def find_related_content(file_data, embeddings, top_k=TOP_K):
         section = file_info['section']
         slug = file_info['slug']
         current_path = file_info['path']
+        is_index = file_info.get('is_index', False)
         
         # Normalize current path for comparison
         current_normalized_path = current_path
@@ -246,10 +263,18 @@ def find_related_content(file_data, embeddings, top_k=TOP_K):
             if j < len(file_data):  # Check bounds
                 related_file = file_data[j]
                 related_path = related_file['path']
+                related_is_index = related_file.get('is_index', False)
                 
                 # Convert path format: section/file.md -> section/file
                 if related_path.endswith('.md'):
                     related_path = related_path[:-3]
+                
+                # Special handling for _index.md files - use their directory
+                if related_is_index:
+                    # Get the directory containing the _index.md file
+                    related_dir = os.path.dirname(related_path)
+                    if related_dir:
+                        related_path = related_dir
                 
                 # Skip if this is the same file or if the path matches
                 if j == i or related_path == current_normalized_path:
