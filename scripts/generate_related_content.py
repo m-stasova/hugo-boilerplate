@@ -32,7 +32,7 @@ import numpy as np
 
 # Constants
 MODEL_NAME = "Alibaba-NLP/gte-multilingual-base"  # Smaller model that works well with sentence-transformers
-MAX_TEXT_LENGTH = 2000  # Limit text length to avoid memory issues
+MAX_TEXT_LENGTH = 1000  # Limit text length to avoid memory issues
 TOP_K = 3  # Number of related content items to find
 
 # Global variables for model
