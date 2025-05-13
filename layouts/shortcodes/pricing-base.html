@@ -9,8 +9,9 @@
 {{ $descriptionColor := .Get "descriptionColor" | default $params.descriptionColor | default (.Get 6) | default "gray-600" }}
 {{ $checkIcon := .Get "checkIcon" | default $params.checkIcon | default "" }}
 {{ $tiers := .Get "tiers" | default $params.tiers | default "" }}
+{{ $columns := .Get "columns" | default $params.columns | default 4 }}
 
-{{ partial "sections/pricing/three_tiers.html" (dict 
+{{ partial "sections/pricing/base.html" (dict
   "tagline" $tagline
   "heading" $heading
   "description" $description
@@ -20,12 +21,13 @@
   "descriptionColor" $descriptionColor
   "checkIcon" $checkIcon
   "tiers" $tiers
+  "columns" $columns
 ) }}
 
-{{/* 
+{{/*
   USAGE EXAMPLE:
-  
-  {{< pricing-three-tiers 
+
+  {{< pricing-base
     tagline="Our Plans"
     heading="Simple, transparent pricing"
     description="Choose the plan that fits your needs."
@@ -35,23 +37,23 @@
     descriptionColor="gray-600"
     checkIcon="<path fill-rule=\"evenodd\" d=\"M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z\" clip-rule=\"evenodd\" />"
   >}}
-  
+
   Or with custom tiers:
-  
-  {{< pricing-three-tiers 
+
+  {{< pricing-base
     tagline="Our Plans"
     heading="Simple, transparent pricing"
     description="Choose the plan that fits your needs."
-    tiers="site.Data.pricing.tiers" 
+    tiers="site.Data.pricing.tiers"
   >}}
-  
+
   Note: When using custom tiers, refer to the format in the partial template.
   The tiers should be provided as a data file or page parameter in the correct structure.
-  
+
   CUSTOM TIERS EXAMPLE:
-  
+
   1. Create a data file at data/pricing/tiers.yaml with content like:
-  
+
   ```yaml
   - name: "Basic"
     id: "tier-basic"
@@ -72,6 +74,7 @@
     intervalColor: "gray-600"
     descriptionColor: "gray-600"
     featureColor: "gray-600"
+    featuresNote: ""
     checkColor: "indigo-600"
     ctaColor: "indigo-600"
     ctaBgColor: ""
@@ -80,7 +83,7 @@
     backgroundColor: "white"
     borderColor: "gray-200"
     position: "left"
-    
+
   - name: "Pro"
     id: "tier-pro"
     price: "$29"
@@ -104,6 +107,7 @@
     intervalColor: "gray-600"
     descriptionColor: "gray-600"
     featureColor: "gray-600"
+    featuresNote: ""
     checkColor: "indigo-600"
     ctaColor: "white"
     ctaBgColor: "indigo-600"
@@ -111,7 +115,7 @@
     backgroundColor: "white"
     borderColor: "gray-200"
     position: "center"
-    
+
   - name: "Enterprise"
     id: "tier-enterprise"
     price: "$99"
@@ -133,6 +137,7 @@
     intervalColor: "gray-600"
     descriptionColor: "gray-600"
     featureColor: "gray-600"
+    featuresNote: ""
     checkColor: "indigo-600"
     ctaColor: "indigo-600"
     ctaBgColor: ""
@@ -142,18 +147,18 @@
     borderColor: "gray-200"
     position: "right"
   ```
-  
+
   2. Then use the shortcode with tiers parameter:
-  
-  {{< pricing-three-tiers 
+
+  {{< pricing-base
     tagline="Our Plans"
     heading="Simple, transparent pricing"
     description="Choose the plan that fits your needs."
-    tiers="site.Data.pricing.tiers" 
+    tiers="site.Data.pricing.tiers"
   >}}
-  
+
   3. Alternatively, define custom tiers in your page's front matter:
-  
+
   ```yaml
   ---
   title: Pricing
@@ -166,13 +171,13 @@
       # ... all tier properties
   ---
   ```
-  
+
   And use it in the shortcode:
-  
-  {{< pricing-three-tiers 
+
+  {{< pricing-base
     tagline="Our Plans"
     heading="Simple, transparent pricing"
     description="Choose the plan that fits your needs."
-    tiers=".Params.custom_tiers" 
+    tiers=".Params.custom_tiers"
   >}}
 */}}
