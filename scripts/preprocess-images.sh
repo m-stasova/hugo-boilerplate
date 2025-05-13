@@ -83,6 +83,27 @@ process_image() {
     
     echo "  Original width: $original_width px, size: $original_size bytes"
     
+    # Store optimized original image if it doesn't exist or needs updating
+    local optimized_original="$target_dir/${basename}.${extension}"
+    if needs_processing "$source" "$optimized_original"; then
+        echo "  Creating optimized original in $target_dir"
+        
+        if [ "$is_webp" = true ]; then
+            # For WebP, optimize without changing dimensions
+            magick "$source" -quality "$QUALITY_WEBP" "$optimized_original"
+        else
+            # For other formats, optimize without changing dimensions
+            magick "$source" -quality "$QUALITY_JPG" "$optimized_original"
+        fi
+        
+        # Check if the optimized image is larger than the original
+        local optimized_size=$(get_file_size "$optimized_original")
+        if [ "$optimized_size" -gt "$original_size" ]; then
+            echo "  Warning: Optimized original is larger than original, using original instead"
+            cp "$source" "$optimized_original"
+        fi
+    fi
+    
     # Process each width for the image
     for width in "${IMAGE_WIDTHS[@]}"; do
         # Only process if original is larger than target width

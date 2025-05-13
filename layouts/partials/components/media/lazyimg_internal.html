@@ -233,6 +233,16 @@
         {{ $processedDirPath = "/images/processed/" }}
       {{ end }}
       
+      <!-- Check if optimized version of original image exists in processed folder -->
+      {{ $optimizedOriginalPath := printf "%s%s%s" $processedDirPath $basename $extension }}
+      {{ $hasOptimizedOriginal := fileExists (printf "static%s" $optimizedOriginalPath) }}
+      {{ $fallbackSrc := $src }}
+      
+      <!-- If optimized original exists, use it instead of the original -->
+      {{ if $hasOptimizedOriginal }}
+        {{ $fallbackSrc = $optimizedOriginalPath }}
+      {{ end }}
+      
       <!-- Build srcset for original format and WebP -->
       {{ $origSrcset := "" }}
       {{ $webpSrcset := "" }}
@@ -256,9 +266,6 @@
         <!-- If maxWidth is larger than largest processed image, use original -->
         {{ $useOriginal = gt $maxWidth $largestProcessed }}
       {{ end }}
-      
-      <!-- Default to original as fallback -->
-      {{ $fallbackSrc := $src }}
       
       <!-- Collect available widths into maps for processed images -->
       {{ $availableSrcWidths := slice }}
