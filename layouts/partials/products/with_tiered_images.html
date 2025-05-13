@@ -239,7 +239,7 @@
               {{ range $policy := $product.policies }}
                 <div class="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
                   <dt>
-                    {{ $policy.icon | safeHTML }}
+                    {{ partial "components/media/icon.html" (dict "icon" $policy.icon) }}
                     <span class="mt-4 text-sm font-medium text-gray-900">{{ $policy.title }}</span>
                   </dt>
                   <dd class="mt-1 text-sm text-gray-500">{{ $policy.description }}</dd>

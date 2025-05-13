@@ -180,7 +180,7 @@
               <li>
                 <a href="{{ $link.href }}" class="flex size-6 items-center justify-center text-gray-400 hover:text-gray-500">
                   <span class="sr-only">Share on {{ $link.name }}</span>
-                  {{ $link.icon | safeHTML }}
+                  {{ partial "components/media/icon.html" (dict "icon" $link.icon) }}
                 </a>
               </li>
             {{ end }}

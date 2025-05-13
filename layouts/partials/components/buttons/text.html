@@ -11,7 +11,7 @@
   - rel: Link rel attribute
   - id: Button element ID
   - ariaLabel: ARIA label for accessibility
-  - icon: Optional icon HTML to display inline with text
+  - icon: Optional icon name to display inline with text
   - iconPosition: Position of the icon, "left" or "right" (default: "right")
 @example:
   {{ partial "components/buttons/text.html" (dict 
@@ -19,7 +19,7 @@
       "url" "/blog" 
       "textColor" "blue-600" 
       "hoverTextColor" "blue-500"
-      "icon" "<svg>...</svg>"
+      "icon" "map"
       "iconPosition" "right"
   ) }}
 */}}
@@ -48,18 +48,13 @@
   class="inline-flex items-center text-{{ $textColor }} hover:text-{{ $hoverTextColor }}
          font-medium transition-colors duration-200 ease-in-out {{ $classes }}">
   {{ if and $icon (eq $iconPosition "left") }}
-    <span class="mr-2">{{ $icon | safeHTML }}</span>
+    <span class="mr-2">{{ partial (printf "icons/%s" $icon) }}</span>
   {{ end }}
   
   {{ $text }}
   
   {{ if and $icon (eq $iconPosition "right") }}
-    <span class="ml-2">{{ $icon | safeHTML }}</span>
+    <span class="ml-2">{{ partial (printf "icons/%s" $icon) }}</span>
   {{ end }}
 </a>
-{{ else }}
-<!-- Error: Missing required parameters -->
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-  Error: Button requires both "text" and "url" parameters
-</div>
 {{ end }}

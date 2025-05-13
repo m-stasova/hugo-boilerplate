@@ -77,7 +77,8 @@
       {{ range $socialLinks }}
       <a href="{{ .url }}" class="{{ $socialLinkColor }} hover:{{ $socialLinkHoverColor }}">
         <span class="sr-only">{{ .name }}</span>
-        {{ partial "components/media/icon.html" (dict "icon" .icon) }}      </a>
+        {{ partial "components/media/icon.html" (dict "icon" .icon) }}
+      </a>
       {{ end }}
     </div>
     {{ end }}
