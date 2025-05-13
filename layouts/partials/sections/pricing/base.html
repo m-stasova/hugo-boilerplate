@@ -311,7 +311,22 @@
             <p class="rounded-full not-prose bg-primary px-2.5 py-1 text-xs/4 font-semibold text-center text-{{ $tier.popularTextColor }}">{{ $tier.popularText }}</p>
             {{ end }}
           </div>
-          <p class="mt-auto mb-4 text-sm/6 text-{{ $tier.descriptionColor }} min-h-[5rem]">{{ $tier.description }}</p>
+          <p class="mt-auto mb-4 text-sm/6 text-{{ $tier.descriptionColor }} sm:min-h-[5rem] lg:min-h-[4rem]">{{ $tier.description }}</p>
+          <div class="mt-auto mb-6">
+            {{ if $tier.ctaBgColor }}
+            <a href="{{ $tier.cta.url }}"
+               aria-describedby="{{ $tier.id }}"
+               class="block not-prose rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-[14px] font-semibold text-white hover:bg-primary-dark hover:no-underline hover:font-semibold shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                {{ $tier.cta.text }}
+            </a>
+            {{ else }}
+            <a href="{{ $tier.cta.url }}"
+               aria-describedby="{{ $tier.id }}"
+               class="block not-prose rounded-md px-3 py-2 text-center text-[14px] font-semibold text-black hover:text-primary hover:no-underline hover:font-semibold ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                {{ $tier.cta.text }}
+            </a>
+            {{ end }}
+          </div>
           <p class="mt-auto mb-6 flex flex-col items-baseline gap-y-2 h-16">
             <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
            <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
@@ -330,21 +345,6 @@
             {{ end }}
           </ul>
         </div>
-          <div class="mt-auto">
-              {{ if $tier.ctaBgColor }}
-              <a href="{{ $tier.cta.url }}"
-                      aria-describedby="{{ $tier.id }}"
-                      class="mt-8 block not-prose rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-[14px] font-semibold text-white hover:bg-primary-dark hover:no-underline hover:font-semibold shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
-                  {{ $tier.cta.text }}
-              </a>
-              {{ else }}
-              <a href="{{ $tier.cta.url }}"
-                      aria-describedby="{{ $tier.id }}"
-                      class="mt-8 block not-prose rounded-md px-3 py-2 text-center text-[14px] font-semibold text-black hover:text-primary hover:no-underline hover:font-semibold ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
-                  {{ $tier.cta.text }}
-              </a>
-              {{ end }}
-          </div>
       </div>
       {{ end }}
     </div>
