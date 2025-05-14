@@ -177,12 +177,10 @@
         </div>
       </div>
     </div>
-    {{ if and $showLanguageSelector $hasMultipleLanguages }}
     <div class="language-selector mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <p class="text-sm/6 font-semibold {{ $headingColor }} mb-4">{{ $languageSelectorTitle }}</p>
       {{ partial "components/navigation/language-selector.html" $currentPage }}
     </div>
-    {{ end }}
     <div class="mt-12 border-t {{ $borderColor }} pt-8 md:flex md:items-center md:justify-between">
       <div class="flex gap-x-6 md:order-2">
         {{ range $socialLinks }}
