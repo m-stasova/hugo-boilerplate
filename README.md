@@ -380,7 +380,14 @@ Override any theme layout by creating a matching file structure in your project'
 To start server with debug log:
 
 ```bash
-hugo server --gc --templateMetrics --logLevel debug
+hugo server --gc --templateMetrics --templateMetricsHints  --logLevel debug
+```
+
+### Future date
+Dont forget future date is not built by default, if you want to build future posts, you need to add `--buildFuture` flag:
+
+```bash
+hugo server --buildFuture
 ```
 
 ### Common Issues
