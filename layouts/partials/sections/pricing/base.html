@@ -1,5 +1,5 @@
 {{/*
-@section: Three Tiers Pricing
+@section: Base Pricing
 @description: A comprehensive pricing section featuring three pricing tiers with customizable features, colors, and call-to-action buttons.
 @params:
   - tagline: Short tagline above main heading (optional, default: "Pricing")
@@ -109,77 +109,125 @@
 @note: The center tier can be highlighted as the popular option and will be visually elevated. Colors for all elements are fully customizable through parameters.
 */}}
 
-{{/* Three Tiers Pricing Section */}}
+{{/* Base Pricing Section */}}
 {{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
 {{ $backgroundColor := .backgroundColor | default "white" }}
-{{ $taglineColor := .taglineColor | default "indigo-600" }}
-{{ $headingColor := .headingColor | default "gray-900" }}
-{{ $descriptionColor := .descriptionColor | default "gray-600" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
+{{ $headingColor := .headingColor | default "black" }}
+{{ $descriptionColor := .descriptionColor | default "black" }}
 
 {{ $tiers := .tiers | default (slice
   (dict
-    "name" "Freelancer"
-    "id" "tier-freelancer"
-    "price" "$19"
-    "interval" "/month"
-    "description" "The essentials to provide your best work for clients."
+    "name" "Small business"
+    "id" "tier-small-business"
+    "price" "$15"
+    "interval" "per agent/month billed annually"
+    "description" "Affordable ticketing platform for smaller support teams"
     "popular" false
     "features" (slice
-      "5 products"
-      "Up to 1,000 subscribers"
-      "Basic analytics"
-      "48-hour support response time"
+      "Ticketing"
+      "Live chat"
+      "Knowledgebase"
+      "Customer Portal"
+      "Contact forms"
+      "Automation rules"
+      "Integrations"
+      "Multiple language support"
+      "AI Answer Assistant"
+      "AI Chatbot"
     )
+    "featuresNote" ""
     "cta" (dict
-      "text" "Buy plan"
-      "url" "#"
+      "text" "Try for free"
+      "url" "/trial"
     )
-    "nameColor" "gray-900"
-    "priceColor" "gray-900"
-    "intervalColor" "gray-600"
-    "descriptionColor" "gray-600"
-    "featureColor" "gray-600"
-    "checkColor" "indigo-600"
-    "ctaColor" "indigo-600"
+    "nameColor" "black"
+    "priceColor" "black"
+    "intervalColor" "black"
+    "descriptionColor" "black"
+    "featureColor" "black"
+    "checkColor" "primary"
+    "ctaColor" "primary"
     "ctaBgColor" ""
-    "ctaRingColor" "indigo-200"
-    "ctaHoverRingColor" "indigo-300"
+    "ctaRingColor" "primary-light"
+    "ctaHoverRingColor" "primary"
     "backgroundColor" "white"
     "borderColor" "gray-200"
     "position" "left"
   )
   (dict
-    "name" "Startup"
-    "id" "tier-startup"
-    "price" "$49"
-    "interval" "/month"
-    "description" "A plan that scales with your rapidly growing business."
-    "popular" true
-    "popularText" "Most popular"
-    "popularBgColor" "indigo-600/10"
-    "popularTextColor" "indigo-600"
+    "name" "Medium business"
+    "id" "tier-medium-business"
+    "price" "$29"
+    "interval" "per agent/month billed annually"
+    "description" "A versatile and balanced plan for full-scale customer support"
+    "popular" false
     "features" (slice
-      "25 products"
-      "Up to 10,000 subscribers"
-      "Advanced analytics"
-      "24-hour support response time"
-      "Marketing automations"
+    "Everything in Small plan"
+    "Call center & IVR"
+    "Time Rules"
+    "Reports"
+    "Proactive chat invitations"
+    "Agent ratings"
+    "Sound configuration"
+    "Service levels (SLA)"
     )
+    "featuresNote" ""
     "cta" (dict
-      "text" "Buy plan"
-      "url" "#"
+    "text" "Try for free"
+    "url" "/trial"
     )
-    "nameColor" "indigo-600"
-    "priceColor" "gray-900"
-    "intervalColor" "gray-600"
-    "descriptionColor" "gray-600"
-    "featureColor" "gray-600"
-    "checkColor" "indigo-600"
+    "nameColor" "black"
+    "priceColor" "black"
+    "intervalColor" "black"
+    "descriptionColor" "black"
+    "featureColor" "black"
+    "checkColor" "primary"
+    "ctaColor" "primary"
+    "ctaBgColor" ""
+    "ctaRingColor" "primary-light"
+    "ctaHoverRingColor" "primary"
+    "backgroundColor" "white"
+    "borderColor" "gray-200"
+    "position" "center"
+  )
+  (dict
+    "name" "Large business"
+    "id" "tier-large-business"
+    "price" "$49"
+    "interval" "per agent/month billed annually"
+    "description" "An all-inclusive plan with all features and capabilities"
+    "popular" true
+    "popularTextColor" "white"
+    "popularText" "Most popular"
+    "features" (slice
+      "Everything in Medium plan"
+      "SSO"
+      "Custom roles"
+      "Time tracking & Audit log"
+      "Facebook"
+      "Instagram"
+      "Twitter"
+      "Viber"
+      "WhatsApp"
+    )
+    "featuresNote" ""
+    "cta" (dict
+      "text" "Try for free"
+      "url" "/trial"
+    )
+    "nameColor" "black"
+    "priceColor" "black"
+    "intervalColor" "black"
+    "descriptionColor" "black"
+    "featureColor" "black"
+    "checkColor" "primary"
     "ctaColor" "white"
-    "ctaBgColor" "indigo-600"
-    "ctaHoverBgColor" "indigo-500"
+    "ctaBgColor" "primary"
+    "ctaRingColor" "primary-light"
+    "ctaHoverRingColor" "primary"
     "backgroundColor" "white"
     "borderColor" "gray-200"
     "position" "center"
@@ -187,38 +235,64 @@
   (dict
     "name" "Enterprise"
     "id" "tier-enterprise"
-    "price" "$99"
-    "interval" "/month"
-    "description" "Dedicated support and infrastructure for your company."
+    "price" "$69"
+    "interval" "per agent/month billed annually"
+    "description" "A full-scale solution with extra support & exclusive services"
     "popular" false
     "features" (slice
-      "Unlimited products"
+      "Everything in Large plan"
       "Unlimited subscribers"
-      "Advanced analytics"
-      "1-hour, dedicated support response time"
-      "Marketing automations"
+      "Almost unlimited"
+      "Dedicated account manager *"
+      "Priority support *"
+      "Assisted channels integration *"
+      "Branding Free"
+      "Custom billing setup"
+      "Service review call and reports *"
+      "Scheduled release management *"
     )
+    "featuresNote" "* only for 10+ agents"
     "cta" (dict
-      "text" "Buy plan"
-      "url" "#"
+      "text" "Book demo call"
+      "url" "/demo"
     )
-    "nameColor" "gray-900"
-    "priceColor" "gray-900"
-    "intervalColor" "gray-600"
-    "descriptionColor" "gray-600"
-    "featureColor" "gray-600"
-    "checkColor" "indigo-600"
-    "ctaColor" "indigo-600"
+    "nameColor" "black"
+    "priceColor" "black"
+    "intervalColor" "black"
+    "descriptionColor" "black"
+    "featureColor" "black"
+    "checkColor" "primary"
+    "ctaColor" "primary"
     "ctaBgColor" ""
-    "ctaRingColor" "indigo-200"
-    "ctaHoverRingColor" "indigo-300"
+    "ctaRingColor" "primary-light"
+    "ctaHoverRingColor" "primary"
     "backgroundColor" "white"
     "borderColor" "gray-200"
     "position" "right"
   )
 ) }}
 
-{{ $checkIcon := .checkIcon | default "<path fill-rule=\"evenodd\" d=\"M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z\" clip-rule=\"evenodd\" />" }}
+{{ $columnsParam := .columns | default "4" }}
+{{ $columnsClass := "sm:grid-cols-2 lg:grid-cols-4" }}
+{{- if eq $columnsParam "1" }}
+{{ $columnsClass = "grid-cols-1" }}
+{{- else if eq $columnsParam "2" }}
+{{ $columnsClass = "sm:grid-cols-2" }}
+{{- else if eq $columnsParam "3" }}
+{{ $columnsClass = "sm:grid-cols-2 lg:grid-cols-3" }}
+{{- else if eq $columnsParam "4" }}
+{{ $columnsClass = "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" }}
+{{- end }}
+
+{{/* Define a function to check for popular tiers */}}
+{{ $hasPopularTier := false }}
+{{ range $tiers }}
+{{ if .popular }}
+{{ $hasPopularTier = true }}
+{{ end }}
+{{ end }}
+
+{{ $checkIcon := .checkIcon | default `<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />` | safeHTML }}
 
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-3">
   <div class="mx-auto w-full max-w-[1600px]">
@@ -227,41 +301,49 @@
       <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColor }} sm:text-6xl">{{ $heading }}</p>
     </div>
     <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
-    <div class="isolate mx-auto mt-16 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-4 sm:mt-20 lg:grid-cols-3 lg:gap-x-5">
+    <div class="isolate mx-auto mt-16 grid items-stretch grid-cols-1 {{ $columnsClass }} gap-y-8 sm:gap-x-4 sm:gap-y-4 sm:mt-20 lg:gap-x-5">
       {{ range $tier := $tiers }}
-      <div class='flex flex-col h-full rounded-xl bg-{{ $tier.backgroundColor }} px-5 py-8 ring-1 ring-{{ $tier.borderColor }} w-full
-        {{- if eq $tier.position "left" }} lg:rounded-r-none {{ end }}
-        {{- if eq $tier.position "center" }} lg:z-10{{ end }}
-        {{- if eq $tier.position "right" }} lg:rounded-l-none{{ end }}'>
+      <div class='flex flex-col h-full rounded-xl bg-{{ $tier.backgroundColor }} px-5 py-8 ring-1 ring-{{ $tier.borderColor }} w-full'>
         <div class="flex flex-col flex-grow">
-          <div class="flex items-center justify-between gap-x-4 h-10">
-            <h3 id="{{ $tier.id }}" class="mt-auto mb-5 text-lg/8 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
+          <div class="flex items-start justify-between gap-x-4 {{ if $hasPopularTier }}min-h-[4rem]{{ end }}">
+            <h3 id="{{ $tier.id }}" class="mb-5 not-prose text-lg/8 font-semibold text-{{ $tier.nameColor }}">{{ $tier.name }}</h3>
             {{ if $tier.popular }}
-            <p class="rounded-full bg-{{ $tier.popularBgColor }} px-2.5 py-1 text-xs/5 font-semibold text-{{ $tier.popularTextColor }}">{{ $tier.popularText }}</p>
+            <p class="rounded-full not-prose bg-primary px-2.5 py-1 text-xs/4 font-semibold text-center text-{{ $tier.popularTextColor }}">{{ $tier.popularText }}</p>
             {{ end }}
           </div>
-          <p class="mt-auto mb-4 text-sm/6 text-{{ $tier.descriptionColor }} min-h-[3rem]">{{ $tier.description }}</p>
-          <p class="mt-auto mb-4 flex items-baseline gap-x-1 h-12">
-            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
+          <p class="mt-auto mb-4 text-sm/6 text-{{ $tier.descriptionColor }} sm:min-h-[5rem] lg:min-h-[4rem]">{{ $tier.description }}</p>
+          <div class="mt-auto mb-6">
+            {{ if $tier.ctaBgColor }}
+            <a href="{{ $tier.cta.url }}"
+               aria-describedby="{{ $tier.id }}"
+               class="block not-prose rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-[14px] font-semibold text-white hover:bg-primary-dark hover:no-underline hover:font-semibold shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                {{ $tier.cta.text }}
+            </a>
+            {{ else }}
+            <a href="{{ $tier.cta.url }}"
+               aria-describedby="{{ $tier.id }}"
+               class="block not-prose rounded-md px-3 py-2 text-center text-[14px] font-semibold text-black hover:text-primary hover:no-underline hover:font-semibold ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
+                {{ $tier.cta.text }}
+            </a>
+            {{ end }}
+          </div>
+          <p class="mt-auto mb-6 flex flex-col items-baseline gap-y-2 h-16">
+            <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.price }}</span>
            <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
           </p>
           <ul role="list" class="mt-2 mb-2 px-0 space-y-3 text-sm/6 text-{{ $tier.featureColor }} flex-grow min-h-[12rem]">
             {{ range $feature := $tier.features }}
-            <li class="flex gap-x-3">
-              <svg class="h-6 w-5 flex-none text-{{ $tier.checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <li class="flex pl-0 gap-x-3">
+              <svg class="h-6 w-5 flex-none text-primary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                 {{ $checkIcon | safeHTML }}
               </svg>
               {{ $feature }}
             </li>
             {{ end }}
+            {{ if $tier.featuresNote }}
+            <li class="flex pl-0 gap-x-3">{{ $tier.featuresNote }}</li>
+            {{ end }}
           </ul>
-        </div>
-        <div class="mt-8">
-          {{ if $tier.ctaBgColor }}
-          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} shadow-xs hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
-          {{ else }}
-          <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaRingColor }} ring-inset hover:ring-{{ $tier.ctaHoverRingColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{{ $tier.ctaColor }}">{{ $tier.cta.text }}</a>
-          {{ end }}
         </div>
       </div>
       {{ end }}
