@@ -289,6 +289,8 @@ Create a new glossary term with:
 ```bash
 hugo new content/en/glossary/term-name.md
 ```
+or just create the file in the `content/en/glossary/` directory with extension *.md.
+
 
 Front matter example:
 
@@ -372,6 +374,14 @@ Add custom CSS by creating a file at `assets/css/custom.css` in your project roo
 Override any theme layout by creating a matching file structure in your project's `layouts` directory.
 
 ## Troubleshooting
+
+### HUGO Speed
+
+To start server with debug log:
+
+```bash
+hugo server --gc --templateMetrics --logLevel debug
+```
 
 ### Common Issues
 
