@@ -1,6 +1,6 @@
 {{/*
 @section: Pricing with Comparison Table
-@description: A comprehensive pricing section that displays multiple pricing tiers with a detailed feature comparison table, including both mobile and desktop views.
+@description: A comprehensive pricing section that displays multiple pricing tiersComparison with a detailed feature comparison table, including both mobile and desktop views.
 @params:
   - tagline: Text above the heading (optional, default: "Pricing")
   - heading: Main heading text (optional, default: "Pricing that grows with you")
@@ -11,11 +11,9 @@
   - descriptionColor: Color for the description text (optional, default: "gray-600")
   - checkColor: Color for the checkmark icons (optional, default: "indigo-600")
   - dashColor: Color for the dash icons (optional, default: "gray-400")
-  - tiers: Array of tier objects (optional, includes defaults)
+  - tiersComparison: Array of tier objects (optional, includes defaults)
     - name: Name of the tier
     - id: ID for accessibility
-    - price: Price for the tier
-    - interval: Text after the price (e.g., "/month")
     - emphasized: Boolean to indicate if this is the emphasized tier
     - cta: Object with text and url for the call-to-action button
     - ctaColor: Color for the CTA button text
@@ -27,72 +25,66 @@
     - name: Name of the category
     - features: Array of feature objects
       - name: Name of the feature
-      - tiers: Object with tier names as keys and feature values as values
+      - tiersComparison: Object with tier names as keys and feature values as values
         (can be boolean, string, or number)
 @example:
-  {{ partial "sections/pricing/with_comparison_table.html" (dict 
-      "tagline" "Plans" 
+  {{ partial "sections/pricing/with_comparison_table.html" (dict
+      "tagline" "Plans"
       "heading" "Find the right plan for your business"
       "description" "Whether you're a startup or enterprise, we have a plan that fits your needs and budget."
-      "tiers" (slice
-          (dict 
-              "name" "Basic" 
-              "id" "tier-basic" 
-              "price" "$29" 
-              "interval" "/month" 
-              "emphasized" false 
+      "tiersComparison" (slice
+          (dict
+              "name" "Basic"
+              "id" "tier-basic"
+              "emphasized" false
               "cta" (dict "text" "Get started" "url" "/signup/basic")
-              "ctaColor" "indigo-600" 
-              "ctaBorderColor" "indigo-200" 
+              "ctaColor" "indigo-600"
+              "ctaBorderColor" "indigo-200"
               "ctaHoverBorderColor" "indigo-300"
           )
-          (dict 
-              "name" "Pro" 
-              "id" "tier-pro" 
-              "price" "$79" 
-              "interval" "/month" 
-              "emphasized" true 
+          (dict
+              "name" "Pro"
+              "id" "tier-pro"
+              "emphasized" true
               "cta" (dict "text" "Get started" "url" "/signup/pro")
-              "ctaColor" "white" 
-              "ctaBgColor" "indigo-600" 
+              "ctaColor" "white"
+              "ctaBgColor" "indigo-600"
               "ctaHoverBgColor" "indigo-500"
           )
-          (dict 
-              "name" "Enterprise" 
-              "id" "tier-enterprise" 
-              "price" "$199" 
-              "interval" "/month" 
-              "emphasized" false 
+          (dict
+              "name" "Enterprise"
+              "id" "tier-enterprise"
+              "emphasized" false
               "cta" (dict "text" "Contact sales" "url" "/contact")
-              "ctaColor" "indigo-600" 
-              "ctaBorderColor" "indigo-200" 
+              "ctaColor" "indigo-600"
+              "ctaBorderColor" "indigo-200"
               "ctaHoverBorderColor" "indigo-300"
           )
       )
       "featureCategories" (slice
-          (dict 
-              "name" "Core Features" 
+          (dict
+              "name" "Core Features"
               "features" (slice
-                  (dict 
-                      "name" "Storage" 
-                      "tiers" (dict "Basic" "10GB" "Pro" "50GB" "Enterprise" "Unlimited")
+                  (dict
+                      "name" "Storage"
+                      "tiersComparison" (dict "Basic" "10GB" "Pro" "50GB" "Enterprise" "Unlimited")
                   )
-                  (dict 
-                      "name" "API access" 
-                      "tiers" (dict "Basic" false "Pro" true "Enterprise" true)
+                  (dict
+                      "name" "API access"
+                      "tiersComparison" (dict "Basic" false "Pro" true "Enterprise" true)
                   )
               )
           )
-          (dict 
-              "name" "Support" 
+          (dict
+              "name" "Support"
               "features" (slice
-                  (dict 
-                      "name" "Priority support" 
-                      "tiers" (dict "Basic" false "Pro" true "Enterprise" true)
+                  (dict
+                      "name" "Priority support"
+                      "tiersComparison" (dict "Basic" false "Pro" true "Enterprise" true)
                   )
-                  (dict 
-                      "name" "Dedicated account manager" 
-                      "tiers" (dict "Basic" false "Pro" false "Enterprise" true)
+                  (dict
+                      "name" "Dedicated account manager"
+                      "tiersComparison" (dict "Basic" false "Pro" false "Enterprise" true)
                   )
               )
           )
@@ -101,9 +93,9 @@
 @note: This section automatically adapts between mobile and desktop views. On mobile, each tier is displayed as a card in a vertical stack, while on desktop it shows a full comparison table. The emphasized tier is visually highlighted to draw attention to your recommended plan.
 */}}
 
-{{/* 
+{{/*
   With Comparison Table Pricing Section
-  
+
   Parameters:
   - tagline: Text above the heading (default: "Pricing")
   - heading: Main heading text (default: "Pricing that grows with you")
@@ -114,11 +106,9 @@
   - descriptionColor: Color for the description text (default: "gray-600")
   - checkColor: Color for the checkmark icons (default: "indigo-600")
   - dashColor: Color for the dash icons (default: "gray-400")
-  - tiers: Array of tier configurations, each with:
+  - tiersComparison: Array of tier configurations, each with:
     - name: Name of the tier
     - id: ID for accessibility
-    - price: Price for the tier
-    - interval: Text after the price (e.g., "/month")
     - emphasized: Boolean to indicate if this is the emphasized tier
     - cta: Object with text and url for the call-to-action button
     - ctaColor: Color for the CTA button text
@@ -130,126 +120,566 @@
     - name: Name of the category
     - features: Array of features, each with:
       - name: Name of the feature
-      - tiers: Object with tier names as keys and feature values as values
+      - tiersComparison: Object with tier names as keys and feature values as values
         (can be boolean, string, or number)
 */}}
 
-{{ $tagline := .tagline | default "Pricing" }}
 {{ $heading := .heading | default "Pricing that grows with you" }}
 {{ $description := .description | default "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales." }}
 {{ $backgroundColor := .backgroundColor | default "white" }}
-{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
 {{ $headingColor := .headingColor | default "gray-900" }}
 {{ $descriptionColor := .descriptionColor | default "gray-600" }}
-{{ $checkColor := .checkColor | default "indigo-600" }}
+{{ $checkColor := .checkColor | default "primary" }}
 {{ $dashColor := .dashColor | default "gray-400" }}
 
-{{ $tiers := .tiers | default (slice 
-  (dict 
-    "name" "Starter" 
-    "id" "tier-starter" 
-    "price" "$19" 
-    "interval" "/month" 
-    "emphasized" false 
-    "cta" (dict 
-      "text" "Buy plan" 
-      "url" "#"
-    ) 
-    "ctaColor" "indigo-600" 
-    "ctaBorderColor" "indigo-200" 
-    "ctaHoverBorderColor" "indigo-300"
-  ) 
-  (dict 
-    "name" "Growth" 
-    "id" "tier-growth" 
-    "price" "$49" 
-    "interval" "/month" 
-    "emphasized" true 
-    "cta" (dict 
-      "text" "Buy plan" 
-      "url" "#"
-    ) 
-    "ctaColor" "white" 
-    "ctaBgColor" "indigo-600" 
-    "ctaHoverBgColor" "indigo-500"
-  ) 
-  (dict 
-    "name" "Scale" 
-    "id" "tier-scale" 
-    "price" "$99" 
-    "interval" "/month" 
-    "emphasized" false 
-    "cta" (dict 
-      "text" "Buy plan" 
-      "url" "#"
-    ) 
-    "ctaColor" "indigo-600" 
-    "ctaBorderColor" "indigo-200" 
-    "ctaHoverBorderColor" "indigo-300"
+{{ $tiersComparison := .tiersComparison | default (slice
+  (dict
+    "name" "Small business"
+    "id" "tier-comparison-small"
+    "emphasized" false
+    "cta" (dict
+      "text" "Try for free"
+      "url" "/trial"
+    )
+    "ctaColor" "primary"
+    "ctaBorderColor" "primary-light"
+    "ctaHoverBorderColor" "primary"
+  )
+  (dict
+    "name" "Medium business"
+    "id" "tier-comparison-medium"
+    "emphasized" true
+    "cta" (dict
+      "text" "Try for free"
+      "url" "/trial"
+    )
+    "ctaColor" "primary"
+    "ctaBorderColor" "primary-light"
+    "ctaHoverBorderColor" "primary"
+  )
+  (dict
+    "name" "Large business"
+    "id" "tier-comparison-large"
+    "emphasized" false
+    "cta" (dict
+      "text" "Try for free"
+      "url" "/trial"
+    )
+    "ctaColor" "white"
+    "ctaBgColor" "primary"
+    "ctaHoverBgColor" "primary-dark"
+  )
+  (dict
+  "name" "Enterprise"
+  "id" "tier-comparison-enterprise"
+  "emphasized" true
+  "cta" (dict
+  "text" "Book demo call"
+  "url" "/demo"
+  )
+  "ctaColor" "primary"
+  "ctaBorderColor" "primary-light"
+  "ctaHoverBorderColor" "primary"
   )
 ) }}
 
-{{ $featureCategories := .featureCategories | default (slice 
-  (dict 
-    "name" "Features" 
-    "features" (slice 
-      (dict 
-        "name" "Edge content delivery" 
-        "tiers" (dict "Starter" true "Growth" true "Scale" true)
-      ) 
-      (dict 
-        "name" "Custom domains" 
-        "tiers" (dict "Starter" "1" "Growth" "3" "Scale" "Unlimited")
-      ) 
-      (dict 
-        "name" "Team members" 
-        "tiers" (dict "Starter" "3" "Growth" "20" "Scale" "Unlimited")
-      ) 
-      (dict 
-        "name" "Single sign-on (SSO)" 
-        "tiers" (dict "Starter" false "Growth" false "Scale" true)
+{{ $featureCategories := default (slice
+  (dict
+    "name" "Pricing"
+    "features" (slice
+      (dict
+        "name" "Per agent/month billed annually"
+        "tiersComparison" (dict "Small business" "$15" "Medium business" "$29" "Large business" "$49" "Enterprise" "$69")
+      )
+      (dict
+        "name" "Per agent/month billed monthly"
+        "tiersComparison" (dict "Small business" "$19" "Medium business" "$35" "Large business" "$59" "Enterprise" "$85")
       )
     )
-  ) 
-  (dict 
-    "name" "Reporting" 
-    "features" (slice 
-      (dict 
-        "name" "Advanced analytics" 
-        "tiers" (dict "Starter" true "Growth" true "Scale" true)
-      ) 
-      (dict 
-        "name" "Basic reports" 
-        "tiers" (dict "Starter" false "Growth" true "Scale" true)
-      ) 
-      (dict 
-        "name" "Professional reports" 
-        "tiers" (dict "Starter" false "Growth" false "Scale" true)
-      ) 
-      (dict 
-        "name" "Custom report builder" 
-        "tiers" (dict "Starter" false "Growth" false "Scale" true)
+  )
+  (dict
+    "name" "Communication channels"
+    "features" (slice
+      (dict
+        "name" "Customer Portal"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+      "name" "Contact forms – Contact us buttons"
+      "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "50" "Enterprise" "200")
+      )
+      (dict
+        "name" "Slack notifications"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Customer forum"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Email ticketing – Incoming email accounts"
+        "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "150" "Enterprise" "500")
+      )
+      (dict
+        "name" "Email ticketing – Outgoing email accounts"
+        "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "150" "Enterprise" "500")
+      )
+      (dict
+        "name" "Live chat button"
+        "tiersComparison" (dict "Small business" "2" "Medium business" "5" "Large business" "50" "Enterprise" "100")
+      )
+      (dict
+        "name" "Proactive chat invitations"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call center"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Feedback buttons"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Viber"
+        "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Twitter"
+        "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Facebook"
+        "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Facebook + Instagram"
+        "tiersComparison" (dict "Small business" "$39/month + $19/month" "Medium business" "$39/month + $19/month" "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "WhatsApp"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" "3 numbers" "Enterprise" "3+ numbers")
+      )
+      (dict
+        "name" "Video call functionality"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
       )
     )
-  ) 
-  (dict 
-    "name" "Support" 
-    "features" (slice 
-      (dict 
-        "name" "24/7 online support" 
-        "tiers" (dict "Starter" true "Growth" true "Scale" true)
-      ) 
-      (dict 
-        "name" "Quarterly workshops" 
-        "tiers" (dict "Starter" false "Growth" true "Scale" true)
-      ) 
-      (dict 
-        "name" "Priority phone support" 
-        "tiers" (dict "Starter" false "Growth" false "Scale" true)
-      ) 
-      (dict 
-        "name" "1:1 onboarding tour" 
-        "tiers" (dict "Starter" false "Growth" false "Scale" true)
+  )
+  (dict
+    "name" "Conversation management"
+    "features" (slice
+      (dict
+        "name" "Ticket history"
+        "tiersComparison" (dict "Small business" "Unlimited" "Medium business" "Unlimited" "Large business" "Unlimited" "Enterprise" "Unlimited")
+      )
+      (dict
+        "name" "Merge tickets"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Custom ticket fields"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Split tickets"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Internal tickets"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Attachments"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Ticket mass actions"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "To Solve Algorithm"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Ticket satisfaction survey"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Custom tags"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Custom ticket filters"
+        "tiersComparison" (dict "Small business" "300 filters / agent" "Medium business" "500 filters / agent" "Large business" "1000 filters / agent" "Enterprise" "5000 filters / agent")
+      )
+      (dict
+        "name" "Agent notes to tickets"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Real-time dashboards"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Ticket transfers"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "WYSIWYG editor"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Multiple ticket tabs"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Business hours"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Departments"
+        "tiersComparison" (dict "Small business" "10" "Medium business" "20" "Large business" "150" "Enterprise" "300")
+      )
+      (dict
+        "name" "Roles in departments"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+      (dict
+        "name" "Canned messages"
+        "tiersComparison" (dict "Small business" "20" "Medium business" "100" "Large business" "500" "Enterprise" "1000")
+      )
+      (dict
+        "name" "Contacts & Groups"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Predefined answers"
+        "tiersComparison" (dict "Small business" "20" "Medium business" "100" "Large business" "500" "Enterprise" "1000")
+      )
+      (dict
+        "name" "Chat transcripts"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "File sharing over chat"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Mobile chat window"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Chat welcome message setting"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Real-time visitors monitor"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Chat Satisfaction Surveys"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Time Tracking"
+        "tiersComparison" (dict "Small business" "$19 / month" "Medium business" "$19 / month" "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call Queueing"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "IVR"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "In call recordings"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call routing & transfers"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Custom roles"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" "3" "Enterprise" "40")
+      )
+    )
+  )
+  (dict
+    "name" "Customization"
+    "features" (slice
+      (dict
+        "name" "API keys"
+        "tiersComparison" (dict "Small business" "1" "Medium business" "5" "Large business" "10" "Enterprise" "100")
+      )
+      (dict
+        "name" "Customer mail templates"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Rules & Time rules"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Gamification"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Contact form widgets customization"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Chat widgets customization"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Sound configuration"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Search & replace"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call widgets customization"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Video call widgets customization"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Knowledge base"
+        "tiersComparison" (dict "Small business" "1" "Medium business" "1" "Large business" "2" "Enterprise" "10")
+      )
+      (dict
+        "name" "Additional knowledge base"
+        "tiersComparison" (dict "Small business" "$19 / month / per KB" "Medium business" "$19 / month / per KB" "Large business" "$19 / month / per KB" "Enterprise" "$19 / month / per KB")
+      )
+      (dict
+        "name" "Branding free"
+        "tiersComparison" (dict "Small business" false "Medium business" "$19 / month / per acc" "Large business" "$19 / month / per acc" "Enterprise" true)
+      )
+      (dict
+        "name" "Custom domain parking"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+    )
+  )
+  (dict
+    "name" "Reporting"
+    "features" (slice
+      (dict
+        "name" "Analytics overview"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Performance report"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Agent report"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Agents ratings"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Department report"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Channel report"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Ticket history"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "My work report"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Agent availability for calls, chats, ticket"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call, chat availability"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Call, chat, ticket loady"
+        "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+    )
+  )
+  (dict
+    "name" "AI features"
+    "features" (slice
+      (dict
+        "name" "AI Answer Assistant"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "AI Chatbot"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+    )
+  )
+  (dict
+    "name" "Support and services"
+    "features" (slice
+      (dict
+          "name" "Customer support service"
+          "tiersComparison" (dict "Small business" "best effort" "Medium business" "24/7" "Large business" "24/7" "Enterprise" "24/7")
+      )
+      (dict
+          "name" "Assisted domain parking"
+          "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "Design customization assistance"
+          "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "AI configuration service"
+          "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "Chatbot setup service"
+          "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "IVR setup service"
+          "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "Product setup training"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "Consulting services"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
+      )
+      (dict
+          "name" "Priority support"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+      (dict
+          "name" "Dedicated account manager"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+      (dict
+          "name" "Scheduled release management"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+      (dict
+          "name" "Service review call and reports"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+      (dict
+          "name" "Custom billing setup"
+          "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
+      )
+    )
+   )
+  (dict
+    "name" "Product capabilities"
+    "features" (slice
+      (dict
+        "name" "Multiple language support"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Multiple website support"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Multibrand support"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Hardware IP phone"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "iPhone/Android apps"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Integrations"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+    )
+  )
+  (dict
+    "name" "Security and permissions"
+    "features" (slice
+      (dict
+        "name" "EU/US/UK/SG Data Center"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "SpamAssassin Integration"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Access restriction to agent panel"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Password Policy Management"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "2-step verification"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "HTTPS encryption"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Banned visitors list"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Audit Log"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "SSO"
+        "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
+      )
+      (dict
+        "name" "Customisation of system email templates"
+        "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+      )
+    )
+  )
+  (dict
+    "name" "Automation"
+    "features" (slice
+      (dict
+        "name" "Event Rules"
+        "tiersComparison" (dict "Small business" "50" "Medium business" "150" "Large business" "500" "Enterprise" "1000")
+      )
+      (dict
+        "name" "Time Rules"
+        "tiersComparison" (dict "Small business" false "Medium business" "30" "Large business" "100" "Enterprise" "200")
+      )
+      (dict
+        "name" "SLA rules"
+        "tiersComparison" (dict "Small business" false "Medium business" "5" "Large business" "50" "Enterprise" "100")
+      )
+      (dict
+        "name" "SLA levels"
+        "tiersComparison" (dict "Small business" false "Medium business" "5" "Large business" "20" "Enterprise" "100")
       )
     )
   )
@@ -258,14 +688,13 @@
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-4xl text-center">
-      <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
       <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColor }} sm:text-6xl">{{ $heading }}</p>
     </div>
     <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColor }} sm:text-xl/8">{{ $description }}</p>
 
     <!-- Mobile view (xs to lg) -->
     <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
-      {{ range $index, $tier := $tiers }}
+      {{ range $index, $tier := $tiersComparison }}
         {{ $bgClass := "" }}
         {{ $ringClass := "ring-1 ring-gray-200" }}
         {{ if $tier.emphasized }}
@@ -274,23 +703,19 @@
         {{ end }}
         <section class="{{ $bgClass }} {{ if $tier.emphasized }}rounded-xl{{ end }} p-8 {{ $ringClass }}">
           <h3 id="{{ $tier.id }}" class="text-sm/6 font-semibold text-{{ if $tier.emphasized }}{{ $taglineColor }}{{ else }}gray-900{{ end }}">{{ $tier.name }}</h3>
-          <p class="mt-2 flex items-baseline gap-x-1 text-gray-900">
-            <span class="text-4xl font-semibold">{{ $tier.price }}</span>
-            <span class="text-sm font-semibold">{{ $tier.interval }}</span>
-          </p>
-          
+
           {{ if $tier.emphasized }}
             <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
           {{ else }}
             <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}" class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
           {{ end }}
-          
+
           <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-900">
             {{ range $categoryIndex, $category := $featureCategories }}
               <li>
                 <ul role="list" class="space-y-4">
                   {{ range $featureIndex, $feature := $category.features }}
-                    {{ $tierValue := index $feature.tiers $tier.name }}
+                    {{ $tierValue := index $feature.tiersComparison $tier.name }}
                     {{ if $tierValue }}
                       <li class="flex gap-x-3">
                         <svg class="h-6 w-5 flex-none text-{{ $checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -327,14 +752,14 @@
           </caption>
           <colgroup>
             <col class="w-1/4">
-            {{ range $tiers }}
+            {{ range $tiersComparison }}
               <col class="w-1/4">
             {{ end }}
           </colgroup>
           <thead>
             <tr>
               <td></td>
-              {{ range $tiers }}
+              {{ range $tiersComparison }}
                 <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
                   <div class="text-sm/7 font-semibold text-gray-900">{{ .name }}</div>
                 </th>
@@ -343,13 +768,9 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row"><span class="sr-only">Price</span></th>
-              {{ range $tier := $tiers }}
+              <td></td>
+              {{ range $tier := $tiersComparison }}
                 <td class="px-6 pt-2 xl:px-8">
-                  <div class="flex items-baseline gap-x-1 text-gray-900">
-                    <span class="text-4xl font-semibold">{{ $tier.price }}</span>
-                    <span class="text-sm/6 font-semibold">{{ $tier.interval }}</span>
-                  </div>
                   {{ if $tier.emphasized }}
                     <a href="{{ $tier.cta.url }}" class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
                   {{ else }}
@@ -358,24 +779,24 @@
                 </td>
               {{ end }}
             </tr>
-            
+
             {{ range $categoryIndex, $category := $featureCategories }}
               <tr>
-                <th scope="colgroup" colspan="{{ add (len $tiers) 1 }}" class="pt-{{ if eq $categoryIndex 0 }}8{{ else }}16{{ end }} pb-4 text-sm/6 font-semibold text-gray-900">
+                <th scope="colgroup" colspan="{{ add (len $tiersComparison) 1 }}" class="pt-{{ if eq $categoryIndex 0 }}8{{ else }}16{{ end }} pb-4 text-sm/6 font-semibold text-gray-900">
                   {{ $category.name }}
                   <div class="absolute inset-x-8 mt-4 h-px bg-gray-900/10"></div>
                 </th>
               </tr>
-              
+
               {{ range $featureIndex, $feature := $category.features }}
                 <tr>
                   <th scope="row" class="py-4 text-sm/6 font-normal text-gray-900">
                     {{ $feature.name }}
                     <div class="absolute inset-x-8 mt-4 h-px bg-gray-900/5"></div>
                   </th>
-                  
-                  {{ range $tierIndex, $tier := $tiers }}
-                    {{ $tierValue := index $feature.tiers $tier.name }}
+
+                  {{ range $tierIndex, $tier := $tiersComparison }}
+                    {{ $tierValue := index $feature.tiersComparison $tier.name }}
                     <td class="px-6 py-4 xl:px-8">
                       {{ if eq $tierValue true }}
                         <svg class="mx-auto size-5 text-{{ $checkColor }}" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
