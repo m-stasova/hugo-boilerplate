@@ -132,11 +132,18 @@
 {{ $descriptionColorComparison := .descriptionColorComparison | default "gray-600" }}
 {{ $checkColorComparison := .checkColorComparison | default "primary" }}
 {{ $dashColorComparison := .dashColorComparison | default "gray-400" }}
+{{ $toggleTextColor := .toggleTextColor | default "gray-500" }}
+{{ $toggleActiveColor := .toggleActiveColor | default "white" }}
+{{ $toggleActiveBgColor := .toggleActiveBgColor | default "indigo-600" }}
+{{ $toggleBorderColor := .toggleBorderColor | default "gray-200" }}
 {{ $tiersComparison := .tiersComparison | default (slice
         (dict
                 "name" "Small business"
                 "id" "tier-comparison-small"
                 "emphasized" false
+                "monthlyPrice" "$19"
+                "annualPrice" "$15"
+                "interval" "/month"
                 "cta" (dict
                 "text" "Try for free"
                 "url" "/trial"
@@ -148,7 +155,10 @@
         (dict
                 "name" "Medium business"
                 "id" "tier-comparison-medium"
-                "emphasized" true
+                "monthlyPrice" "$35"
+                "annualPrice" "$29"
+                "interval" "/month"
+                "emphasized" false
                 "cta" (dict
                 "text" "Try for free"
                 "url" "/trial"
@@ -160,7 +170,10 @@
         (dict
                 "name" "Large business"
                 "id" "tier-comparison-large"
-                "emphasized" false
+                "monthlyPrice" "$59"
+                "annualPrice" "$49"
+                "interval" "/month"
+                "emphasized" true
                 "cta" (dict
                 "text" "Try for free"
                 "url" "/trial"
@@ -172,7 +185,10 @@
         (dict
                 "name" "Enterprise"
                 "id" "tier-comparison-enterprise"
-                "emphasized" true
+                "monthlyPrice" "$85"
+                "annualPrice" "$69"
+                "interval" "/month"
+                "emphasized" false
                 "cta" (dict
                 "text" "Book demo call"
                 "url" "/demo"
@@ -184,21 +200,6 @@
         ) }}
 
 {{ $featureCategories := .featureCategories | default (slice
-        (dict
-                "name" "Pricing"
-                "features" (slice
-                (dict
-                        "name" "Per agent/month billed annually"
-                        "tooltip" "Annual pricing is billed yearly and calculated based on the number of agents you add to the system. If you add more agent seats during the year, a top-up request will be generated at the same reduced rate."
-                        "tiersComparison" (dict "Small business" "$15" "Medium business" "$29" "Large business" "$49" "Enterprise" "$69")
-                        )
-                (dict
-                        "name" "Per agent/month billed monthly"
-                        "tooltip" "Monthly pricing is billed monthly and calculated based on the number of agents you add to the system. If you add more agent seats during the month, a top-up request will be generated at the same reduced rate."
-                        "tiersComparison" (dict "Small business" "$19" "Medium business" "$35" "Large business" "$59" "Enterprise" "$85")
-                        )
-                )
-                )
         (dict
                 "name" "Communication channels"
                 "features" (slice
@@ -803,7 +804,22 @@
             <p class="mt-2 text-5xl font-semibold tracking-tight text-balance text-{{ $headingColorComparison }} sm:text-6xl">{{ $headingComparison }}</p>
         </div>
         <p class="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-{{ $descriptionColorComparison }} sm:text-xl/8">{{ $descriptionComparison }}</p>
-
+<div class="mt-16 flex justify-center">
+      <fieldset aria-label="Payment frequency">
+        <div class="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs/5 font-semibold ring-1 ring-{{ $toggleBorderColor }} ring-inset">
+          <!-- Monthly option -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1 bg-{{ $toggleActiveBgColor }} text-{{ $toggleActiveColor }}" id="monthly-label">
+            <input type="radio" name="frequency" value="monthly" class="sr-only" checked>
+            <span>Monthly</span>
+          </label>
+          <!-- Annual option -->
+          <label class="cursor-pointer rounded-full px-2.5 py-1 text-{{ $toggleTextColor }}" id="annually-label">
+            <input type="radio" name="frequency" value="annually" class="sr-only">
+            <span>Annually</span>
+          </label>
+        </div>
+      </fieldset>
+    </div>
         <!-- Mobile view (xs to lg) -->
         <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
             {{ range $index, $tier := $tiersComparison }}
@@ -816,13 +832,20 @@
                 <section class="{{ $bgClass }} {{ if $tier.emphasized }}rounded-xl{{ end }} p-8 {{ $ringClass }}">
                     <h3 id="{{ $tier.id }}"
                         class="text-sm/6 font-semibold text-{{ if $tier.emphasized }}{{ $taglineColorComparison }}{{ else }}gray-900{{ end }}">{{ $tier.name }}</h3>
-
+                    <p class="mt-6 flex items-baseline gap-x-1">
+                        <!-- Monthly price (default visible) -->
+                        <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} monthly-price">{{ $tier.monthlyPrice }}</span>
+                        <!-- Annual price (hidden by default) -->
+                        <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} annual-price hidden">{{ $tier.annualPrice }}</span>
+                        <!-- Interval -->
+                        <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+                    </p>
                     {{ if $tier.emphasized }}
                         <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}"
-                           class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
+                           class="mt-8 not-prose block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
                     {{ else }}
                         <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}"
-                           class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
+                           class="mt-8 not-prose block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
                     {{ end }}
 
                     <ul role="list" class="mt-10 space-y-4 text-sm/6 text-gray-900">
@@ -841,15 +864,15 @@
                                                           clip-rule="evenodd"/>
                                                 </svg>
                                                 <span>
-                                                {{ if $feature.tooltip }}
-                                                        {{ partial "components/tooltip/tooltip.html" (dict "content" $feature.name "text" $feature.tooltip) }}
-                                                {{ else }}
-                                                        {{ $feature.name }}
-                                                {{ end }}
-                                                    {{ if ne $tierValue true }}
-                                                        <span class="text-sm/6 text-gray-500">({{ $tierValue }})</span>
-                                                    {{ end }}
-                        </span>
+                                                        {{ if $feature.tooltip }}
+															{{ partial "components/tooltip/tooltip.html" (dict "content" $feature.name "text" $feature.tooltip) }}
+                                                        {{ else }}
+															{{ $feature.name }}
+                                                        {{ end }}
+                                                        {{ if ne $tierValue true }}
+															<span class="text-sm/6 text-gray-500">({{ $tierValue }})</span>
+                                                        {{ end }}
+                                                </span>
                                             </li>
                                         {{ end }}
                                     {{ end }}
@@ -864,11 +887,18 @@
         <!-- Desktop view (lg+) -->
         <div class="isolate mt-20 hidden lg:block">
             <div class="relative -mx-8">
-                <div class="absolute inset-x-4 inset-y-0 -z-10 flex">
-                    <div class="flex w-1/4 px-4" style="margin-left: 50%" aria-hidden="true">
-                        <div class="w-full rounded-t-xl border-x border-t border-gray-900/10 bg-gray-400/5"></div>
-                    </div>
-                </div>
+				{{ $columnCount := add (len $tiersComparison) 1 }}
+				{{ range $index, $tier := $tiersComparison }}
+					{{ if $tier.emphasized }}
+						{{ $columnWidth := div 100 $columnCount }}
+						{{ $marginLeft := mul $columnWidth (add $index 1) }}
+						<div
+							class="pointer-events-none absolute top-0 left-0 -z-10 h-full px-4"
+							style="width: {{ $columnWidth }}%; margin-left: {{ $marginLeft }}%;">
+							<div class="w-full rounded-t-xl border-x border-t border-gray-900/10 bg-gray-400/5 h-full"></div>
+						</div>
+					{{ end }}
+				{{ end }}
                 <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
                     <caption class="sr-only">
                         Pricing plan comparison
@@ -891,16 +921,24 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td></td>
+                       <th scope="row"><span class="sr-only">Price</span></th>
                         {{ range $tier := $tiersComparison }}
-                            <td class="px-6 pt-2 xl:px-8">
-                                {{ if $tier.emphasized }}
-                                    <a href="{{ $tier.cta.url }}"
-                                       class="mt-8 block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
-                                {{ else }}
-                                    <a href="{{ $tier.cta.url }}"
-                                       class="mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
-                                {{ end }}
+							<td class="px-6 pt-2 xl:px-8">
+							<p class="mt-6 flex items-baseline gap-x-1">
+								<!-- Monthly price (default visible) -->
+								<span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} monthly-price">{{ $tier.monthlyPrice }}</span>
+								<!-- Annual price (hidden by default) -->
+								<span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} annual-price hidden">{{ $tier.annualPrice }}</span>
+								<!-- Interval -->
+								<span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+							</p>
+							{{ if $tier.emphasized }}
+								<a href="{{ $tier.cta.url }}"
+									class="mt-8 not-prose block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
+							{{ else }}
+								<a href="{{ $tier.cta.url }}"
+									class="mt-8 not-prose block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
+							{{ end }}
                             </td>
                         {{ end }}
                     </tr>
@@ -958,3 +996,46 @@
         </div>
     </div>
 </div>
+
+<!-- JavaScript for toggle functionality -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const monthlyLabel = document.getElementById('monthly-label');
+    const annuallyLabel = document.getElementById('annually-label');
+    const monthlyPrices = document.querySelectorAll('.monthly-price');
+    const annualPrices = document.querySelectorAll('.annual-price');
+    
+    // Function to toggle between monthly and annual pricing
+    function togglePricing(isMonthly) {
+      if (isMonthly) {
+        monthlyLabel.classList.add('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
+        monthlyLabel.classList.remove('text-{{ $toggleTextColor }}');
+        annuallyLabel.classList.remove('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
+        annuallyLabel.classList.add('text-{{ $toggleTextColor }}');
+        
+        monthlyPrices.forEach(el => el.classList.remove('hidden'));
+        annualPrices.forEach(el => el.classList.add('hidden'));
+      } else {
+        annuallyLabel.classList.add('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
+        annuallyLabel.classList.remove('text-{{ $toggleTextColor }}');
+        monthlyLabel.classList.remove('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
+        monthlyLabel.classList.add('text-{{ $toggleTextColor }}');
+        
+        monthlyPrices.forEach(el => el.classList.add('hidden'));
+        annualPrices.forEach(el => el.classList.remove('hidden'));
+      }
+    }
+    
+    // Set up event listeners for the toggle
+    monthlyLabel.addEventListener('click', function() {
+      togglePricing(true);
+    });
+    
+    annuallyLabel.addEventListener('click', function() {
+      togglePricing(false);
+    });
+    
+    // Initialize with monthly pricing
+    togglePricing(true);
+  });
+</script>
