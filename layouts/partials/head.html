@@ -16,7 +16,7 @@
 {{ range .Site.Home.AllTranslations }}
 <link rel="alternate" hreflang="{{ .Language.Params.bcp47Lang | default .Language.Lang }}" href="{{ .Permalink }}">
 {{ end }}
-<link rel="alternate" hreflang="x-default" href="{{ .Site.Home.Permalink }}">
+<link rel="alternate" hreflang="x-default" href="{{ (index .Site.Home.AllTranslations 0).Permalink }}">
 {{ partial "social-meta.html" . | safeHTML }}
 {{ partialCached "head/variables.html" . }}
 {{ partialCached "head/css.html" . }}

@@ -6,8 +6,7 @@ This script translates files from /content/en/* to all language variations defin
 that don't already exist in the target language directories using FlowHunt API.
 
 Usage:
-    python translate_with_flowhunt.py [--path /path/to/content] [--check-interval 60] [--max-concurrent 10]
-                                     [--flow-id FLOW_ID]
+    python translate_with_flowhunt.py [--path /path/to/content] [--check-interval 60] [--flow-id FLOW_ID] [--max-scheduled-tasks LIMIT]
 
 Prerequisites:
     - Python 3.6 or higher
@@ -23,6 +22,9 @@ Examples:
     
     # With custom flow and workspace IDs
     python translate_with_flowhunt.py --flow-id "custom-flow-id"
+    
+    # With maximum batch size of 100 scheduled tasks
+    python translate_with_flowhunt.py --max-scheduled-tasks 100
     
     # With API key as environment variable
     export FLOWHUNT_API_KEY="your-api-key"
@@ -302,7 +304,7 @@ def find_files_for_translation(content_dir, target_langs):
     
     return translation_tasks, files_already_exist
 
-def process_translations(translation_tasks, flow_id, workspace_id):
+def process_translations(translation_tasks, flow_id, workspace_id, max_scheduled_tasks=500):
     """
     Process translation tasks using FlowHunt API
     
@@ -310,109 +312,137 @@ def process_translations(translation_tasks, flow_id, workspace_id):
         translation_tasks (list): List of translation tasks
         flow_id (str): FlowHunt flow ID
         workspace_id (str): FlowHunt workspace ID
+        max_scheduled_tasks (int): Maximum number of translation tasks to schedule at once
     """
     if not translation_tasks:
         print("No files need translation (all files already exist in target languages)")
         return
     
-    print(f"Translating {len(translation_tasks)} files")
-    check_interval=10
+    print(f"Translating {len(translation_tasks)} files with maximum {max_scheduled_tasks} tasks at a time")
+    check_interval = 10
     # Initialize the API client
     with initialize_api_client() as api_client:
         api_instance = flowhunt.FlowsApi(api_client)
         
-        # Dictionary to track tasks: {process_id: (file_path, target_lang, target_file)}
-        pending_tasks = {}
-        completed_tasks = []
-        failed_tasks = []
+        # Lists to track completed and failed tasks across all batches
+        all_completed_tasks = []
+        all_failed_tasks = []
         
-        # Track progress
-        progress_bar = tqdm(total=len(translation_tasks), desc="Scheduling translations")
+        # Process translations in batches
+        remaining_tasks = translation_tasks.copy()
+        batch_num = 1
         
-        # Schedule all translation tasks at once
-        for file_path, content, target_lang, target_file in translation_tasks:
-            # Invoke the translation flow
-            process_id = invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id)
+        while remaining_tasks:
+            # Get tasks for current batch (up to max_scheduled_tasks)
+            current_batch = remaining_tasks[:max_scheduled_tasks]
+            remaining_tasks = remaining_tasks[max_scheduled_tasks:]
             
-            if process_id:
-                # Add to pending tasks
-                pending_tasks[process_id] = (file_path, target_lang, target_file)
-            else:
-                # Failed to invoke flow
-                failed_tasks.append((file_path, target_lang, target_file))
+            print(f"\nProcessing batch {batch_num} with {len(current_batch)} tasks")
+            print(f"Remaining tasks after this batch: {len(remaining_tasks)}")
+            
+            # Dictionary to track tasks for current batch: {process_id: (file_path, target_lang, target_file)}
+            pending_tasks = {}
+            completed_tasks = []
+            failed_tasks = []
+            
+            # Track progress for current batch
+            progress_bar = tqdm(total=len(current_batch), desc=f"Scheduling translations (batch {batch_num})")
+            
+            # Schedule tasks for current batch
+            for file_path, content, target_lang, target_file in current_batch:
+                # Invoke the translation flow
+                process_id = invoke_flow_for_translation(api_instance, content, target_lang, flow_id, workspace_id)
+                
+                if process_id:
+                    # Add to pending tasks
+                    pending_tasks[process_id] = (file_path, target_lang, target_file)
+                else:
+                    # Failed to invoke flow
+                    failed_tasks.append((file_path, target_lang, target_file))
+                    all_failed_tasks.append((file_path, target_lang, target_file))
                 progress_bar.update(1)
-        
-        progress_bar.close()
-        print(f"Scheduled {len(pending_tasks)} translation tasks, now waiting for results...")
-        
-        # Process results until all tasks are completed
-        progress_bar = tqdm(total=len(pending_tasks), desc="Processing translations")
-        
-        # Continue checking for results until all tasks are completed
-        while pending_tasks:
-            # Wait for the check interval before checking results
-            time.sleep(check_interval)
             
-            # Check for completed tasks
-            process_ids = list(pending_tasks.keys())
-            completed_in_batch = 0
+            progress_bar.close()
+            print(f"Scheduled {len(pending_tasks)} translation tasks in batch {batch_num}, now waiting for results...")
             
-            for process_id in process_ids:
-                file_path, target_lang, target_file = pending_tasks[process_id]
+            # Process results for current batch until all tasks are completed
+            progress_bar = tqdm(total=len(pending_tasks), desc=f"Processing translations (batch {batch_num})")
+            
+            # Continue checking for results until all tasks in this batch are completed
+            while pending_tasks:
+                # Wait for the check interval before checking results
+                time.sleep(check_interval)
                 
-                is_ready, translated_text = check_flow_results(api_instance, process_id, flow_id, workspace_id)
+                # Check for completed tasks
+                process_ids = list(pending_tasks.keys())
+                completed_in_batch = 0
                 
-                # trim all whitespace from the translated text
-                if translated_text:
-                    translated_text = translated_text.strip()
-
-                if is_ready:
-                    # Remove from pending tasks
-                    del pending_tasks[process_id]
-                    completed_in_batch += 1
+                for process_id in process_ids:
+                    file_path, target_lang, target_file = pending_tasks[process_id]
                     
+                    is_ready, translated_text = check_flow_results(api_instance, process_id, flow_id, workspace_id)
+                    
+                    # trim all whitespace from the translated text
                     if translated_text:
-                        try:
-                            # Ensure the target directory exists
-                            os.makedirs(target_file.parent, exist_ok=True)
-                            
-                            # Write the translated content to the target file
-                            with open(target_file, 'w', encoding='utf-8') as f:
+                        translated_text = translated_text.strip()
 
-                                # is translated text starts or ends with ```, remove it
-                                if translated_text.startswith("```"):
-                                    translated_text = translated_text[3:]
-                                if translated_text.endswith("```"):
-                                    translated_text = translated_text[:-3]
-                                f.write(translated_text)
-                            
-                            # Add to completed tasks
-                            completed_tasks.append((file_path, target_lang, target_file))
-                            print(f"Translated: {target_file}")
-                            
-                        except Exception as e:
-                            print(f"Error saving translation to {target_file}: {str(e)}")
+                    if is_ready:
+                        # Remove from pending tasks
+                        del pending_tasks[process_id]
+                        completed_in_batch += 1
+                        
+                        if translated_text:
+                            try:
+                                # Ensure the target directory exists
+                                os.makedirs(target_file.parent, exist_ok=True)
+                                
+                                # Write the translated content to the target file
+                                with open(target_file, 'w', encoding='utf-8') as f:
+                                    # if translated text starts or ends with ```, remove it
+                                    if translated_text.startswith("```"):
+                                        translated_text = translated_text[3:]
+                                    if translated_text.endswith("```"):
+                                        translated_text = translated_text[:-3]
+                                    f.write(translated_text)
+                                
+                                # Add to completed tasks
+                                completed_tasks.append((file_path, target_lang, target_file))
+                                all_completed_tasks.append((file_path, target_lang, target_file))
+                                print(f"Translated: {target_file}")
+                                
+                            except Exception as e:
+                                print(f"Error saving translation to {target_file}: {str(e)}")
+                                failed_tasks.append((file_path, target_lang, target_file))
+                                all_failed_tasks.append((file_path, target_lang, target_file))
+                        else:
+                            # Translation failed
                             failed_tasks.append((file_path, target_lang, target_file))
-                    else:
-                        # Translation failed
-                        failed_tasks.append((file_path, target_lang, target_file))
-                        print(f"Failed to translate {file_path} to {target_lang}")
+                            all_failed_tasks.append((file_path, target_lang, target_file))
+                            print(f"Failed to translate {file_path} to {target_lang}")
+                
+                # Update progress
+                progress_bar.update(completed_in_batch)
+                
+                # Print status update
+                if pending_tasks:
+                    print(f"Still waiting for {len(pending_tasks)} tasks to complete in batch {batch_num}...")
             
-            # Update progress
-            progress_bar.update(completed_in_batch)
+            # Close the progress bar
+            progress_bar.close()
             
-            # Print status update
-            if pending_tasks:
-                print(f"Still waiting for {len(pending_tasks)} tasks to complete...")
-        
-        # Close the progress bar
-        progress_bar.close()
+            # Print batch summary
+            print(f"\nBatch {batch_num} Summary:")
+            print(f"Files translated successfully in this batch: {len(completed_tasks)}")
+            print(f"Files failed in this batch: {len(failed_tasks)}")
+            
+            # Increment batch number
+            batch_num += 1
     
-    # Print summary
-    print("\nTranslation Summary:")
-    print(f"Files translated successfully: {len(completed_tasks)}")
-    print(f"Files failed: {len(failed_tasks)}")
-    print(f"Total files processed: {len(completed_tasks) + len(failed_tasks)}")
+    # Print overall summary
+    print("\nOverall Translation Summary:")
+    print(f"Files translated successfully: {len(all_completed_tasks)}")
+    print(f"Files failed: {len(all_failed_tasks)}")
+    print(f"Total files processed: {len(all_completed_tasks) + len(all_failed_tasks)}")
 
 def main():
     """Main function to parse arguments and process files"""
@@ -424,6 +454,7 @@ Examples:
   python translate_with_flowhunt.py --path /path/to/content
   python translate_with_flowhunt.py --check-interval 30
   python translate_with_flowhunt.py --flow-id "custom-flow-id"
+  python translate_with_flowhunt.py --max-scheduled-tasks 100
         """,
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
@@ -443,10 +474,10 @@ Examples:
         default=60
     )
     parser.add_argument(
-        "--max-concurrent",
-        help="Maximum number of concurrent translation tasks (default: %(default)s)",
+        "--max-scheduled-tasks",
+        help="Maximum number of scheduled translation tasks (default: %(default)s), once batch is done, next batch will be scheduled",
         type=int,
-        default=10
+        default=100
     )
     parser.add_argument(
         "--flow-id",
@@ -495,8 +526,8 @@ Examples:
     print(f"Found {len(translation_tasks)} files that need translation")
     print(f"Files skipped (already exist): {files_already_exist}")
     
-    # Process translations
-    process_translations(translation_tasks, args.flow_id, workspace_id)
+    # Process translations with max-scheduled-tasks parameter
+    process_translations(translation_tasks, args.flow_id, workspace_id, args.max_scheduled_tasks)
     
     print("\nTranslation completed!")
 
