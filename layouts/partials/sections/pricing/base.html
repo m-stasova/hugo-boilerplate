@@ -9,7 +9,6 @@
   - taglineColor: Tagline text color (optional, default: "indigo-600")
   - headingColor: Heading text color (optional, default: "gray-900")
   - descriptionColor: Description text color (optional, default: "gray-600")
-  - checkIcon: SVG path for the check icon (optional, includes default)
   - tiers: Array of pricing tier objects (optional, includes defaults)
     - name: Tier name
     - id: Unique ID for the tier
@@ -118,159 +117,7 @@
 {{ $headingColor := .headingColor | default "black" }}
 {{ $descriptionColor := .descriptionColor | default "black" }}
 
-{{ $tiers := .tiers | default (slice
-  (dict
-    "name" "Small business"
-    "id" "tier-small-business"
-    "price" "$15"
-    "interval" "per agent/month billed annually"
-    "description" "Affordable ticketing platform for smaller support teams"
-    "popular" false
-    "features" (slice
-      "Ticketing"
-      "Live chat"
-      "Knowledgebase"
-      "Customer Portal"
-      "Contact forms"
-      "Automation rules"
-      "Integrations"
-      "Multiple language support"
-      "AI Answer Assistant"
-      "AI Chatbot"
-    )
-    "featuresNote" ""
-    "cta" (dict
-      "text" "Try for free"
-      "url" "/trial"
-    )
-    "nameColor" "black"
-    "priceColor" "black"
-    "intervalColor" "black"
-    "descriptionColor" "black"
-    "featureColor" "black"
-    "checkColor" "primary"
-    "ctaColor" "primary"
-    "ctaBgColor" ""
-    "ctaRingColor" "primary-light"
-    "ctaHoverRingColor" "primary"
-    "backgroundColor" "white"
-    "borderColor" "gray-200"
-    "position" "left"
-  )
-  (dict
-    "name" "Medium business"
-    "id" "tier-medium-business"
-    "price" "$29"
-    "interval" "per agent/month billed annually"
-    "description" "A versatile and balanced plan for full-scale customer support"
-    "popular" false
-    "features" (slice
-    "Everything in Small plan"
-    "Call center & IVR"
-    "Time Rules"
-    "Reports"
-    "Proactive chat invitations"
-    "Agent ratings"
-    "Sound configuration"
-    "Service levels (SLA)"
-    )
-    "featuresNote" ""
-    "cta" (dict
-    "text" "Try for free"
-    "url" "/trial"
-    )
-    "nameColor" "black"
-    "priceColor" "black"
-    "intervalColor" "black"
-    "descriptionColor" "black"
-    "featureColor" "black"
-    "checkColor" "primary"
-    "ctaColor" "primary"
-    "ctaBgColor" ""
-    "ctaRingColor" "primary-light"
-    "ctaHoverRingColor" "primary"
-    "backgroundColor" "white"
-    "borderColor" "gray-200"
-    "position" "center"
-  )
-  (dict
-    "name" "Large business"
-    "id" "tier-large-business"
-    "price" "$49"
-    "interval" "per agent/month billed annually"
-    "description" "An all-inclusive plan with all features and capabilities"
-    "popular" true
-    "popularTextColor" "white"
-    "popularText" "Most popular"
-    "features" (slice
-      "Everything in Medium plan"
-      "SSO"
-      "Custom roles"
-      "Time tracking & Audit log"
-      "Facebook"
-      "Instagram"
-      "Twitter"
-      "Viber"
-      "WhatsApp"
-    )
-    "featuresNote" ""
-    "cta" (dict
-      "text" "Try for free"
-      "url" "/trial"
-    )
-    "nameColor" "black"
-    "priceColor" "black"
-    "intervalColor" "black"
-    "descriptionColor" "black"
-    "featureColor" "black"
-    "checkColor" "primary"
-    "ctaColor" "white"
-    "ctaBgColor" "primary"
-    "ctaRingColor" "primary-light"
-    "ctaHoverRingColor" "primary"
-    "backgroundColor" "white"
-    "borderColor" "gray-200"
-    "position" "center"
-  )
-  (dict
-    "name" "Enterprise"
-    "id" "tier-enterprise"
-    "price" "$69"
-    "interval" "per agent/month billed annually"
-    "description" "A full-scale solution with extra support & exclusive services"
-    "popular" false
-    "features" (slice
-      "Everything in Large plan"
-      "Unlimited subscribers"
-      "Almost unlimited"
-      "Dedicated account manager *"
-      "Priority support *"
-      "Assisted channels integration *"
-      "Branding Free"
-      "Custom billing setup"
-      "Service review call and reports *"
-      "Scheduled release management *"
-    )
-    "featuresNote" "* only for 10+ agents"
-    "cta" (dict
-      "text" "Book demo call"
-      "url" "/demo"
-    )
-    "nameColor" "black"
-    "priceColor" "black"
-    "intervalColor" "black"
-    "descriptionColor" "black"
-    "featureColor" "black"
-    "checkColor" "primary"
-    "ctaColor" "primary"
-    "ctaBgColor" ""
-    "ctaRingColor" "primary-light"
-    "ctaHoverRingColor" "primary"
-    "backgroundColor" "white"
-    "borderColor" "gray-200"
-    "position" "right"
-  )
-) }}
+{{ $tiers := .tiers }}
 
 {{ $columnsParam := .columns | default "4" }}
 {{ $columnsClass := "sm:grid-cols-2 lg:grid-cols-4" }}
@@ -291,8 +138,6 @@
 {{ $hasPopularTier = true }}
 {{ end }}
 {{ end }}
-
-{{ $checkIcon := .checkIcon | default `<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />` | safeHTML }}
 
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-3">
   <div class="mx-auto w-full max-w-[1600px]">
@@ -334,10 +179,8 @@
           <ul role="list" class="mt-2 mb-2 px-0 space-y-3 text-sm/6 text-{{ $tier.featureColor }} flex-grow min-h-[12rem]">
             {{ range $feature := $tier.features }}
             <li class="flex pl-0 gap-x-3">
-              <svg class="h-6 w-5 flex-none text-primary" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                {{ $checkIcon | safeHTML }}
-              </svg>
-              {{ $feature }}
+                {{ partial "icons/check" "h-6 w-5 flex-none text-primary" }}
+                {{ $feature }}
             </li>
             {{ end }}
             {{ if $tier.featuresNote }}

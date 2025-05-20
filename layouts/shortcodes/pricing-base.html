@@ -8,7 +8,7 @@
 {{ $headingColor := .Get "headingColor" | default $params.headingColor | default (.Get 5) | default "gray-900" }}
 {{ $descriptionColor := .Get "descriptionColor" | default $params.descriptionColor | default (.Get 6) | default "gray-600" }}
 {{ $checkIcon := .Get "checkIcon" | default $params.checkIcon | default "" }}
-{{ $tiers := .Get "tiers" | default $params.tiers | default "" }}
+{{ $tiers := .Get "tiers" | default $params.tiers | default slice }}
 {{ $columns := .Get "columns" | default $params.columns | default 4 }}
 
 {{ partial "sections/pricing/base.html" (dict
