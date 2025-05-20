@@ -793,7 +793,7 @@
     )
 }}
 
-<div id="comparison-table" class="bg-{{ $backgroundColorComparison }} py-12">
+<div id="comparison-table" class="bg-{{ $backgroundColorComparison }} py-12 hidden md:block">
     <div class="mx-auto max-w-7xl">
         <div class="mx-auto max-w-4xl text-center">
             {{ if $headingComparison }}
@@ -820,110 +820,8 @@
             </fieldset>
             {{ end }}
         </div>
-        <!-- Mobile view (xs to lg) -->
-        <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
-            {{ range $index, $tier := $tiersComparison }}
-                {{ $bgClass := "" }}
-                {{ $ringClass := "ring-1 ring-gray-200" }}
-                {{ if $tier.emphasized }}
-                    {{ $bgClass = "bg-gray-400/5" }}
-                    {{ $ringClass = "ring-1 ring-gray-200 ring-inset" }}
-                {{ end }}
-                <section class="{{ $bgClass }} {{ if $tier.emphasized }}rounded-xl{{ end }} p-8 {{ $ringClass }}">
-                    <h3 id="{{ $tier.id }}"
-                        class="text-sm/6 font-semibold text-{{ if $tier.emphasized }}{{ $taglineColorComparison }}{{ else }}gray-900{{ end }}">{{ $tier.name }}</h3>
-                    <p class="mt-6 flex items-baseline gap-x-1">
-                        {{ if $togglePrice }}
-                        <!-- Monthly price (default visible) -->
-                        <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} monthly-price">{{ $tier.monthlyPrice }}</span>
-                        <!-- Annual price (hidden by default) -->
-                        <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} annual-price hidden">{{ $tier.annualPrice }}</span>
-                        {{ else }}
-                        <!-- Only monthly price when toggle is disabled -->
-                        <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.monthlyPrice }}</span>
-                        {{ end }}
-                        <!-- Interval -->
-                        <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
-                    </p>
-                    {{ if $tier.emphasized }}
-                        <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}"
-                           class="mt-8 not-prose block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
-                    {{ else }}
-                        <a href="{{ $tier.cta.url }}" aria-describedby="{{ $tier.id }}"
-                           class="mt-8 not-prose block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
-                    {{ end }}
 
-                    {{ $hasFeaturesForTier := false }}
-                    {{ range $categoryIndex, $category := $featureCategories }}
-                        {{ range $featureIndex, $feature := $category.features }}
-                            {{ if isset $feature.tiersComparison $tier.name }}
-                                {{ if index $feature.tiersComparison $tier.name }}
-                                    {{ $hasFeaturesForTier = true }}
-                                    {{ break }}
-                                {{ end }}
-                            {{ end }}
-                        {{ end }}
-                        {{ if $hasFeaturesForTier }}
-                            {{ break }}
-                        {{ end }}
-                    {{ end }}
-                    
-                    {{ if $hasFeaturesForTier }}
-                    <ul role="list" class="mt-10 pl-0 space-y-6 text-sm/6 text-gray-900">
-                        {{ range $categoryIndex, $category := $featureCategories }}
-                            <!-- Check if this category has features for this tier -->
-                            {{ $hasFeaturesInCategory := false }}
-                            {{ range $featureIndex, $feature := $category.features }}
-                                {{ if isset $feature.tiersComparison $tier.name }}
-                                    {{ if index $feature.tiersComparison $tier.name }}
-                                        {{ $hasFeaturesInCategory = true }}
-                                        {{ break }}
-                                    {{ end }}
-                                {{ end }}
-                            {{ end }}
-                            
-                            {{ if $hasFeaturesInCategory }}
-                            <li class="flex flex-col pl-0">
-                                <h4 class="font-semibold text-gray-900 pb-2 border-b border-gray-200 mb-3">{{ $category.name }}</h4>
-                                <ul role="list" class="pl-0 space-y-4">
-                                    {{ range $featureIndex, $feature := $category.features }}
-                                        {{ if isset $feature.tiersComparison $tier.name }}
-                                            {{ $tierValue := index $feature.tiersComparison $tier.name }}
-                                            {{ if $tierValue }}
-                                                <li class="flex gap-x-3 pl-0">
-                                                    <svg class="h-6 w-5 flex-none text-{{ $checkColorComparison }}"
-                                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
-                                                         data-slot="icon">
-                                                        <path fill-rule="evenodd"
-                                                              d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
-                                                              clip-rule="evenodd"/>
-                                                    </svg>
-                                                    <span>
-                                                        {{ if $feature.tooltip }}
-                                                            {{ partial "components/tooltip/tooltip.html" (dict "content" $feature.name "text" $feature.tooltip) }}
-                                                        {{ else }}
-                                                            {{ $feature.name }}
-                                                        {{ end }}
-                                                        {{ if ne $tierValue true }}
-                                                            <span class="text-sm/6 text-gray-500">({{ $tierValue }})</span>
-                                                        {{ end }}
-                                                    </span>
-                                                </li>
-                                            {{ end }}
-                                        {{ end }}
-                                    {{ end }}
-                                </ul>
-                            </li>
-                            {{ end }}
-                        {{ end }}
-                    </ul>
-                    {{ end }}
-                </section>
-            {{ end }}
-        </div>
-
-        <!-- Desktop view (lg+) -->
-        <div class="isolate mt-20 hidden lg:block">
+        <div class="isolate mt-20">
             <div class="relative -mx-8">
                 {{ $columnCount := add (len $tiersComparison) 1 }}
                 {{ range $index, $tier := $tiersComparison }}
@@ -1049,8 +947,14 @@
     const monthlyPrices = document.querySelectorAll('.monthly-price');
     const annualPrices = document.querySelectorAll('.annual-price');
     
+    // Check if screen width is at least 768px (md breakpoint in Tailwind)
+    const isDesktopOrTablet = window.innerWidth >= 768;
+    
     // Function to toggle between monthly and annual pricing
     function togglePricing(isMonthly) {
+      // Only run for desktop/tablet (md and up)
+      if (!isDesktopOrTablet) return;
+      
       if (isMonthly) {
         monthlyLabel.classList.add('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
         monthlyLabel.classList.remove('text-{{ $toggleTextColor }}');
@@ -1070,53 +974,30 @@
       }
     }
     
-    // Set up event listeners for the toggle
-    monthlyLabel.addEventListener('click', function() {
+    // Only set up event listeners and initialize for desktop/tablet
+    if (isDesktopOrTablet) {
+      // Set up event listeners for the toggle
+      monthlyLabel.addEventListener('click', function() {
+        togglePricing(true);
+      });
+      
+      annuallyLabel.addEventListener('click', function() {
+        togglePricing(false);
+      });
+      
+      // Initialize with monthly pricing
       togglePricing(true);
-    });
+    }
     
-    annuallyLabel.addEventListener('click', function() {
-      togglePricing(false);
+    // Recheck on window resize
+    window.addEventListener('resize', function() {
+      const newIsDesktopOrTablet = window.innerWidth >= 768;
+      
+      // If transitioning from mobile to desktop, initialize
+      if (newIsDesktopOrTablet && !isDesktopOrTablet) {
+        togglePricing(true);
+      }
     });
-    
-    // Initialize with monthly pricing
-    togglePricing(true);
   });
 </script>
 {{ end }}
-
-<!-- JavaScript for mobile tooltips -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    if (window.innerWidth > 1023) return;
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .tooltip-content.mobile-visible {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-      }
-    `;
-    document.head.appendChild(style);
-
-    document.addEventListener('click', function (e) {
-      const trigger = e.target.closest('.tooltip-trigger');
-
-      if (trigger) {
-        const group = trigger.closest('.group');
-        const content = group?.querySelector('.tooltip-content');
-
-        document.querySelectorAll('.tooltip-content.mobile-visible').forEach(tip => {
-          if (tip !== content) tip.classList.remove('mobile-visible');
-        });
-
-        if (content) content.classList.toggle('mobile-visible');
-        e.stopPropagation();
-      } else {
-        document.querySelectorAll('.tooltip-content.mobile-visible').forEach(tip => {
-          tip.classList.remove('mobile-visible');
-        });
-      }
-    });
-  });
-</script>
