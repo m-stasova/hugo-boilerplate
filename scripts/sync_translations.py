@@ -135,10 +135,19 @@ if __name__ == "__main__":
     # Get the i18n directory path
     script_dir = os.path.dirname(os.path.abspath(__file__))
     hugo_root = os.path.abspath(os.path.join(script_dir, '../../../'))
+    theme_root = os.path.abspath(os.path.join(script_dir, '../'))
     i18n_dir = os.path.join(hugo_root, 'i18n')
+    
     
     if not os.path.exists(i18n_dir):
         print(f"Error: i18n directory not found at {i18n_dir}")
         sys.exit(1)
-    
-    sync_translations(i18n_dir, args.test)
+    else:
+        sync_translations(i18n_dir, args.test)
+
+    i18n_dir = os.path.join(theme_root, 'i18n')
+    if not os.path.exists(i18n_dir):
+        print(f"Error: i18n directory not found at {i18n_dir}")
+        sys.exit(1)
+    else:
+        sync_translations(i18n_dir, args.test)
