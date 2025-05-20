@@ -66,3 +66,5 @@ pagination_browse_all: "Tüm içeriğe göz atın:"
 # FAQ translations
 faq_heading: "Sıkça sorulan sorular"
 faq_description: "Bu konu hakkında sık sorulan soruların cevaplarını bulun."
+
+no_terms_available: "No terms available"

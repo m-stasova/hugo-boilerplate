@@ -66,3 +66,5 @@ pagination_browse_all: "모든 콘텐츠 찾아보기"
 # FAQ translations
 faq_heading: "자주 묻는 질문"
 faq_description: "이 주제에 대한 일반적인 질문에 대한 답변을 찾아보세요."
+
+no_terms_available: "No terms available"

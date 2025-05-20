@@ -66,3 +66,4 @@ pagination_browse_all: "すべてのコンテンツを閲覧する："
 # FAQ translations
 faq_heading: "よくある質問"
 faq_description: "このトピックに関する一般的な質問への回答を見つけてください。"
+no_terms_available: "No terms available"

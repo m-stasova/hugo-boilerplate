@@ -66,3 +66,5 @@ pagination_browse_all: "Sfoglia tutti i contenuti in"
 # FAQ translations
 faq_heading: "Domande frequenti"
 faq_description: "Trova risposte alle domande comuni su questo argomento."
+
+no_terms_available: "No terms available"

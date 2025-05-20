@@ -66,3 +66,5 @@ pagination_browse_all: "עיין בכל התוכן ב"
 # FAQ translations
 faq_heading: "שאלות נפוצות"
 faq_description: "מצא תשובות לשאלות נפוצות בנושא זה."
+
+no_terms_available: "No terms available"

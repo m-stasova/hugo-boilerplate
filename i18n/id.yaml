@@ -66,3 +66,5 @@ pagination_browse_all: "Telusuri semua konten di"
 # FAQ translations
 faq_heading: "Pertanyaan yang sering diajukan"
 faq_description: "Temukan jawaban atas pertanyaan umum tentang topik ini."
+
+no_terms_available: "No terms available"

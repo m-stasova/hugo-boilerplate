@@ -66,3 +66,5 @@ pagination_browse_all: "مرور تمام محتوا در"
 # FAQ translations
 faq_heading: "سوالات متداول"
 faq_description: "پاسخ‌هایی برای سوالات رایج در مورد این موضوع پیدا کنید."
+
+no_terms_available: "No terms available"

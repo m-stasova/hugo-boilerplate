@@ -66,3 +66,5 @@ pagination_browse_all: "Explora tot el contingut a"
 # FAQ translations
 faq_heading: "Preguntes freqüents"
 faq_description: "Troba respostes a preguntes comunes sobre aquest tema."
+
+no_terms_available: "No terms available"

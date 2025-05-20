@@ -66,3 +66,5 @@ pagination_browse_all: "Sirvi kogu sisu kohas"
 # FAQ translations
 faq_heading: "Korduma kippuvad küsimused"
 faq_description: "Leia vastused selle teema kohta käivatele levinud küsimustele."
+
+no_terms_available: "No terms available"

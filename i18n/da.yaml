@@ -66,3 +66,5 @@ pagination_browse_all: "Gennemse alt indhold i"
 # FAQ translations
 faq_heading: "Ofte stillede spørgsmål"
 faq_description: "Find svar på almindelige spørgsmål om dette emne."
+
+no_terms_available: "No terms available"

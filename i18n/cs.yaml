@@ -66,3 +66,5 @@ pagination_browse_all: "Procházet veškerý obsah v"
 # FAQ translations
 faq_heading: "Často kladené otázky"
 faq_description: "Najděte odpovědi na běžné otázky o tomto tématu."
+
+no_terms_available: "No terms available"

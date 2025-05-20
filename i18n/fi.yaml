@@ -66,3 +66,5 @@ pagination_browse_all: "Selaa kaikkea sisältöä kohteessa"
 # FAQ translations
 faq_heading: "Usein kysytyt kysymykset"
 faq_description: "Löydä vastauksia yleisiin kysymyksiin tästä aiheesta."
+
+no_terms_available: "No terms available"

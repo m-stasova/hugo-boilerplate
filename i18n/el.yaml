@@ -66,3 +66,5 @@ pagination_browse_all: "Περιηγηθείτε σε όλο το περιεχό
 # FAQ translations
 faq_heading: "Συχνές ερωτήσεις"
 faq_description: "Βρείτε απαντήσεις σε συνήθεις ερωτήσεις σχετικά με αυτό το θέμα."
+
+no_terms_available: "No terms available"

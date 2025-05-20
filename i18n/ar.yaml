@@ -66,3 +66,5 @@ pagination_browse_all: "تصفح جميع المحتويات في"
 # FAQ translations
 faq_heading: "الأسئلة الشائعة"
 faq_description: "ابحث عن إجابات للأسئلة الشائعة حول هذا الموضوع."
+
+no_terms_available: "لا توجد مصطلحات متاحة"

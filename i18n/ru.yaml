@@ -66,3 +66,5 @@ pagination_browse_all: "Просмотреть весь контент в"
 # FAQ translations
 faq_heading: "Часто задаваемые вопросы"
 faq_description: "Найдите ответы на распространенные вопросы по этой теме."
+
+no_terms_available: "No terms available"

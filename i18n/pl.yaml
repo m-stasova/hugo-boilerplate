@@ -66,3 +66,4 @@ pagination_browse_all: "Przeglądaj całą zawartość w"
 # FAQ translations
 faq_heading: "Najczęściej zadawane pytania"
 faq_description: "Znajdź odpowiedzi na popularne pytania dotyczące tego tematu."
+no_terms_available: "No terms available"

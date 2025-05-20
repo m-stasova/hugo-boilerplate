@@ -66,3 +66,5 @@ pagination_browse_all: "Bläddra i allt innehåll i"
 # FAQ translations
 faq_heading: "Vanliga frågor"
 faq_description: "Hitta svar på vanliga frågor om detta ämne."
+
+no_terms_available: "No terms available"

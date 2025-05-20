@@ -66,3 +66,5 @@ pagination_browse_all: "Böngésszen minden tartalmat itt:"
 # FAQ translations
 faq_heading: "Gyakran ismételt kérdések"
 faq_description: "Találjon válaszokat a gyakori kérdésekre erről a témáról."
+
+no_terms_available: "No terms available"
