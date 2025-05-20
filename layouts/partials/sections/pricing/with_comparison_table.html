@@ -942,18 +942,17 @@
 <!-- JavaScript for toggle functionality -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth < 768) {
+        return;
+    }
+
     const monthlyLabel = document.getElementById('monthly-label');
     const annuallyLabel = document.getElementById('annually-label');
     const monthlyPrices = document.querySelectorAll('.monthly-price');
     const annualPrices = document.querySelectorAll('.annual-price');
     
-    // Check if screen width is at least 768px (md breakpoint in Tailwind)
-    const isDesktopOrTablet = window.innerWidth >= 768;
-    
     // Function to toggle between monthly and annual pricing
     function togglePricing(isMonthly) {
-      // Only run for desktop/tablet (md and up)
-      if (!isDesktopOrTablet) return;
       
       if (isMonthly) {
         monthlyLabel.classList.add('bg-{{ $toggleActiveBgColor }}', 'text-{{ $toggleActiveColor }}');
@@ -974,29 +973,23 @@
       }
     }
     
-    // Only set up event listeners and initialize for desktop/tablet
-    if (isDesktopOrTablet) {
-      // Set up event listeners for the toggle
-      monthlyLabel.addEventListener('click', function() {
-        togglePricing(true);
-      });
-      
-      annuallyLabel.addEventListener('click', function() {
-        togglePricing(false);
-      });
-      
-      // Initialize with monthly pricing
-      togglePricing(true);
-    }
+    // Set up event listeners for the toggle
+    monthlyLabel.addEventListener('click', function() {
+    togglePricing(true);
+    });
+    
+    annuallyLabel.addEventListener('click', function() {
+    togglePricing(false);
+    });
+    
+    // Initialize with monthly pricing
+    togglePricing(true);
     
     // Recheck on window resize
     window.addEventListener('resize', function() {
-      const newIsDesktopOrTablet = window.innerWidth >= 768;
-      
-      // If transitioning from mobile to desktop, initialize
-      if (newIsDesktopOrTablet && !isDesktopOrTablet) {
-        togglePricing(true);
-      }
+      if (window.innerWidth < 768) {
+        return;
+        }
     });
   });
 </script>
