@@ -148,7 +148,7 @@
 {{ $togglePrice := .togglePrice | default true }}
 {{ $tiersComparison := .tiersComparison | default (slice
     (dict
-        "name" "Small business"
+        "name" "Starter"
         "id" "tier-comparison-small"
         "emphasized" false
         "monthlyPrice" "$19"
@@ -163,7 +163,7 @@
         "ctaHoverBorderColor" "primary"
     )
     (dict
-        "name" "Medium business"
+        "name" "Pro"
         "id" "tier-comparison-medium"
         "monthlyPrice" "$35"
         "annualPrice" "$29"
@@ -178,7 +178,7 @@
         "ctaHoverBorderColor" "primary"
     )
     (dict
-        "name" "Large business"
+        "name" "Premium"
         "id" "tier-comparison-large"
         "monthlyPrice" "$59"
         "annualPrice" "$49"
@@ -192,601 +192,109 @@
         "ctaBgColor" "primary"
         "ctaHoverBgColor" "primary-dark"
     )
+    (dict
+        "name" "Enterprise"
+        "id" "tier-comparison-large"
+        "monthlyPrice" "$59"
+        "annualPrice" "$49"
+        "interval" "/month"
+        "emphasized" false
+        "cta" (dict
+            "text" "Try for free"
+            "url" "/trial"
+        )
+        "ctaColor" "white"
+        "ctaBgColor" "primary"
+        "ctaHoverBgColor" "primary-dark"
+    )
 )}}
 
 {{ $featureCategories := .featureCategories | default (slice
     (dict
-        "name" "Communication channels"
+        "name" "Limits"
         "features" (slice
         (dict
-                "name" "Customer Portal"
-                "tooltip" "Setup a customer portal complete with a knowledge base, forum, and FAQs. Customer portal feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Credits"
+                "tooltip" "The number of credits included in the plan. 1 credit equals to approximately $1, enough to generate up to 5 images or more."
+                "tiersComparison" (dict "Starter" "20" "Pro" "100" "Premium" "600" "Enterprise" "Unlimited")
                 )
         (dict
-                "name" "Contact forms – Contact us buttons"
-                "tooltip" "Give your customers the option to reach out via a contact form that’s placed directly on your website.Contact form feature"
-                "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "50" "Enterprise" "200")
+                "name" "Typical image output"
+                "tooltip" "This number is only a rough estimate, not a hard limit. The final number is fully dependent on the models you use an other settings."
+                "tiersComparison" (dict "Starter" "up to 100" "Pro" "Up to 500" "Premium" "Up to 5 000" "Enterprise" "Unlimited")
                 )
         (dict
-                "name" "Slack notifications"
-                "tooltip" "Give your customers the option to reach out via a contact form that’s placed directly on your website.Contact form feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Charater training slots"
+                "tooltip" "Characters are custom profiles trained on photos of a person. Each character lets you generate new photos based on that person’s face."
+                "tiersComparison" (dict "Starter" "1" "Pro" "50" "Premium" "100" "Enterprise" "Unlimited")
                 )
         (dict
-                "name" "Customer forum"
-                "tooltip" "Create an online community forum for your users. Empower them to ask questions, provide answers, and lead discussions. Customer forum feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "FlowHunt AI Studio plan"
+                "tooltip" "With each Photomatic plan, you also get complimentary access to equivalent FlowHunt AI studio plan. FlowHunt's AI studio is an automation platform and chatbot builder, allowing you to create hundreds of AI tools. "
+                "tiersComparison" (dict "Starter" "Starter AI Studio" "Pro" "Pro AI Studio" "Premium" "Premium AI Studio" "Enterprise" "Enterprise AI studio")
                 )
         (dict
-                "name" "Email ticketing – Incoming email accounts"
-                "tooltip" "Smart email ticketing ensures no emails get lost or remain unanswered. Our ticketing system also prevents duplicate responses with the agent collision detection feature. Ticketing feature"
-                "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "150" "Enterprise" "500")
+                "name" "Workspaces"
+                "tiersComparison" (dict "Starter" "1" "Pro" "5" "Premium" "10" "Enterprise" "Unlimited")
                 )
         (dict
-                "name" "Email ticketing – Outgoing email accounts"
-                "tooltip" "Smart email ticketing ensures no emails get lost or remain unanswered. Our ticketing system also prevents duplicate responses with the agent collision detection feature. Ticketing feature"
-                "tiersComparison" (dict "Small business" "3" "Medium business" "10" "Large business" "150" "Enterprise" "500")
-                )
-        (dict
-                "name" "Live chat button"
-                "tooltip" "Gain customer trust and boost sales with personalized, real-time live chat support. Live chat feature"
-                "tiersComparison" (dict "Small business" "2" "Medium business" "5" "Large business" "50" "Enterprise" "100")
-                )
-        (dict
-                "name" "Proactive chat invitations"
-                "tooltip" "Engage your website visitors by inviting them to chat with your agents. Proactive chat invitations feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call center"
-                "tooltip" "Utilize call center to efficiently manage and handle customer interactions. Call center feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Feedback buttons"
-                "tooltip" "Encourage customers to send you new ideas and Feedback for future development. Feedback&Suggestions feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Viber"
-                "tooltip" "Respond to Viber messages directly from your LiveAgent dashboard. Viber feature"
-                "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Twitter"
-                "tooltip" "Monitor unique keywords and respond to Tweets that require action. All responses made from LiveAgent are sent as Tweets. Twitter feature"
-                "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Facebook"
-                "tooltip" "Respond to Facebook messages, posts, comments, or mentions directly from LiveAgent. Facebook feature"
-                "tiersComparison" (dict "Small business" "$39/month" "Medium business" "$39/month" "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Facebook + Instagram"
-                "tooltip" "Instagram integration is not possible without having Facebook integration. Instagram feature"
-                "tiersComparison" (dict "Small business" "$39/month + $19/month" "Medium business" "$39/month + $19/month" "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "WhatsApp"
-                "tooltip" "Integrate your WhatsApp number with your LiveAgent ticketing system and use it to reply to WhatsApp messages within the ticketing system. Note: The integration currently works only with Twilio and 360dialog providers."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" "3 numbers" "Enterprise" "3+ numbers")
-                )
-        (dict
-                "name" "Video call functionality"
-                "tooltip" "Increase outbound sales and improve customer satisfaction with our video call feature. Get personal, and don’t forget to smile! Video call feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Team members per workspace"
+                "tiersComparison" (dict "Starter" "1" "Pro" "10" "Premium" "100" "Enterprise" "Unlimited")
                 )
         )
     )
     (dict
-        "name" "Conversation management"
+        "name" "Features"
         "features" (slice
         (dict
-                "name" "Ticket history"
-                "tooltip" "Store all tickets and chat transcripts indefinitely. Access all past tickets, conversations, and call recordings for quality assurance, legal, or training purposes at any time."
-                "tiersComparison" (dict "Small business" "Unlimited" "Medium business" "Unlimited" "Large business" "Unlimited" "Enterprise" "Unlimited")
+                "name" "Access to all supported image generation models"
+                "tooltip" "Photomatic supports all the lastest image generation models from all major providers."
+                "tiersComparison" (dict "Starter" true "Pro" true  "Premium" true "Enterprise" true)
                 )
         (dict
-                "name" "Merge tickets"
-                "tooltip" "Received multiple tickets about the same issue and want to combine them? No problem! Use our merge tickets feature."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Custom training"
+                "tooltip" "Photomatic allows you to train AI models on your pictures."
+                "tiersComparison" (dict "Starter" true "Pro" true  "Premium" true "Enterprise" true)
                 )
         (dict
-                "name" "Custom ticket fields"
-                "tooltip" "Learned some valuable information? Create a custom ticket field and add it to the ticket info panel. Custom ticket field feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Access to all styles and effects"
+                "tooltip" "There's more than a hundred of styles and effects you can pick from."
+                "tiersComparison" (dict "Starter" true "Pro" true  "Premium" true "Enterprise" true)
+                )
+         (dict
+                "name" "Automated workflows with AI Agents"
+                "tooltip" "FlowHunt AI Studio allows you to use Photomatic as a component in automatic workflows."
+                "tiersComparison" (dict "Starter" true "Pro" true  "Premium" true "Enterprise" true)
+                )
+
+        (dict
+                "name" "Analytics"
+                "tiersComparison" (dict "Starter" false "Pro" true  "Premium" true "Enterprise" true)
                 )
         (dict
-                "name" "Split tickets"
-                "tooltip" "Received a ticket with multiple requests? Split the ticket into two and assign each to a different agent/department. Split tickets feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Internal tickets"
-                "tooltip" "Create an internal note for your colleagues. The notes are visible to agents only, so there’s no need to worry that other end-users or customers seeing your private notes. Internal tickets"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Attachments"
-                "tooltip" "Easily drag and drop attachments (images, music, video, documents, etc.) to share them with your customers. Attachments feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Ticket mass actions"
-                "tooltip" "Select multiple tickets at once and run mass actions tosavetime. With this feature, you can resolve, transfer, or delete multiple tickets with a single click. Ticket mass actions feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "To Solve Algorithm"
-                "tooltip" "Automatically prioritize tickets that need to be solved according to service level agreements (SLAs) and the date and time they were received. To Solve Feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Ticket satisfaction survey"
-                "tooltip" "Automatically send out ticket satisfaction survey emails after each interaction to ensure your customers receive high-quality service."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Custom tags"
-                "tooltip" "Add custom tags to organize and filter through tickets while viewing their contents at a glance."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Custom ticket filters"
-                "tooltip" "Create unique ticket filters to make searching and filtering easier. Custom ticket filters feature"
-                "tiersComparison" (dict "Small business" "300 filters / agent" "Medium business" "500 filters / agent" "Large business" "1000 filters / agent" "Enterprise" "5000 filters / agent")
-                )
-        (dict
-                "name" "Agent notes to tickets"
-                "tooltip" "Add private notes to tickets. Private notes are visible to agents only, so there’s no need to worry about your customers or other end users seeing them. Agent notes to tickets feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Real-time dashboards"
-                "tooltip" "A real-time overview of your usage statistics."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Ticket transfers"
-                "tooltip" "Transfer tickets to the agents or departments that are best equipped to handle them with a single click."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "WYSIWYG editor"
-                "tooltip" "Use our WYSIWYG editor to style the content of your emails, email templates, and knowledge base articles. WYSIWYG editor feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Multiple ticket tabs"
-                "tooltip" "Solving more than one ticket at a time? No problem! Open up multiple ticket tabs in your LiveAgent app and switch back and forth as needed. Multiple ticket tabs feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Business hours"
-                "tooltip" "When are you available to help your customers? Let them know with the Business hours feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Departments"
-                "tooltip" "Create sales, marketing, and tech support departments for easier ticket routing and division of responsibilities.Departments feature"
-                "tiersComparison" (dict "Small business" "10" "Medium business" "20" "Large business" "150" "Enterprise" "300")
-                )
-        (dict
-                "name" "Roles in departments"
-                "tooltip" ""
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        (dict
-                "name" "Canned messages"
-                "tooltip" "Speed up your responses by using predefined sequences of text. Canned messages feature"
-                "tiersComparison" (dict "Small business" "20" "Medium business" "100" "Large business" "500" "Enterprise" "1000")
-                )
-        (dict
-                "name" "Contacts & Groups"
-                "tooltip" "Segment customers by interests, age, nationality, or any other metric. Contacts feature & Groups feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Predefined answers"
-                "tooltip" "Create predefined answers for support queries that can be answered with a generic response. Predefined answers feature"
-                "tiersComparison" (dict "Small business" "20" "Medium business" "100" "Large business" "500" "Enterprise" "1000")
-                )
-        (dict
-                "name" "Chat transcripts"
-                "tooltip" "Do your customers need a copy of the conversation they’ve had with you? Provide them with chat transcripts via email."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "File sharing over chat"
-                "tooltip" "Our live chat supports JPG, JPEG, PNG, GIF, PDF, and TXT file sharing."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Mobile chat window"
-                "tooltip" "Our live chat widgets are responsive – customers can start chats on mobile or desktop with ease."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Chat welcome message setting"
-                "tooltip" "Send out automated chat welcome messages to your new website visitors to showcase that you’re online and available to help them as needed."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Real-time visitors monitor"
-                "tooltip" "Monitor what your website visitors are up to. See which URLs they have open, how long they’ve been browsing each page, and get notified when they navigate to a new page on your website."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Chat Satisfaction Surveys"
-                "tooltip" "Get immediate feedback after each customer interaction.Find out how you can improve, what was done right, and monitor customer satisfaction over time. Agent ratings feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Time Tracking"
-                "tooltip" "Gain a deeper understanding of your help desk’s performance by tracking your agent’s working habits. See how long it takes them to respond to each ticket, how long they were online, or how long their breaks were. Time tracking feature"
-                "tiersComparison" (dict "Small business" "$19 / month" "Medium business" "$19 / month" "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call Queueing"
-                "tooltip" "If all online agents are busy with ongoing calls, LiveAgent will automatically create a call queue for new callers. Call queue indicator"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "IVR"
-                "tooltip" "Improve your customer’s call center experience by designing comprehensive interactive voice response (IVR) trees that route them to the correct support department or agent. IVR feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "In call recordings"
-                "tooltip" "Unlimited call recording ensures that you are always protected with high quality recordings of your calls whenever you need them most. Unlimited call recordings feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call routing & transfers"
-                "tooltip" "Our call center software is equipped with ACD and attended call transfers. Enjoy seamless call transitions from one department or agent to another starting today. Call routing and Call transfers feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Custom roles"
-                "tooltip" "Create and name roles and customize agent permissions. Custom roles feature"
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" "3" "Enterprise" "40")
+                "name" "API access"
+               "tiersComparison" (dict "Starter" false "Pro" true  "Premium" true "Enterprise" true)
                 )
         )
     )
-    (dict
-        "name" "Customization"
+       (dict
+        "name" "Support"
         "features" (slice
         (dict
-                "name" "API keys"
-                "tooltip" "The API rate limit is set right now to 180 requests per minute, counted for each API key separately. API rate limit"
-                "tiersComparison" (dict "Small business" "1" "Medium business" "5" "Large business" "10" "Enterprise" "100")
+                "name" "Email Support"
+                "tiersComparison" (dict "Starter" true "Pro" true  "Premium" true "Enterprise" true)
                 )
         (dict
-                "name" "Customer mail templates"
-                "tooltip" "Configure email templates for your customers and agents. All the email templates sent from LiveAgent can be formatted as HTML or plain text emails. Mail templates feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Dedicated Support"
+                "tiersComparison" (dict "Starter" false "Pro" false  "Premium" true "Enterprise" true)
                 )
         (dict
-                "name" "Rules & Time rules"
-                "tooltip" "Create custom triggers, automation rules, and time rules to speed up repetitive tasks that don’t require the attention of your agents. Rules and Time rules feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
+                "name" "Custom Development "
+                "tiersComparison" (dict "Starter" false "Pro" false  "Premium" false "Enterprise" true)
                 )
-        (dict
-                "name" "Gamification"
-                "tooltip" "Motivate, entertain, increase productivity, and foster collaboration in teams. Gamification feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Contact form widgets customization"
-                "tooltip" "Choose a contact form widget from our template gallery and customize it to match your business’s aesthetic."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Chat widgets customization"
-                "tooltip" "Choose a chat widget from our template gallery and customize it to match your business’s color palette."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Sound configuration"
-                "tooltip" "Customize or disable any notification sounds that you hear in LiveAgent. Choose from our existing sounds or upload your own files. Sound configuration feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Search & replace"
-                "tooltip" "LiveAgent can automatically search for specific strings in every incoming message and replace them with something else before being displayed or stored in the database. Search & replace feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call widgets customization"
-                "tooltip" "Create enticing call widgets or choose from our template gallery. Customize any existing design according to your needs."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Video call widgets customization"
-                "tooltip" "Create engaging video call widgets or choose an existing design from our template gallery. Customize any existing template according to your needs."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Knowledge base"
-                "tooltip" "Create categories in your Customer portal based on your products, services, or types of customers. Add knowledge base articles, Forums, or feedback boards. Knowledge base"
-                "tiersComparison" (dict "Small business" "1" "Medium business" "1" "Large business" "2" "Enterprise" "10")
-                )
-        (dict
-                "name" "Additional knowledge base"
-                "tooltip" "Gives you the opportunity to create an unlimited amount of separate customer portals, where each one of them can have its own unique design, settings, and content. Knowledge base"
-                "tiersComparison" (dict "Small business" "$19 / month / per KB" "Medium business" "$19 / month / per KB" "Large business" "$19 / month / per KB" "Enterprise" "$19 / month / per KB")
-                )
-        (dict
-                "name" "Branding free"
-                "tooltip" "Remove LiveAgent branding from live chat windows and buttons, knowledge base/customer portal, call windows and buttons, contact forms, feedback forms, and email templates."
-                "tiersComparison" (dict "Small business" false "Medium business" "$19 / month / per acc" "Large business" "$19 / month / per acc" "Enterprise" true)
-                )
-        (dict
-                "name" "Custom domain parking"
-                "tooltip" "Park your LiveAgent account to make it accessible from your own domain. Custom domain parking"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "Reporting"
-        "features" (slice
-        (dict
-                "name" "Analytics overview"
-                "tooltip" "Get an overview of your customer support. See who is interacting with your company and monitor the service they’re receiving. Analytics overview feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Performance report"
-                "tooltip" "Monitor the performance of your support agents. See who is the most productive, who prefers e-mails over live chats, and who delivers consistent results over time. Performance report feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Agent report"
-                "tooltip" "Create agent reports for work time, answered tickets, chats, calls, sales, ratings, and more from a specific time range. Agent report feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Agents ratings"
-                "tooltip" "Generate agent rating reports complete with customer’s comments. Agents ratings feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Department report"
-                "tooltip" "Generate reports about each department’s number of answered tickets, chats, calls, and more during a specific time range. Department report feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Channel report"
-                "tooltip" "LiveAgent provides you with detailed insights about every communication channel: email, live chat, call center, contact forms, Instagram, Facebook messages, Tweets etc. Channel report feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Ticket history"
-                "tooltip" "Filter tickets by day, week, month, year, or a custom date range to generate a ticket history report. Find out which departments had the most assigned tickets, which agents solved them, their current statuses, and more."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "My work report"
-                "tooltip" "Generate reports about the work you’ve done in a day, week, month, year, or during a custom date range. Find out how many tickets were assigned to you, from which channel they came from, and their current status."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Agent availability for calls, chats, ticket"
-                "tooltip" "Monitor the availability of your agents and see exactly when they’re online (date, hours, from, to). Agent availability feature"
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call, chat availability"
-                "tooltip" "Generate reports about each agent’s availability to answer calls and chats. Discover who’s most involved, and who needs to ramp up their support efforts."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Call, chat, ticket loady"
-                "tooltip" "Find out which agents had the most tickets, calls, and chats assigned to them to compare and optimize your agent’s workloads."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "AI features"
-        "features" (slice
-        (dict
-                "name" "AI Answer Assistant"
-                "tooltip" "Enhance your customer support with AI Answer Assistant. Powered by ChatGPT and your OpenAI API key, it generates polished email replies, streamlining responses and boosting agent efficiency."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "AI Chatbot"
-                "tooltip" "AI Chatbot answers simple customer questions instantly using your knowledge sources and transfers complex queries to your team. AI Chatbot feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "Support and services"
-        "features" (slice
-        (dict
-                "name" "Customer support service"
-                "tooltip" "We’re here for you 24/7, all year round. Reach out to our support team via live chat, email, WhatsApp, social media, or our customer portal for assistance anytime."
-                "tiersComparison" (dict "Small business" "best effort" "Medium business" "24/7" "Large business" "24/7" "Enterprise" "24/7")
-                )
-        (dict
-                "name" "Assisted domain parking"
-                "tooltip" "Let us handle your domain parking effortlessly. If you have a custom domain, simply ensure the CNAME record is set up and send us your SSL certificate details, including the private key and intermediate/root certificates (CA bundle). Our team will take care of the rest."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Design customization assistance"
-                "tooltip" "Sit back and relax while we set up your LiveAgent account for you. Log in to a ready to use helpdesk system that will boost your agent’s productivity and improve your customer service."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "AI configuration service"
-                "tooltip" "Receive expert guidance and assisted AI workflow setup to streamline your daily operations and meet your unique needs."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Chatbot setup service"
-                "tooltip" "Efficiently deploy chatbots with our expert setup assistance, designed to enhance user interaction and support."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "IVR setup service"
-                "tooltip" "Streamline your call management with expert assistance in setting up an efficient Interactive Voice Response system."
-                "tiersComparison" (dict "Small business" false "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Product setup training"
-                "tooltip" "Equip your support team manager with the skills needed to effectively implement and manage our helpdesk tool for your organization."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Consulting services"
-                "tooltip" "Maximize your potential with our expert consulting services. Book a call with our team to get tailored advice and strategies to drive innovation, improve efficiency, and achieve your goals."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Priority support"
-                "tooltip" "Get swift assistance with your queries, ensuring minimal wait times and immediate attention."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        (dict
-                "name" "Dedicated account manager"
-                "tooltip" "Enjoy personalized support with a dedicated account manager. They’re available to address your needs, provide insights, and help you maximize your experience with us."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        (dict
-                "name" "Scheduled release management"
-                "tooltip" "Enjoy scheduled release management with seamless version updates, timed to align with your preferences."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        (dict
-                "name" "Service review call and reports"
-                "tooltip" "Stay informed with service review calls and reports on your team’s raised tickets. Discuss quality, explore new features, and identify improvements to optimize your experience."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        (dict
-                "name" "Custom billing setup"
-                "tooltip" "Customize your billing preferences to align with your business needs for a streamlined payment experience."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" false "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "Product capabilities"
-        "features" (slice
-        (dict
-                "name" "Multiple language support"
-                "tooltip" "LiveAgent currently supports 45 language translations with new ones being added regularly. Multiple language support feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Multiple website support"
-                "tooltip" "Have multiple businesses, products, or subdomains with unique websites? No problem, LiveAgent can fetch and streamline all tickets into a single LiveAgent account."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Multibrand support"
-                "tooltip" "Handle help desk communication for multiple brands and business from one software."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Hardware IP phone"
-                "tooltip" "Feel more comfortable using your hardware phone? No problem! Connect it with LiveAgent to answer calls on it. There’s no need to use softphones or answer calls in-browser if you’re not into it."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "iPhone/Android apps"
-                "tooltip" "We offer a LiveAgent app for both Android and iOS operating systems. iPhone/Android mobile applications feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Integrations"
-                "tooltip" "Get access to all LiveAgent plugins and integrations with other software solutions to unify and simplify your workflow."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "Security and permissions"
-        "features" (slice
-        (dict
-                "name" "EU/US/UK/SG Data Center"
-                "tooltip" "Currently, we have multiple data centers around the world. We are installing our customer accounts on the best possible server point depending on where they are located and taking their national laws into account. Multiple Data Centers"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "SpamAssassin Integration"
-                "tooltip" "Save time and fight against spam with automatic spam filtering. LiveAgent implements the SpamAssassin anti-spam platform, which blocks spam. SPAM filters feature"
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Access restriction to agent panel"
-                "tooltip" "Restrict the number of IP numbers that have access to your agent panel."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Password Policy Management"
-                "tooltip" "Restrict the number of IP numbers that have access to your agent panel."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "2-step verification"
-                "tooltip" "Protect your LiveAgent account with your password and an additional code from the Google Authenticator mobile app. 2-step verification feature."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "HTTPS encryption"
-                "tooltip" "Protect your LiveAgent account with your password and an additional code from the Google Authenticator mobile app. 2-step verification feature."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Banned visitors list"
-                "tooltip" "Is someone spamming you or being obnoxious? Ban their IP address to prevent them from chatting with you. Lift the ban when you’re ready by reviewing the list of visitors who are banned from your chat."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Audit Log"
-                "tooltip" "Is someone spamming you or being obnoxious? Ban their IP address to prevent them from chatting with you. Lift the ban when you’re ready by reviewing the list of visitors who are banned from your chat."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "SSO"
-                "tooltip" "Use single sign-on (SSO) to make logins easier for your agents. Log in once without re-entering authentication factors and speed up the process."
-                "tiersComparison" (dict "Small business" false "Medium business" false "Large business" true "Enterprise" true)
-                )
-        (dict
-                "name" "Customisation of system email templates"
-                "tooltip" "Change the wording and design of all system emails and customize them whenever you need to."
-                "tiersComparison" (dict "Small business" true "Medium business" true "Large business" true "Enterprise" true)
-                )
-        )
-    )
-    (dict
-        "name" "Automation"
-        "features" (slice
-        (dict
-                "name" "Event Rules"
-                "tooltip" "Set up automation rules for various events and determine what actions will perform automatically whenever a specific event happens in LiveAgent."
-                "tiersComparison" (dict "Small business" "50" "Medium business" "150" "Large business" "500" "Enterprise" "1000")
-                )
-        (dict
-                "name" "Time Rules"
-                "tooltip" "Set up time-based rules that will perform actions automatically after certain time periods pass in your LiveAgent system."
-                "tiersComparison" (dict "Small business" false "Medium business" "30" "Large business" "100" "Enterprise" "200")
-                )
-        (dict
-                "name" "SLA rules"
-                "tooltip" "Set up internal Service Level Agreement (SLA) rules that ensure a smooth experience for your agents and customers. Use them to determine responsibility, penalties and remedies for maintaining a correct workflow."
-                "tiersComparison" (dict "Small business" false "Medium business" "5" "Large business" "50" "Enterprise" "100")
-                )
-        (dict
-                "name" "SLA levels"
-                "tooltip" "Set up your Service Level Agreement (SLA) rules in multiple levels to ensure correct workflows on more than one level. You can use them to specify workflows in different circumstances."
-                "tiersComparison" (dict "Small business" false "Medium business" "5" "Large business" "20" "Enterprise" "100")
+         (dict
+                "name" "Personal Training"
+                "tiersComparison" (dict "Starter" false "Pro" false  "Premium" false "Enterprise" true)
                 )
         )
     )
