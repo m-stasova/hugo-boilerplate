@@ -263,9 +263,9 @@
                                         {{ $tierValue := index $feature.tiersComparison $tier.name }}
                                         <td class="px-6 py-4 xl:px-8">
                                             {{ if eq $tierValue true }}
-                                                {{ partial "icons/check" printf("mx-auto size-5 text-%s" $checkColorComparison) }}
+                                                {{ partial "icons/check" (printf "mx-auto size-5 text-%s" $checkColorComparison) }}
                                             {{ else if eq $tierValue false }}
-                                                {{ partial "icons/minus" printf("mx-auto size-5 text-%s" $dashColorComparison) }}
+                                                {{ partial "icons/minus" (printf "mx-auto size-5 text-%s" $dashColorComparison) }}
                                             {{ else }}
                                                 <div class="text-center text-sm/6 text-gray-500">{{ $tierValue }}</div>
                                             {{ end }}
