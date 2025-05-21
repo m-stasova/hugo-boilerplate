@@ -24,7 +24,7 @@
       "description" "Our solution helps you better understand your customers and optimize your business."
       "cta" (dict 
           "primary" (dict "text" "Get started" "url" "/signup") 
-          "secondary" (dict "text" "Learn more" "url" "/features")
+          "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "/features")
       )
   ) }}
 */}}
@@ -39,7 +39,7 @@
 {{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $cta := .cta | default (dict 
   "primary" (dict "text" "Get started" "url" "#")
-  "secondary" (dict "text" "Learn more" "url" "#")
+  "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
 ) }}
 
 <div class="bg-white">

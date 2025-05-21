@@ -28,7 +28,7 @@ Parameters:
 {{ $description := .Get "subtitle" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
 {{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
-{{ $secondaryCtaText := .Get "secondaryCtaText" | default "Learn more" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default (i18n "learnMore") | default "Learn more" }}
 {{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
 {{ $screenshotUrl := .Get "imagePath" | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
 {{ $screenshotAlt := .Get "altText" | default "App screenshot" }}
