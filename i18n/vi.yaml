@@ -1,4 +1,3 @@
-
 # Vietnamese translations
 frequently_asked_questions: "Câu Hỏi Thường Gặp"
 language_selector_title: "Ngôn Ngữ Khả Dụng"
@@ -57,3 +56,5 @@ pagination_results: "kết quả"
 pagination_browse_all: "Duyệt tất cả nội dung trong"
 faq_heading: "Câu hỏi thường gặp"
 faq_description: "Tìm câu trả lời cho các câu hỏi phổ biến về chủ đề này."
+pricing_monthly_label: "Hàng tháng"
+pricing_yearly_label: "Hàng năm"

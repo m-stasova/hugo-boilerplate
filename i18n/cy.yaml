@@ -1,4 +1,3 @@
-
 # Cyfieithiadau Cymraeg
 frequently_asked_questions: "Cwestiynau Cyffredin"
 language_selector_title: "Ieithoedd Ar Gael"
@@ -57,3 +56,5 @@ pagination_results: "canlyniadau"
 pagination_browse_all: "Pori'r holl gynnwys yn"
 faq_heading: "Cwestiynau cyffredin"
 faq_description: "Dewch o hyd i atebion i gwestiynau cyffredin am y pwnc hwn."
+pricing_monthly_label: "Misol"
+pricing_yearly_label: "Blynyddol"

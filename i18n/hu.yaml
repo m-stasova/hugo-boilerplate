@@ -67,4 +67,6 @@ pagination_browse_all: "Böngésszen minden tartalmat itt:"
 faq_heading: "Gyakran ismételt kérdések"
 faq_description: "Találjon válaszokat a gyakori kérdésekre erről a témáról."
 
-no_terms_available: "No terms available"
+no_terms_available: "Nincsenek elérhető kifejezések"
+pricing_monthly_label: "Havi"
+pricing_yearly_label: "Éves"

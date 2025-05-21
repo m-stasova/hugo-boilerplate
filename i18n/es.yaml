@@ -67,4 +67,6 @@ pagination_browse_all: "Explorar todo el contenido en"
 faq_heading: "Preguntas frecuentes"
 faq_description: "Encuentra respuestas a preguntas comunes sobre este tema."
 
-no_terms_available: "No terms available"
+no_terms_available: "No hay términos disponibles"
+pricing_monthly_label: "Mensual"
+pricing_yearly_label: "Anual"

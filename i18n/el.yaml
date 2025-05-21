@@ -67,4 +67,6 @@ pagination_browse_all: "Περιηγηθείτε σε όλο το περιεχό
 faq_heading: "Συχνές ερωτήσεις"
 faq_description: "Βρείτε απαντήσεις σε συνήθεις ερωτήσεις σχετικά με αυτό το θέμα."
 
-no_terms_available: "No terms available"
+no_terms_available: "Δεν υπάρχουν διαθέσιμοι όροι"
+pricing_monthly_label: "Μηνιαία"
+pricing_yearly_label: "Ετήσια"

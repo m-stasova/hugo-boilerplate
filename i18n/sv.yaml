@@ -67,4 +67,6 @@ pagination_browse_all: "Bläddra i allt innehåll i"
 faq_heading: "Vanliga frågor"
 faq_description: "Hitta svar på vanliga frågor om detta ämne."
 
-no_terms_available: "No terms available"
+no_terms_available: "Inga termer tillgängliga"
+pricing_monthly_label: "Månadsvis"
+pricing_yearly_label: "Årsvis"

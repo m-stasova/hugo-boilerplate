@@ -68,3 +68,5 @@ faq_heading: "প্রায়শই জিজ্ঞাসিত প্রশ�
 faq_description: "এই বিষয় সম্পর্কে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
 
 no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"

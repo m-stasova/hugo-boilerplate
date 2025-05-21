@@ -1,4 +1,3 @@
-
 # हिंदी अनुवाद
 frequently_asked_questions: "अक्सर पूछे जाने वाले प्रश्न"
 language_selector_title: "उपलब्ध भाषाएँ"
@@ -57,3 +56,5 @@ pagination_results: "परिणाम"
 pagination_browse_all: "सभी सामग्री ब्राउज़ करें"
 faq_heading: "अक्सर पूछे जाने वाले प्रश्न"
 faq_description: "इस विषय से संबंधित सामान्य प्रश्नों के उत्तर प्राप्त करें।"
+pricing_monthly_label: "मासिक"
+pricing_yearly_label: "वार्षिक"

@@ -1,4 +1,3 @@
-
 # Euskarazko itzulpenak
 frequently_asked_questions: "Ohiko Galderak"
 language_selector_title: "Hizkuntza Aukeragarriak"
@@ -57,3 +56,5 @@ pagination_results: "emaitzak"
 pagination_browse_all: "Arakatu eduki guztia hemen"
 faq_heading: "Ohiko Galderak"
 faq_description: "Gai honi buruzko galdera arruntentzako erantzunak aurkitu."
+pricing_monthly_label: "Hilero"
+pricing_yearly_label: "Urtero"

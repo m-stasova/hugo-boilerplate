@@ -67,4 +67,6 @@ pagination_browse_all: "Sirvi kogu sisu kohas"
 faq_heading: "Korduma kippuvad küsimused"
 faq_description: "Leia vastused selle teema kohta käivatele levinud küsimustele."
 
-no_terms_available: "No terms available"
+no_terms_available: "Ühtegi terminit pole saadaval"
+pricing_monthly_label: "Kuupõhine"
+pricing_yearly_label: "Aastapõhine"

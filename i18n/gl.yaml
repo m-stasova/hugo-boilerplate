@@ -1,4 +1,3 @@
-
 # Traducións ao galego
 frequently_asked_questions: "Preguntas frecuentes"
 language_selector_title: "Idiomas dispoñibles"
@@ -57,3 +56,6 @@ pagination_results: "resultados"
 pagination_browse_all: "Explorar todo o contido en"
 faq_heading: "Preguntas frecuentes"
 faq_description: "Atopa respostas ás preguntas máis comúns sobre este tema."
+
+pricing_monthly_label: "Mensual"
+pricing_yearly_label: "Anual"

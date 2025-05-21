@@ -67,4 +67,6 @@ pagination_browse_all: "Pārlūkot visu saturu iekš"
 faq_heading: "Bieži uzdotie jautājumi"
 faq_description: "Atrodiet atbildes uz biežiem jautājumiem par šo tēmu."
 
-no_terms_available: "No terms available"
+no_terms_available: "Nav pieejamu terminu"
+pricing_monthly_label: "Mēnesī"
+pricing_yearly_label: "Gadā"

@@ -68,3 +68,5 @@ faq_heading: "שאלות נפוצות"
 faq_description: "מצא תשובות לשאלות נפוצות בנושא זה."
 
 no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"

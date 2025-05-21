@@ -67,4 +67,6 @@ pagination_browse_all: "Prehliadať všetok obsah v"
 faq_heading: "Najčastejšie kladené otázky"
 faq_description: "Nájdite odpovede na bežné otázky o tejto téme."
 
-no_terms_available: "No terms available"
+no_terms_available: "Nie sú k dispozícii žiadne pojmy"
+pricing_monthly_label: "Mesačne"
+pricing_yearly_label: "Ročne"

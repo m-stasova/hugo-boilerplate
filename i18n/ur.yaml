@@ -1,4 +1,3 @@
-
 # انگلش تراجم
 frequently_asked_questions: "اکثر پوچھے گئے سوالات"
 language_selector_title: "دستیاب زبانیں"
@@ -57,3 +56,5 @@ pagination_results: "نتائج"
 pagination_browse_all: "تمام مواد کو براؤز کریں"
 faq_heading: "اکثر پوچھے گئے سوالات"
 faq_description: "اس موضوع کے بارے میں عام سوالات کے جوابات تلاش کریں۔"
+pricing_monthly_label: "ماہانہ"
+pricing_yearly_label: "سالانہ"

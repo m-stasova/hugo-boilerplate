@@ -57,3 +57,6 @@ pagination_results: "Resultat"
 pagination_browse_all: "Lueg all Inhalt i"
 faq_heading: "Häufig gstellt Frogä"
 faq_description: "Findi Antwortä uf gängigi Frogä zu däm Thema."
+
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"

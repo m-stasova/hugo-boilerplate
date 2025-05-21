@@ -67,4 +67,6 @@ pagination_browse_all: "مرور تمام محتوا در"
 faq_heading: "سوالات متداول"
 faq_description: "پاسخ‌هایی برای سوالات رایج در مورد این موضوع پیدا کنید."
 
-no_terms_available: "No terms available"
+no_terms_available: "هیچ اصطلاحی موجود نیست"
+pricing_monthly_label: "ماهانه"
+pricing_yearly_label: "سالانه"

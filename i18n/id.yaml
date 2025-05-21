@@ -67,4 +67,6 @@ pagination_browse_all: "Telusuri semua konten di"
 faq_heading: "Pertanyaan yang sering diajukan"
 faq_description: "Temukan jawaban atas pertanyaan umum tentang topik ini."
 
-no_terms_available: "No terms available"
+no_terms_available: "Tidak ada istilah yang tersedia"
+pricing_monthly_label: "Bulanan"
+pricing_yearly_label: "Tahunan"
