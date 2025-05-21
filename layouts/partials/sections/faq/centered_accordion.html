@@ -38,7 +38,7 @@
 {{ $bgColor := .bgColor | default "bg-white" }}
 
 {{/* Heading section */}}
-{{ $heading := .heading | default "Frequently asked questions" }}
+{{ $heading := .heading | default (i18n "faq_heading") | default "Frequently asked questions" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
 
 {{/* Page context for linkbuilding */}}

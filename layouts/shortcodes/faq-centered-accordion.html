@@ -33,7 +33,7 @@
 */ -}}
 
 {{/* Centered Accordion FAQ Shortcode */}}
-{{ $heading := .Get "heading" | default "Frequently asked questions" }}
+{{ $heading := .Get "heading" | default (i18n "faq_heading") | default "Frequently asked questions" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
 {{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
 {{ $questionColor := .Get "questionColor" | default "text-gray-900" }}

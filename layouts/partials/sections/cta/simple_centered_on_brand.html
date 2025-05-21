@@ -35,7 +35,7 @@
   "url" "#"
 ) }}
 {{ $secondaryCta := .secondaryCta | default (dict 
-  "text" "Learn more"
+  "text" ((i18n "learnMore") | default "Learn more")
   "url" "#"
 ) }}
 {{ $brandColor := .brandColor | default "indigo-700" }}
