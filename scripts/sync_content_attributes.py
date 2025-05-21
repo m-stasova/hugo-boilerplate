@@ -18,7 +18,13 @@ attributes_to_sync = [
     'effects',
     'models',
     'characterImages',
-    'originalCharacterImage'
+    'originalCharacterImage',
+    'monthlyPrice',
+    'annualPrice',
+    'ctaHoverBorderColor',
+    'ctaBorderColor',
+    'featureCategories.features.tiersComparison',
+    'tiersComparison'
 ]
 
 #unset_attributes = [ 'cards' ]
