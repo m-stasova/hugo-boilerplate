@@ -71,3 +71,5 @@ faq_description: "Find answers to common questions about this topic."
 # Pricing page translations
 pricing_monthly_label: "Monthly"
 pricing_yearly_label: "Yearly"
+
+wantMore: "Want more?"
