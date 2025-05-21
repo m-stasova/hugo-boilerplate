@@ -67,3 +67,7 @@ pagination_browse_all: "Разгледайте цялото съдържание
 # FAQ translations
 faq_heading: "Често задавани въпроси"
 faq_description: "Намерете отговори на често задавани въпроси по тази тема."
+
+pricing_monthly_label: "Месечно"
+pricing_yearly_label: "Годишно"
+wantMore: "Want more?"

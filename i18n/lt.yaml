@@ -67,3 +67,7 @@ pagination_browse_all: "Naršykite visą turinį"
 faq_heading: "Dažniausiai užduodami klausimai"
 faq_description: "Raskite atsakymus į dažniausiai užduodamus klausimus šia tema."
 
+no_terms_available: "Nėra galimų terminų"
+pricing_monthly_label: "Kas mėnesį"
+pricing_yearly_label: "Kasmet"
+wantMore: "Norite daugiau?"

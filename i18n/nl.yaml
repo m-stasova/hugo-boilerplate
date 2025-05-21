@@ -66,3 +66,8 @@ pagination_browse_all: "Bekijk alle inhoud in"
 # FAQ translations
 faq_heading: "Veelgestelde vragen"
 faq_description: "Vind antwoorden op veelvoorkomende vragen over dit onderwerp."
+
+no_terms_available: "Geen termen beschikbaar"
+pricing_monthly_label: "Maandelijks"
+pricing_yearly_label: "Jaarlijks"
+wantMore: "Wil je meer?"

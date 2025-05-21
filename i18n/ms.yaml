@@ -66,3 +66,8 @@ pagination_browse_all: "Lihat semua kandungan dalam"
 # FAQ translations
 faq_heading: "Soalan lazim"
 faq_description: "Dapatkan jawapan untuk soalan umum tentang topik ini."
+
+no_terms_available: "Tiada istilah tersedia"
+pricing_monthly_label: "Bulanan"
+pricing_yearly_label: "Tahunan"
+wantMore: "Want more?"

@@ -66,3 +66,8 @@ pagination_browse_all: "Skoða allt efni í"
 # FAQ translations
 faq_heading: "Algengar spurningar"
 faq_description: "Finndu svör við algengum spurningum um þetta efni."
+
+no_terms_available: "Engin hugtök tiltæk"
+pricing_monthly_label: "Mánaðarlega"
+pricing_yearly_label: "Árlega"
+wantMore: "Want more?"

@@ -66,8 +66,13 @@ if [ -z "$FLOWHUNT_API_KEY" ]; then
     fi
 fi
 
-# STEP 0 validate if all content file are in the correct format with script validate_content.sh
-echo -e "${BLUE}=== Step 0: Validating Content Files ===${NC}"
+# STEP 0: Sync translation keys across language files
+echo -e "${BLUE}=== Step 0: Syncing Translation Keys ===${NC}"
+python "${SCRIPT_DIR}/sync_translations.py"
+echo -e "${GREEN}Translation key sync completed!${NC}"
+
+# STEP 1: Validate if all content file are in the correct format with script validate_content.sh
+echo -e "${BLUE}=== Step 1: Validating Content Files ===${NC}"
 
 bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
 if [ $? -ne 0 ]; then
@@ -78,23 +83,23 @@ echo -e "${GREEN}Content file validation completed!${NC}"
 
 
 # Step offload images from replicate
-echo -e "${BLUE}=== Step Offload Images from Replicate ===${NC}"
+echo -e "${BLUE}=== Step 2: Offload Images from Replicate ===${NC}"
 python "${SCRIPT_DIR}/offload_replicate_images.py"
 echo -e "${GREEN}Offloading images completed!${NC}"
 
-# STEP 1: Run the translation script with FlowHunt
-echo -e "${BLUE}=== Step 1: Translating Missing Content with FlowHunt API ===${NC}"
+# STEP 3: Run the translation script with FlowHunt
+echo -e "${BLUE}=== Step 3: Translating Missing Content with FlowHunt API ===${NC}"
 echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
 python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
 echo -e "${GREEN}Translation of missing content completed!${NC}"
 
-# STEP 1.5: Validate the content files again after translation
-echo -e "${BLUE}=== Step 1.5: Validating Content Files after translation ===${NC}"
+# STEP 3.5: Validate the content files again after translation
+echo -e "${BLUE}=== Step 3.5: Validating Content Files after translation ===${NC}"
 python "${SCRIPT_DIR}/sync_content_attributes.py"
 echo -e "${GREEN}Content attributes sync completed!${NC}"
 
 # after translation validate again
-echo -e "${BLUE}=== Step 1.6: Validating Content Files after translation ===${NC}"
+echo -e "${BLUE}=== Step 3.6: Validating Content Files after translation ===${NC}"
 
 bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
 if [ $? -ne 0 ]; then
@@ -106,13 +111,13 @@ echo -e "${GREEN}Content file validation completed!${NC}"
 
 
 
-# STEP 2: Generate Related Content
-echo -e "${BLUE}=== Step 2: Generating Related Content ===${NC}"
+# STEP 4: Generate Related Content
+echo -e "${BLUE}=== Step 4: Generating Related Content ===${NC}"
 python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
 echo -e "${GREEN}Related content generation completed!${NC}"
 
-# STEP 3: Preprocess Images
-echo -e "${BLUE}=== Step 3: Preprocessing Images ===${NC}"
+# STEP 5: Preprocess Images
+echo -e "${BLUE}=== Step 5: Preprocessing Images ===${NC}"
 echo -e "${YELLOW}Running image preprocessing script...${NC}"
 # Source the preprocess-images.sh script to use its functions
 source "${SCRIPT_DIR}/preprocess-images.sh"

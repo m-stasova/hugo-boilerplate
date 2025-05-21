@@ -17,6 +17,8 @@ attributes_to_sync = [
     'ai-image-generator',
     'effects',
     'models',
+    'characterImages',
+    'originalCharacterImage'
 ]
 
 #unset_attributes = [ 'cards' ]

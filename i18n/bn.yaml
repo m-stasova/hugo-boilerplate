@@ -66,3 +66,8 @@ pagination_browse_all: "সমস্ত বিষয়বস্তু ব্র
 # FAQ translations
 faq_heading: "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী"
 faq_description: "এই বিষয় সম্পর্কে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
+
+no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"
+wantMore: "Want more?"

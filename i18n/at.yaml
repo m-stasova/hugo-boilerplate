@@ -67,3 +67,6 @@ pagination_browse_all: "Alle Inhalte durchsehen in"
 # FAQ translations
 faq_heading: "Häufig gestellte Fragen"
 faq_description: "Finden Sie Antworten auf häufige Fragen zu diesem Thema."
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"
+wantMore: "Want more?"

@@ -66,3 +66,8 @@ pagination_browse_all: "Bla gjennom alt innhold i"
 # FAQ translations
 faq_heading: "Vanlige spørsmål"
 faq_description: "Finn svar på vanlige spørsmål om dette emnet."
+
+no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"
+wantMore: "Want more?"

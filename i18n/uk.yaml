@@ -66,3 +66,8 @@ pagination_browse_all: "Переглянути весь вміст у"
 # FAQ translations
 faq_heading: "Часті запитання"
 faq_description: "Знайдіть відповіді на поширені запитання з цієї теми."
+
+no_terms_available: "Немає доступних термінів"
+pricing_monthly_label: "Щомісяця"
+pricing_yearly_label: "Щороку"
+wantMore: "Want more?"

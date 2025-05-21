@@ -66,3 +66,8 @@ pagination_browse_all: "Răsfoiți tot conținutul din"
 # FAQ translations
 faq_heading: "Întrebări frecvente"
 faq_description: "Găsiți răspunsuri la întrebările comune despre acest subiect."
+
+no_terms_available: "Niciun termen disponibil"
+pricing_monthly_label: "Lunar"
+pricing_yearly_label: "Anual"
+wantMore: "Vrei mai mult?"

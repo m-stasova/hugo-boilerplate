@@ -66,3 +66,8 @@ pagination_browse_all: "Procházet veškerý obsah v"
 # FAQ translations
 faq_heading: "Často kladené otázky"
 faq_description: "Najděte odpovědi na běžné otázky o tomto tématu."
+
+no_terms_available: "Žádné termíny nejsou k dispozici"
+pricing_monthly_label: "Měsíčně"
+pricing_yearly_label: "Ročně"
+wantMore: "Want more?"

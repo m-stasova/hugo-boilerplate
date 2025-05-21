@@ -18,6 +18,16 @@ IMG_PATTERN = re.compile(
 )
 TITLE_PATTERN = re.compile(r'title:\s*"([^"]+)"', re.IGNORECASE)
 
+# Configurable list of image attributes to offload
+# - string: simple attribute (e.g. 'image', 'originalCharacterImage')
+# - dict: array attribute, key is array name, value is image key (e.g. {'characterImages': 'image'})
+IMAGE_ATTRIBUTES = [
+    "image",
+    "originalCharacterImage",
+    {"characterImages": "image"},
+    # Add more as needed
+]
+
 def url_matches_prefix(url):
     return any(url.startswith(prefix) for prefix in IMG_URL_PREFIXES)
 
@@ -36,6 +46,29 @@ def find_title_near_line(lines, idx):
         if match:
             return match.group(1)
     return 'untitled'
+
+def process_image_url(url, out_dir, out_filename):
+    ext = os.path.splitext(urlparse(url).path)[1]
+    if not ext:
+        # Try to get extension from Content-Type header
+        resp = requests.head(url, allow_redirects=True)
+        content_type = resp.headers.get('Content-Type', '')
+        if 'image/' in content_type:
+            ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
+        else:
+            ext = '.jpg'  # fallback
+        out_filename = os.path.splitext(out_filename)[0] + ext
+    # if ext is not in out_filename, append it
+    if not out_filename.endswith(ext):
+        out_filename += ext
+    # Ensure the filename is unique
+    out_path = out_dir / out_filename
+    if not out_path.exists():
+        resp = requests.get(url)
+        resp.raise_for_status()
+        with open(out_path, 'wb') as imgf:
+            imgf.write(resp.content)
+    return out_filename
 
 def process_md_file(md_path):
     rel_folder = get_effective_rel_folder(md_path)
@@ -64,65 +97,56 @@ def process_md_file(md_path):
         except toml.TomlDecodeError as e:
             print(f"!!! ERROR decoding TOML in {md_path}: {e}")
             return
-        # Main image
-        if 'image' in data and isinstance(data['image'], str) and url_matches_prefix(data['image']):
-            url = data['image']
-            ext = os.path.splitext(urlparse(url).path)[1]
-            if not ext:
-                # Try to get extension from Content-Type header
-                resp = requests.head(url, allow_redirects=True)
-                content_type = resp.headers.get('Content-Type', '')
-                if 'image/' in content_type:
-                    ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
-                else:
-                    ext = '.jpg'  # fallback
-            out_dir = STATIC_IMAGES_DIR / rel_folder
-            out_dir.mkdir(parents=True, exist_ok=True)
-            # Try to generate a safe title: 1. from TOML 'title', 2. from URL filename, 3. 'untitled'
-            orig_title = data.get('title')
-            if orig_title and orig_title.strip():
-                base_title = orig_title
-            else:
-                url_path = urlparse(url).path
-                url_filename = os.path.splitext(os.path.basename(url_path))[0]
-                if url_filename:
-                    base_title = url_filename
-                else:
-                    # Add random number to 'untitled' to make it unique
-                    base_title = f"untitled_{random.randint(1000, 9999)}"
-            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
-            out_filename = f"{md_stem}_{safe_title}{ext}"
-            out_path = out_dir / out_filename
-            if not out_path.exists():
-                resp = requests.get(url)
-                resp.raise_for_status()
-                with open(out_path, 'wb') as imgf:
-                    imgf.write(resp.content)
-            local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-            data['image'] = local_url
-            toml_changed = True
-            changed = True
-        # Cards images
-        if 'cards' in data and isinstance(data['cards'], list):
-            for card in data['cards']:
-                if 'image' in card and isinstance(card['image'], str) and url_matches_prefix(card['image']):
-                    url = card['image']
-                    ext = os.path.splitext(urlparse(url).path)[1]
-                    card_title = card.get('title', 'untitled')
-                    safe_card_title = re.sub(r'[^a-zA-Z0-9_-]', '_', card_title)
-                    out_filename = f"{md_stem}_{safe_card_title}{ext}"
+        # Generic image attribute offloading
+        for attr in IMAGE_ATTRIBUTES:
+            if isinstance(attr, str):
+                # Simple attribute
+                if attr in data and isinstance(data[attr], str) and url_matches_prefix(data[attr]):
+                    url = data[attr]
+                    orig_title = data.get('title') or attr
+                    base_title = orig_title if orig_title and orig_title.strip() else attr
+                    safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
                     out_dir = STATIC_IMAGES_DIR / rel_folder
                     out_dir.mkdir(parents=True, exist_ok=True)
-                    out_path = out_dir / out_filename
-                    if not out_path.exists():
-                        resp = requests.get(url)
-                        resp.raise_for_status()
-                        with open(out_path, 'wb') as imgf:
-                            imgf.write(resp.content)
+                    out_filename = f"{md_stem}_{safe_title}"
+                    out_filename = process_image_url(url, out_dir, out_filename)
                     local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                    card['image'] = local_url
+                    data[attr] = local_url
                     toml_changed = True
                     changed = True
+            elif isinstance(attr, dict):
+                # Array or dict attribute
+                for arr_name, img_key in attr.items():
+                    if arr_name in data and isinstance(data[arr_name], list):
+                        for idx_entry, entry in enumerate(data[arr_name]):
+                            if img_key in entry and isinstance(entry[img_key], str) and url_matches_prefix(entry[img_key]):
+                                url = entry[img_key]
+                                entry_title = entry.get('title') or img_key
+                                base_title = entry_title if entry_title and entry_title.strip() else img_key
+                                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
+                                out_dir = STATIC_IMAGES_DIR / rel_folder
+                                out_dir.mkdir(parents=True, exist_ok=True)
+                                out_filename = f"{md_stem}_{safe_title}_{idx_entry}"
+                                out_filename = process_image_url(url, out_dir, out_filename)
+                                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
+                                entry[img_key] = local_url
+                                toml_changed = True
+                                changed = True
+                    elif arr_name in data and isinstance(data[arr_name], dict):
+                        entry = data[arr_name]
+                        if img_key in entry and isinstance(entry[img_key], str) and url_matches_prefix(entry[img_key]):
+                            url = entry[img_key]
+                            entry_title = entry.get('title') or img_key
+                            base_title = entry_title if entry_title and entry_title.strip() else img_key
+                            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
+                            out_dir = STATIC_IMAGES_DIR / rel_folder
+                            out_dir.mkdir(parents=True, exist_ok=True)
+                            out_filename = f"{md_stem}_{safe_title}"
+                            out_filename = process_image_url(url, out_dir, out_filename)
+                            local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
+                            entry[img_key] = local_url
+                            toml_changed = True
+                            changed = True
         if toml_changed:
             new_toml = toml.dumps(data)
         else:

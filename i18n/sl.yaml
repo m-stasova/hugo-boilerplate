@@ -66,3 +66,8 @@ pagination_browse_all: "Prebrskaj vso vsebino v"
 # FAQ translations
 faq_heading: "Pogosto zastavljena vprašanja"
 faq_description: "Poiščite odgovore na pogosta vprašanja o tej temi."
+
+no_terms_available: "Ni razpoložljivih pojmov"
+pricing_monthly_label: "Mesečno"
+pricing_yearly_label: "Letno"
+wantMore: "Want more?"

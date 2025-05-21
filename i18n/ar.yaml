@@ -66,3 +66,8 @@ pagination_browse_all: "تصفح جميع المحتويات في"
 # FAQ translations
 faq_heading: "الأسئلة الشائعة"
 faq_description: "ابحث عن إجابات للأسئلة الشائعة حول هذا الموضوع."
+
+no_terms_available: "لا توجد مصطلحات متاحة"
+pricing_monthly_label: "شهريًا"
+pricing_yearly_label: "سنويًا"
+wantMore: "هل تريد المزيد؟"
