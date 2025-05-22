@@ -1,7 +1,7 @@
 {{ $params := .Page.Params }}
 {{ $taglineComparison := .Get "taglineComparison" | default $params.taglineComparison | default (.Get 0) | default nil }}
-{{ $headingComparison := .Get "headingComparison" | default $params.headingComparison | default (.Get 1) | default "Compare plans" }}
-{{ $descriptionComparison := .Get "descriptionComparison" | default $params.descriptionComparison | default (.Get 2) | default "Check out our plan comparisons and select the best one for you" }}
+{{ $headingComparison := .Get "headingComparison" | default $params.headingComparison | default (.Get 1) | default (i18n "pricing_comparison_title") }}
+{{ $descriptionComparison := .Get "descriptionComparison" | default $params.descriptionComparison | default (.Get 2) | default (i18n "pricing_comparison_description") }}
 {{ $backgroundColorComparison := .Get "backgroundColorComparison" | default $params.backgroundColor | default (.Get 3) | default "white" }}
 {{ $taglineColorComparison := .Get "taglineColorComparison" | default $params.taglineColorComparison | default (.Get 4) | default "indigo-600" }}
 {{ $headingColorComparison := .Get "headingColorComparison" | default $params.headingColorComparison | default (.Get 5) | default "gray-900" }}
