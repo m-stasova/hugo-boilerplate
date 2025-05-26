@@ -1,394 +1,459 @@
-<!-- Partials Documentation -->
+<!-- Partials Documentation Hub -->
 <div class="space-y-8">
   
   <!-- Introduction -->
   <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
-    <h2 class="text-2xl font-bold text-blue-900 mb-3">📚 Partials Reference</h2>
-    <p class="text-blue-800 mb-4">This documentation includes both the partial syntax and live rendered examples with realistic data. Each partial demonstrates its capabilities with actual content to help you visualize the final result.</p>
+    <h2 class="text-2xl font-bold text-blue-900 mb-3">📚 Complete Partials Reference</h2>
+    <p class="text-blue-800 mb-4">Comprehensive documentation for all FlowHunt Hugo boilerplate partials with live examples, realistic data, and implementation guides. Choose the right partial for your needs and copy the syntax directly.</p>
     <div class="bg-blue-100 p-3 rounded border border-blue-300">
-      <p class="text-sm text-blue-800"><strong>💡 Tip:</strong> All examples use real images from Unsplash and realistic business content. You can copy the syntax directly and customize the parameters for your needs.</p>
-    </div>
-  </div>
-  
-  <!-- Hero Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Hero Sections</h3>
-    
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">Simple Centered Hero</h4>
-      <p class="text-text-light mb-4">A centered hero section with optional announcement, heading, description, CTA buttons, and image.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/hero/simple_centered.html" (dict 
-  "heading" "Data to enrich your online business"
-  "description" "Transform your business with powerful analytics and insights."
-  "cta" (dict 
-    "primary" (dict "text" "Get started" "url" "/signup")
-    "secondary" (dict "text" "Learn more" "url" "/features")
-  )
-  "announcement" (dict 
-    "enabled" true
-    "text" "We've just launched a new version!"
-    "linkText" "Read more"
-    "linkUrl" "/blog/new-version"
-  )
-  "image" (dict 
-    "enabled" true
-    "src" "/images/dashboard-screenshot.png"
-    "alt" "Dashboard screenshot"
-    "width" "2432"
-    "height" "1442"
-  )
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example Preview:</h5>
-        <div class="border rounded-lg overflow-hidden bg-white">
-          <!-- Actual rendered output using the same partial that the shortcode calls -->
-          {{ partial "sections/hero/simple_centered.html" (dict 
-            "heading" "Revolutionize Your Workflow with AI"
-            "description" "Discover powerful automation tools that transform how you work. Build custom AI workflows without coding and boost your productivity by 10x."
-            "cta" (dict 
-              "primary" (dict "text" "Start Free Trial" "url" "#demo")
-              "secondary" (dict "text" "Watch Demo" "url" "#video")
-            )
-            "announcement" (dict 
-              "enabled" true
-              "text" "🎉 New AI Assistant feature now available!"
-              "linkText" "Learn more"
-              "linkUrl" "#features"
-            )
-            "image" (dict 
-              "enabled" true
-              "src" "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-              "alt" "Modern dashboard interface showing analytics and workflow automation"
-              "width" "2070"
-              "height" "1380"
-            )
-          ) }}
-        </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This example uses the actual `sections/hero/simple_centered.html` partial that the shortcode calls internally.
-        </div>
-      </div>
+      <p class="text-sm text-blue-800"><strong>💡 Navigation:</strong> Use the category sections below to explore different types of partials. Each category includes detailed documentation with live examples and best practices.</p>
     </div>
   </div>
 
-  <!-- Media Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Media</h3>
+  <!-- Category Navigation -->
+  <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-lg border border-gray-200">
+    <h3 class="text-xl font-semibold mb-4 text-gray-800">🗂️ Partial Categories</h3>
+    <p class="text-gray-600 mb-6">Select a category to view detailed documentation and examples for each type of partial:</p>
     
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">Lazy Image</h4>
-      <p class="text-text-light mb-4">Responsive lazy-loaded images with optional gallery support.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/media/lazyimg.html" (dict 
-  "src" "/images/product-image.jpg"
-  "alt" "Product image description"
-  "class" "rounded-lg shadow-md"
-  "width" "640"
-  "height" "480"
-  "sizes" "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px"
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example:</h5>
-        <div class="max-w-md mx-auto">
-          <!-- Simulated lazyimg output -->
-          <img 
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80"
-            alt="Business analytics dashboard with charts and graphs"
-            class="rounded-lg shadow-md w-full h-auto"
-            width="640"
-            height="427"
-            loading="lazy"
-          />
-        </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This shows the typical output of the lazyimg partial with lazy loading attributes.
-        </div>
-      </div>
-    </div>
-
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">YouTube Video</h4>
-      <p class="text-text-light mb-4">Embedded YouTube video with lazy loading.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/media/youtubevideo.html" (dict 
-  "videoID" "dQw4w9WgXcQ" 
-  "title" "Video Title" 
-  "class" "rounded-lg shadow-md" 
-  "width" "640px" 
-  "height" "360px" 
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example:</h5>
-        <div class="max-w-2xl mx-auto">
-          <!-- Simulated YouTube embed -->
-          <div class="rounded-lg shadow-md overflow-hidden" style="width: 100%; height: 360px;">
-            <iframe 
-              width="100%" 
-              height="360" 
-              src="https://www.youtube.com/embed/jNQXAC9IVRw" 
-              title="Introduction to Machine Learning" 
-              frameborder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowfullscreen
-              class="rounded-lg"
-              loading="lazy">
-            </iframe>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Components Category -->
+      <a href="#components" class="group block p-4 bg-white rounded-lg border border-blue-200 hover:border-blue-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+            <span class="text-blue-600 font-bold">🧩</span>
           </div>
+          <h4 class="font-semibold text-blue-800 group-hover:text-blue-900">Components</h4>
         </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This shows the typical YouTube embed output with lazy loading attributes.
-        </div>
-      </div>
-    </div>
-  </div>
+        <p class="text-sm text-gray-600">Buttons, cards, media, navigation, quotes, and other UI components</p>
+        <div class="mt-2 text-xs text-blue-600 font-medium">View Components →</div>
+      </a>
 
-  <!-- Content Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Content Elements</h3>
-    
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">Blockquote</h4>
-      <p class="text-text-light mb-4">Author quote with image and attribution.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/quote/blockquote.html" (dict 
-  "name" "John Doe" 
-  "imageUrl" "/images/john-doe.jpg" 
-  "text" "Your quote text here" 
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example Preview:</h5>
-        <div class="max-w-2xl mx-auto">
-          <!-- Simulated blockquote output -->
-          <blockquote class="relative">
-            <div class="text-center text-xl font-medium leading-8 text-gray-900 sm:text-2xl sm:leading-9">
-              <p>"FlowHunt has completely transformed how we handle data analysis. What used to take hours now takes minutes, and the insights we're getting are incredible."</p>
-            </div>
-            <footer class="mt-8">
-              <div class="md:flex md:items-center md:justify-center">
-                <div class="md:flex-shrink-0">
-                  <img class="mx-auto h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Sarah Chen">
-                </div>
-                <div class="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
-                  <div class="text-base font-medium text-gray-900">Sarah Chen</div>
-                </div>
-              </div>
-            </footer>
-          </blockquote>
-        </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This shows the typical blockquote output structure with author attribution.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Call to Action</h3>
-    
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">Simple Centered CTA</h4>
-      <p class="text-text-light mb-4">Centered call-to-action section with primary and secondary buttons.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/cta/simple_centered.html" (dict 
-  "heading" "Boost your productivity!" 
-  "description" "Discover how our app can help you achieve more." 
-  "primaryCta" (dict "text" "Sign Up Now" "url" "/signup")
-  "secondaryCta" (dict "text" "Learn More" "url" "/features")
-  "primaryCtaColor" "blue-600" 
-  "primaryCtaHoverColor" "blue-500"
-  "page" .
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example Preview:</h5>
-        <div class="border rounded-lg overflow-hidden bg-white">
-          <!-- Simulated CTA output -->
-          <div class="bg-white py-16 sm:py-24">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-              <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ready to Transform Your Business?</h2>
-                <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Join thousands of companies already using AI to automate workflows and boost productivity. Start your free trial today.</p>
-                <div class="mt-10 flex items-center justify-center gap-x-6">
-                  <a href="#trial" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start Free Trial</a>
-                  <a href="#demo" class="text-sm font-semibold leading-6 text-gray-900">Book a Demo <span aria-hidden="true">→</span></a>
-                </div>
-              </div>
-            </div>
+      <!-- Sections Category -->
+      <a href="#sections" class="group block p-4 bg-white rounded-lg border border-green-200 hover:border-green-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
+            <span class="text-green-600 font-bold">📄</span>
           </div>
+          <h4 class="font-semibold text-green-800 group-hover:text-green-900">Sections</h4>
         </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This shows the typical CTA section layout with customizable colors and buttons.
-        </div>
-      </div>
-    </div>
-  </div>
+        <p class="text-sm text-gray-600">Hero, CTA, features, pricing, stats, and other page sections</p>
+        <div class="mt-2 text-xs text-green-600 font-medium">View Sections →</div>
+      </a>
 
-  <!-- Incentives Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Incentives & Features</h3>
-    
-    <div class="mb-6">
-      <h4 class="text-lg font-medium mb-3">4-Column Simple Incentives</h4>
-      <p class="text-text-light mb-4">Four-column layout showcasing key benefits or features.</p>
-      
-      <div class="bg-background p-4 rounded border mb-4">
-        <h5 class="font-medium mb-2">Usage:</h5>
-        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/incentives/4-column_with_illustrations.html" (dict 
-  "backgroundColor" "bg-gray-100" 
-  "incentives" (slice
-    (dict 
-      "title" "Free returns"
-      "description" "Return any item within 30 days, no questions asked."
-      "iconUrl" "/images/icons/returns.svg"
-      "iconAlt" "Returns icon"
-    )
-    (dict 
-      "title" "Global delivery" 
-      "description" "We deliver to over 100 countries worldwide."
-      "iconUrl" "/images/icons/delivery.svg"
-      "iconAlt" "Delivery icon"
-    )
-    (dict 
-      "title" "Secure payments"
-      "description" "All transactions are secured and encrypted."
-      "iconUrl" "/images/icons/secure.svg"
-      "iconAlt" "Security icon"
-    )
-    (dict 
-      "title" "Lifetime warranty"
-      "description" "All our products are covered by our lifetime warranty."
-      "iconUrl" "/images/icons/warranty.svg"
-      "iconAlt" "Warranty icon"
-    )
-  )
-) }}`}}</code></pre>
-      </div>
-
-      <div class="bg-gray-50 p-4 rounded border">
-        <h5 class="font-medium mb-3">Live Example Preview:</h5>
-        <div class="border rounded-lg overflow-hidden bg-white">
-          <!-- Simulated incentives output -->
-          <div class="bg-blue-50 py-16 sm:py-24">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-              <div class="mx-auto max-w-2xl lg:text-center">
-                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Why Choose FlowHunt for Your AI Automation?</h2>
-                <p class="mt-6 text-lg leading-8 text-gray-600">We've built our platform with enterprise-grade features that scale with your business needs.</p>
-              </div>
-              <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
-                  <div class="flex flex-col">
-                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">No-Code Platform</dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                      <p class="flex-auto">Build powerful AI workflows without writing a single line of code. Drag, drop, and deploy.</p>
-                    </dd>
-                  </div>
-                  <div class="flex flex-col">
-                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">Enterprise Security</dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                      <p class="flex-auto">SOC 2 compliant with end-to-end encryption and role-based access controls.</p>
-                    </dd>
-                  </div>
-                  <div class="flex flex-col">
-                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">24/7 Support</dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                      <p class="flex-auto">Get expert help whenever you need it with our dedicated customer success team.</p>
-                    </dd>
-                  </div>
-                  <div class="flex flex-col">
-                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-600">99.9% Uptime</dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                      <p class="flex-auto">Reliable infrastructure that keeps your workflows running smoothly around the clock.</p>
-                    </dd>
-                  </div>
-                </dl>
-              </div>
-            </div>
+      <!-- Layout Category -->
+      <a href="#layout" class="group block p-4 bg-white rounded-lg border border-purple-200 hover:border-purple-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+            <span class="text-purple-600 font-bold">🏗️</span>
           </div>
+          <h4 class="font-semibold text-purple-800 group-hover:text-purple-900">Layout</h4>
         </div>
-        <div class="mt-3 text-xs text-gray-600">
-          <strong>Note:</strong> This shows the typical 4-column incentives layout with customizable background and JSON data.
-        </div>
-      </div>
-    </div>
-  </div>
+        <p class="text-sm text-gray-600">Headers, footers, and structural layout components</p>
+        <div class="mt-2 text-xs text-purple-600 font-medium">View Layout →</div>
+      </a>
 
-  <!-- Layout Partials -->
-  <div class="bg-background-alt p-6 rounded-lg">
-    <h3 class="text-xl font-semibold mb-4">Available Layout Components</h3>
+      <!-- Helpers Category -->
+      <a href="#helpers" class="group block p-4 bg-white rounded-lg border border-orange-200 hover:border-orange-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
+            <span class="text-orange-600 font-bold">🔧</span>
+          </div>
+          <h4 class="font-semibold text-orange-800 group-hover:text-orange-900">Helpers</h4>
+        </div>
+        <p class="text-sm text-gray-600">Language helpers, content utilities, and head management</p>
+        <div class="mt-2 text-xs text-orange-600 font-medium">View Helpers →</div>
+      </a>
+
+      <!-- Icons Category -->
+      <a href="#icons" class="group block p-4 bg-white rounded-lg border border-pink-200 hover:border-pink-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-pink-100 rounded-lg flex items-center justify-center group-hover:bg-pink-200 transition-colors">
+            <span class="text-pink-600 font-bold">🎨</span>
+          </div>
+          <h4 class="font-semibold text-pink-800 group-hover:text-pink-900">Icons</h4>
+        </div>
+        <p class="text-sm text-gray-600">Complete Heroicons library with outline and solid variants</p>
+        <div class="mt-2 text-xs text-pink-600 font-medium">View Icons →</div>
+      </a>
+
+      <!-- Products Category -->
+      <a href="#products" class="group block p-4 bg-white rounded-lg border border-teal-200 hover:border-teal-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition-colors">
+            <span class="text-teal-600 font-bold">🛍️</span>
+          </div>
+          <h4 class="font-semibold text-teal-800 group-hover:text-teal-900">Products</h4>
+        </div>
+        <p class="text-sm text-gray-600">Product showcases, galleries, and detailed presentations</p>
+        <div class="mt-2 text-xs text-teal-600 font-medium">View Products →</div>
+      </a>
+
+      <!-- Utils Category -->
+      <a href="#utils" class="group block p-4 bg-white rounded-lg border border-cyan-200 hover:border-cyan-400 hover:shadow-md transition-all duration-200">
+        <div class="flex items-center space-x-3 mb-2">
+          <div class="w-8 h-8 bg-cyan-100 rounded-lg flex items-center justify-center group-hover:bg-cyan-200 transition-colors">
+            <span class="text-cyan-600 font-bold">⚙️</span>
+          </div>
+          <h4 class="font-semibold text-cyan-800 group-hover:text-cyan-900">Utils</h4>
+        </div>
+        <p class="text-sm text-gray-600">Analytics, link building, and utility functions</p>
+        <div class="mt-2 text-xs text-cyan-600 font-medium">View Utils →</div>
+      </a>
+    </div>  </div>
+
+  <!-- Components Section -->
+  <div id="components" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-blue-700">🧩 Components Documentation</h3>
+      <p class="text-text-light mb-4">UI components including buttons, cards, media elements, navigation, and interactive components.</p>
+      <a href="#" onclick="loadPartialDoc('components')" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        View Complete Components Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div class="bg-background p-4 rounded border">
-        <h4 class="font-medium mb-2">Hero & CTA Partials:</h4>
-        <ul class="text-sm space-y-1 text-text-light">
-          <li>• <code>sections/hero/simple_centered.html</code> - Main hero section</li>
-          <li>• <code>sections/cta/simple_centered.html</code> - Call-to-action sections</li>
-          <li>• <code>sections/cta/dark_panel.html</code> - Dark themed CTA</li>
-          <li>• <code>sections/header/centered.html</code> - Page headers</li>
-        </ul>
+    <!-- Components Preview -->
+    <div id="components-content" class="hidden">
+      {{ partial "design-system/partials-components.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🔘 Buttons</h4>
+        <p class="text-sm text-gray-600 mb-3">Primary, secondary, text, and icon buttons with full customization</p>
+        <div class="space-x-2">
+          <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">Primary</button>
+          <button class="px-3 py-1 border border-gray-300 rounded text-sm">Secondary</button>
+        </div>
       </div>
-      
-      <div class="bg-background p-4 rounded border">
-        <h4 class="font-medium mb-2">Feature & Content Partials:</h4>
-        <ul class="text-sm space-y-1 text-text-light">
-          <li>• <code>sections/features/with_fading_image.html</code> - Feature showcase</li>
-          <li>• <code>sections/features/with_wide_images.html</code> - Image features</li>
-          <li>• <code>sections/bentogrid/two_row.html</code> - Grid layouts</li>
-          <li>• <code>components/quote/blockquote.html</code> - Testimonials</li>
-        </ul>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🖼️ Media</h4>
+        <p class="text-sm text-gray-600 mb-3">Lazy images, YouTube videos, and responsive media components</p>
+        <div class="w-full h-20 bg-gray-200 rounded flex items-center justify-center">
+          <span class="text-gray-500 text-xs">Image Placeholder</span>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">💬 Quotes</h4>
+        <p class="text-sm text-gray-600 mb-3">Testimonials and blockquotes with author attribution</p>
+        <blockquote class="text-sm italic text-gray-600">"Great product experience"</blockquote>
       </div>
     </div>
   </div>
 
-  <!-- Additional Information -->
-  <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-    <h3 class="text-lg font-semibold text-blue-900 mb-2">📋 Partial Usage Guidelines</h3>
+  <!-- Sections Section -->
+  <div id="sections" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-green-700">📄 Sections Documentation</h3>
+      <p class="text-text-light mb-4">Page sections including hero areas, CTAs, features, pricing, stats, and team showcases.</p>
+      <a href="#" onclick="loadPartialDoc('sections')" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+        View Complete Sections Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Sections Preview -->
+    <div id="sections-content" class="hidden">
+      {{ partial "design-system/partials-sections.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🎯 Hero Sections</h4>
+        <p class="text-sm text-gray-600">Centered, split layouts with images, videos, and call-to-actions</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">⚡ CTA Sections</h4>
+        <p class="text-sm text-gray-600">Call-to-action sections with customizable styles and layouts</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">✨ Feature Sections</h4>
+        <p class="text-sm text-gray-600">Product features with images, grids, and interactive elements</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout Section -->
+  <div id="layout" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-purple-700">🏗️ Layout Documentation</h3>
+      <p class="text-text-light mb-4">Structural components including headers, footers, and page layout elements.</p>
+      <a href="#" onclick="loadPartialDoc('layout')" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+        View Complete Layout Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Layout Preview -->
+    <div id="layout-content" class="hidden">
+      {{ partial "design-system/partials-layout.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">📋 Header Layouts</h4>
+        <p class="text-sm text-gray-600 mb-3">Simple, centered, with eyebrow, with stats, and dark variants</p>
+        <div class="h-12 bg-gray-100 rounded flex items-center px-3">
+          <div class="w-8 h-8 bg-gray-300 rounded mr-3"></div>
+          <div class="text-sm text-gray-600">Header Layout</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🦶 Footer Layouts</h4>
+        <p class="text-sm text-gray-600 mb-3">Centered, 4-column, with CTA, and dark themed footers</p>
+        <div class="h-16 bg-gray-800 rounded flex items-center justify-center">
+          <div class="text-white text-sm">Footer Layout</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Helpers Section -->
+  <div id="helpers" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-orange-700">🔧 Helpers Documentation</h3>
+      <p class="text-text-light mb-4">Utility functions for language handling, content management, and head elements.</p>
+      <a href="#" onclick="loadPartialDoc('helpers')" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
+        View Complete Helpers Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Helpers Preview -->
+    <div id="helpers-content" class="hidden">
+      {{ partial "design-system/partials-helpers.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🌐 Language Helpers</h4>
+        <p class="text-sm text-gray-600">Multi-language support, hreflang, and localization utilities</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">📝 Content Utilities</h4>
+        <p class="text-sm text-gray-600">Related content, link building, and content management</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🧠 Head Utilities</h4>
+        <p class="text-sm text-gray-600">CSS/JS management, variables, and social meta tags</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Icons Section -->
+  <div id="icons" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-pink-700">🎨 Icons Documentation</h3>
+      <p class="text-text-light mb-4">Complete Heroicons library with outline and solid variants for every icon.</p>
+      <a href="#" onclick="loadPartialDoc('icons')" class="inline-flex items-center px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors">
+        View Complete Icons Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Icons Preview -->
+    <div id="icons-content" class="hidden">
+      {{ partial "design-system/partials-icons.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border text-center">
+        <div class="w-8 h-8 mx-auto mb-2 bg-blue-100 rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+        </div>
+        <p class="text-xs text-gray-600">Navigation</p>
+      </div>
+      <div class="bg-white p-4 rounded border text-center">
+        <div class="w-8 h-8 mx-auto mb-2 bg-green-100 rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <p class="text-xs text-gray-600">Actions</p>
+      </div>
+      <div class="bg-white p-4 rounded border text-center">
+        <div class="w-8 h-8 mx-auto mb-2 bg-purple-100 rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <p class="text-xs text-gray-600">Business</p>
+      </div>
+      <div class="bg-white p-4 rounded border text-center">
+        <div class="w-8 h-8 mx-auto mb-2 bg-red-100 rounded flex items-center justify-center">
+          <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+          </svg>
+        </div>
+        <p class="text-xs text-gray-600">Technology</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <div id="products" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-teal-700">🛍️ Products Documentation</h3>
+      <p class="text-text-light mb-4">Product showcase components with galleries, tabs, and interactive features.</p>
+      <a href="#" onclick="loadPartialDoc('products')" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors">
+        View Complete Products Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Products Preview -->
+    <div id="products-content" class="hidden">
+      {{ partial "design-system/partials-products.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">📱 Split with Image</h4>
+        <p class="text-sm text-gray-600 mb-3">Side-by-side product layouts with features and imagery</p>
+        <div class="flex space-x-2">
+          <div class="flex-1 h-16 bg-gray-100 rounded"></div>
+          <div class="flex-1 h-16 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🖼️ Image Galleries</h4>
+        <p class="text-sm text-gray-600 mb-3">Interactive galleries with expandable details</p>
+        <div class="grid grid-cols-3 gap-1">
+          <div class="h-8 bg-gray-200 rounded"></div>
+          <div class="h-8 bg-gray-200 rounded"></div>
+          <div class="h-8 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Utils Section -->
+  <div id="utils" class="bg-background-alt p-6 rounded-lg border">
+    <div class="mb-6">
+      <h3 class="text-2xl font-semibold mb-3 text-cyan-700">⚙️ Utils Documentation</h3>
+      <p class="text-text-light mb-4">Utility functions for analytics, link building, and enhanced functionality.</p>
+      <a href="#" onclick="loadPartialDoc('utils')" class="inline-flex items-center px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors">
+        View Complete Utils Guide
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Utils Preview -->
+    <div id="utils-content" class="hidden">
+      {{ partial "design-system/partials-utils.html" . }}
+    </div>
+    
+    <!-- Quick Preview -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">📊 Analytics</h4>
+        <p class="text-sm text-gray-600">GDPR-compliant Google Analytics with consent management</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">🔗 Link Building</h4>
+        <p class="text-sm text-gray-600">Smart link generation with tracking and SEO optimization</p>
+      </div>
+      <div class="bg-white p-4 rounded border">
+        <h4 class="font-medium mb-2">📝 Related Content</h4>
+        <p class="text-sm text-gray-600">Automatic content discovery and relationship building</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Usage Guidelines -->
+  <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border border-yellow-200">
+    <h3 class="text-xl font-semibold mb-4 text-yellow-800">📋 General Usage Guidelines</h3>
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <h4 class="font-medium text-blue-900 mb-2">Best Practices:</h4>
-        <ul class="text-blue-800 space-y-1 text-sm">
-          <li>• All partials support responsive design out of the box</li>
-          <li>• Color parameters typically accept Tailwind CSS color classes</li>
-          <li>• Use proper dict structures for complex parameters</li>
-          <li>• Image paths should be relative to the static directory</li>
-          <li>• Always include alt text for accessibility compliance</li>
-        </ul>
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded border">
+          <h4 class="font-medium mb-2 text-green-700">✅ Best Practices</h4>
+          <ul class="text-sm space-y-1 text-green-600">
+            <li>• All partials support responsive design out of the box</li>
+            <li>• Use proper dict structures for complex parameters</li>
+            <li>• Include alt text for all images for accessibility</li>
+            <li>• Test partials on different screen sizes</li>
+            <li>• Use semantic HTML for better SEO</li>
+            <li>• Follow consistent naming conventions</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white p-4 rounded border">
+          <h4 class="font-medium mb-2 text-blue-700">💡 Performance Tips</h4>
+          <ul class="text-sm space-y-1 text-blue-600">
+            <li>• Optimize images before uploading to static folder</li>
+            <li>• Use appropriate image dimensions</li>
+            <li>• Consider lazy loading for below-the-fold content</li>
+            <li>• Minimize CSS and JS when possible</li>
+            <li>• Use CDN for external resources</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h4 class="font-medium text-blue-900 mb-2">Performance Tips:</h4>
-        <ul class="text-blue-800 space-y-1 text-sm">
-          <li>• Use appropriate image dimensions to reduce loading times</li>
-          <li>• Optimize images before uploading to static folder</li>
-          <li>• Consider using lazy loading for images below the fold</li>
-          <li>• Test partials on different screen sizes</li>
-          <li>• Use semantic HTML elements for better SEO</li>
-        </ul>
+      
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded border">
+          <h4 class="font-medium mb-2 text-purple-700">🎨 Customization</h4>
+          <ul class="text-sm space-y-1 text-purple-600">
+            <li>• Color parameters accept Tailwind CSS classes</li>
+            <li>• Modify CSS classes for custom branding</li>
+            <li>• Override partials by creating versions in your theme</li>
+            <li>• Use Hugo's partial context for data passing</li>
+            <li>• Extend functionality with custom JavaScript</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white p-4 rounded border">
+          <h4 class="font-medium mb-2 text-red-700">⚠️ Important Notes</h4>
+          <ul class="text-sm space-y-1 text-red-600">
+            <li>• Image paths should be relative to the static directory</li>
+            <li>• Always validate HTML output for accessibility</li>
+            <li>• Test with realistic content lengths</li>
+            <li>• Consider loading performance on mobile devices</li>
+            <li>• Ensure GDPR compliance for analytics</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    
-    <div class="mt-4 p-3 bg-yellow-100 rounded border border-yellow-300">
-      <p class="text-sm text-yellow-800"><strong>⚠️ Implementation Note:</strong> The live examples above show actual rendered output. For the hero section, we use the exact same <code>sections/hero/simple_centered.html</code> partial with structured parameters. Other examples simulate the typical output structure of each partial.</p>
     </div>
   </div>
+
+  <!-- JavaScript for Interactive Loading -->
+  <script>
+    function loadPartialDoc(category) {
+      // Hide all content divs
+      const contentDivs = ['components-content', 'sections-content', 'layout-content', 'helpers-content', 'icons-content', 'products-content', 'utils-content'];
+      contentDivs.forEach(div => {
+        document.getElementById(div)?.classList.add('hidden');
+      });
+      
+      // Show the selected content
+      const targetDiv = document.getElementById(category + '-content');
+      if (targetDiv) {
+        targetDiv.classList.remove('hidden');
+        targetDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  </script>
 
 </div>
