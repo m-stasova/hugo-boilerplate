@@ -59,7 +59,7 @@
   }
 </style>
 
-<article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col" style="height: {{ $cardHeight }}px;">
+<article class="group relative rounded-lg border border-gray-200 bg-white  hover:shadow-md transition-shadow flex flex-col" style="height: {{ $cardHeight }}px;">
   {{ if $image }}
   <!-- Image Container with custom CSS classes -->
   <div class="post-card-image-container flex-none flex items-center justify-center overflow-hidden rounded-t-lg" style="background-color: {{ $imageBgColor }};">
@@ -91,7 +91,7 @@
     <h3 class="text-2xl font-semibold group-hover:text-primary" style="color: var(--color-text);">
       <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
         <span class="absolute inset-0" aria-hidden="true"></span>
-        {{ $title }}dfdsf
+        {{ $title }}
       </a>
     </h3>
     <p class="mt-1 text-sm text-gray-500 line-clamp-2 flex-grow">{{ $description }}</p>

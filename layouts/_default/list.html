@@ -1,8 +1,21 @@
 {{ define "main" }}
-<div class="bg-white py-16">
+
+<div class="py-16">
   <div class="mx-auto max-w-8xl px-6 lg:px-8">
+    <!-- Breadcrumbs -->
+    {{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
+    {{ $path := "" }}
+    {{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
+    {{ range $index, $part := first (sub (len $parts) 1) $parts }}
+      {{ $path = printf "%s/%s" $path $part }}
+      {{ with $.Site.GetPage $path }}
+        {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
+      {{ end }}
+    {{ end }}
+    {{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
+
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-balance mb-8 text-4xl font-semibold tracking-tight text-black sm:text-5xl">{{ .Title }}</h2>
+      <h2 class="text-balance mb-16 text-4xl font-semibold tracking-tight sm:text-5xl">{{ .Title }}</h2>
       {{ if .Description }}<p class="mt-2 text-lg/8 text-gray-600">{{ .Description | safeHTML }}</p>{{ end }}
       {{ if .Content }}<div class="mt-2 text-lg/8 text-gray-600">{{ .Content }}</div>{{ end }}
     </div>
@@ -18,7 +31,7 @@
         <p class="text-xl font-semibold ">{{ i18n "no_posts_found" }}</p>
       </div>
     {{ else }}
-      <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-7 gap-y-12 lg:max-w-none lg:grid-cols-3">
+      <div class="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-x-7 gap-y-12 lg:max-w-none lg:grid-cols-3">
         {{ range $sortedPages }}
           <div>
             {{ partial "components/cards/post_card_with_image.html" (dict "page" . "cardHeight" $baseHeight) }}
@@ -27,7 +40,7 @@
       </div>
       <!-- Pagination -->
       {{ if gt $paginator.TotalPages 1 }}
-        {{partial "components/pagination/pagination.html" (dict "paginator" $paginator) }}
+        {{partial "components/pagination/pagination.html" $paginator }}
       {{ end }}
     {{ end }}
 
