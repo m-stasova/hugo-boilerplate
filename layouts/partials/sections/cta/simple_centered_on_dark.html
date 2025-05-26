@@ -28,7 +28,7 @@
 {{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
 {{ $description := .description | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
 {{ $primaryCta := .primaryCta | default (dict 
-  "text" "Get started"
+  "text" (i18n "get_started")
   "url" "#"
 ) }}
 {{ $secondaryCta := .secondaryCta | default (dict 
