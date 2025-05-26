@@ -120,6 +120,11 @@ run_step() {
             fi
             echo -e "${GREEN}Content file validation completed!${NC}"
             ;;
+        generate_translation_urls)
+            echo -e "${BLUE}=== Step 3.7: Generating Translation URLs Mapping ===${NC}"
+            python "${SCRIPT_DIR}/translation-urls.py" --hugo-root "${HUGO_ROOT}"
+            echo -e "${GREEN}Translation URLs mapping completed!${NC}"
+            ;;
         generate_related_content)
             echo -e "${BLUE}=== Step 4: Generating Related Content ===${NC}"
             python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
@@ -140,7 +145,7 @@ run_step() {
 
 # If no steps specified, run all steps
 if [ ${#STEPS_TO_RUN[@]} -eq 0 ]; then
-    STEPS_TO_RUN=(sync_translations validate_content offload_images translate sync_content_attributes validate_content_post generate_related_content preprocess_images)
+    STEPS_TO_RUN=(sync_translations validate_content offload_images translate sync_content_attributes validate_content_post generate_translation_urls generate_related_content preprocess_images)
 fi
 
 for step in "${STEPS_TO_RUN[@]}"; do

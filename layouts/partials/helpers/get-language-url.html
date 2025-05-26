@@ -1,0 +1,53 @@
+{{/*
+@helper: Get Language URL
+@description: Generates the correct URL for a specific language, handling translation URLs and fallbacks
+@params:
+  .code (string): The language code
+  .langData (object): Language data object containing baseURL and other info (optional, for all_languages data)
+  .currentPage (object): The current page object
+  .filePath (string): The current file path (optional)
+  .permalink (string): The permalink for translations (optional, used when .langData is not available)
+@returns: URL string for the language
+@example:
+  {{ $url := partial "helpers/get-language-url.html" (dict 
+      "code" "en" 
+      "langData" $langData 
+      "currentPage" $currentPage 
+      "filePath" $filePath
+  ) }}
+*/}}
+
+{{ $code := .code }}
+{{ $langData := .langData }}
+{{ $currentPage := .currentPage }}
+{{ $filePath := .filePath }}
+{{ $permalink := .permalink }}
+
+{{ $href := "" }}
+
+{{ if $langData }}
+  <!-- For all_languages data mode -->
+  {{ $href = $langData.baseURL }}
+  {{ if $filePath }}
+    {{ if index site.Data.translation_urls }}
+      {{ $translationData := index site.Data "translation_urls" $filePath }}
+      {{ if $translationData }}
+        {{ $translatedUrl := index $translationData $code }}
+        {{ if $translatedUrl }}
+          {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $translatedUrl }}
+        {{ else }}
+          {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+        {{ end }}
+      {{ else }}
+        {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+      {{ end }}
+    {{ else }}
+      {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+    {{ end }}
+  {{ end }}
+{{ else if $permalink }}
+  <!-- For page translations mode -->
+  {{ $href = $permalink }}
+{{ end }}
+
+{{ return $href }}
