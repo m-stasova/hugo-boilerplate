@@ -1,8 +1,8 @@
 {{ define "main" }}
-<div class="bg-white py-24 sm:py-32">
+<div class="bg-white py-16">
   <div class="mx-auto max-w-8xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-balance text-4xl font-semibold tracking-tight text-black sm:text-5xl">{{ .Title }}</h2>
+      <h2 class="text-balance mb-8 text-4xl font-semibold tracking-tight text-black sm:text-5xl">{{ .Title }}</h2>
       {{ if .Description }}<p class="mt-2 text-lg/8 text-gray-600">{{ .Description | safeHTML }}</p>{{ end }}
       {{ if .Content }}<div class="mt-2 text-lg/8 text-gray-600">{{ .Content }}</div>{{ end }}
     </div>
