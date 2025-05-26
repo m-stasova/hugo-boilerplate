@@ -67,3 +67,13 @@ pagination_browse_all: "Разгледайте цялото съдържание
 # FAQ translations
 faq_heading: "Често задавани въпроси"
 faq_description: "Намерете отговори на често задавани въпроси по тази тема."
+
+pricing_monthly_label: "Месечно"
+pricing_yearly_label: "Годишно"
+wantMore: "Искате повече?"
+learnMore: "Научете повече"
+pricing_tagline: "Ценообразуване"
+pricing_title: "Ценообразуване, което расте заедно с вас"
+pricing_description: "Изберете достъпен план, изпълнен с най-добрите функции за ангажиране на аудиторията ви, създаване на лоялност на клиентите и стимулиране на продажбите."
+pricing_comparison_title: "Сравнение на плановете"
+pricing_comparison_description: "Вижте нашите сравнения на планове и изберете най-добрия за вас"

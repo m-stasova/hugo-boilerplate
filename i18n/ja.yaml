@@ -1,14 +1,15 @@
 # English translations
+# よくある質問
 frequently_asked_questions: "よくある質問"
 language_selector_title: "利用可能な言語"
 glossary_subtitle: "用語と定義の包括的なリスト"
 glossary_title: "用語集"
 home_title: "ホーム"
 
-# Glossary translations
+# 用語集の翻訳
 glossary_eyebrow: "用語集"
 
-# Category page translations
+# カテゴリーページの翻訳
 categories_title: "カテゴリー"
 categories_browse_all: "カテゴリー別にすべてのコンテンツを閲覧する"
 category_eyebrow: "カテゴリー"
@@ -17,17 +18,17 @@ category_no_content_found: "このカテゴリーにコンテンツが見つか�
 category_try_browsing: "他のカテゴリーを閲覧するか、コンテンツを検索してみてください"
 category_other_categories: "その他のカテゴリー"
 
-# CTA translations
+# CTAの翻訳
 cta_default_heading: "私たちのリソースで知識を広げましょう"
 cta_default_description: "包括的な記事、ガイド、チュートリアルのライブラリーを探索して、主要な概念の理解を深め、最新の開発情報を常に入手しましょう。"
 cta_default_primary_text: "リソースを閲覧する"
 cta_default_secondary_text: "専門家に問い合わせる"
 
-# Content type translations
+# コンテンツタイプの翻訳
 content_article_singular: "記事"
 content_article_plural: "記事"
 
-# Tags page translations
+# タグページの翻訳
 tags_title: "タグ"
 tags_browse_all: "トピック別にすべてのコンテンツを閲覧する"
 tag_eyebrow: "タグ"
@@ -39,7 +40,7 @@ tag_pagination_previous: "前へ"
 tag_pagination_next: "次へ"
 tag_other_tags: "その他のタグ"
 
-# Cookie consent translations
+# クッキー同意の翻訳
 cookie_consent_title: "クッキーの同意"
 cookie_consent_message: "閲覧体験を向上させ、トラフィックを分析するためにクッキーを使用します。"
 cookie_consent_accept_all: "すべてを受け入れる"
@@ -54,7 +55,7 @@ cookie_settings_analytics_description: "これらのクッキーは、訪問者�
 cookie_settings_cancel: "キャンセル"
 cookie_settings_save: "設定を保存"
 
-# Pagination translations
+# ページネーションの翻訳
 pagination_previous: "前へ"
 pagination_next: "次へ"
 pagination_showing: "表示中"
@@ -63,6 +64,16 @@ pagination_of: "の"
 pagination_results: "結果"
 pagination_browse_all: "すべてのコンテンツを閲覧する："
 
-# FAQ translations
+# FAQの翻訳
 faq_heading: "よくある質問"
 faq_description: "このトピックに関する一般的な質問への回答を見つけてください。"
+no_terms_available: "利用可能な用語はありません"
+pricing_monthly_label: "月額"
+pricing_yearly_label: "年額"
+learnMore: "詳細はこちら"
+wantMore: "もっと知りたいですか？"
+pricing_tagline: "料金プラン"
+pricing_title: "あなたと共に成長する料金プラン"
+pricing_description: "視聴者を惹きつけ、顧客ロイヤルティを構築し、売上を伸ばすための最高の機能を詰め込んだ、手頃な価格のプランをお選びください。"
+pricing_comparison_title: "プラン比較"
+pricing_comparison_description: "プラン比較をご覧いただき、最適なプランをお選びください"

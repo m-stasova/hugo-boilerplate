@@ -26,6 +26,61 @@ This theme includes Tailwind CSS integration, comprehensive SEO features, respon
   - Review components
   - Banners and CTAs
 
+## Content Preparation Scripts
+
+The theme includes a comprehensive set of scripts in the `scripts/` directory that prepare your content for optimal performance and SEO.
+
+### Main Script: build_content.sh
+
+This is the primary script that coordinates the entire content preparation process:
+
+```bash
+# Run from the Hugo site root
+./themes/boilerplate/scripts/build_content.sh
+```
+
+#### What build_content.sh Does:
+
+1. **Sets up environment**: Creates a Python virtual environment and installs required dependencies
+2. **Syncs translations**: Ensures translation keys are consistent across language files
+3. **Validates content**: Checks content structure and formatting
+4. **Offloads images**: Downloads and stores images from external sources if needed
+5. **Translates missing content**: Uses the FlowHunt API to translate missing content files
+6. **Synchronizes attributes**: Ensures content attributes are consistent across translations
+7. **Re-validates content**: Checks content structure again after translation
+8. **Generates related content**: Creates YAML files for internal linking
+9. **Preprocesses images**: Optimizes images for web delivery (WebP conversion, responsive sizes)
+
+#### Running Specific Steps:
+
+You can run specific parts of the build process using the `--step` flag:
+
+```bash
+# Run only image preprocessing
+./themes/boilerplate/scripts/build_content.sh --step preprocess_images
+
+# Run multiple steps
+./themes/boilerplate/scripts/build_content.sh --step sync_translations,validate_content
+```
+
+Available steps:
+- `sync_translations`: Synchronize translation keys across files
+- `validate_content`: Validate content files before processing
+- `offload_images`: Download images from external services
+- `translate`: Translate missing content with FlowHunt API
+- `sync_content_attributes`: Ensure content attribute consistency
+- `validate_content_post`: Validate content after translation
+- `generate_related_content`: Create related content data
+- `preprocess_images`: Optimize images for web delivery
+
+#### Requirements:
+
+- Python 3.8+ with pip
+- FlowHunt API key (for translation functionality)
+- Image processing tools (handled by the script)
+
+The script will prompt for a FlowHunt API key if not already configured.
+
 ## Installation
 
 ### Option 1: As a Git Submodule (Recommended)

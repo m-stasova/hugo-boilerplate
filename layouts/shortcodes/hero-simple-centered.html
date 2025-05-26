@@ -31,7 +31,7 @@
 {{ $description := .Get "description" | default (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "Get started" }}
 {{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "#" }}
-{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default "Learn more" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "Learn more" }}
 {{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
 {{ $announcementEnabled := .Get "announcementEnabled" | default (.Get 6) | default "true" }}
 {{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}

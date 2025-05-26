@@ -20,8 +20,6 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-
-
 #print directories
 echo -e "${BLUE}=== Directories ===${NC}"
 echo -e "${BLUE}Script directory: ${SCRIPT_DIR}${NC}"
@@ -66,67 +64,90 @@ if [ -z "$FLOWHUNT_API_KEY" ]; then
     fi
 fi
 
-# STEP 0: Sync translation keys across language files
-echo -e "${BLUE}=== Step 0: Syncing Translation Keys ===${NC}"
-python "${SCRIPT_DIR}/sync_translations.py"
-echo -e "${GREEN}Translation key sync completed!${NC}"
+# Parse arguments for step selection
+STEPS_TO_RUN=()
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --step|--steps)
+            IFS=',' read -ra STEPS_TO_RUN <<< "$2"
+            shift 2
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
 
-# STEP 1: Validate if all content file are in the correct format with script validate_content.sh
-echo -e "${BLUE}=== Step 1: Validating Content Files ===${NC}"
+run_step() {
+    step_name="$1"
+    case "$step_name" in
+        sync_translations)
+            echo -e "${BLUE}=== Step 0: Syncing Translation Keys ===${NC}"
+            python "${SCRIPT_DIR}/sync_translations.py"
+            echo -e "${GREEN}Translation key sync completed!${NC}"
+            ;;
+        validate_content)
+            echo -e "${BLUE}=== Step 1: Validating Content Files ===${NC}"
+            bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
+            if [ $? -ne 0 ]; then
+                echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
+                exit 1
+            fi
+            echo -e "${GREEN}Content file validation completed!${NC}"
+            ;;
+        offload_images)
+            echo -e "${BLUE}=== Step 2: Offload Images from Replicate ===${NC}"
+            python "${SCRIPT_DIR}/offload_replicate_images.py"
+            echo -e "${GREEN}Offloading images completed!${NC}"
+            ;;
+        translate)
+            echo -e "${BLUE}=== Step 3: Translating Missing Content with FlowHunt API ===${NC}"
+            echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
+            python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
+            echo -e "${GREEN}Translation of missing content completed!${NC}"
+            ;;
+        sync_content_attributes)
+            echo -e "${BLUE}=== Step 3.5: Validating Content Files after translation ===${NC}"
+            python "${SCRIPT_DIR}/sync_content_attributes.py"
+            echo -e "${GREEN}Content attributes sync completed!${NC}"
+            ;;
+        validate_content_post)
+            echo -e "${BLUE}=== Step 3.6: Validating Content Files after translation ===${NC}"
+            bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
+            if [ $? -ne 0 ]; then
+                echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
+                exit 1
+            fi
+            echo -e "${GREEN}Content file validation completed!${NC}"
+            ;;
+        generate_related_content)
+            echo -e "${BLUE}=== Step 4: Generating Related Content ===${NC}"
+            python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
+            echo -e "${GREEN}Related content generation completed!${NC}"
+            ;;
+        preprocess_images)
+            echo -e "${BLUE}=== Step 5: Preprocessing Images ===${NC}"
+            echo -e "${YELLOW}Running image preprocessing script...${NC}"
+            source "${SCRIPT_DIR}/preprocess-images.sh"
+            process_all_images
+            echo -e "${GREEN}Image preprocessing completed!${NC}"
+            ;;
+        *)
+            echo -e "${YELLOW}Unknown step: $step_name${NC}"
+            ;;
+    esac
+}
 
-bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
-if [ $? -ne 0 ]; then
-    echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
-    exit 1
+# If no steps specified, run all steps
+if [ ${#STEPS_TO_RUN[@]} -eq 0 ]; then
+    STEPS_TO_RUN=(sync_translations validate_content offload_images translate sync_content_attributes validate_content_post generate_related_content preprocess_images)
 fi
-echo -e "${GREEN}Content file validation completed!${NC}"
 
-
-# Step offload images from replicate
-echo -e "${BLUE}=== Step 2: Offload Images from Replicate ===${NC}"
-python "${SCRIPT_DIR}/offload_replicate_images.py"
-echo -e "${GREEN}Offloading images completed!${NC}"
-
-# STEP 3: Run the translation script with FlowHunt
-echo -e "${BLUE}=== Step 3: Translating Missing Content with FlowHunt API ===${NC}"
-echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
-python "${SCRIPT_DIR}/translate_with_flowhunt.py" --path "${HUGO_ROOT}/content"
-echo -e "${GREEN}Translation of missing content completed!${NC}"
-
-# STEP 3.5: Validate the content files again after translation
-echo -e "${BLUE}=== Step 3.5: Validating Content Files after translation ===${NC}"
-python "${SCRIPT_DIR}/sync_content_attributes.py"
-echo -e "${GREEN}Content attributes sync completed!${NC}"
-
-# after translation validate again
-echo -e "${BLUE}=== Step 3.6: Validating Content Files after translation ===${NC}"
-
-bash "${SCRIPT_DIR}/validate_content.sh" --path "${HUGO_ROOT}/content"
-if [ $? -ne 0 ]; then
-    echo -e "${YELLOW}Content file validation failed. Stopping further processing.${NC}"
-    exit 1
-fi
-echo -e "${GREEN}Content file validation completed!${NC}"
-
-
-
-
-# STEP 4: Generate Related Content
-echo -e "${BLUE}=== Step 4: Generating Related Content ===${NC}"
-python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
-echo -e "${GREEN}Related content generation completed!${NC}"
-
-# STEP 5: Preprocess Images
-echo -e "${BLUE}=== Step 5: Preprocessing Images ===${NC}"
-echo -e "${YELLOW}Running image preprocessing script...${NC}"
-# Source the preprocess-images.sh script to use its functions
-source "${SCRIPT_DIR}/preprocess-images.sh"
-# Run the image preprocessing
-process_all_images
-echo -e "${GREEN}Image preprocessing completed!${NC}"
+for step in "${STEPS_TO_RUN[@]}"; do
+    run_step "$step"
+done
 
 # Deactivate the virtual environment
 deactivate
-
 
 echo -e "${GREEN}Done! All content processing completed successfully.${NC}"

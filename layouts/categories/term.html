@@ -130,7 +130,7 @@
         {{ end }}
         
         {{ range first 10 (sort $relatedCategories "count" "desc") }}
-          <a href="{{ "/categories/" | relLangURL }}{{ .name | urlize }}" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-200">
+          <a href="{{ "/categories/" | relLangURL }}{{ .name | urlize }}/" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-800 hover:bg-gray-200">
             {{ .name }} <span class="ml-1.5 text-xs text-gray-500">({{ .count }})</span>
           </a>
         {{ end }}

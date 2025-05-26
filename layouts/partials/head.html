@@ -13,10 +13,57 @@
 
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ with .Permalink }}<link rel="canonical" href="{{ . }}">{{ end }}
-{{ range .Site.Home.AllTranslations }}
+{{ $currentPage := . }}
+{{ $defaultLang := "en" }}
+
+<!-- Handle translations that exist -->
+{{ range .Translations }}
 <link rel="alternate" hreflang="{{ .Language.Params.bcp47Lang | default .Language.Lang }}" href="{{ .Permalink }}">
 {{ end }}
-<link rel="alternate" hreflang="x-default" href="{{ (index .Site.Home.AllTranslations 0).Permalink }}">
+
+<link rel="alternate" hreflang="{{ .Language.Params.bcp47Lang | default .Language.Lang }}" href="{{ .Permalink }}">
+{{ $pagePath := strings.TrimPrefix (print "/" .Language.Lang "/") .RelPermalink }}
+{{ range site.Home.AllTranslations }}
+    {{ $langCode := .Language.Lang }}
+    {{ $hasTranslation := false }}
+    {{ range $currentPage.Translations }}
+        {{ if eq .Language.Lang $langCode }}
+            {{ $hasTranslation = true }}
+        {{ end }}
+    {{ end }}
+    {{ if and (not $hasTranslation) (ne $langCode $currentPage.Language.Lang) }}
+        {{ $langBaseURL := .Permalink }}
+        {{ $langBaseWithoutSlash := strings.TrimSuffix "/" $langBaseURL }}
+        {{ $langURL := print $langBaseWithoutSlash "/" $pagePath }}
+        <link rel="alternate" hreflang="{{ .Language.Params.bcp47Lang | default .Language.Lang }}" href="{{ $langURL }}">
+    {{ end }}
+{{ end }}
+
+<!-- Set x-default to English version if available, otherwise use default language -->
+{{ $xDefaultLang := "en" }}
+{{ $xDefaultURL := $currentPage.Permalink }}
+{{ $found := false }}
+
+{{ range $currentPage.Translations }}
+    {{ if eq .Language.Lang $xDefaultLang }}
+        {{ $xDefaultURL = .Permalink }}
+        {{ $found = true }}
+    {{ end }}
+{{ end }}
+
+<!-- If no English translation and current page isn't English, try to construct the English URL -->
+{{ if and (not $found) (ne $currentPage.Language.Lang $xDefaultLang) }}
+    {{ range site.Home.AllTranslations }}
+        {{ if eq .Language.Lang $xDefaultLang }}
+            {{ $enBaseURL := .Permalink }}
+            {{ $enBaseWithoutSlash := strings.TrimSuffix "/" $enBaseURL }}
+            {{ $xDefaultURL = print $enBaseWithoutSlash "/" $pagePath }}
+            {{ $found = true }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+<link rel="alternate" hreflang="x-default" href="{{ $xDefaultURL }}">
 {{ partial "social-meta.html" . | safeHTML }}
 {{ partialCached "head/variables.html" . }}
 {{ partialCached "head/css.html" . }}

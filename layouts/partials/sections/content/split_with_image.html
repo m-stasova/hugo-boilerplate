@@ -45,12 +45,12 @@ The system automatically scales based on your needs, so you never have to worry 
       "
       "features" (slice
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z\" clip-rule=\"evenodd\" />" 
+              "icon" "link" 
               "title" "One-click Deployment" 
               "description" "Deploy your projects with a single click through our intuitive interface or API."
           )
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z\" clip-rule=\"evenodd\" />" 
+              "icon" "lock" 
               "title" "Enterprise Security" 
               "description" "Bank-grade security protocols with automatic SSL certificates and advanced access controls."
           )
@@ -107,7 +107,7 @@ The system automatically scales based on your needs, so you never have to worry 
         <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h1>
         {{ end }}
         {{ if $description }}
-        <p class="mt-6 text-xl/8 {{ $descriptionColor }}">{{ $description }}</p>
+        <p class="mt-6 text-xl/8 {{ $descriptionColor }}">{{ $description }}{{ partial "utils/linkbuilding" (dict "content" $description "page" .) | safeHTML }}</p>
         {{ end }}
         <div class="mt-10 max-w-xl text-base/7 {{ $contentColor }} lg:max-w-none">
           {{ if $markdownContent }}

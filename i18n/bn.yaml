@@ -66,3 +66,14 @@ pagination_browse_all: "সমস্ত বিষয়বস্তু ব্র
 # FAQ translations
 faq_heading: "প্রায়শই জিজ্ঞাসিত প্রশ্নাবলী"
 faq_description: "এই বিষয় সম্পর্কে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
+
+no_terms_available: "No terms available"
+pricing_monthly_label: "Monthly"
+pricing_yearly_label: "Yearly"
+wantMore: "Want more?"
+learnMore: "Learn more"
+pricing_tagline: "Pricing"
+pricing_title: "Pricing that grows with you"
+pricing_description: "Choose an affordable plan that's packed with the best features for engaging your audience, creating customer loyalty, and driving sales."
+pricing_comparison_title: "Compare Plans"
+pricing_comparison_description: "Check out our plan comparisons and select the best one for you"

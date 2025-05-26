@@ -1,19 +1,77 @@
 {{ $text := .text }}
 {{ $position := .position | default "top" }}
 
-<div class="group relative inline-flex sm:items-center sm:mr-2 md:items-start">
+{{ $tooltipPosition := "" }}
+{{ if eq $position "top" }}
+  {{ $tooltipPosition = "bottom-full left-1/2 transform -translate-x-1/2 mb-2" }}
+{{ else if eq $position "bottom" }}
+  {{ $tooltipPosition = "top-full left-1/2 transform -translate-x-1/2 mt-2" }}
+{{ else if eq $position "left" }}
+  {{ $tooltipPosition = "right-full top-1/2 transform -translate-y-1/2 mr-2" }}
+{{ else }}
+  {{ $tooltipPosition = "left-full top-1/2 transform -translate-y-1/2 ml-2" }}
+{{ end }}
+
+<div class="relative inline-flex sm:items-center sm:mr-2 md:items-start">
   {{ .content }}
-  <span class="ml-2 inline-flex items-center justify-center">
-    <svg class="h-4 w-4 text-gray-400 hover:text-gray-500 tooltip-trigger" 
-         width="16" height="16" 
-         viewBox="0 0 16 16" 
-         fill="none" 
-         xmlns="http://www.w3.org/2000/svg">
-      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1" />
-      <path d="M8 4.5V5.5M8 7.5V11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-    </svg>
+  <span class="group relative inline-flex items-center justify-center" data-tooltip-wrapper>
+    {{ partial "icons/information-circle" "h-4 w-4 ml-2 text-gray-400 hover:text-gray-500 cursor-pointer tooltip-trigger" }}
+    <div
+      class="pointer-events-none absolute {{ $tooltipPosition }} z-10 w-64 rounded-md bg-gray-900 px-3 py-2 text-xs text-white font-normal opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 tooltip-content"
+      data-tooltip
+      role="tooltip"
+      aria-hidden="true"
+    >
+      {{ $text }}
+    </div>
   </span>
-  <div class="tooltip-content pointer-events-none absolute {{ if eq $position "top" }}bottom-full left-1/2 transform -translate-x-1/2 mb-2{{ else if eq $position "bottom" }}top-full left-1/2 transform -translate-x-1/2 mt-2{{ else if eq $position "left" }}right-full top-1/2 transform -translate-y-1/2 mr-2{{ else }}left-full top-1/2 transform -translate-y-1/2 ml-2{{ end }} z-10 w-64 rounded-md bg-gray-900 px-3 py-2 text-xs text-white font-normal opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
-    {{ $text }}
-  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const style = document.createElement('style');
+    style.textContent = `
+      .tooltip-content.mobile-visible {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    function setupMobileTooltips() {
+      const isMobile = window.innerWidth <= 1023;
+
+      document.querySelectorAll('.tooltip-content.mobile-visible').forEach(tip => {
+        tip.classList.remove('mobile-visible');
+      });
+      
+      document.addEventListener('click', function(e) {
+        if (!isMobile) return;
+        
+        const trigger = e.target.closest('.tooltip-trigger');
+        
+        if (trigger) {
+          const group = trigger.closest('.group');
+          const content = group?.querySelector('.tooltip-content');
+          
+          document.querySelectorAll('.tooltip-content.mobile-visible').forEach(tip => {
+            if (tip !== content) tip.classList.remove('mobile-visible');
+          });
+          
+          if (content) content.classList.toggle('mobile-visible');
+          e.stopPropagation();
+        } else {
+          document.querySelectorAll('.tooltip-content.mobile-visible').forEach(tip => {
+            tip.classList.remove('mobile-visible');
+          });
+        }
+      });
+    }
+    
+    setupMobileTooltips();
+    
+    window.addEventListener('resize', function() {
+      setupMobileTooltips();
+    });
+  });
+</script>
