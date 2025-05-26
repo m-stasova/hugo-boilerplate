@@ -10,7 +10,12 @@
     announcementEnabled="true/false" 
     announcementText="Announcement text" 
     announcementLinkText="Announcement link text" 
-    announcementLinkUrl="Announcement link URL" 
+    announcementLinkUrl="Announcement link URL"
+    imageEnabled="true/false"
+    imageSrc="Image source URL"
+    imageAlt="Image alt text"
+    imageWidth="Image width"
+    imageHeight="Image height"
   >}}
   
   Parameters:
@@ -24,6 +29,11 @@
   - announcementText: Text for the announcement
   - announcementLinkText: Text for the announcement link
   - announcementLinkUrl: URL for the announcement link
+  - imageEnabled: Enable/disable the hero image (true/false)
+  - imageSrc: Image source URL - can be also url of youtube video
+  - imageAlt: Alt text for the image
+  - imageWidth: Image width (optional)
+  - imageHeight: Image height (optional)
 */ -}}
 
 {{/* Simple Centered Hero Shortcode */}}
@@ -37,6 +47,11 @@
 {{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
 {{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "Read more" }}
 {{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "#" }}
+{{ $imageEnabled := .Get "imageEnabled" | default "false" }}
+{{ $imageSrc := .Get "imageSrc" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $imageWidth := .Get "imageWidth" | default "" }}
+{{ $imageHeight := .Get "imageHeight" | default "" }}
 
 {{ $announcement := dict 
   "enabled" (eq $announcementEnabled "true")
@@ -50,9 +65,18 @@
   "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)
 }}
 
+{{ $image := dict 
+  "enabled" (eq $imageEnabled "true")
+  "src" $imageSrc
+  "alt" $imageAlt
+  "width" $imageWidth
+  "height" $imageHeight
+}}
+
 {{ partial "sections/hero/simple_centered.html" (dict 
   "announcement" $announcement
   "heading" $heading
   "description" $description
   "cta" $cta
+  "image" $image
 ) }}

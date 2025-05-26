@@ -1,0 +1,394 @@
+<!-- Partials Documentation -->
+<div class="space-y-8">
+  
+  <!-- Introduction -->
+  <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+    <h2 class="text-2xl font-bold text-blue-900 mb-3">📚 Partials Reference</h2>
+    <p class="text-blue-800 mb-4">This documentation includes both the partial syntax and live rendered examples with realistic data. Each partial demonstrates its capabilities with actual content to help you visualize the final result.</p>
+    <div class="bg-blue-100 p-3 rounded border border-blue-300">
+      <p class="text-sm text-blue-800"><strong>💡 Tip:</strong> All examples use real images from Unsplash and realistic business content. You can copy the syntax directly and customize the parameters for your needs.</p>
+    </div>
+  </div>
+  
+  <!-- Hero Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Hero Sections</h3>
+    
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">Simple Centered Hero</h4>
+      <p class="text-text-light mb-4">A centered hero section with optional announcement, heading, description, CTA buttons, and image.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/hero/simple_centered.html" (dict 
+  "heading" "Data to enrich your online business"
+  "description" "Transform your business with powerful analytics and insights."
+  "cta" (dict 
+    "primary" (dict "text" "Get started" "url" "/signup")
+    "secondary" (dict "text" "Learn more" "url" "/features")
+  )
+  "announcement" (dict 
+    "enabled" true
+    "text" "We've just launched a new version!"
+    "linkText" "Read more"
+    "linkUrl" "/blog/new-version"
+  )
+  "image" (dict 
+    "enabled" true
+    "src" "/images/dashboard-screenshot.png"
+    "alt" "Dashboard screenshot"
+    "width" "2432"
+    "height" "1442"
+  )
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example Preview:</h5>
+        <div class="border rounded-lg overflow-hidden bg-white">
+          <!-- Actual rendered output using the same partial that the shortcode calls -->
+          {{ partial "sections/hero/simple_centered.html" (dict 
+            "heading" "Revolutionize Your Workflow with AI"
+            "description" "Discover powerful automation tools that transform how you work. Build custom AI workflows without coding and boost your productivity by 10x."
+            "cta" (dict 
+              "primary" (dict "text" "Start Free Trial" "url" "#demo")
+              "secondary" (dict "text" "Watch Demo" "url" "#video")
+            )
+            "announcement" (dict 
+              "enabled" true
+              "text" "🎉 New AI Assistant feature now available!"
+              "linkText" "Learn more"
+              "linkUrl" "#features"
+            )
+            "image" (dict 
+              "enabled" true
+              "src" "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+              "alt" "Modern dashboard interface showing analytics and workflow automation"
+              "width" "2070"
+              "height" "1380"
+            )
+          ) }}
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This example uses the actual `sections/hero/simple_centered.html` partial that the shortcode calls internally.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Media</h3>
+    
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">Lazy Image</h4>
+      <p class="text-text-light mb-4">Responsive lazy-loaded images with optional gallery support.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/media/lazyimg.html" (dict 
+  "src" "/images/product-image.jpg"
+  "alt" "Product image description"
+  "class" "rounded-lg shadow-md"
+  "width" "640"
+  "height" "480"
+  "sizes" "(min-width: 1024px) 1024px, (min-width: 300px) 300px, 150px"
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example:</h5>
+        <div class="max-w-md mx-auto">
+          <!-- Simulated lazyimg output -->
+          <img 
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80"
+            alt="Business analytics dashboard with charts and graphs"
+            class="rounded-lg shadow-md w-full h-auto"
+            width="640"
+            height="427"
+            loading="lazy"
+          />
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This shows the typical output of the lazyimg partial with lazy loading attributes.
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">YouTube Video</h4>
+      <p class="text-text-light mb-4">Embedded YouTube video with lazy loading.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/media/youtubevideo.html" (dict 
+  "videoID" "dQw4w9WgXcQ" 
+  "title" "Video Title" 
+  "class" "rounded-lg shadow-md" 
+  "width" "640px" 
+  "height" "360px" 
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example:</h5>
+        <div class="max-w-2xl mx-auto">
+          <!-- Simulated YouTube embed -->
+          <div class="rounded-lg shadow-md overflow-hidden" style="width: 100%; height: 360px;">
+            <iframe 
+              width="100%" 
+              height="360" 
+              src="https://www.youtube.com/embed/jNQXAC9IVRw" 
+              title="Introduction to Machine Learning" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
+              class="rounded-lg"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This shows the typical YouTube embed output with lazy loading attributes.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Content Elements</h3>
+    
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">Blockquote</h4>
+      <p class="text-text-light mb-4">Author quote with image and attribution.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "components/quote/blockquote.html" (dict 
+  "name" "John Doe" 
+  "imageUrl" "/images/john-doe.jpg" 
+  "text" "Your quote text here" 
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example Preview:</h5>
+        <div class="max-w-2xl mx-auto">
+          <!-- Simulated blockquote output -->
+          <blockquote class="relative">
+            <div class="text-center text-xl font-medium leading-8 text-gray-900 sm:text-2xl sm:leading-9">
+              <p>"FlowHunt has completely transformed how we handle data analysis. What used to take hours now takes minutes, and the insights we're getting are incredible."</p>
+            </div>
+            <footer class="mt-8">
+              <div class="md:flex md:items-center md:justify-center">
+                <div class="md:flex-shrink-0">
+                  <img class="mx-auto h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=80" alt="Sarah Chen">
+                </div>
+                <div class="mt-3 text-center md:mt-0 md:ml-4 md:flex md:items-center">
+                  <div class="text-base font-medium text-gray-900">Sarah Chen</div>
+                </div>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This shows the typical blockquote output structure with author attribution.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Call to Action</h3>
+    
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">Simple Centered CTA</h4>
+      <p class="text-text-light mb-4">Centered call-to-action section with primary and secondary buttons.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/cta/simple_centered.html" (dict 
+  "heading" "Boost your productivity!" 
+  "description" "Discover how our app can help you achieve more." 
+  "primaryCta" (dict "text" "Sign Up Now" "url" "/signup")
+  "secondaryCta" (dict "text" "Learn More" "url" "/features")
+  "primaryCtaColor" "blue-600" 
+  "primaryCtaHoverColor" "blue-500"
+  "page" .
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example Preview:</h5>
+        <div class="border rounded-lg overflow-hidden bg-white">
+          <!-- Simulated CTA output -->
+          <div class="bg-white py-16 sm:py-24">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+              <div class="mx-auto max-w-2xl text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ready to Transform Your Business?</h2>
+                <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-gray-600">Join thousands of companies already using AI to automate workflows and boost productivity. Start your free trial today.</p>
+                <div class="mt-10 flex items-center justify-center gap-x-6">
+                  <a href="#trial" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Start Free Trial</a>
+                  <a href="#demo" class="text-sm font-semibold leading-6 text-gray-900">Book a Demo <span aria-hidden="true">→</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This shows the typical CTA section layout with customizable colors and buttons.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Incentives Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Incentives & Features</h3>
+    
+    <div class="mb-6">
+      <h4 class="text-lg font-medium mb-3">4-Column Simple Incentives</h4>
+      <p class="text-text-light mb-4">Four-column layout showcasing key benefits or features.</p>
+      
+      <div class="bg-background p-4 rounded border mb-4">
+        <h5 class="font-medium mb-2">Usage:</h5>
+        <pre class="text-sm overflow-x-auto"><code>{{`{{ partial "sections/incentives/4-column_with_illustrations.html" (dict 
+  "backgroundColor" "bg-gray-100" 
+  "incentives" (slice
+    (dict 
+      "title" "Free returns"
+      "description" "Return any item within 30 days, no questions asked."
+      "iconUrl" "/images/icons/returns.svg"
+      "iconAlt" "Returns icon"
+    )
+    (dict 
+      "title" "Global delivery" 
+      "description" "We deliver to over 100 countries worldwide."
+      "iconUrl" "/images/icons/delivery.svg"
+      "iconAlt" "Delivery icon"
+    )
+    (dict 
+      "title" "Secure payments"
+      "description" "All transactions are secured and encrypted."
+      "iconUrl" "/images/icons/secure.svg"
+      "iconAlt" "Security icon"
+    )
+    (dict 
+      "title" "Lifetime warranty"
+      "description" "All our products are covered by our lifetime warranty."
+      "iconUrl" "/images/icons/warranty.svg"
+      "iconAlt" "Warranty icon"
+    )
+  )
+) }}`}}</code></pre>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border">
+        <h5 class="font-medium mb-3">Live Example Preview:</h5>
+        <div class="border rounded-lg overflow-hidden bg-white">
+          <!-- Simulated incentives output -->
+          <div class="bg-blue-50 py-16 sm:py-24">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+              <div class="mx-auto max-w-2xl lg:text-center">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Why Choose FlowHunt for Your AI Automation?</h2>
+                <p class="mt-6 text-lg leading-8 text-gray-600">We've built our platform with enterprise-grade features that scale with your business needs.</p>
+              </div>
+              <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
+                  <div class="flex flex-col">
+                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">No-Code Platform</dt>
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                      <p class="flex-auto">Build powerful AI workflows without writing a single line of code. Drag, drop, and deploy.</p>
+                    </dd>
+                  </div>
+                  <div class="flex flex-col">
+                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">Enterprise Security</dt>
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                      <p class="flex-auto">SOC 2 compliant with end-to-end encryption and role-based access controls.</p>
+                    </dd>
+                  </div>
+                  <div class="flex flex-col">
+                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">24/7 Support</dt>
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                      <p class="flex-auto">Get expert help whenever you need it with our dedicated customer success team.</p>
+                    </dd>
+                  </div>
+                  <div class="flex flex-col">
+                    <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-600">99.9% Uptime</dt>
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                      <p class="flex-auto">Reliable infrastructure that keeps your workflows running smoothly around the clock.</p>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-gray-600">
+          <strong>Note:</strong> This shows the typical 4-column incentives layout with customizable background and JSON data.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Layout Partials -->
+  <div class="bg-background-alt p-6 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Available Layout Components</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-background p-4 rounded border">
+        <h4 class="font-medium mb-2">Hero & CTA Partials:</h4>
+        <ul class="text-sm space-y-1 text-text-light">
+          <li>• <code>sections/hero/simple_centered.html</code> - Main hero section</li>
+          <li>• <code>sections/cta/simple_centered.html</code> - Call-to-action sections</li>
+          <li>• <code>sections/cta/dark_panel.html</code> - Dark themed CTA</li>
+          <li>• <code>sections/header/centered.html</code> - Page headers</li>
+        </ul>
+      </div>
+      
+      <div class="bg-background p-4 rounded border">
+        <h4 class="font-medium mb-2">Feature & Content Partials:</h4>
+        <ul class="text-sm space-y-1 text-text-light">
+          <li>• <code>sections/features/with_fading_image.html</code> - Feature showcase</li>
+          <li>• <code>sections/features/with_wide_images.html</code> - Image features</li>
+          <li>• <code>sections/bentogrid/two_row.html</code> - Grid layouts</li>
+          <li>• <code>components/quote/blockquote.html</code> - Testimonials</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Information -->
+  <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+    <h3 class="text-lg font-semibold text-blue-900 mb-2">📋 Partial Usage Guidelines</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="font-medium text-blue-900 mb-2">Best Practices:</h4>
+        <ul class="text-blue-800 space-y-1 text-sm">
+          <li>• All partials support responsive design out of the box</li>
+          <li>• Color parameters typically accept Tailwind CSS color classes</li>
+          <li>• Use proper dict structures for complex parameters</li>
+          <li>• Image paths should be relative to the static directory</li>
+          <li>• Always include alt text for accessibility compliance</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-medium text-blue-900 mb-2">Performance Tips:</h4>
+        <ul class="text-blue-800 space-y-1 text-sm">
+          <li>• Use appropriate image dimensions to reduce loading times</li>
+          <li>• Optimize images before uploading to static folder</li>
+          <li>• Consider using lazy loading for images below the fold</li>
+          <li>• Test partials on different screen sizes</li>
+          <li>• Use semantic HTML elements for better SEO</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="mt-4 p-3 bg-yellow-100 rounded border border-yellow-300">
+      <p class="text-sm text-yellow-800"><strong>⚠️ Implementation Note:</strong> The live examples above show actual rendered output. For the hero section, we use the exact same <code>sections/hero/simple_centered.html</code> partial with structured parameters. Other examples simulate the typical output structure of each partial.</p>
+    </div>
+  </div>
+
+</div>
