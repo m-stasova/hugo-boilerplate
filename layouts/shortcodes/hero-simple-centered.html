@@ -10,7 +10,12 @@
     announcementEnabled="true/false" 
     announcementText="Announcement text" 
     announcementLinkText="Announcement link text" 
-    announcementLinkUrl="Announcement link URL" 
+    announcementLinkUrl="Announcement link URL"
+    imageEnabled="true/false"
+    imageSrc="Image source URL"
+    imageAlt="Image alt text"
+    imageWidth="Image width"
+    imageHeight="Image height"
   >}}
   
   Parameters:
@@ -24,30 +29,48 @@
   - announcementText: Text for the announcement
   - announcementLinkText: Text for the announcement link
   - announcementLinkUrl: URL for the announcement link
+  - imageEnabled: Enable/disable the hero image (true/false)
+  - imageSrc: Image source URL - can be also url of youtube video
+  - imageAlt: Alt text for the image
+  - imageWidth: Image width (optional)
+  - imageHeight: Image height (optional)
 */ -}}
 
 {{/* Simple Centered Hero Shortcode */}}
-{{ $heading := .Get "heading" | default (.Get 0) | default "Data to enrich your online business" }}
-{{ $description := .Get "description" | default (.Get 1) | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
-{{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "Get started" }}
+{{ $heading := .Get "heading" | default (.Get 0) | default "" }}
+{{ $description := .Get "description" | default (.Get 1) | default "" }}
+{{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "" }}
 {{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "#" }}
-{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "Learn more" }}
+{{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "" }}
 {{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
-{{ $announcementEnabled := .Get "announcementEnabled" | default (.Get 6) | default "true" }}
 {{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
 {{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "Read more" }}
 {{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "#" }}
+{{ $imageSrc := .Get "imageSrc" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $imageWidth := .Get "imageWidth" | default "" }}
+{{ $imageHeight := .Get "imageHeight" | default "" }}
 
+{{ $announcement := "" }}
+
+{{ if $announcementText}}
 {{ $announcement := dict 
-  "enabled" (eq $announcementEnabled "true")
   "text" $announcementText
   "linkText" $announcementLinkText
   "linkUrl" $announcementLinkUrl
 }}
+{{ end }}
 
 {{ $cta := dict 
   "primary" (dict "text" $primaryCTAText "url" $primaryCTAUrl)
   "secondary" (dict "text" $secondaryCTAText "url" $secondaryCTAUrl)
+}}
+
+{{ $image := dict 
+  "src" $imageSrc
+  "alt" $imageAlt
+  "width" $imageWidth
+  "height" $imageHeight
 }}
 
 {{ partial "sections/hero/simple_centered.html" (dict 
@@ -55,4 +78,5 @@
   "heading" $heading
   "description" $description
   "cta" $cta
+  "image" $image
 ) }}

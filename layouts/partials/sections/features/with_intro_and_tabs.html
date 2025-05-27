@@ -22,48 +22,7 @@
 {{ $page := .page }}
 {{ $uniqueID := printf "features-tabs-%d" (now.UnixNano) }}
 
-{{ $tabs := .tabs | default (slice 
-  (dict 
-    "id" "design"
-    "title" "Design"
-    "content" (dict
-      "title" "Adaptive and modular"
-      "description" "The Organize base set allows you to configure and evolve your setup as your items and habits change. The included trays and optional add-ons are easily rearranged to achieve that perfect setup."
-      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-01.jpg"
-      "imageAlt" "Maple organizer base with slots, supporting white polycarbonate trays of various sizes."
-    )
-  )
-  (dict 
-    "id" "material"
-    "title" "Material"
-    "content" (dict
-      "title" "Natural wood options"
-      "description" "Organize has options for rich walnut and bright maple base materials. Accent your desk with a contrasting material, or match similar woods for a calm and cohesive look. Every base is hand sanded and finished."
-      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-02.jpg"
-      "imageAlt" "Walnut organizer base with pen, sticky note, phone, and bin trays, next to modular drink coaster attachment."
-    )
-  )
-  (dict 
-    "id" "considerations"
-    "title" "Considerations"
-    "content" (dict
-      "title" "Helpful around the home"
-      "description" "Our customers use Organize throughout the house to bring efficiency to many daily routines. Enjoy Organize in your workspace, kitchen, living room, entry way, garage, and more. We can't wait to see how you'll use it!"
-      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-03.jpg"
-      "imageAlt" "Walnut organizer base with white polycarbonate trays in the kitchen with various kitchen utensils."
-    )
-  )
-  (dict 
-    "id" "included"
-    "title" "Included"
-    "content" (dict
-      "title" "Everything you'll need"
-      "description" "The Organize base set includes the pen, phone, small, and large trays to help you group all your essential items. Expand your set with the drink coaster and headphone stand add-ons."
-      "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-06-detail-04.jpg"
-      "imageAlt" "Walnut organizer system on black leather desk mat on top of white desk."
-    )
-  )
-) }}
+{{ $tabs := .tabs | default (slice) }}
 
 <div class="{{ $backgroundColor }}">
   <section aria-labelledby="{{ $uniqueID }}-heading" class="mx-auto max-w-7xl py-32 sm:px-2 lg:px-8">
@@ -98,11 +57,13 @@
             aria-labelledby="{{ $uniqueID }}-tab-{{ $tab.id }}" 
             role="tabpanel" 
             tabindex="0">
+            {{ if or $tab.content.title $tab.content.description }}
             <div class="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:gap-x-8">
               <div class="mt-6 lg:col-span-5 lg:mt-0">
-                <h3 class="text-lg font-medium text-gray-900">{{ $tab.content.title }}</h3>
-                <p class="mt-2 text-sm text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $tab.content.description "page" $page) | safeHTML }}</p>
+                {{if $tab.content.title }}<h3 class="text-lg font-medium text-gray-900">{{ $tab.content.title }}</h3>{{ end }}
+                {{if $tab.content.description }}<p class="mt-2 text-sm text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $tab.content.description "page" $page) | safeHTML }}</p>{{ end }}
               </div>
+              {{ if $tab.content.imageUrl }}
               <div class="lg:col-span-7">
                 {{ partial "components/media/lazyimg.html" (dict 
                   "src" $tab.content.imageUrl
@@ -110,7 +71,17 @@
                   "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-5/2"
                 ) }}
               </div>
+              {{ end }}
             </div>
+            {{ else }}
+            <div class="w-full">
+              {{ partial "components/media/lazyimg.html" (dict 
+                "src" $tab.content.imageUrl
+                "alt" $tab.content.imageAlt
+                "class" "aspect-2/1 w-full rounded-lg bg-gray-100 object-cover sm:aspect-5/2"
+              ) }}
+            </div>
+            {{ end }}
           </div>
         {{ end }}
       </div>

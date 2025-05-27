@@ -31,20 +31,47 @@
   <div id="icons-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
     {{ $iconsDir := "themes/boilerplate/layouts/partials/icons/" }}
     {{ $files := readDir $iconsDir }}
+    {{ $allIcons := slice }}
 
+    <!-- Process direct files in icons directory -->
     {{ range $files }}
-    {{ $iconName := replace .Name ".html" "" }}
-    {{ $isSolid := findRE "-solid$" $iconName }}
-    {{ $baseIconName := replace $iconName "-solid" "" }}
+      {{ if not .IsDir }}
+        {{ $iconName := replace .Name ".html" "" }}
+        {{ $allIcons = $allIcons | append (dict "name" $iconName "path" (printf "icons/%s" $iconName)) }}
+      {{ end }}
+    {{ end }}
 
-    <div
-      class="flex flex-col items-center p-4 rounded-lg bg-white shadow border border-gray-100 hover:border-gray-300 transition-colors icon-card cursor-pointer {{ if $isSolid }}solid-icon hidden{{ else }}outline-icon{{ end }}"
-      data-icon-name="{{ $iconName }}">
-      <div class="flex items-center justify-center w-12 h-12 bg-gray-50 rounded-md mb-2">
-        {{ partial (printf "icons/%s" $iconName) "w-6 h-6 text-gray-500" }}
+    <!-- Process subdirectories -->
+    {{ range $files }}
+      {{ if .IsDir }}
+        {{ $subDir := .Name }}
+        {{ $subFiles := readDir (printf "%s%s/" $iconsDir $subDir) }}
+        
+        {{ range $subFiles }}
+          {{ if not .IsDir }}
+            {{ $subIconName := replace .Name ".html" "" }}
+            {{ $fullIconName := printf "%s/%s" $subDir $subIconName }}
+            {{ $partialPath := printf "icons/%s/%s" $subDir $subIconName }}
+            {{ $allIcons = $allIcons | append (dict "name" $fullIconName "path" $partialPath) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    <!-- Render all icons -->
+    {{ range $allIcons }}
+      {{ $iconName := .name }}
+      {{ $partialPath := .path }}
+      {{ $isSolid := findRE "-solid$" $iconName }}
+
+      <div
+        class="flex flex-col items-center p-4 rounded-lg bg-white shadow border border-gray-100 hover:border-gray-300 transition-colors icon-card cursor-pointer {{ if $isSolid }}solid-icon hidden{{ else }}outline-icon{{ end }}"
+        data-icon-name="{{ $iconName }}">
+        <div class="flex items-center justify-center w-12 h-12 bg-gray-50 rounded-md mb-2">
+          {{ partial $partialPath "w-6 h-6 text-gray-500" }}
+        </div>
+        <div class="text-xs text-center text-gray-600 break-all mt-2">{{ $iconName }}</div>
       </div>
-      <div class="text-xs text-center text-gray-600 break-all mt-2">{{ $iconName }}</div>
-    </div>
     {{ end }}
   </div>
 

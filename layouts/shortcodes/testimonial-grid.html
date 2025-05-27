@@ -14,41 +14,34 @@
     gradientTo="#9089fc" 
     showHeading="true" 
   >}}
-  
-  Parameters:
-  1. headingTag: The text for the smaller heading/tag above the main heading
-  2. heading: The main heading text
-  3. bgColor: Background color class for the section
-  4. padding: Padding classes for the section
-  5. cardBgColor: Background color class for testimonial cards
-  6. cardRingColor: Ring color class for testimonial cards
-  7. cardShadow: Shadow class for testimonial cards
-  8. headingTagColor: Text color class for heading tag
-  9. headingColor: Text color class for main heading
-  10. gradientFrom: Starting color for gradient (hex)
-  11. gradientTo: Ending color for gradient (hex)
-  12. showHeading: Whether to show the heading section (true/false)
 */ -}}
 
-{{/* Testimonials Grid Shortcode */}}
-{{ $headingTag := (.Get 0) | default "Testimonials" }}
-{{ $heading := (.Get 1) | default "We have worked with thousands of amazing people" }}
-{{ $bgColor := (.Get 2) | default "bg-white" }}
-{{ $padding := (.Get 3) | default "pt-24 pb-32 sm:pt-32" }}
-{{ $cardBgColor := (.Get 4) | default "bg-white" }}
-{{ $cardRingColor := (.Get 5) | default "ring-gray-900/5" }}
-{{ $cardShadow := (.Get 6) | default "shadow-lg" }}
-{{ $headingTagColor := (.Get 7) | default "text-indigo-600" }}
-{{ $headingColor := (.Get 8) | default "text-gray-900" }}
-{{ $gradientFrom := (.Get 9) | default "#ff80b5" }}
-{{ $gradientTo := (.Get 10) | default "#9089fc" }}
-{{ $showHeading := (.Get 11) | default "true" }}
+{{ $headingTag := (.Get "headingTag") | default "" }}
+{{ $heading := (.Get "heading") | default "" }}
+{{ $bgColor := (.Get "bgColor") | default "bg-white" }}
+{{ $padding := (.Get "padding") | default "pt-24 pb-32 sm:pt-32" }}
+{{ $cardBgColor := (.Get "cardBgColor") | default "bg-white" }}
+{{ $cardRingColor := (.Get "cardRingColor") | default "ring-gray-900/5" }}
+{{ $cardShadow := (.Get "cardShadow") | default "shadow-lg" }}
+{{ $headingTagColor := (.Get "headingTagColor") | default "text-indigo-600" }}
+{{ $headingColor := (.Get "headingColor") | default "text-gray-900" }}
+{{ $gradientFrom := (.Get "gradientFrom") | default "#ff80b5" }}
+{{ $gradientTo := (.Get "gradientTo") | default "#9089fc" }}
+{{ $showHeading := (.Get "showHeading") | default "true" }}
 
 {{/* 
   Note: For this shortcode, we're using the default testimonials from the partial.
   In a real-world implementation, you might want to allow passing in custom testimonials
   through a structured data file.
 */}}
+
+
+{{ $testimonials := slice }}
+{{ with .Inner }}
+  {{ if . }}
+    {{ $testimonials = . | unmarshal }}
+  {{ end }}
+{{ end }}
 
 {{ partial "sections/testimonials/grid.html" (dict 
   "headingTag" $headingTag
@@ -63,4 +56,5 @@
   "gradientFrom" $gradientFrom
   "gradientTo" $gradientTo
   "showHeading" (eq $showHeading "true")
+  "testimonials" $testimonials
 ) }}
