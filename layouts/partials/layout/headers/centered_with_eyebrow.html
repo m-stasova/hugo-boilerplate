@@ -31,15 +31,14 @@
 {{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 
 {{/* Heading */}}
-{{ $heading := .heading }}
+{{ $heading := .heading | default "" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
-{{ $description := .description }}
+{{ $description := .description | default "" }}
 {{ $descriptionColor := .descriptionColor | default "text-gray-500" }}
 
 {{/* Max width */}}
 {{ $maxWidth := .maxWidth | default "max-w-4xl" }}
 
-{{ if $heading }}
 <div class="{{ $bgColor }} {{ $padding }}">
   <div class="mx-auto {{ $maxWidth }} text-center">
     {{ if $eyebrow }}
@@ -51,4 +50,3 @@
     {{ end }}
   </div>
 </div>
-{{ end }}
