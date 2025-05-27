@@ -3,7 +3,6 @@
 @description: A simple centered hero section with optional announcement, heading, description, two CTA buttons, and an optional image.
 @params:
   - announcement: Object with announcement information (optional)
-    - enabled: Whether the announcement should be displayed (true/false)
     - text: Announcement text
     - linkText: Text for the announcement link
     - linkUrl: URL for the announcement link
@@ -21,7 +20,6 @@
 @example:
   {{ partial "sections/hero/simple_centered.html" (dict 
       "announcement" (dict 
-          "enabled" true 
           "text" "We've just launched a new version!" 
           "linkText" "Read more" 
           "linkUrl" "/blog/new-product"
@@ -42,12 +40,7 @@
   ) }}
 */}}
 
-{{ $announcement := .announcement | default (dict 
-  "enabled" true 
-  "text" "Announcing our next round of funding."
-  "linkText" "Read more"
-  "linkUrl" "#"
-) }}
+{{ $announcement := .announcement | default "" }}
 {{ $heading := .heading | default "Data to enrich your online business" }}
 {{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $cta := .cta | default (dict 
