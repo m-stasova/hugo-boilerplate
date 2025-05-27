@@ -27,22 +27,22 @@
 
 {{ if $langData }}
   <!-- For all_languages data mode -->
-  {{ $href = $langData.baseURL }}
+  {{ $href = printf "%s%s" $langData.baseDomainName $langData.baseURL }}
   {{ if $filePath }}
     {{ if index site.Data.translation_urls }}
       {{ $translationData := index site.Data "translation_urls" $filePath }}
       {{ if $translationData }}
         {{ $translatedUrl := index $translationData $code }}
         {{ if $translatedUrl }}
-          {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $translatedUrl }}
+          {{ $href = printf "%s%s%s" $langData.baseDomainName (strings.TrimSuffix "/" $langData.baseURL) $translatedUrl }}
         {{ else }}
-          {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+          {{ $href = printf "%s%s%s" $langData.baseDomainName (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
         {{ end }}
       {{ else }}
-        {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+        {{ $href = printf "%s%s%s" $langData.baseDomainName (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
       {{ end }}
     {{ else }}
-      {{ $href = printf "%s%s" (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
+      {{ $href = printf "%s%s%s" $langData.baseDomainName (strings.TrimSuffix "/" $langData.baseURL) $currentPage.RelPermalink }}
     {{ end }}
   {{ end }}
 {{ else if $permalink }}
