@@ -43,11 +43,9 @@
 {{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "#" }}
 {{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "" }}
 {{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
-{{ $announcementEnabled := .Get "announcementEnabled" | default (.Get 6) | default "true" }}
 {{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
 {{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "Read more" }}
 {{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "#" }}
-{{ $imageEnabled := .Get "imageEnabled" | default "false" }}
 {{ $imageSrc := .Get "imageSrc" | default "" }}
 {{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $imageWidth := .Get "imageWidth" | default "" }}
@@ -69,7 +67,6 @@
 }}
 
 {{ $image := dict 
-  "enabled" (eq $imageEnabled "true")
   "src" $imageSrc
   "alt" $imageAlt
   "width" $imageWidth

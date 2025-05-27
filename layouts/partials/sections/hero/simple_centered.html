@@ -12,7 +12,6 @@
     - primary: Primary CTA button (text, url)
     - secondary: Secondary CTA button (text, url)
   - image: Object with image information (optional)
-    - enabled: Whether the image should be displayed (true/false)
     - src: Image source URL
     - alt: Alt text for accessibility
     - width: Image width (optional)
@@ -31,7 +30,6 @@
           "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "/features")
       )
       "image" (dict
-          "enabled" true
           "src" "/images/dashboard-screenshot.png"
           "alt" "Dashboard screenshot"
           "width" "2432"
@@ -48,7 +46,6 @@
   "secondary" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
 ) }}
 {{ $image := .image | default (dict 
-  "enabled" false
   "src" ""
   "alt" ""
   "width" ""
@@ -60,10 +57,10 @@
     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
       <div class="relative left-[calc(50%-11rem)] aspect-1155/678 w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
     </div>
-    <div class="py-24 sm:py-32{{ if $image.enabled }} lg:pb-40{{ else }} lg:py-56{{ end }}">
+    <div class="py-24 sm:py-32{{ if and $image $image.src }} lg:pb-40{{ else }} lg:py-56{{ end }}">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
-          {{ if $announcement.enabled }}
+          {{ if and $announcement $announcement.text }}
           <div class="hidden sm:mb-8 sm:flex sm:justify-center">
             <div class="relative rounded-full px-3 py-1 text-sm/6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
               {{ $announcement.text }} <a href="{{ $announcement.linkUrl }}" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>{{ $announcement.linkText }} <span aria-hidden="true">&rarr;</span></a>
@@ -77,10 +74,14 @@
             <a href="{{ $cta.secondary.url }}" class="text-sm/6 font-semibold text-gray-900">{{ $cta.secondary.text }} <span aria-hidden="true">→</span></a>
           </div>
         </div>
-        {{ if $image.enabled }}
+        {{ if and $image $image.src }}
         <div class="mt-16 flow-root sm:mt-24">
           <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-            <img src="{{ $image.src }}" alt="{{ $image.alt }}"{{ if $image.width }} width="{{ $image.width }}"{{ end }}{{ if $image.height }} height="{{ $image.height }}"{{ end }} class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
+            {{ partial "components/media/lazyimg.html" (dict 
+                    "src" .image.src
+                    "alt" .image.alt
+                    "class" "w-full rounded-xl bg-gray-900/5 object-cover shadow-lg ring-1 ring-inset ring-gray-900/10"
+                  ) }}
           </div>
         </div>
         {{ end }}
