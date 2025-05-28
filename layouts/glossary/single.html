@@ -19,16 +19,16 @@
 {{ $shortDescription := .Params.shortDescription | default "" }}
 {{ if .Params.image }}
 {{ partial "sections/hero/split_with_image.html" (dict
-"heading" .Params.term
+"heading" (.Params.term | default .Title)
 "description" (markdownify $shortDescription)
-"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow") | default "")
+"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow" | default ""))
 "image" .Params.image
 ) }}
 {{ else }}
 {{ partial "layout/headers/centered_with_eyebrow.html" (dict
-"heading" .Params.term
+"heading" (.Params.term | default .Title)
 "description" (markdownify $shortDescription)
-"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow") | default "")
+"eyebrow" (.Params.eyebrow | default (i18n "glossary_eyebrow" | default ""))
 ) }}
 {{ end }}
 
