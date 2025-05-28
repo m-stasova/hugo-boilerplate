@@ -31,6 +31,9 @@
 
 {{/* Summary and description */}}
 {{ $description := or $page.Params.description $page.Description }}
+{{ if and $description (gt (len $description) 160) }}
+  {{- $description = printf "%.160s..." $description -}}
+{{ end }}
 {{ if not $description }}
   {{- $plain := $page.Summary | plainify -}}
   {{- $noShortcodes := replaceRE `{{<[^>]*>}}` "" $plain -}}
@@ -38,7 +41,7 @@
   {{- $noHTML := replaceRE `<[^>]*>` "" $noDoubleCurlies -}}
   {{- $compact := replaceRE `[\r\n\t]+` " " $noHTML -}}
   {{- if gt (len $compact) 160 -}}
-    {{- $compact = printf "%.160s" $compact -}}
+    {{- $compact = printf "%.160s..." $compact -}}
   {{- end -}}
   {{- $description = $compact -}}
 {{ end }}
@@ -48,53 +51,68 @@
 {{ $permalink := $page.RelPermalink }}
 {{ $section := $page.Section }}
 {{ $imageBgColor := $page.Params.imageBgColor | default "#ffffff" }}
+{{ $isCurrent := and $section (ne $section $page.Section) }}
+{{ $labelBySection := partial "components/label/label.html" (dict 
+    "text" (humanize $section)
+    "bgColor" "bg-gray-100"
+    "textColor" "text-gray-500"
+    "rounded" "rounded-[4.3125rem]"
+) }}
 
 <article class="group relative rounded-lg flex flex-col overflow-hidden" style="height: {{ $cardHeight }}px;">
     {{ if $image }}
     <div class="flex-none flex items-center justify-center mb-8 overflow-hidden border border-opacity/black-10% rounded-lg min-h-[16.875rem]"
         style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
-        {{ partial "components/media/lazyimg.html" (dict
-        "src" $image
-        "alt" $title
-        "class" "w-full h-full object-cover"
-        "classPicture" "w-full h-full object-cover"
-        ) }}
+        <a href="{{ $permalink }}" class="w-full h-full flex items-center justify-center">
+            {{ partial "components/media/lazyimg.html" (dict
+                "src" $image
+                "alt" $title
+                "class" "w-full h-full object-cover"
+                "classPicture" "w-full h-full object-cover"
+            ) }}
+        </a>
     </div>
     {{ end }}
 
     <div class="flex flex-col flex-grow">
-        {{ if $page.Date }}
         <!-- Date and Section -->
         <div class="flex items-center gap-4 mb-2.5">
             <span class="flex items-center">
+                {{ if $page.Date }}
                 <time datetime="{{ $date }}" class="text-xs font-normal text-gray-600">
                     {{ $date }}
                 </time>
+                {{ end }}
                 <!-- Reading Time -->
                 {{ if $readingTime }}
                 <div class="flex items-center text-xs font-normal text-gray-600">
+                    {{ if $page.Date }}
                     <span class="inline-flex mx-1.5 w-0.5 h-0.5 rounded-full bg-gray-600"></span>
+                    {{ end }}
                     {{ printf "%d %s" $readingTime (i18n "minutes_read") }}
                 </div>
                 {{ end }}
             </span>
-            {{ if $section }}
+            {{ if $isCurrent }}
             <!-- Section Link -->
-            <a href="{{ print " /" $section "/" | relLangURL }}"
-                class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">{{ humanize $section }}</a>
+            <a href="{{ print "/" $section "/" | relLangURL }}">
+                {{ $labelBySection }}
+            </a>
+            {{ else }}
+            <!-- Current Section -->
+                {{ $labelBySection }}
             {{ end }}
 
         </div>
-        {{ end }}
 
         <!-- Title and Description -->
         <h3 class="mb-5 text-lg font-semibold group-hover:text-primary text-gray-900">
             <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
-                <span class="absolute inset-0" aria-hidden="true"></span>
+                <span class="inset-0" aria-hidden="true"></span>
                 {{ $title }}
             </a>
         </h3>
-        <p class="text-sm text-gray-600 font-normal line-clamp-2 flex-grow">{{ $description }}</p>
+        <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-2 flex-grow overflow-hidden">{{ $description }}</p>
 
         <!-- Tags -->
         <div class="mt-6 flex items-center justify-between">
@@ -102,15 +120,22 @@
             {{ if $page.Params.tags }}
             <div class="flex flex-wrap gap-1">
                 {{ range first 2 $page.Params.tags }}
-                <a href="{{ print " /tags/" (. | urlize) | relLangURL }}"
-                    class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">
-                    {{ . }}
+                <a href="{{ print "/tags/" (. | urlize) | relLangURL }}">
+                    {{ partial "components/label/label.html" (dict 
+                        "text" . 
+                        "bgColor" "bg-gray-100" 
+                        "textColor" "text-gray-500"
+                        "borderColor" "border-zinc-200"
+                    ) }}
                 </a>
                 {{ end }}
                 {{ if gt (len $page.Params.tags) 2 }}
-                <span class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">
-                    +{{ sub (len $page.Params.tags) 2 }}
-                </span>
+                {{ partial "components/label/label.html" (dict 
+                    "text" (printf "+%d" (sub (len $page.Params.tags) 2)) 
+                    "bgColor" "bg-gray-100" 
+                    "textColor" "text-gray-500"
+                    "borderColor" "border-zinc-200"
+                ) }}
                 {{ end }}
             </div>
             {{ end }}

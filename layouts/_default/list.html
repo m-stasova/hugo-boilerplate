@@ -3,7 +3,7 @@
 {{ $title := .Title | default "" }}
 {{ $description := .Description | default "" }}
 {{ $pages := .Pages }}
-{{ $paginator := .Paginate (.Pages.ByTitle) 3 }}
+{{ $paginator := .Paginate (.Pages.ByTitle) 60 }}
 {{ $sortedPages := sort $paginator.Pages "Date" "desc" }}
 {{ $countOfPages := len $sortedPages }}
 {{ $baseHeight := 540 }}
