@@ -25,14 +25,14 @@
 @note: This section creates visual impact with a dark background and gradient effect that draws attention to the call-to-action content.
 */}}
 
-{{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
-{{ $description := .description | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
 {{ $primaryCta := .primaryCta | default (dict 
-  "text" "Get started"
+  "text" (i18n "get_started")
   "url" "#"
 ) }}
 {{ $secondaryCta := .secondaryCta | default (dict 
-  "text" ((i18n "learnMore") | default "Learn more")
+  "text" ((i18n "learnMore") | default "")
   "url" "#"
 ) }}
 {{ $gradientStartColor := .gradientStartColor | default "#7775D6" }}
@@ -50,13 +50,5 @@
       </div>
     </div>
   </div>
-  <svg viewBox="0 0 1024 1024" class="absolute top-1/2 left-1/2 -z-10 size-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
-    <circle cx="512" cy="512" r="512" fill="url(#{{ $gradientId }})" fill-opacity="0.7" />
-    <defs>
-      <radialGradient id="{{ $gradientId }}">
-        <stop stop-color="{{ $gradientStartColor }}" />
-        <stop offset="1" stop-color="{{ $gradientEndColor }}" />
-      </radialGradient>
-    </defs>
-  </svg>
+  <div class="absolute top-1/2 left-1/2 -z-10 size-[64rem] -translate-x-1/2 translate-y-0 rounded-full opacity-70 [mask-image:radial-gradient(closest-side,white,transparent)]" style="background: radial-gradient(circle, {{ $gradientStartColor }} 0%, {{ $gradientEndColor }} 100%)" aria-hidden="true"></div>
 </div>

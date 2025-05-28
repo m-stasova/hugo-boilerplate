@@ -25,85 +25,83 @@
   {{ $cardHeight = .cardHeight }}
 {{ end }}
 {{ $page := .page | default . }}
-{{ $imageSectionHeight := div (mul $cardHeight 2) 3 }} {{/* 40% of cardHeight */}}
-{{ $image := $page.Params.image }}
+{{ $imageSectionHeight := div (mul $cardHeight 45) 100 }} {{/* 45% of cardHeight */}}
+{{ $image := $page.Params.image | default "/placeholder-image.jpg" }}
 {{ $title := $page.Title }}
-{{ $description := $page.Params.description | default $page.Description | default $page.Summary }}
+
+{{/* Summary and description */}}
+{{ $description := or $page.Params.description $page.Description }}
+{{ if not $description }}
+  {{- $plain := $page.Summary | plainify -}}
+  {{- $noShortcodes := replaceRE `{{<[^>]*>}}` "" $plain -}}
+  {{- $noDoubleCurlies := replaceRE `{{[^}]*}}` "" $noShortcodes -}}
+  {{- $noHTML := replaceRE `<[^>]*>` "" $noDoubleCurlies -}}
+  {{- $compact := replaceRE `[\r\n\t]+` " " $noHTML -}}
+  {{- if gt (len $compact) 160 -}}
+    {{- $compact = printf "%.160s" $compact -}}
+  {{- end -}}
+  {{- $description = $compact -}}
+{{ end }}
+
 {{ $date := $page.Date.Format "Jan 2, 2006" }}
 {{ $readingTime := $page.ReadingTime }}
 {{ $permalink := $page.RelPermalink }}
 {{ $section := $page.Section }}
 {{ $imageBgColor := $page.Params.imageBgColor | default "#ffffff" }}
 
-<style>
-  /* Post card image container */
-  .post-card-image-container {
-    height: {{ $imageSectionHeight }}px;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Post card image styling */
-  .post-card-image {
-    max-height: {{ $imageSectionHeight }}px !important;
-    max-width: 100% !important;
-    width: auto !important;
-    height: auto !important;
-    object-fit: contain !important;
-    padding: 5px; /* 2px padding around the image */
-    border-radius: 0.5rem; /* Added for rounded corners */
-  }
-</style>
-
-<article class="group relative rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col" style="height: {{ $cardHeight }}px;">
+<article
+  class="group relative rounded-lg border border-gray-200 bg-white hover:shadow-md transition-shadow flex flex-col overflow-hidden"
+  style="height: {{ $cardHeight }}px;">
   {{ if $image }}
-  <!-- Image Container with custom CSS classes -->
-  <div class="post-card-image-container" style="background-color: {{ $imageBgColor }};">
+  <div
+    class="flex-none flex items-center justify-center overflow-hidden rounded-t-lg"
+    style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
     {{ partial "components/media/lazyimg.html" (dict
-      "src" $image
-      "alt" $title
-      "class" "post-card-image group-hover:opacity-90 transition-opacity"
-      "maxWidth" 300
-    ) }}
+        "src"           $image
+        "alt"           $title
+        "class"         "w-full h-full object-cover"
+        "classPicture"  "w-full h-full object-cover"
+      ) }}
   </div>
   {{ end }}
   
   <div class="p-4 flex flex-col flex-grow">
     {{ if $page.Date }}
-    <!-- Date and Section -->
-    <div class="flex items-center gap-x-4 text-xs mb-2">
-      <time datetime="{{ $page.Date.Format "2006-01-02" }}" class="text-gray-500">{{ $date }}</time>
-      {{ if $section }}
-        <a href="{{ print "/" $section "/" | relLangURL }}" class="relative z-10 rounded-full bg-gray-50 px-3 py-1 font-medium text-gray-600 hover:bg-gray-100">{{ humanize $section }}</a>
-      {{ end }}
+     <!-- Date and Section -->
+    <div class="flex justify-between items-center mb-3">
+        {{ if $section }}
+            <a href="{{ print "/" $section "/" | relLangURL }}" class="inline-block rounded-md border border-primary px-2.5 py-1 text-xs font-medium"  style="color: var(--color-text);">{{ humanize $section }}</a>
+        {{ end }}
+        <span class="flex items-center text-xs text-gray-500">
+            {{ partial "icons/calendar-days" "w-4 h-4" }}
+            <time datetime="{{ $date }}" class="text-xs text-gray-500 ml-2">
+            {{ $date }}
+            </time>
+        </span>
     </div>
     {{ end }}
     
     <!-- Title and Description -->
-    <h3 class="text-base font-semibold text-gray-900 group-hover:text-indigo-600">
-      <a href="{{ $permalink }}" class="hover:text-indigo-600 focus:outline-none">
+    <h3 class="text-2xl font-semibold group-hover:text-primary" style="color: var(--color-text);">
+      <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
         <span class="absolute inset-0" aria-hidden="true"></span>
         {{ $title }}
       </a>
     </h3>
     <p class="mt-1 text-sm text-gray-500 line-clamp-2 flex-grow">{{ $description }}</p>
-    
+
     <!-- Tags and Author -->
     <div class="mt-2 flex items-center justify-between">
       <!-- Tags (limited to 2) -->
       {{ if $page.Params.tags }}
         <div class="flex flex-wrap gap-1">
           {{ range first 2 $page.Params.tags }}
-            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800 hover:bg-gray-200">
+            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium hover:bg-gray-200"  style="color: var(--color-text);">
               {{ . }}
             </a>
           {{ end }}
           {{ if gt (len $page.Params.tags) 2 }}
-            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800">
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium" style="color: var(--color-text);">
               +{{ sub (len $page.Params.tags) 2 }}
             </span>
           {{ end }}
@@ -112,14 +110,14 @@
       
       <!-- Price (if applicable) -->
       {{ if $page.Params.price }}
-        <div class="text-sm font-semibold text-gray-900 mt-2">
+        <div class="text-sm font-semibold mt-2" style="color: var(--color-text);">
           {{ printf "%.2f€" (float $page.Params.price) }}
         </div>
       {{ else }}
         <!-- Reading Time -->
         {{ if $readingTime }}
           <div class="text-sm text-gray-500 mt-2">
-            {{ printf "%d min read" $readingTime }}
+            {{ printf "%d %s" $readingTime (i18n "minutes_read") }}
           </div>
         {{ end }}
       {{ end }}

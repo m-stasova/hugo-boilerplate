@@ -22,6 +22,7 @@
 {{ $src := .src }}
 {{ $alt := .alt | default "" }}
 {{ $class := .class | default "" }}
+{{ $classPicture := .classPicture | default "" }}
 {{ $id := .id | default "" }}
 {{ $width := .width | default "" }}
 {{ $height := .height | default "" }}
@@ -209,7 +210,7 @@
     <!-- Calculate explicit sizes attribute to force browser to use the correct size -->
     {{ $explicitSizes := printf "%dpx" $maxWidth }}
     
-    <picture class="lazy-picture">
+    <picture class="lazy-picture {{ with $classPicture }}{{ . }}{{ end }}">
       <!-- WebP sources with lazy loading -->
       {{ if $webpSrcset }}
       <source 

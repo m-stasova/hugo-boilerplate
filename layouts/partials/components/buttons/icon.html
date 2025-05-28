@@ -30,6 +30,7 @@
 {{ $text := .text }}
 {{ $url := .url }}
 {{ $icon := .icon | default "map" }}
+{{ $iconClasses := .iconClasses | default "" }}
 {{ $iconPosition := .iconPosition | default "left" }}
 {{ $variant := .variant | default "primary" }}
 {{ $classes := .classes | default "" }}
@@ -75,13 +76,13 @@
     class="{{ $buttonClasses }}">
     
     {{ if eq $iconPosition "left" }}
-      <span class="mr-2">{{ partial (printf "icons/%s" $icon) }}</span>
+      <span class="mr-2">{{ partial (printf "icons/%s" $icon) $iconClasses }}</span>
     {{ end }}
     
     {{ $text }}
     
     {{ if eq $iconPosition "right" }}
-      <span class="ml-2">{{ partial (printf "icons/%s" $icon) }}</span>
+      <span class="ml-2">{{ partial (printf "icons/%s" $icon) $iconClasses }}</span>
     {{ end }}
   </a>
 {{ end }}
