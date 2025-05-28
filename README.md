@@ -445,6 +445,14 @@ Dont forget future date is not built by default, if you want to build future pos
 hugo server --buildFuture
 ```
 
+
+### Printing DEBUG messages during development
+To print debug messages during development, you can use the `{{ printf }}` function in your templates:
+
+```go
+{{ warnf "DEBUG get-language-url: jsonify langData: %s" (jsonify $langData) }}
+```
+
 ### Common Issues
 
 1. **PostCSS Processing Errors**: Ensure you have the correct PostCSS configuration in your project root.
