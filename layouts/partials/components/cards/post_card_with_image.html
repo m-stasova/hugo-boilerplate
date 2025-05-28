@@ -49,78 +49,71 @@
 {{ $section := $page.Section }}
 {{ $imageBgColor := $page.Params.imageBgColor | default "#ffffff" }}
 
-<article
-  class="group relative rounded-lg border border-gray-200 bg-white hover:shadow-md transition-shadow flex flex-col overflow-hidden"
-  style="height: {{ $cardHeight }}px;">
-  {{ if $image }}
-  <div
-    class="flex-none flex items-center justify-center overflow-hidden rounded-t-lg"
-    style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
-    {{ partial "components/media/lazyimg.html" (dict
-        "src"           $image
-        "alt"           $title
-        "class"         "w-full h-full object-cover"
-        "classPicture"  "w-full h-full object-cover"
-      ) }}
-  </div>
-  {{ end }}
-  
-  <div class="p-4 flex flex-col flex-grow">
-    {{ if $page.Date }}
-     <!-- Date and Section -->
-    <div class="flex justify-between items-center mb-3">
-        {{ if $section }}
-            <a href="{{ print "/" $section "/" | relLangURL }}" class="inline-block rounded-md border border-primary px-2.5 py-1 text-xs font-medium"  style="color: var(--color-text);">{{ humanize $section }}</a>
-        {{ end }}
-        <span class="flex items-center text-xs text-gray-500">
-            {{ partial "icons/calendar-days" "w-4 h-4" }}
-            <time datetime="{{ $date }}" class="text-xs text-gray-500 ml-2">
-            {{ $date }}
-            </time>
-        </span>
+<article class="group relative rounded-lg flex flex-col overflow-hidden" style="height: {{ $cardHeight }}px;">
+    {{ if $image }}
+    <div class="flex-none flex items-center justify-center mb-8 overflow-hidden border border-opacity/black-10% rounded-lg min-h-[16.875rem]"
+        style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
+        {{ partial "components/media/lazyimg.html" (dict
+        "src" $image
+        "alt" $title
+        "class" "w-full h-full object-cover"
+        "classPicture" "w-full h-full object-cover"
+        ) }}
     </div>
     {{ end }}
-    
-    <!-- Title and Description -->
-    <h3 class="text-2xl font-semibold group-hover:text-primary" style="color: var(--color-text);">
-      <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
-        <span class="absolute inset-0" aria-hidden="true"></span>
-        {{ $title }}
-      </a>
-    </h3>
-    <p class="mt-1 text-sm text-gray-500 line-clamp-2 flex-grow">{{ $description }}</p>
 
-    <!-- Tags and Author -->
-    <div class="mt-2 flex items-center justify-between">
-      <!-- Tags (limited to 2) -->
-      {{ if $page.Params.tags }}
-        <div class="flex flex-wrap gap-1">
-          {{ range first 2 $page.Params.tags }}
-            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium hover:bg-gray-200"  style="color: var(--color-text);">
-              {{ . }}
-            </a>
-          {{ end }}
-          {{ if gt (len $page.Params.tags) 2 }}
-            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium" style="color: var(--color-text);">
-              +{{ sub (len $page.Params.tags) 2 }}
+    <div class="flex flex-col flex-grow">
+        {{ if $page.Date }}
+        <!-- Date and Section -->
+        <div class="flex items-center gap-4 mb-2.5">
+            <span class="flex items-center">
+                <time datetime="{{ $date }}" class="text-xs font-normal text-gray-600">
+                    {{ $date }}
+                </time>
+                <!-- Reading Time -->
+                {{ if $readingTime }}
+                <div class="flex items-center text-xs font-normal text-gray-600">
+                    <span class="inline-flex mx-1.5 w-0.5 h-0.5 rounded-full bg-gray-600"></span>
+                    {{ printf "%d %s" $readingTime (i18n "minutes_read") }}
+                </div>
+                {{ end }}
             </span>
-          {{ end }}
+            {{ if $section }}
+            <!-- Section Link -->
+            <a href="{{ print " /" $section "/" | relLangURL }}"
+                class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">{{ humanize $section }}</a>
+            {{ end }}
+
         </div>
-      {{ end }}
-      
-      <!-- Price (if applicable) -->
-      {{ if $page.Params.price }}
-        <div class="text-sm font-semibold mt-2" style="color: var(--color-text);">
-          {{ printf "%.2f€" (float $page.Params.price) }}
-        </div>
-      {{ else }}
-        <!-- Reading Time -->
-        {{ if $readingTime }}
-          <div class="text-sm text-gray-500 mt-2">
-            {{ printf "%d %s" $readingTime (i18n "minutes_read") }}
-          </div>
         {{ end }}
-      {{ end }}
+
+        <!-- Title and Description -->
+        <h3 class="mb-5 text-lg font-semibold group-hover:text-primary text-gray-900">
+            <a href="{{ $permalink }}" class="hover:text-primary focus:outline-none">
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                {{ $title }}
+            </a>
+        </h3>
+        <p class="text-sm text-gray-600 font-normal line-clamp-2 flex-grow">{{ $description }}</p>
+
+        <!-- Tags -->
+        <div class="mt-6 flex items-center justify-between">
+            <!-- Tags (limited to 2) -->
+            {{ if $page.Params.tags }}
+            <div class="flex flex-wrap gap-1">
+                {{ range first 2 $page.Params.tags }}
+                <a href="{{ print " /tags/" (. | urlize) | relLangURL }}"
+                    class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">
+                    {{ . }}
+                </a>
+                {{ end }}
+                {{ if gt (len $page.Params.tags) 2 }}
+                <span class="inline-block rounded-[4.3125rem] bg-gray-100 text-gray-500 px-2.5 py-1.5 text-xs font-semibold">
+                    +{{ sub (len $page.Params.tags) 2 }}
+                </span>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
     </div>
-  </div>
 </article>
