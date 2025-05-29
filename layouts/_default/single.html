@@ -63,6 +63,23 @@
 ) }}
 {{ end }}
 
+<!-- Author Section -->
+{{ if .Params.author }}
+{{ $authors := site.Data.authors }}
+{{ $authorKey := .Params.author }}
+{{ if and $authors $authorKey (index $authors $authorKey) }}
+{{ $author := index $authors $authorKey }}
+  {{ partial "sections/testimonials/with_large_avatar.html" (dict 
+    "personName" $author.name
+    "personRole" $author.role
+    "personImage" $author.image
+    "personImageAlt" $author.name
+    "quote" $author.description
+    ) }}
+{{ end }}
+{{ end }}
+
+
 <!-- CTA Section -->
 {{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
 {{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
