@@ -1,12 +1,12 @@
----
-title: 'Design System'
-description: 'Internal documentation of FlowHunt visual style'
-layout: 'design-system'
-draft: false
-private: true
-sitemap_exclude: true
-outputs: ['HTML']
----
++++
+title = 'Design System'
+description = 'Internal documentation of FlowHunt visual style'
+layout = 'design-system'
+draft = false
+private = true
+sitemap_exclude = true
+outputs = ['HTML']
++++
 
 Internal design system for FlowHunt.
 
