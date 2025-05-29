@@ -1,13 +1,49 @@
+{{/*
+@section: Split Hero with Chatbot
+@description: A split hero section with text content on the left and an embedded chatbot on the right, with optional CTA buttons.
+@params:
+  - eyebrow: Small text above the heading (optional)
+  - heading: Main section heading (optional)
+  - description: Description below the heading (optional)
+  - cta: Object with CTA buttons information (optional)
+    - primary: Primary CTA button (text, url)
+    - secondary: Secondary CTA button (text, url)
+  - chatbotId: ID of the chatbot to embed (required)
+  - workspaceId: Workspace ID for the chatbot (required)
+@example:
+  {{ partial "sections/hero/split_with_chatbot.html" (dict 
+      "eyebrow" "AI-Powered Solution"
+      "heading" "Chat with our AI Assistant" 
+      "description" "Get instant answers and personalized assistance from our intelligent chatbot."
+      "cta" (dict 
+          "primary" (dict "text" "Get started" "url" "/signup") 
+          "secondary" (dict "text" "Learn more" "url" "/features")
+      )
+      "chatbotId" "your-chatbot-id"
+      "workspaceId" "your-workspace-id"
+  ) }}
+*/}}
+
+{{ $cta := .cta | default "" }}
+
 <section class="bg-white py-16 px-6">
-  <div class="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+  <div class="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      {{ if .eyebrow }}
-      <p class="text-sm font-semibold text-indigo-600 uppercase">{{ .eyebrow }}</p>
+      {{ if .eyebrow }}<p class="text-sm font-semibold text-indigo-600 uppercase">{{ .eyebrow }}</p>{{ end }}
+      {{ if .heading }}<h1 class="mt-2 text-3xl font-extrabold text-gray-900">{{ .heading }}</h1>{{ end }}
+      {{ if  .description }}<div class="mt-4 text-lg text-gray-600">{{ .description | safeHTML }}</div>{{ end }}
+      {{ if $cta }}
+      <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        {{ if $cta.primary }}
+        <a href="{{ $cta.primary.url }}" class="rounded-md bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $cta.primary.text }}</a>
+        {{ end }}
+        {{ if $cta.secondary }}
+        <a href="{{ $cta.secondary.url }}" class="text-sm font-semibold text-gray-900 hover:text-indigo-600">{{ $cta.secondary.text }} <span aria-hidden="true">→</span></a>
+        {{ end }}
+      </div>
       {{ end }}
-      <h1 class="mt-2 text-3xl font-extrabold text-gray-900">{{ .heading }}</h1>
-      <div class="mt-4 text-lg text-gray-600">{{ .description | safeHTML }}</div>
     </div>
-    <div class="w-full relative h-[300px] overflow-hidden">
+    <div class="w-full relative overflow-hidden">
         <!-- Chatbot Integration -->
 {{ if .chatbotId }}
 <script id="fh-chatbot-script-{{ .chatbotId }}">
@@ -17,7 +53,7 @@ script.async = true;
 script.src = 'https://app.flowhunt.io/api/chatbot/{{ .chatbotId }}?workspace_id={{ .workspaceId }}';
 script.onload = function() {  // Initialize the chatbot and get the manager instance
   {{ $chatbotVar := replace .chatbotId "-" "_" }}
-  {{ printf "window.FHChatbot_%s.setConfig({\"embedded\": true,});" $chatbotVar | safeJS }}
+  {{ printf "window.FHChatbot_%s.setConfig({\"embedded\": true,\"maxWindowHeight\": \"500px\"});" $chatbotVar | safeJS }}
   {{ printf "window.FHChatbot_%s.init(function(chatbotManager) {});" $chatbotVar | safeJS }}
 };
 if (currentScript && currentScript.parentNode) {
