@@ -4,8 +4,11 @@
 @params:
   - tagline: Short text displayed above the main heading (optional, default: "Deploy faster")
   - heading: Main section heading (optional, default: "Everything you need to deploy your app")
-  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - description: Description text that appears below the heading (optional)
+  - taglineColor: Color class for the tagline (optional, default: "primary")
   - backgroundColor: Background color class for the section (optional, default: "white")
+  - linkText: Text for the optional link button below the description (optional)
+  - linkUrl: URL for the optional link button (optional)
   - cards: Array of card objects with varying sizes and content (optional, includes defaults)
     - title: Card title text
     - category: Category label displayed above the title
@@ -15,11 +18,12 @@
     - cardSize: Card size in the grid ("large" or "small", optional, default: "large")
       - large: Takes 3 columns (2 large cards per row)
       - small: Takes 2 columns (3 small cards per row)
-    - categoryColor: Color class for the category text (optional, default: "indigo-600")
+    - categoryColor: Color class for the category text (optional, default: "primary")
 @example:
   {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
       "tagline" "Our Services" 
       "heading" "Solutions tailored to your business needs"
+      "description" "Explore our range of services designed to help you succeed in the digital age."
       "backgroundColor" "gray-50"
       "cards" (slice
           (dict
@@ -73,10 +77,15 @@
 */}}
 
 {{/* Dynamic Bento Grid Section */}}
-{{ $tagline := .tagline | default "Deploy faster" }}
-{{ $heading := .heading | default "Everything you need to deploy your app" }}
-{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $tagline := .tagline | default "" }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $linkText := .linkText | default "" }}
+{{ $linkUrl := .linkUrl | default "" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
 {{ $backgroundColor := .backgroundColor | default "white" }}
+
+{{/* Default cards if none provided */}}
 
 {{ $cards := .cards | default (slice
   (dict
@@ -86,7 +95,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
     "imageAlt" "Performance dashboard"
     "cardSize" "large"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Push to deploy"
@@ -95,7 +104,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
     "imageAlt" "Releases panel"
     "cardSize" "large"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Built for power users"
@@ -104,7 +113,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
     "imageAlt" "Speed metrics"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Connect your favorite tools"
@@ -113,7 +122,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
     "imageAlt" "Integrations panel"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Globally distributed CDN"
@@ -122,14 +131,32 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
     "imageAlt" "Network map"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
 ) }}
 
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
   <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+    {{ if $tagline }}
     <h2 class="text-base/7 font-semibold text-{{ $taglineColor }}">{{ $tagline }}</h2>
+    {{ end }}
+    
+    {{ if $heading }}
     <p class="mt-2 max-w-lg text-4xl font-semibold tracking-tight text-pretty text-gray-950 sm:text-5xl">{{ $heading }}</p>
+    {{ end }}
+    
+    {{ if $description }}
+    <p class="mt-1 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" .Page) | safeHTML }}</p>
+    {{ end }}
+    
+    {{ if $linkUrl }}
+    <div class="mt-1">
+      <a href="{{ $linkUrl }}" class="inline-block rounded-md bg-{{ $taglineColor }} px-4 py-2 text-sm/6 font-semibold text-white hover:bg-{{ $taglineColor }}-700 focus:outline-none focus:ring-2 focus:ring-{{ $taglineColor }}-500 focus:ring-offset-2">
+        {{ $linkText }}
+      </a>
+    </div>
+    {{ end }}
+    
     <div class="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6">
       {{ range $index, $card := $cards }}
         {{ $cardSize := $card.cardSize | default "large" }}

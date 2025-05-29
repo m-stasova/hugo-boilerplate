@@ -4,7 +4,7 @@
 @params:
   - tagline: Short text displayed above the main heading (optional, default: empty)
   - heading: Main section heading (optional, default: empty)
-  - taglineColor: Color class for the tagline (optional, default: "indigo-600")
+  - taglineColor: Color class for the tagline (optional, default: "primary")
   - backgroundColor: Background color class for the section (optional, default: "gray-50")
   - cards: Array of card objects with content (supports unlimited cards)
     - title: Card title text (optional)
@@ -50,7 +50,7 @@
 {{/* Three Column Bento Grid Section */}}
 {{ $tagline := .tagline | default "" }}
 {{ $heading := .heading | default "" }}
-{{ $taglineColor := .taglineColor | default "indigo-600" }}
+{{ $taglineColor := .taglineColor | default "primary" }}
 {{ $backgroundColor := .backgroundColor | default "gray-50" }}
 
 {{ $cards := .cards | default (slice

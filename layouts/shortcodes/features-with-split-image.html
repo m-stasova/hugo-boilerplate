@@ -34,10 +34,10 @@
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $imageUrl := .Get "imageUrl" | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/confirmation-page-01-hero.jpg" }}
-{{ $imageAlt := .Get "imageAlt" | default "Black leather journal with silver steel disc binding resting on wooden shelf with machined steel pen." }}
-{{ $subheading := .Get "subheading" | default "Leatherbound Daily Journal" }}
-{{ $heading := .Get "heading" | default "All in the Details" }}
-{{ $description := .Get "description" | default "We've obsessed over every detail of this handcrafted journal to bring you the best materials for daily use." }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
+{{ $subheading := .Get "subheading" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
 
 {{ $defaultFeatures := slice 
   (dict 

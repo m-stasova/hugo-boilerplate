@@ -6,7 +6,7 @@
       tagline="Build faster" 
       heading="Everything you need for your next project" 
       backgroundColor="gray-50"
-      taglineColor="indigo-600"
+      taglineColor="primary"
   >}}
     [
       {
@@ -51,7 +51,7 @@
   - tagline: Small text displayed above the main heading (optional, default: empty)
   - heading: Main heading text (optional, default: empty)
   - backgroundColor: Background color class without the "bg-" prefix (default: "gray-50")
-  - taglineColor: Color class for the tagline without the "text-" prefix (default: "indigo-600")
+  - taglineColor: Color class for the tagline without the "text-" prefix (default: "primary")
   
   Inner Content (optional JSON array):
   - Array of card objects with the following properties:
@@ -69,7 +69,7 @@
 {{ $tagline := .Get "tagline" | default "" }}
 {{ $heading := .Get "heading" | default "" }}
 {{ $backgroundColor := .Get "backgroundColor" | default "gray-50" }}
-{{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
+{{ $taglineColor := .Get "taglineColor" | default "primary" }}
 
 {{ $cards := (slice) }}
 {{ with .Inner }}
