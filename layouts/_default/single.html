@@ -31,6 +31,14 @@
   "videoTitle" (.Params.youtubeTitle | default .Params.title)
   "videoID" .Params.youtubeVideoID
   ) }}
+{{ else if and .Params.workspaceId .Params.chatbotId }}
+  {{ partial "sections/hero/split_with_chatbot.html" (dict 
+  "heading" .Params.title
+  "description" (markdownify $shortDescription)
+  "eyebrow" .Params.eyebrow
+  "chatbotId" .Params.chatbotId
+  "workspaceId" .Params.workspaceId
+  ) }}
 {{ else if $image }}
   {{ partial "sections/hero/split_with_image.html" (dict 
     "heading" .Params.title

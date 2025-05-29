@@ -1,0 +1,30 @@
+<section class="bg-white py-16 px-6">
+  <div class="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div>
+      {{ if .eyebrow }}
+      <p class="text-sm font-semibold text-indigo-600 uppercase">{{ .eyebrow }}</p>
+      {{ end }}
+      <h1 class="mt-2 text-3xl font-extrabold text-gray-900">{{ .heading }}</h1>
+      <div class="mt-4 text-lg text-gray-600">{{ .description | safeHTML }}</div>
+    </div>
+    <div class="w-full relative h-[300px] overflow-hidden">
+        <!-- Chatbot Integration -->
+{{ if .chatbotId }}
+<script id="fh-chatbot-script-{{ .chatbotId }}">
+var currentScript = document.currentScript || document.getElementById('fh-chatbot-script-{{ .chatbotId }}');
+var script = document.createElement('script');
+script.async = true;
+script.src = 'https://app.flowhunt.io/api/chatbot/{{ .chatbotId }}?workspace_id={{ .workspaceId }}';
+script.onload = function() {  // Initialize the chatbot and get the manager instance
+  {{ $chatbotVar := replace .chatbotId "-" "_" }}
+  {{ printf "window.FHChatbot_%s.setConfig({\"embedded\": true,});" $chatbotVar | safeJS }}
+  {{ printf "window.FHChatbot_%s.init(function(chatbotManager) {});" $chatbotVar | safeJS }}
+};
+if (currentScript && currentScript.parentNode) {
+  currentScript.parentNode.insertBefore(script, currentScript.nextSibling);
+}
+</script>
+{{ end }}
+    </div>
+  </div>
+</section>
