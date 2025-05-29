@@ -15,7 +15,6 @@
     )
     "separator" ">"
   ) }}
-@note: The component includes structured Schema.org BreadcrumbList data to improve SEO.
 */}}
 
 {{- $items := .items -}}
@@ -30,21 +29,4 @@
   {{- end -}}
 </nav>
 
-<!-- Schema.org BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {{- range $index, $item := $items -}}
-    {{- if $index -}},{{- end -}}
-    {
-      "@type": "ListItem",
-      "position": {{ add $index 1 }},
-      "name": "{{ $item.title }}",
-      "item": "{{ $item.url | absURL }}"
-    }
-    {{- end -}}
-  ]
-}
-</script>
+{{ partial "schemaorg/breadcrumbs.html" (dict "items" $items) }}
