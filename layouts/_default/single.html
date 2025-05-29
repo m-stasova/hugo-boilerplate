@@ -38,6 +38,10 @@
   "eyebrow" .Params.eyebrow
   "chatbotId" .Params.chatbotId
   "workspaceId" .Params.workspaceId
+  "cta" (dict 
+          "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL) 
+          "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL)
+      )
   ) }}
 {{ else if $image }}
   {{ partial "sections/hero/split_with_image.html" (dict 
