@@ -112,7 +112,9 @@
                 {{ $title }}
             </a>
         </h3>
-        <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-2 flex-grow overflow-hidden">{{ $description }}</p>
+        <a href="{{ $permalink }}" class="">
+            <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-2 flex-grow overflow-hidden">{{ $description }}</p>
+        </a>
 
         <!-- Tags -->
         <div class="mt-6 flex items-center justify-between">
@@ -130,12 +132,14 @@
                 </a>
                 {{ end }}
                 {{ if gt (len $page.Params.tags) 2 }}
+                <a href="{{ "/tags/" | relLangURL }}">
                 {{ partial "components/label/label.html" (dict 
                     "text" (printf "+%d" (sub (len $page.Params.tags) 2)) 
                     "bgColor" "bg-gray-100" 
                     "textColor" "text-gray-500"
                     "borderColor" "border-zinc-200"
                 ) }}
+                </a>
                 {{ end }}
             </div>
             {{ end }}
