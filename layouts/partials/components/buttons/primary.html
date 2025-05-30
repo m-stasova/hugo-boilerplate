@@ -1,12 +1,10 @@
 {{/*
 @component: Button - Primary
-@description: Primary button component with customizable text, URL, and colors
+@description: Primary button component that uses predefined CSS classes
 @params:
-  - text: Button text content (required)
-  - url: URL for the button link (required)
-  - textColor: Text color (default: "white")
-  - bgColor: Background color (default: "indigo-600")
-  - hoverBgColor: Hover background color (default: "indigo-500")
+  - text: Button text content (required if i18nKey not provided)
+  - i18nKey: Translation key for button text (required if text not provided)
+  - url: URL for the button link (required, will be processed with relLangURL if not an external or anchor link)
   - classes: Additional CSS classes to add
   - target: Link target attribute (default: "_self")
   - rel: Link rel attribute
@@ -16,41 +14,39 @@
   {{ partial "components/buttons/primary.html" (dict 
       "text" "Get Started" 
       "url" "/signup" 
-      "textColor" "white" 
-      "bgColor" "blue-600" 
-      "hoverBgColor" "blue-500"
+  ) }}
+
+  With i18n:
+  {{ partial "components/buttons/primary.html" (dict 
+      "i18nKey" "getStarted" 
+      "url" "/signup" 
   ) }}
 */}}
 
 {{/* Get parameters with defaults */}}
 {{ $text := .text }}
+{{ $translatedText := "" }}
+{{ if .i18nKey }}
+  {{ $translatedText = i18n .i18nKey | default $text }}
+{{ else }}
+  {{ $translatedText = $text }}
+{{ end }}
 {{ $url := .url }}
-{{ $textColor := .textColor | default "white" }}
-{{ $bgColor := .bgColor | default "indigo-600" }}
-{{ $hoverBgColor := .hoverBgColor | default "indigo-500" }}
 {{ $classes := .classes | default "" }}
 {{ $target := .target | default "_self" }}
 {{ $rel := .rel | default "" }}
 {{ $id := .id | default "" }}
-{{ $ariaLabel := .ariaLabel | default $text }}
+{{ $ariaLabel := .ariaLabel | default $translatedText }}
 
 {{/* Validate required parameters */}}
-{{ if and $text $url }}
+{{ if and $translatedText $url }}
 <a 
-  href="{{ $url }}" 
+  href="{{ if not (or (hasPrefix $url "http://") (hasPrefix $url "https://") (hasPrefix $url "#")) }}{{ $url | relLangURL }}{{ else }}{{ $url }}{{ end }}"
   {{ with $id }}id="{{ . }}"{{ end }}
   {{ with $target }}target="{{ . }}"{{ end }}
   {{ with $rel }}rel="{{ . }}"{{ end }}
   aria-label="{{ $ariaLabel }}"
-  class="inline-flex items-center justify-center px-5 py-2.5 text-base font-medium rounded-md shadow-sm 
-         text-{{ $textColor }} bg-{{ $bgColor }} hover:bg-{{ $hoverBgColor }}
-         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-{{ $bgColor }}
-         transition-colors duration-200 ease-in-out {{ $classes }}">
-  {{ $text }}
+  class="btn-primary {{ $classes }}">
+  {{ $translatedText }}
 </a>
-{{ else }}
-<!-- Error: Missing required parameters -->
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-  Error: Button requires both "text" and "url" parameters
-</div>
 {{ end }}

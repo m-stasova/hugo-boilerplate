@@ -4,6 +4,28 @@
 
 /* Custom styles can be added below */
 @layer components {
+
+    /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-3.5 py-2.5 text-sm font-semibold rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition-colors duration-200;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary text-white shadow-sm hover:bg-primary-700 hover:shadow-md focus-visible:outline-primary-400;
+  }
+  
+  .btn-outline-light {
+    @apply btn border border-white text-white bg-transparent hover:bg-white hover:text-gray-900 hover:border-white focus-visible:outline-gray-400;
+  }
+  
+  .btn-outline-dark {
+    @apply btn border border-gray-800 text-gray-800 bg-transparent hover:bg-gray-900 hover:text-white hover:border-gray-900 focus-visible:outline-gray-400;
+  }
+  
+  .btn-text {
+    @apply inline-flex items-center text-sm/6 font-semibold text-gray-900 bg-transparent hover:text-primary hover:translate-x-1 hover:underline transition-all duration-200;
+  }
+  
   /* Add any custom component styles here */
   .container {
     @apply px-4 mx-auto;
