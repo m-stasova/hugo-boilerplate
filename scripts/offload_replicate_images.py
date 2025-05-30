@@ -50,24 +50,29 @@ def find_title_near_line(lines, idx):
 def process_image_url(url, out_dir, out_filename):
     ext = os.path.splitext(urlparse(url).path)[1]
     if not ext:
-        # Try to get extension from Content-Type header
-        resp = requests.head(url, allow_redirects=True)
-        content_type = resp.headers.get('Content-Type', '')
-        if 'image/' in content_type:
-            ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
-        else:
-            ext = '.jpg'  # fallback
+        try:
+            resp = requests.head(url, allow_redirects=True)
+            content_type = resp.headers.get('Content-Type', '')
+            if 'image/' in content_type:
+                ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
+            else:
+                ext = '.jpg'  # fallback
+        except Exception as e:
+            print(f"!!! ERROR getting extension for image {url}: {e}")
+            ext = '.jpg'
         out_filename = os.path.splitext(out_filename)[0] + ext
-    # if ext is not in out_filename, append it
     if not out_filename.endswith(ext):
         out_filename += ext
-    # Ensure the filename is unique
     out_path = out_dir / out_filename
     if not out_path.exists():
-        resp = requests.get(url)
-        resp.raise_for_status()
-        with open(out_path, 'wb') as imgf:
-            imgf.write(resp.content)
+        try:
+            resp = requests.get(url)
+            resp.raise_for_status()
+            with open(out_path, 'wb') as imgf:
+                imgf.write(resp.content)
+        except Exception as e:
+            print(f"!!! ERROR downloading image from {url}: {e}")
+            return None
     return out_filename
 
 def process_md_file(md_path):
@@ -109,11 +114,12 @@ def process_md_file(md_path):
                     out_dir = STATIC_IMAGES_DIR / rel_folder
                     out_dir.mkdir(parents=True, exist_ok=True)
                     out_filename = f"{md_stem}_{safe_title}"
-                    out_filename = process_image_url(url, out_dir, out_filename)
-                    local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                    data[attr] = local_url
-                    toml_changed = True
-                    changed = True
+                    out_filename_result = process_image_url(url, out_dir, out_filename)
+                    if out_filename_result:
+                        local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                        data[attr] = local_url
+                        toml_changed = True
+                        changed = True
             elif isinstance(attr, dict):
                 # Array or dict attribute
                 for arr_name, img_key in attr.items():
@@ -127,11 +133,12 @@ def process_md_file(md_path):
                                 out_dir = STATIC_IMAGES_DIR / rel_folder
                                 out_dir.mkdir(parents=True, exist_ok=True)
                                 out_filename = f"{md_stem}_{safe_title}_{idx_entry}"
-                                out_filename = process_image_url(url, out_dir, out_filename)
-                                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                                entry[img_key] = local_url
-                                toml_changed = True
-                                changed = True
+                                out_filename_result = process_image_url(url, out_dir, out_filename)
+                                if out_filename_result:
+                                    local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                                    entry[img_key] = local_url
+                                    toml_changed = True
+                                    changed = True
                     elif arr_name in data and isinstance(data[arr_name], dict):
                         entry = data[arr_name]
                         if img_key in entry and isinstance(entry[img_key], str) and url_matches_prefix(entry[img_key]):
@@ -142,11 +149,12 @@ def process_md_file(md_path):
                             out_dir = STATIC_IMAGES_DIR / rel_folder
                             out_dir.mkdir(parents=True, exist_ok=True)
                             out_filename = f"{md_stem}_{safe_title}"
-                            out_filename = process_image_url(url, out_dir, out_filename)
-                            local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                            entry[img_key] = local_url
-                            toml_changed = True
-                            changed = True
+                            out_filename_result = process_image_url(url, out_dir, out_filename)
+                            if out_filename_result:
+                                local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                                entry[img_key] = local_url
+                                toml_changed = True
+                                changed = True
         if toml_changed:
             new_toml = toml.dumps(data)
         else:
@@ -177,10 +185,14 @@ def process_md_file(md_path):
             out_filename = f"{md_stem}_{safe_title}{ext}"
             out_path = out_dir / out_filename
             if not out_path.exists():
-                resp = requests.get(url)
-                resp.raise_for_status()
-                with open(out_path, 'wb') as imgf:
-                    imgf.write(resp.content)
+                try:
+                    resp = requests.get(url)
+                    resp.raise_for_status()
+                    with open(out_path, 'wb') as imgf:
+                        imgf.write(resp.content)
+                except Exception as e:
+                    print(f"!!! ERROR downloading image from {url}: {e}")
+                    continue
             local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
             new_img_md = f'![{alt_text}]({local_url} "{title}")'
             line = line.replace(match.group(0), new_img_md)
@@ -198,23 +210,30 @@ def process_md_file(md_path):
                 
                 ext = os.path.splitext(urlparse(url).path)[1]
                 if not ext:
-                    # Try to get extension from Content-Type header
-                    resp = requests.head(url, allow_redirects=True)
-                    content_type = resp.headers.get('Content-Type', '')
-                    if 'image/' in content_type:
-                        ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
-                    else:
-                        ext = '.jpg'  # fallback
+                    try:
+                        resp = requests.head(url, allow_redirects=True)
+                        content_type = resp.headers.get('Content-Type', '')
+                        if 'image/' in content_type:
+                            ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
+                        else:
+                            ext = '.jpg'  # fallback
+                    except Exception as e:
+                        print(f"!!! ERROR getting extension for image {url}: {e}")
+                        ext = '.jpg'
                 out_dir = STATIC_IMAGES_DIR / rel_folder
                 out_dir.mkdir(parents=True, exist_ok=True)
                 safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', alt_text)
                 out_filename = f"{md_stem}_{safe_title}{ext}"
                 out_path = out_dir / out_filename
                 if not out_path.exists():
-                    resp = requests.get(url)
-                    resp.raise_for_status()
-                    with open(out_path, 'wb') as imgf:
-                        imgf.write(resp.content)
+                    try:
+                        resp = requests.get(url)
+                        resp.raise_for_status()
+                        with open(out_path, 'wb') as imgf:
+                            imgf.write(resp.content)
+                    except Exception as e:
+                        print(f"!!! ERROR downloading image from {url}: {e}")
+                        continue
                 local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
                 line = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', line)
                 body_changed = True
@@ -240,20 +259,24 @@ def process_md_file(md_path):
                 out_filename = f"{md_stem}_{safe_title}{ext}"
                 out_path = out_dir / out_filename
                 if not out_path.exists():
-                    resp = requests.get(url)
-                    resp.raise_for_status()
-                    with open(out_path, 'wb') as imgf:
-                        imgf.write(resp.content)
+                    try:
+                        resp = requests.get(url)
+                        resp.raise_for_status()
+                        with open(out_path, 'wb') as imgf:
+                            imgf.write(resp.content)
+                    except Exception as e:
+                        print(f"!!! ERROR downloading image from {url}: {e}")
+                        continue
                 local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
                 # Replace just the src attribute value
                 new_shortcode = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', shortcode)
                 full_content = full_content.replace(shortcode, new_shortcode)
                 body_changed = True
                 changed = True
-            except requests.RequestException as e:
-                print(f"!!! ERROR downloading image from {url}: {e}")
-                return
-            
+            except Exception as e:
+                print(f"!!! ERROR processing multi-line lazyimg for {url}: {e}")
+                continue
+
     if body_changed:
         body = full_content
         

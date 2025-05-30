@@ -25,8 +25,8 @@ mkdir -p "$TARGET_DIR"
 IMAGE_WIDTHS=(150 300 768 1024)
 
 # Quality settings
-QUALITY_JPG=85
-QUALITY_WEBP=85
+QUALITY_JPG=95
+QUALITY_WEBP=95
 
 # Function to check if the file exists and is newer than the target
 needs_processing() {
