@@ -17,7 +17,7 @@
   - categories: Array of categories (optional), will create category links to /categories/[category-name]
   - image: Image URL string or object with url and alt properties (optional)
 @example:
-  {{ partial "sections/hero/split_with_image.html" (dict 
+  {{ partial "sections/hero/split_with_rounded_image.html" (dict
       "logo" "/images/logo.svg"
       "announcement" (dict 
           "enabled" true 
@@ -66,8 +66,18 @@
 {{ end }}
 
 <div class="relative bg-white">
-  <div class="mx-auto max-w-8xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
-    <div class="px-6 pt-10 pb-24 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-48 xl:col-span-6">
+  <div class="mx-auto max-w-8xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 flex flex-col lg:flex-row">
+    <div class="relative lg:col-span-5 flex items-start justify-end">
+      <div class="ring-4 ring-primary/30 overflow-hidden w-64 h-64 flex items-center justify-center bg-white p-8">
+        {{ partial "components/media/lazyimg.html" (dict
+          "src" $imageSrc
+          "alt" $imageAlt
+          "class" "h-full object-cover object-center rounded-full"
+          "maxWidth" 512
+        ) }}
+      </div>
+    </div>
+    <div class="px-6 lg:col-span-7 lg:px-0 xl:col-span-6 flex items-start">
       <div class="mx-auto max-w-lg lg:mx-0">
         {{ if $logo }}
           {{ partial "components/media/lazyimg.html" (dict 
@@ -84,7 +94,7 @@
           </div>
         </div>
         {{ end }}
-        <h1 class="mt-24 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-7xl">{{ $heading }}</h1>
+        <h1 class="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-7xl">{{ $heading }}</h1>
         {{ if $description }}
           <p class="mt-8 text-lg text-pretty text-gray-500 sm:text-xl/8">{{ $description }}</p>
         {{ end }}
@@ -128,14 +138,6 @@
           {{ end }}
         {{ end }}
       </div>
-    </div>
-    <div class="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0 flex items-center justify-center">
-      {{ partial "components/media/lazyimg.html" (dict 
-        "src" $imageSrc 
-        "alt" $imageAlt
-        "class" $imageClass
-        "maxWidth" 1024
-      ) }}
     </div>
   </div>
 </div>
