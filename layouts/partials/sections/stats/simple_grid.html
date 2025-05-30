@@ -52,35 +52,13 @@
 
 {{/* Heading */}}
 {{ $showHeading := .showHeading | default true }}
-{{ $heading := .heading | default "Trusted by creators worldwide" }}
+{{ $heading := .heading | default "" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
-{{ $description := .description | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
+{{ $description := .description | default "" }}
 {{ $descriptionColor := .descriptionColor | default "text-gray-600" }}
 
 {{/* Stats */}}
 {{ $stats := .stats | default slice }}
-
-{{/* Default stats if none provided */}}
-{{ if eq (len $stats) 0 }}
-  {{ $stats = slice 
-    (dict 
-      "value" "8,000+"
-      "label" "Creators on the platform"
-    )
-    (dict 
-      "value" "3%"
-      "label" "Flat platform fee"
-    )
-    (dict 
-      "value" "99.9%"
-      "label" "Uptime guarantee"
-    )
-    (dict 
-      "value" "$70M"
-      "label" "Paid out to creators"
-    )
-  }}
-{{ end }}
 
 {{/* Text colors */}}
 {{ $valueColor := .valueColor | default "text-gray-900" }}
@@ -92,10 +70,12 @@
       {{ if $showHeading }}
       <div class="text-center">
         <h2 class="text-4xl font-semibold tracking-tight text-balance {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
+        {{ if $description }}
         <p class="mt-4 text-lg/8 {{ $descriptionColor }}">{{ $description }}</p>
+        {{ end }}
       </div>
       {{ end }}
-      <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
+      <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center {{ if eq (len $stats) 1 }} lg:grid-cols-1 {{ else if eq (len $stats) 2 }} lg:grid-cols-2 sm:grid-cols-2 {{ else if eq (len $stats) 3 }} lg:grid-cols-3 sm:grid-cols-2 {{ else }} lg:grid-cols-4 sm:grid-cols-2 {{ end }}">
         {{ range $stat := $stats }}
         <div class="flex flex-col {{ $statBgColor }} {{ $statPadding }}">
           <dt class="text-sm/6 font-semibold {{ $labelColor }}">{{ $stat.label }}</dt>

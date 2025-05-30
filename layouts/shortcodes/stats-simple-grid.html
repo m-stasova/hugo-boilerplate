@@ -11,11 +11,11 @@ Usage Example:
   title-color="text-blue-900"
   description-color="text-gray-600"
   show-divider="true"
->}}
+  >}}
 */}}
 
-{{ $heading := .Get "title" | default "Trusted by creators worldwide" }}
-{{ $description := .Get "description" | default "Lorem ipsum dolor sit amet consect adipisicing possimus." }}
+{{ $heading := .Get "title" | default "" }}
+{{ $description := .Get "description" | default "" }}
 {{ $bgColor := .Get "container-bg" | default "bg-white" }}
 {{ $padding := .Get "container-padding" | default "py-24 sm:py-32" }}
 {{ $statBgColor := .Get "card-bg" | default "bg-gray-400/5" }}
@@ -23,6 +23,14 @@ Usage Example:
 {{ $headingColor := .Get "title-color" | default "text-gray-900" }}
 {{ $descriptionColor := .Get "description-color" | default "text-gray-600" }}
 {{ $showHeading := .Get "show-divider" | default "true" }}
+{{ $statsParam := .Get "stats" | default "[]" }}
+
+{{ $stats := slice }}
+{{ if strings.HasPrefix $statsParam "[" }}
+  {{ $stats = $statsParam | unmarshal }}
+{{ else }}
+  {{ $stats = index .Page.Params $statsParam | default slice }}
+{{ end }}
 
 {{ partial "sections/stats/simple_grid.html" (dict 
   "heading" $heading
@@ -34,4 +42,5 @@ Usage Example:
   "headingColor" $headingColor
   "descriptionColor" $descriptionColor
   "showHeading" (eq $showHeading "true")
+  "stats" $stats
 ) }}
