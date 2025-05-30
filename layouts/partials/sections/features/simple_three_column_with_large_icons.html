@@ -40,8 +40,8 @@
 */}}
 
 {{/* Feature Section with Simple Three Column Layout and Large Icons */}}
-{{ $heading := .heading | default "Stay on top of customer support" }}
-{{ $description := .description | default "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam." }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
 {{ $features := .features | default (slice
   (dict 
     "icon" "map"
@@ -67,8 +67,12 @@
 <div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:mx-0">
+      {{ if $heading }}
       <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{{ $heading }}</h2>
+      {{ end }}
+      {{ if $description }}
       <p class="mt-6 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
+      {{ end }}
     </div>
     <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
@@ -76,17 +80,17 @@
         <div class="relative pl-9">
           <dt class="font-semibold text-gray-900">
             {{ if .icon }}
-            <div class="absolute left-1 top-1 size-5 text-indigo-600">
+            <div class="absolute left-1 top-1 size-5 text-primary">
               {{ partial "components/media/icon.html" (dict "icon" .icon) }}
             </div>
             {{ end }}
             {{ .title }}
           </dt>
-          <dd class="mt-1 text-base/7 text-gray-600">
+          <dd class="mt-1 {{ if not .icon }}pl-0{{ end }} text-base/7 text-gray-600">
             <p>{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</p>
             {{ if .link }}
             <p class="mt-6">
-              <a href="{{ .link.url }}" class="text-sm/6 font-semibold text-indigo-600">{{ .link.text }} <span aria-hidden="true">→</span></a>
+              <a href="{{ .link.url }}" class="text-sm/6 font-semibold text-primary">{{ .link.text }} <span aria-hidden="true">→</span></a>
             </p>
             {{ end }}
           </dd>

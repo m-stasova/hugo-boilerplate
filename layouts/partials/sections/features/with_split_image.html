@@ -17,9 +17,9 @@
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}
 {{ $imageUrl := .imageUrl | default "https://tailwindcss.com/plus-assets/img/ecommerce-images/confirmation-page-01-hero.jpg" }}
 {{ $imageAlt := .imageAlt | default "Black leather journal with silver steel disc binding resting on wooden shelf with machined steel pen." }}
-{{ $subheading := .subheading | default "Leatherbound Daily Journal" }}
-{{ $heading := .heading | default "All in the Details" }}
-{{ $description := .description | default "We've obsessed over every detail of this handcrafted journal to bring you the best materials for daily use." }}
+{{ $subheading := .subheading | default "" }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
 
 {{/* Page context for linkbuilding */}}
 {{ $page := .page }}

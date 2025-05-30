@@ -6,7 +6,7 @@
       tagline="Build faster" 
       heading="Everything you need for your project" 
       backgroundColor="gray-50"
-      taglineColor="indigo-600"
+      taglineColor="primary"
   >}}
     [
       {
@@ -16,7 +16,7 @@
         "image": "/images/bento-performance.jpg",
         "imageAlt": "Performance dashboard showing fast build times",
         "cardSize": "large",
-        "categoryColor": "indigo-600"
+        "categoryColor": "primary"
       },
       {
         "title": "Push to deploy",
@@ -25,7 +25,7 @@
         "image": "/images/bento-releases.jpg",
         "imageAlt": "Code deployment interface",
         "cardSize": "large",
-        "categoryColor": "indigo-600"
+        "categoryColor": "primary"
       },
       {
         "title": "Built for power users",
@@ -34,7 +34,7 @@
         "image": "/images/bento-speed.jpg",
         "imageAlt": "Speed metrics dashboard",
         "cardSize": "small",
-        "categoryColor": "indigo-600"
+        "categoryColor": "primary"
       },
       {
         "title": "Connect your favorite tools",
@@ -43,7 +43,7 @@
         "image": "/images/bento-integrations.jpg",
         "imageAlt": "Integration options panel",
         "cardSize": "small",
-        "categoryColor": "indigo-600"
+        "categoryColor": "primary"
       },
       {
         "title": "Globally distributed CDN",
@@ -52,7 +52,7 @@
         "image": "/images/bento-network.jpg",
         "imageAlt": "Global network distribution map",
         "cardSize": "small",
-        "categoryColor": "indigo-600"
+        "categoryColor": "primary"
       }
     ]
   {{< /bentogrid-two-row >}}
@@ -60,8 +60,11 @@
   Parameters:
   - tagline: Small text displayed above the main heading (default: "Deploy faster")
   - heading: Main heading text (default: "Everything you need to deploy your app")
+  - description: Description text that appears below the heading
   - backgroundColor: Background color class (default: "white")
-  - taglineColor: Color class for the tagline (default: "indigo-600")
+  - taglineColor: Color class for the tagline (default: "primary")
+  - linkText: Text for the optional link below the description (default: "")
+  - linkUrl: URL for the optional link below the description (default: "")
   
   Inner Content (optional JSON array):
   - Array of card objects with the following properties:
@@ -73,17 +76,19 @@
     - cardSize: Card size in the grid ("large" or "small", default: "large")
       - large: Takes 3 columns (2 large cards per row)
       - small: Takes 2 columns (3 small cards per row)
-    - categoryColor: Color class for the category label (default: "indigo-600")
+    - categoryColor: Color class for the category label (default: "primary")
   
   If inner content is not provided, default cards will be used.
   Note: This shortcode now uses a dynamic layout that can handle multiple rows and mixed card sizes.
 */}}
 
-{{ $tagline := .Get "tagline" | default "Deploy faster" }}
-{{ $heading := .Get "heading" | default "Everything you need to deploy your app" }}
+{{ $tagline := .Get "tagline" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
 {{ $backgroundColor := .Get "backgroundColor" | default "white" }}
-{{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
-
+{{ $taglineColor := .Get "taglineColor" | default "primary" }}
+{{ $linkText := .Get "linkText" | default "" }}
+{{ $linkUrl := .Get "linkUrl" | default "" }}
 {{ $defaultCards := slice
   (dict
     "title" "Lightning-fast builds"
@@ -92,7 +97,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
     "imageAlt" "Performance dashboard"
     "cardSize" "large"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Push to deploy"
@@ -101,7 +106,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
     "imageAlt" "Releases panel"
     "cardSize" "large"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Built for power users"
@@ -110,7 +115,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
     "imageAlt" "Speed metrics"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Connect your favorite tools"
@@ -119,7 +124,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
     "imageAlt" "Integrations panel"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
   (dict
     "title" "Globally distributed CDN"
@@ -128,7 +133,7 @@
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
     "imageAlt" "Network map"
     "cardSize" "small"
-    "categoryColor" "indigo-600"
+    "categoryColor" "primary"
   )
 }}
 
@@ -142,6 +147,9 @@
 {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
   "tagline" $tagline
   "heading" $heading
+  "description" $description
+  "linkText" $linkText
+  "linkUrl" $linkUrl
   "backgroundColor" $backgroundColor
   "taglineColor" $taglineColor
   "cards" $cards
