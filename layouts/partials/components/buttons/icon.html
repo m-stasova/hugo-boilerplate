@@ -86,9 +86,4 @@
       <span class="ml-2">{{ partial (printf "icons/%s" $icon) $iconClasses }}</span>
     {{ end }}
   </a>
-{{ else }}
-  <!-- Error: Missing required parameters -->
-  <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-    Error: Icon Button requires "text" (or "i18nKey"), "url", and "icon" parameters
-  </div>
 {{ end }}

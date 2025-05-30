@@ -49,9 +49,4 @@
   class="btn-primary {{ $classes }}">
   {{ $translatedText }}
 </a>
-{{ else }}
-<!-- Error: Missing required parameters -->
-<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
-  Error: Button requires both "text" (or "i18nKey") and "url" parameters
-</div>
 {{ end }}
