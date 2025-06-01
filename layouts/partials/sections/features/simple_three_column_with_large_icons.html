@@ -69,15 +69,15 @@
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
         {{ range $features }}
         <div class="relative pl-9">
-          <dt class="font-semibold text-gray-900">
+          <dt class="font-semibold text-gray-900 flex items-center">
             {{ if .icon }}
-            <div class="size-5 text-primary">
+            <div class="size-5 text-primary mr-2 flex-shrink-0">
               {{ partial "components/media/icon.html" (dict "icon" .icon) }}
             </div>
             {{ end }}
-            {{ .title }}
+            <span>{{ .title }}</span>
           </dt>
-          <dd class="mt-1 {{ if not .icon }}pl-0{{ end }} text-base/7 text-gray-600">
+          <dd class="mt-1 text-base/7 text-gray-600">
             <p>{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</p>
             {{ if .link }}
             <p class="mt-6">
