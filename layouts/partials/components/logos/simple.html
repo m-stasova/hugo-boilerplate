@@ -5,6 +5,10 @@
   - bgColor: Background color class (optional, default: "bg-white")
   - padding: Padding classes (optional, default: "py-24 sm:py-32")
   - logoColor: Color of the logos (optional, default: "gray-900")
+  - heading: Section heading text (optional)
+  - headingColor: Color class for the heading (optional, default: "text-gray-900")
+  - description: Section description text (optional)
+  - descriptionColor: Color class for the description (optional, default: "text-gray-600")
   - logos: Array of logo objects, each with:
     - name: Company/brand name
     - image: URL to the logo image
@@ -15,8 +19,12 @@
   {{ partial "components/logos/simple.html" (dict 
       "bgColor" "bg-gray-50"
       "padding" "py-16 sm:py-24"
-      "logos" (slice 
-        (dict 
+      "heading" "Our Trusted Partners"
+      "headingColor" "text-blue-700"
+      "description" "We work with these amazing companies to deliver value"
+      "descriptionColor" "text-blue-500"
+      "logos" (slice
+        (dict
           "name" "Company A" 
           "image" "/images/logos/company-a.svg"
           "url" "https://example-a.com"
@@ -35,38 +43,41 @@
 */}}
 
 {{/* Configurable variables */}}
-{{ $bgColor := .bgColor | default "bg-white" }}
-{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{ $bgColor := .bgColor | default "" }}
+{{ $padding := .padding | default "" }}
 
 {{/* Logos */}}
 {{ $logoColor := .logoColor | default "gray-900" }}
 {{ $logos := .logos | default (slice) }}
 
+{{/* Heading and Description */}}
+{{ $heading := .heading }}
+{{ $headingColor := .headingColor | default "text-gray-900" }}
+{{ $description := .description | default "" }}
+{{ $descriptionColor := .descriptionColor | default $headingColor }}
+
 <div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 justify-center">
-    <div class="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    {{ if or $heading $description }}
+    <div class="text-center mb-8 sm:mb-12 {{ if $heading }}pt-4{{ end }}">
+      {{ if $heading }}<h2 class="text-3xl font-bold tracking-tight sm:text-4xl {{ $headingColor }}">{{ $heading }}</h2>{{ end }}
+      {{ if $description }}<p class="mt-4 text-lg {{ $descriptionColor }}">{{ $description | markdownify }}</p>{{ end }}
+    </div>
+    {{ end }}
+
+    <div class="mx-auto flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
       {{ range $index, $logo := $logos }}
-        <div class="col-span-1 flex items-center justify-center">
+        <div class="flex items-center justify-center">
           {{ $class := "max-h-12 w-full object-contain" }}
-          {{ if $logo.url }}
-            <a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">
-              {{ partial "components/media/lazyimg.html" (dict 
-                "src" $logo.image 
-                "alt" $logo.name 
+          {{ if $logo.url }}<a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">{{ end }}
+              {{ partial "components/media/lazyimg.html" (dict
+                "src" $logo.image
+                "alt" $logo.name
                 "class" $class
-                "loading" "lazy" 
+                "loading" "lazy"
                 "decoding" "async"
               ) }}
-            </a>
-          {{ else }}
-            {{ partial "components/media/lazyimg.html" (dict 
-              "src" $logo.image 
-              "alt" $logo.name 
-              "class" $class
-              "loading" "lazy" 
-              "decoding" "async"
-            ) }}
-          {{ end }}
+          {{ if $logo.url }}</a>{{ end }}
         </div>
       {{ end }}
     </div>

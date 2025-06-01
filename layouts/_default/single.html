@@ -100,7 +100,7 @@
 {{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "https://app.flowhunt.io/photoai/" }}
 {{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
 {{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "https://www.flowhunt.io/about-us/#contact-us" }}
-{{ $showCTA := .Params.showCTA | default true }}
+{{ $showCTA := .Params.showCTA | default $ctaHeading }}
 
 {{ if $showCTA }}
 {{ partial "sections/cta/simple_centered_on_dark.html" (dict

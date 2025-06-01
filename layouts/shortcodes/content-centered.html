@@ -31,9 +31,9 @@
   {{< /content-centered >}}
 */}}
 
-{{ $eyebrow := .Get "eyebrow" | default "Introducing" }}
-{{ $heading := .Get "heading" | default "JavaScript for beginners" }}
-{{ $description := .Get "description" | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}
+{{ $eyebrow := .Get "eyebrow" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
 {{ $padding := .Get "padding" | default "px-6 py-32 lg:px-8" }}
 {{ $eyebrowColor := .Get "eyebrowColor" | default "text-indigo-600" }}
@@ -43,7 +43,7 @@
 
 {{ $content := .Inner | default "" }}
 
-{{ partial "content/centered.html" (dict 
+{{ partial "sections/content/centered.html" (dict
   "eyebrow" $eyebrow
   "heading" $heading
   "description" $description
