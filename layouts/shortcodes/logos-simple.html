@@ -5,15 +5,23 @@
     bgColor="bg-gray-50" 
     padding="py-16 sm:py-24" 
     logoColor="gray-800" 
+    heading="Our Partners"
+    headingColor="text-blue-700"
+    description="We work with these amazing companies"
+    descriptionColor="text-blue-500"
     logos="data.partner_logos"
   >}}
 
   Parameters:
-  - bgColor: Background color class (default: "bg-white")
-  - padding: CSS padding classes (default: "py-24 sm:py-32")
-  - logoColor: Color of the logos (default: "gray-900")
-  - logos: Reference to data file containing logo information (e.g., "partner_logos")
-  
+    - heading: Optional heading text (default: "")
+    - headingColor: Optional heading text color class (default: "text-gray-900")
+    - description: Optional description text (default: "")
+    - descriptionColor: Optional description text color class (default: "text-gray-600")
+    - bgColor: Background color class (default: "bg-white")
+    - padding: CSS padding classes (default: "py-24 sm:py-32")
+    - logoColor: Color of the logos (default: "gray-900")
+    - logos: Reference to data file containing logo information (e.g., "partner_logos")
+
 Logo data structure example (in data file):
 [[partner_logos]]
   name = "Company Name"
@@ -30,15 +38,23 @@ Logo data structure example (in data file):
 
 */ -}}
 
-{{ $bgColor := .Get "bgColor" | default (.Get 0) | default "bg-white" }}
-{{ $padding := .Get "padding" | default (.Get 1) | default "py-24 sm:py-32" }}
-{{ $logoColor := .Get "logoColor" | default (.Get 2) | default "gray-900" }}
-{{ $logosReference := .Get "logos" | default (.Get 3) | default "" }}
+{{ $bgColor := .Get "bgColor" | default "bg-white" }}
+{{ $padding := .Get "padding" | default "" }}
+{{ $logoColor := .Get "logoColor" | default "gray-900" }}
+{{ $logosReference := .Get "logos" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
+{{ $description := .Get "description" | default "" }}
+{{ $descriptionColor := .Get "descriptionColor" | default $headingColor }}
 
 {{ $params := dict 
   "bgColor" $bgColor
   "padding" $padding
   "logoColor" $logoColor
+  "heading" $heading
+  "headingColor" $headingColor
+  "description" $description
+  "descriptionColor" $descriptionColor
 }}
 
 {{/* Add logos parameter if provided */}}

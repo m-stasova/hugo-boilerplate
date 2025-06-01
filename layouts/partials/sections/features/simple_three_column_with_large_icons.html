@@ -2,8 +2,10 @@
 @section: Simple Three Column Features with Large Icons
 @description: A clean three-column layout showcasing features with large colored icons, titles, descriptions, and optional "Learn more" links.
 @params:
+  - eyebrow: Text displayed above the heading (optional)
   - heading: Main section heading (optional, default: "Stay on top of customer support")
   - description: Section description text (optional, default: "Lorem ipsum dolor sit amet consect adipisicing elit...")
+  - bgColor: Background color class (optional, default: "bg-white")
   - features: Array of feature objects (optional, includes defaults)
     - icon: SVG path for the icon (as HTML string)
     - title: Feature title
@@ -12,8 +14,10 @@
   - page: Page context for linkbuilding function (required)
 @example:
   {{ partial "sections/features/simple_three_column_with_large_icons.html" (dict 
-      "heading" "Key Features" 
+      "eyebrow" "FEATURES"
+      "heading" "Key Features"
       "description" "Our platform offers powerful features to streamline your workflow and boost productivity."
+      "bgColor" "bg-gray-50"
       "features" (slice
           (dict 
               "icon" "map"
@@ -40,33 +44,20 @@
 */}}
 
 {{/* Feature Section with Simple Three Column Layout and Large Icons */}}
+{{ $eyebrow := .eyebrow | default "" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "" }}
 {{ $description := .description | default "" }}
-{{ $features := .features | default (slice
-  (dict 
-    "icon" "map"
-    "title" "Unlimited inboxes"
-    "description" "Non quo aperiam repellendus quas est est. Eos aut dolore aut ut sit nesciunt. Ex tempora quia. Sit nobis consequatur dolores incidunt."
-    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
-  )
-  (dict 
-    "icon" "chart-bar"
-    "title" "Manage team members"
-    "description" "Vero eum voluptatem aliquid nostrum voluptatem. Vitae esse natus. Earum nihil deserunt eos quasi cupiditate. A inventore et molestiae natus."
-    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
-  )
-  (dict 
-    "icon" "shield-check"
-    "title" "Spam report"
-    "description" "Et quod quaerat dolorem quaerat architecto aliquam accusantium. Ex adipisci et doloremque autem quia quam. Quis eos molestiae at iure impedit."
-    "link" (dict "text" ((i18n "learnMore") | default "Learn more") "url" "#")
-  )
-) }}
+{{ $bgColor := .bgColor | default "bg-white" }}
+{{ $features := .features | default (slice) }}
 {{ $page := .page }}
 
-<div class="bg-white py-24 sm:py-32">
+<div class="{{ $bgColor }} py-12">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:mx-0">
+    <div class="mx-auto max-w-4xl lg:mx-0">
+      {{ if $eyebrow }}
+      <p class="text-base font-semibold leading-7 {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+      {{ end }}
       {{ if $heading }}
       <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{{ $heading }}</h2>
       {{ end }}
@@ -78,15 +69,15 @@
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
         {{ range $features }}
         <div class="relative pl-9">
-          <dt class="font-semibold text-gray-900">
+          <dt class="font-semibold text-gray-900 flex items-center">
             {{ if .icon }}
-            <div class="absolute left-1 top-1 size-5 text-primary">
+            <div class="size-5 text-primary mr-2 flex-shrink-0">
               {{ partial "components/media/icon.html" (dict "icon" .icon) }}
             </div>
             {{ end }}
-            {{ .title }}
+            <span>{{ .title }}</span>
           </dt>
-          <dd class="mt-1 {{ if not .icon }}pl-0{{ end }} text-base/7 text-gray-600">
+          <dd class="mt-1 text-base/7 text-gray-600">
             <p>{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</p>
             {{ if .link }}
             <p class="mt-6">

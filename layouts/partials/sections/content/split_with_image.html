@@ -9,7 +9,7 @@
   - imageHeight: Height class for the image container (optional, default: "h-full")
   - imageObjectFit: Object fit class for the image (optional, default: "object-cover")
   - eyebrow: Small text displayed above heading (optional, default: "Deploy faster")
-  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-600")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-primary")
   - heading: Main section heading (optional, default: "A better workflow")
   - headingColor: Color class for heading (optional, default: "text-gray-900")
   - description: Section description text (optional, has default)
@@ -72,7 +72,7 @@ The system automatically scales based on your needs, so you never have to worry 
 
 {{/* Content section */}}
 {{ $eyebrow := .eyebrow | default "Deploy faster" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-600" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "A better workflow" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
 {{ $description := .description }}
@@ -90,11 +90,11 @@ The system automatically scales based on your needs, so you never have to worry 
 <div class="relative {{ $bgColor }} mb-2.5">
   <div class="mx-auto max-w-7xl lg:flex lg:justify-between lg:items-center lg:px-8 xl:justify-end">
     <div class="lg:flex lg:w-1/2 lg:items-center lg:shrink lg:grow-0 xl:relative xl:inset-y-0 xl:right-0 xl:w-1/2">
-      <div class="relative flex items-center justify-center h-96 sm:h-112 md:h-128 w-full lg:h-full lg:w-full">
-        {{ partial "components/media/lazyimg.html" (dict 
+      <div class="relative flex items-center justify-center w-full overflow-hidden">
+        {{ partial "components/media/lazyimg.html" (dict
           "src" $image 
           "alt" $imageAlt
-          "class" "w-full {{ $imageHeight }} {{ $imageBgColor }} {{ $imageObjectFit }} rounded-lg"
+          "class" "w-full max-h-full {{ $imageBgColor }} {{ $imageObjectFit }} rounded-lg"
         ) }}
       </div>
     </div>

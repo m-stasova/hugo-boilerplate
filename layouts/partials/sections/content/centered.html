@@ -5,7 +5,7 @@
   - bgColor: Background color class (optional, default: "bg-gray-50")
   - padding: Padding classes (optional, default: "px-6 py-32 lg:px-8")
   - eyebrow: Small text displayed above heading (optional)
-  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-600")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-primary")
   - heading: Main section heading (optional)
   - headingColor: Color class for heading (optional, default: "text-gray-900")
   - description: Section description text (optional)
@@ -41,7 +41,7 @@
 
 {{/* Heading section */}}
 {{ $eyebrow := .eyebrow | default "" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-600" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
 {{ $description := .description | default "" }}
@@ -70,25 +70,7 @@
     <div class="mt-10 prose prose-lg prose-indigo max-w-none">
       {{ $linkbuildingContent := partial "utils/linkbuilding" (dict "content" $content "page" $page) }}
       <!-- Then apply all other custom styles -->
-      {{ $processedContent := $linkbuildingContent | 
-                              replaceRE "<h1([^>]*)>" "<h1 class=\"text-4xl font-bold mt-8 mb-6 text-gray-900\"$1>" | 
-                              replaceRE "<h2([^>]*)>" "<h2 class=\"text-3xl font-bold mt-8 mb-5 text-gray-900\"$1>" | 
-                              replaceRE "<h3([^>]*)>" "<h3 class=\"text-2xl font-semibold mt-6 mb-4 text-gray-900\"$1>" | 
-                              replaceRE "<h4([^>]*)>" "<h4 class=\"text-xl font-semibold mt-6 mb-3 text-gray-900\"$1>" | 
-                              replaceRE "<h5([^>]*)>" "<h5 class=\"text-lg font-semibold mt-5 mb-3 text-gray-900\"$1>" | 
-                              replaceRE "<h6([^>]*)>" "<h6 class=\"text-base font-semibold mt-5 mb-3 text-gray-900\"$1>" | 
-                              replaceRE "<p([^>]*)>" "<p class=\"text-gray-700 mb-4\"$1>" | 
-                              replaceRE "<ul([^>]*)>" "<ul class=\"list-disc pl-5 mb-4 mt-4\"$1>" | 
-                              replaceRE "<ol([^>]*)>" "<ol class=\"list-decimal pl-5 mb-4 mt-4\"$1>" | 
-                              replaceRE "<li([^>]*)>" "<li class=\"text-gray-700 mb-2\"$1>" | 
-                              replaceRE "<blockquote([^>]*)>" "<blockquote class=\"border-l-4 border-indigo-500 pl-4 italic text-gray-600\"$1>" | 
-                              replaceRE "<code([^>]*)>" "<code class=\"text-indigo-700 bg-gray-100 px-1 py-0.5 rounded\"$1>" | 
-                              replaceRE "<pre([^>]*)>" "<pre class=\"bg-gray-100 rounded-lg p-4 overflow-x-auto\"$1>" | 
-                              replaceRE "<table([^>]*)>" "<table class=\"border-collapse w-full\"$1>" | 
-                              replaceRE "<th([^>]*)>" "<th class=\"border border-gray-300 bg-gray-100 p-2 text-left\"$1>" | 
-                              replaceRE "<td([^>]*)>" "<td class=\"border border-gray-300 p-2\"$1>" | 
-                              replaceRE "<hr([^>]*)>" "<hr class=\"my-8 border-gray-200\"$1>" | 
-                              safeHTML }}
+      {{ $processedContent := $linkbuildingContent | markdownify | safeHTML }}
       
       {{ $processedContent }}
     </div>
