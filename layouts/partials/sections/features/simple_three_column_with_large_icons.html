@@ -52,9 +52,9 @@
 {{ $features := .features | default (slice) }}
 {{ $page := .page }}
 
-<div class="{{ $bgColor }} py-24 sm:py-32">
+<div class="{{ $bgColor }} py-12">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:mx-0">
+    <div class="mx-auto max-w-4xl lg:mx-0">
       {{ if $eyebrow }}
       <p class="text-base font-semibold leading-7 {{ $eyebrowColor }}">{{ $eyebrow }}</p>
       {{ end }}
