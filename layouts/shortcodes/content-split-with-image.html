@@ -7,7 +7,7 @@
     image="https://example.com/image.jpg" 
     imageAlt="Descriptive alt text for the image" 
     bgColor="bg-gray-100" 
-    eyebrowColor="text-blue-500" 
+    eyebrowColor="text-primary"
     headingColor="text-black" 
     descriptionColor="text-gray-600" 
     contentColor="text-gray-800" 
@@ -34,7 +34,7 @@
 {{ $image := .Get "image" | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
 {{ $imageAlt := .Get "imageAlt" | default "Featured image" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
-{{ $eyebrowColor := .Get "eyebrowColor" | default "text-indigo-600" }}
+{{ $eyebrowColor := .Get "eyebrowColor" | default "text-primary" }}
 {{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
 {{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
 {{ $contentColor := .Get "contentColor" | default "text-gray-700" }}

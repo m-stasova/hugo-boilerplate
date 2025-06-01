@@ -5,7 +5,7 @@
   - bgColor: Background color class (optional, default: "bg-gray-900")
   - padding: Padding classes (optional, default: "px-6 py-32 lg:px-8")
   - eyebrow: Small text displayed above heading (optional, default: "Introducing")
-  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-400")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-primary")
   - heading: Main section heading (optional, default: "JavaScript for beginners")
   - headingColor: Color class for heading (optional, default: "text-white")
   - description: Section description text (optional, has default)
@@ -69,7 +69,7 @@
 
 {{/* Heading section */}}
 {{ $eyebrow := .eyebrow | default "Introducing" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-400" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "JavaScript for beginners" }}
 {{ $headingColor := .headingColor | default "text-white" }}
 {{ $description := .description | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}

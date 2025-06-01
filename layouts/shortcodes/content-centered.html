@@ -7,7 +7,7 @@
   - description: Short description text displayed below the heading
   - bgColor: Background color class (default: "bg-white")
   - padding: Padding classes (default: "px-6 py-32 lg:px-8")
-  - eyebrowColor: Color class for the eyebrow text (default: "text-indigo-600")
+  - eyebrowColor: Color class for the eyebrow text (default: "text-primary")
   - headingColor: Color class for the heading text (default: "text-gray-900")
   - descriptionColor: Color class for the description text (default: "text-gray-700")
   - contentColor: Color class for the main content (default: "text-gray-700")
@@ -36,7 +36,7 @@
 {{ $description := .Get "description" | default "" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
 {{ $padding := .Get "padding" | default "px-6 py-32 lg:px-8" }}
-{{ $eyebrowColor := .Get "eyebrowColor" | default "text-indigo-600" }}
+{{ $eyebrowColor := .Get "eyebrowColor" | default "text-primary" }}
 {{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
 {{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
 {{ $contentColor := .Get "contentColor" | default "text-gray-700" }}

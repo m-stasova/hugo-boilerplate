@@ -2,6 +2,7 @@
 @section: Simple Three Column Features with Large Icons
 @description: A clean three-column layout showcasing features with large colored icons, titles, descriptions, and optional "Learn more" links.
 @params:
+  - eyebrow: Text displayed above the heading (optional)
   - heading: Main section heading (optional, default: "Stay on top of customer support")
   - description: Section description text (optional, default: "Lorem ipsum dolor sit amet consect adipisicing elit...")
   - bgColor: Background color class (optional, default: "bg-white")
@@ -13,7 +14,8 @@
   - page: Page context for linkbuilding function (required)
 @example:
   {{ partial "sections/features/simple_three_column_with_large_icons.html" (dict 
-      "heading" "Key Features" 
+      "eyebrow" "FEATURES"
+      "heading" "Key Features"
       "description" "Our platform offers powerful features to streamline your workflow and boost productivity."
       "bgColor" "bg-gray-50"
       "features" (slice
@@ -42,6 +44,8 @@
 */}}
 
 {{/* Feature Section with Simple Three Column Layout and Large Icons */}}
+{{ $eyebrow := .eyebrow | default "" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "" }}
 {{ $description := .description | default "" }}
 {{ $bgColor := .bgColor | default "bg-white" }}
@@ -51,6 +55,9 @@
 <div class="{{ $bgColor }} py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl lg:mx-0">
+      {{ if $eyebrow }}
+      <p class="text-base font-semibold leading-7 {{ $eyebrowColor }}">{{ $eyebrow }}</p>
+      {{ end }}
       {{ if $heading }}
       <h2 class="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{{ $heading }}</h2>
       {{ end }}
