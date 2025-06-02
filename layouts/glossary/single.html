@@ -64,9 +64,9 @@
 {{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
 {{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
 {{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
-{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "/resources/" }}
+{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default (i18n "cta_default_primary_url") }}
 {{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
-{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "/contact/" }}
+{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default (i18n "cta_default_secondary_url")  }}
 {{ $showCTA := .Params.showCTA | default true }}
 
 {{ if $showCTA }}
