@@ -32,8 +32,8 @@ Usage Example:
 {{ $headingColor := .Get "title-color" | default "text-gray-900" }}
 {{ $descriptionColor := .Get "description-color" | default "text-gray-600" }}
 {{ $showHeading := .Get "show-heading" | default "true" }}
-{{ $columns := .Get "columns" | default "4" }}
-{{ $smColumns := .Get "sm-columns" | default "2" }}
+{{ $columns := .Get "columns" | default "3" }}
+{{ $mobileColumns := .Get "mobile-columns" | default "1" }}
 
 {{ $stats := slice }}
 {{ with .Inner }}
@@ -53,6 +53,6 @@ Usage Example:
   "descriptionColor" $descriptionColor
   "showHeading" (eq $showHeading "true")
   "columns" $columns
-  "smColumns" $smColumns
+  "mobileColumns" $mobileColumns
   "stats" $stats
 ) }}
