@@ -19,7 +19,7 @@ Example usage of Split Hero with Image Shortcode:
 
 {{/* Split Hero with Image Shortcode */}}
 {{ $heading := .Get "heading" | default "Data to enrich your business" }}
-{{ $description := .Get "description" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
+{{ $description := .Get "description" | default "" }}
 {{ $imageUrl := .Get "imageUrl" | default "" }}
 {{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $primaryCTAText := .Get "primaryCTAText" }}
@@ -58,7 +58,7 @@ Example usage of Split Hero with Image Shortcode:
   "logo" $logo
   "announcement" $announcement
   "heading" $heading
-  "description" $description
+  "description" ( $description | markdownify )
   "cta" $cta
   "image" $image
 ) }}

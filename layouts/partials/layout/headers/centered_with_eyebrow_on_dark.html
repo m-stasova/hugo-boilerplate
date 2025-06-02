@@ -6,7 +6,7 @@
   - padding: Padding classes (optional, default: "px-6 py-24 sm:py-32 lg:px-8")
   - showEyebrow: Boolean to show/hide eyebrow text (optional, default: true)
   - eyebrow: Eyebrow text (optional, default: "Get the help you need")
-  - eyebrowColor: Eyebrow text color (optional, default: "text-indigo-400")
+  - eyebrowColor: Eyebrow text color (optional, default: "text-primary")
   - heading: Header headline text (optional, default: "Support center")
   - headingColor: Heading text color (optional, default: "text-white")
   - description: Descriptive text below heading (optional, default: provided default text)
@@ -29,7 +29,7 @@
 {{/* Eyebrow */}}
 {{ $showEyebrow := .showEyebrow | default true }}
 {{ $eyebrow := .eyebrow | default "Get the help you need" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-400" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 
 {{/* Heading */}}
 {{ $heading := .heading | default "Support center" }}

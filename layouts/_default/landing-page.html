@@ -36,10 +36,10 @@
 {{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
 {{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
 {{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
-{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "https://app.flowhunt.io/photoai/" }}
+{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default (i18n "cta_default_primary_url") }}
 {{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
-{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "https://www.flowhunt.io/about-us/#contact-us" }}
-{{ $showCTA := .Params.showCTA | default true }}
+{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default (i18n "cta_default_secondary_url") }}
+{{ $showCTA := .Params.showCTA | default $ctaHeading }}
 
 {{ if $showCTA }}
 {{ partial "sections/cta/simple_centered_on_dark.html" (dict
