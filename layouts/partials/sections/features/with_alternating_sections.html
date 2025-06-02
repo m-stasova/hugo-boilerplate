@@ -98,9 +98,9 @@
               <h3 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h3>
               <p class="mt-2 {{ $textClasses }} text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $feature.description "page" $page) | safeHTML }}</p>
               {{ if $feature.listItems }}
-                <ul class="mt-4 space-y-2">
+                <ul class="mt-4 pl-0 space-y-2">
                   {{ range $feature.listItems }}
-                    <li class="flex items-start">
+                    <li class="flex items-start pl-0">
                       <svg class="h-4 w-4 text-primary mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
@@ -138,9 +138,9 @@
               <h3 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h3>
               <p class="mt-2 {{ $textClasses }} text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $feature.description "page" $page) | safeHTML }}</p>
               {{ if $feature.listItems }}
-                <ul class="mt-4 space-y-2">
+                <ul class="mt-4 pl-0 space-y-2">
                   {{ range $feature.listItems }}
-                    <li class="flex items-start">
+                    <li class="flex items-start pl-0">
                       <svg class="h-4 w-4 text-primary mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                       </svg>
