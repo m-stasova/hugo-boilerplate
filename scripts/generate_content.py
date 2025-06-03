@@ -73,7 +73,7 @@ def initialize_api_client():
     configuration.api_key['APIKeyHeader'] = api_key
     return flowhunt.ApiClient(configuration)
 
-def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id):
+def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id, filename):
     """
     Invoke a FlowHunt flow to generate content for a flow input
     
@@ -82,7 +82,8 @@ def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id):
         flow_input (str): Input text to generate content for
         flow_id (str): FlowHunt flow ID
         workspace_id (str): FlowHunt workspace ID
-        
+        filename (str): Filename to be passed to the flow
+
     Returns:
         str: Process ID or None if failed
     """
@@ -91,7 +92,8 @@ def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id):
         flow_invoke_request = flowhunt.FlowInvokeRequest(
             variables={
                 "today": time.strftime("%Y-%m-%d"),
-                "v": "1"
+                "v": "1",
+                "filename": filename,
             }, 
             human_input=flow_input
         )
@@ -330,8 +332,8 @@ def process_topics(topics, flow_id, workspace_id, output_dir, allow_overwrite=Tr
             if not flow_input or not filename:
                 continue
                 
-            process_id = invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id)
-            
+            process_id = invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id, filename)
+
             if process_id:
                 pending_tasks[process_id] = topic
             else:
