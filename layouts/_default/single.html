@@ -1,62 +1,7 @@
 {{ define "main" }}
 
-{{ $image := .Params.image }}
-{{ if not $image }}
-  {{ if .Params.youtubeVideoID }}
-    {{ $image = printf "https://img.youtube.com/vi/%s/hqdefault.jpg" .Params.youtubeVideoID }}
-  {{ end }}
-{{ end }}
-
-
-<!-- Breadcrumbs -->
-{{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
-{{ $path := "" }}
-{{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
-{{ range $index, $part := first (sub (len $parts) 1) $parts }}
-  {{ $path = printf "%s/%s" $path $part }}
-  {{ with $.Site.GetPage $path }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
-  {{ end }}
-{{ end }}
-{{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
-
-<!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
-{{ if .Params.youtubeVideoID }}
-  {{ partial "sections/hero/split_with_youtube_video.html" (dict 
-  "heading" .Params.title
-  "description" (markdownify $shortDescription)
-  "eyebrow" .Params.eyebrow
-  "image" $image
-  "videoTitle" (.Params.youtubeTitle | default .Params.title)
-  "videoID" .Params.youtubeVideoID
-  ) }}
-{{ else if and .Params.workspaceId .Params.chatbotId }}
-  {{ partial "sections/hero/split_with_chatbot.html" (dict 
-  "heading" .Params.title
-  "description" (markdownify $shortDescription)
-  "eyebrow" .Params.eyebrow
-  "chatbotId" .Params.chatbotId
-  "workspaceId" .Params.workspaceId
-  "cta" (dict 
-          "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL) 
-          "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL)
-      )
-  ) }}
-{{ else if $image }}
-  {{ partial "sections/hero/split_with_image.html" (dict 
-    "heading" .Params.title
-    "description" (markdownify $shortDescription)
-    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
-    "image" $image
-  ) }}
-{{ else }}
-  {{ partial "layout/headers/centered_with_eyebrow.html" (dict 
-    "heading" .Params.title
-    "description" (markdownify $shortDescription)
-    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
-  ) }}
-{{ end }}
+{{ partial "breadcrumbs_default.html" . }}
+{{ partial "hero_default.html" . }}
 
 <!-- Main Content -->
 <div class="bg-white mt-16 mb-16 p-8 mx-auto max-w-8xl">
@@ -93,8 +38,8 @@
 {{ end }}
 
 
-{{ partial "utils/cta.html" . }}
+{{ partial "cta.html" . }}
 
-{{ partial "utils/related_content.html" . }}
+{{ partial "related_content.html" . }}
 
 {{ end }}

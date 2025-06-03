@@ -2,18 +2,7 @@
 
 {{ $image := .Params.image }}
 
-<!-- Breadcrumbs -->
-{{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
-{{ $path := "" }}
-{{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
-{{ range $index, $part := first (sub (len $parts) 1) $parts }}
-  {{ $path = printf "%s/%s" $path $part }}
-  {{ with $.Site.GetPage $path }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
-  {{ end }}
-{{ end }}
-{{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
-
+{{ partial "breadcrumbs_default.html" . }}
 
 <!-- Main Content -->
 <div class="bg-white px-6 py-3 lg:px-8 mx-auto max-w-7xl">
@@ -32,8 +21,8 @@
 ) }}
 {{ end }}
 
-{{ partial "utils/cta.html" . }}
+{{ partial "cta.html" . }}
 
-{{ partial "utils/related_content.html" . }}
+{{ partial "related_content.html" . }}
 
 {{ end }}
