@@ -57,7 +57,7 @@
         "id" $id
     ) }}
   {{ else }}
-    <div class="lazy-video-wrapper {{ with $class }}{{ . }}{{ end }}" {{ with $id }}id="{{ . }}"{{ end }} style="position: relative; width: 100%; max-width: 100%;">
+    <div class="lazy-video-wrapper {{ with $class }}{{ . }}{{ end }}" {{ with $id }}id="{{ . }}"{{ end }} style="position: relative;">
       <video 
         {{ if $autoplay }}autoplay{{ end }}
         {{ if $loop }}loop{{ end }}

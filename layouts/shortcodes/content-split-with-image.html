@@ -26,11 +26,22 @@
   9. descriptionColor: Text color class for the description text
   10. contentColor: Text color class for the main content
   11. imageBgColor: Background color class for the image container
+  12. features: Optional array of feature objects to display in the content section
 */ -}}
 
 {{/* Split with Image Content Shortcode */}}
 {{ $eyebrow := .Get "eyebrow" | default "" }}
 {{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $featuresParam := .Get "features" }}
+{{ $features := slice }}
+{{ if $featuresParam }}
+  {{ if eq $featuresParam "features" }}
+    {{ $features = .Page.Params.features }}
+  {{ else }}
+    {{ $features = $featuresParam }}
+  {{ end }}
+{{ end }}
 {{ $image := .Get "image" | default "" }}
 {{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
@@ -49,6 +60,7 @@
 {{ partial "sections/content/split_with_image.html" (dict 
   "eyebrow" $eyebrow
   "heading" $heading
+  "description" $description
   "image" $image
   "imageAlt" $imageAlt
   "bgColor" $bgColor
@@ -58,4 +70,5 @@
   "contentColor" $contentColor
   "imageBgColor" $imageBgColor
   "markdownContent" (.Inner )
+  "features" $features
 ) }}
