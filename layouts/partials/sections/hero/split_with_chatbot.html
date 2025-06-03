@@ -29,19 +29,7 @@
 <section class="bg-white py-16 px-6">
   <div class="max-w-8xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
     <div>
-      {{ if .eyebrow }}<p class="text-sm font-semibold text-indigo-600 uppercase">{{ .eyebrow }}</p>{{ end }}
-      {{ if .heading }}<h1 class="mt-2 text-3xl font-extrabold text-gray-900">{{ .heading }}</h1>{{ end }}
-      {{ if  .description }}<div class="mt-4 text-lg text-gray-600">{{ .description | safeHTML }}</div>{{ end }}
-      {{ if $cta }}
-      <div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        {{ if $cta.primary }}
-        <a href="{{ $cta.primary.url }}" class="rounded-md bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $cta.primary.text }}</a>
-        {{ end }}
-        {{ if $cta.secondary }}
-        <a href="{{ $cta.secondary.url }}" class="text-sm font-semibold text-gray-900 hover:text-indigo-600">{{ $cta.secondary.text }} <span aria-hidden="true">→</span></a>
-        {{ end }}
-      </div>
-      {{ end }}
+        {{ partial "sections/hero/split_left_side_helper.html" .}}
     </div>
     <div class="w-full relative overflow-hidden">
         <!-- Chatbot Integration -->
