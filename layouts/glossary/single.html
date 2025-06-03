@@ -1,18 +1,6 @@
 {{ define "main" }}
 
-<!-- Breadcrumbs -->
-{{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
-{{ $path := "" }}
-{{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
-{{ range $index, $part := first (sub (len $parts) 1) $parts }}
-  {{ $path = printf "%s/%s" $path $part }}
-  {{ with $.Site.GetPage $path }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
-  {{ end }}
-{{ end }}
-
-
-{{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
+{{ partial "breadcrumbs_default.html" . }}
 
 
 <!-- Hero Section with Split Image -->
@@ -60,30 +48,6 @@
   </div>
 </div>
 
-<!-- CTA Section -->
-{{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
-{{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
-{{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
-{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default (i18n "cta_default_primary_url") }}
-{{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
-{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default (i18n "cta_default_secondary_url")  }}
-{{ $showCTA := .Params.showCTA | default true }}
-
-{{ if $showCTA }}
-{{ partial "sections/cta/simple_centered_on_dark.html" (dict
-"heading" $ctaHeading
-"description" $ctaDescription
-"primaryCta" (dict
-"text" $ctaPrimaryText
-"url" $ctaPrimaryURL
-)
-"secondaryCta" (dict
-"text" $ctaSecondaryText
-"url" $ctaSecondaryURL
-)
-) }}
-{{ end }}
-
 <!-- FAQ Section Side by Side -->
 {{ if .Params.faq }}
 {{ partial "sections/faq/side-by-side.html" (dict
@@ -111,7 +75,8 @@
 {{ end }}
 {{ end }}
 
-<!-- Related Content Section -->
-{{ partial "utils/related_content.html" . }}
+{{ partial "cta.html" . }}
+
+{{ partial "related_content.html" . }}
 
 {{ end }}

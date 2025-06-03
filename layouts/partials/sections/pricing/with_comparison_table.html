@@ -9,92 +9,21 @@
   - taglineColorComparison: Color for the tagline text (optional, default: "indigo-600")
   - headingColorComparison: Color for the heading text (optional, default: "gray-900")
   - descriptionColorComparison: Color for the description text (optional, default: "gray-600")
-  - checkColorComparison: Color for the checkmark icons (optional, default: "indigo-600")
-  - dashColorComparison: Color for the dash icons (optional, default: "gray-400")
   - togglePrice: Boolean to control whether to show the monthly/annual pricing toggle (optional, default: false)
   - tiersComparison: Array of tier objects (optional, includes defaults)
     - name: Name of the tier
     - id: ID for accessibility
-    - emphasized: Boolean to indicate if this is the emphasized tier
+    - emphasized: Boolean to indicate if this is the emphasized tier (will use primary button style)
     - monthlyPrice: The monthly price to display
     - annualPrice: The annual price to display (only shown when togglePrice is true)
     - interval: The price interval text (e.g. "/month")
     - cta: Object with text and url for the call-to-action button
-    - ctaColor: Color for the CTA button text
-    - ctaBgColor: Color for the CTA button background (for filled buttons)
-    - ctaHoverBgColor: Color for the CTA button hover background (for filled buttons)
-    - ctaBorderColor: Color for the CTA button border (for outline buttons)
-    - ctaHoverBorderColor: Color for the CTA button hover border (for outline buttons)
   - featureCategories: Array of feature category objects (optional, includes defaults)
     - name: Name of the category
     - features: Array of feature objects
       - name: Name of the feature
       - tiersComparison: Object with tier names as keys and feature values as values
         (can be boolean, string, or number)
-@example:
-  {{ partial "sections/pricing/with_comparison_table.html" (dict
-      "taglineComparison" "Plans"
-      "headingComparison" "Find the right plan for your business"
-      "descriptionComparison" "Whether you're a startup or enterprise, we have a plan that fits your needs and budget."
-      "tiersComparison" (slice
-          (dict
-              "name" "Basic"
-              "id" "tier-basic"
-              "emphasized" false
-              "cta" (dict "text" "Get started" "url" "/signup/basic")
-              "ctaColor" "indigo-600"
-              "ctaBorderColor" "indigo-200"
-              "ctaHoverBorderColor" "indigo-300"
-          )
-          (dict
-              "name" "Pro"
-              "id" "tier-pro"
-              "emphasized" true
-              "cta" (dict "text" "Get started" "url" "/signup/pro")
-              "ctaColor" "white"
-              "ctaBgColor" "indigo-600"
-              "ctaHoverBgColor" "indigo-500"
-          )
-          (dict
-              "name" "Enterprise"
-              "id" "tier-enterprise"
-              "emphasized" false
-              "cta" (dict "text" "Contact sales" "url" "/contact")
-              "ctaColor" "indigo-600"
-              "ctaBorderColor" "indigo-200"
-              "ctaHoverBorderColor" "indigo-300"
-          )
-      )
-      "featureCategories" (slice
-          (dict
-              "name" "Core Features"
-              "features" (slice
-                  (dict
-                      "name" "Storage"
-                      "tiersComparison" (dict "Basic" "10GB" "Pro" "50GB" "Enterprise" "Unlimited")
-                  )
-                  (dict
-                      "name" "API access"
-                      "tiersComparison" (dict "Basic" false "Pro" true "Enterprise" true)
-                  )
-              )
-          )
-          (dict
-              "name" "Support"
-              "features" (slice
-                  (dict
-                      "name" "Priority support"
-                      "tiersComparison" (dict "Basic" false "Pro" true "Enterprise" true)
-                  )
-                  (dict
-                      "name" "Dedicated account manager"
-                      "tiersComparison" (dict "Basic" false "Pro" false "Enterprise" true)
-                  )
-              )
-          )
-      )
-  ) }}
-@note: This section automatically adapts between mobile and desktop views. On mobile, each tier is displayed as a card in a vertical stack, while on desktop it shows a full comparison table. The emphasized tier is visually highlighted to draw attention to your recommended plan.
 */}}
 
 {{/*
@@ -114,16 +43,11 @@
   - tiersComparison: Array of tier configurations, each with:
     - name: Name of the tier
     - id: ID for accessibility
-    - emphasized: Boolean to indicate if this is the emphasized tier
+    - emphasized: Boolean to indicate if this is the emphasized tier (will use primary button style)
     - monthlyPrice: The monthly price to display
     - annualPrice: The annual price to display (only shown when togglePrice is true)
     - interval: The price interval text (e.g. "/month")
     - cta: Object with text and url for the call-to-action button
-    - ctaColor: Color for the CTA button text
-    - ctaBgColor: Color for the CTA button background (for filled buttons)
-    - ctaHoverBgColor: Color for the CTA button hover background (for filled buttons)
-    - ctaBorderColor: Color for the CTA button border (for outline buttons)
-    - ctaHoverBorderColor: Color for the CTA button hover border (for outline buttons)
   - featureCategories: Array of feature categories, each with:
     - name: Name of the category
     - features: Array of features, each with:
@@ -139,8 +63,6 @@
 {{ $taglineColorComparison := .taglineColorComparison }}
 {{ $headingColorComparison := .headingColorComparison }}
 {{ $descriptionColorComparison := .descriptionColorComparison }}
-{{ $checkColorComparison := .checkColorComparison }}
-{{ $dashColorComparison := .dashColorComparison }}
 {{ $toggleTextColor := .toggleTextColor }}
 {{ $toggleActiveColor := .toggleActiveColor }}
 {{ $toggleActiveBgColor := .toggleActiveBgColor }}
@@ -205,7 +127,7 @@
                             <td></td>
                             {{ range $tiersComparison }}
                                 <th scope="col" class="px-6 pt-6 xl:px-8 xl:pt-8">
-                                    <div class="text-sm/7 font-semibold text-gray-900">{{ .name }}</div>
+                                    <div class="text-sm/7 font-semibold text-gray-900">{{ .name | default "Plan" }}</div>
                                 </th>
                             {{ end }}
                         </tr>
@@ -214,28 +136,36 @@
                         <tr>
                             <th scope="row"></th>
                             {{ range $tier := $tiersComparison }}
+                                {{ $hasFunctionality := or (or $tier.monthlyPrice $tier.annualPrice) (and $tier.cta $tier.cta.url $tier.cta.text) }}
+                                {{ if $hasFunctionality }}
                                 <td class="px-6 pt-2 xl:px-8">
                                     <p class="mt-6 flex items-baseline gap-x-1">
                                         {{ if $togglePrice }}
                                             <!-- Monthly price (default visible) -->
-                                            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} monthly-price">{{ $tier.monthlyPrice }}</span>
+                                            {{ if $tier.monthlyPrice }}
+                                            <span class="text-4xl font-semibold tracking-tight text-gray-900 monthly-price">{{ $tier.monthlyPrice }}</span>
+                                            {{ end }}
                                             <!-- Annual price (hidden by default) -->
-                                            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} annual-price hidden">{{ $tier.annualPrice }}</span>
+                                            {{ if $tier.annualPrice }}
+                                            <span class="text-4xl font-semibold tracking-tight text-gray-900 annual-price hidden">{{ $tier.annualPrice }}</span>
+                                            {{ end }}
                                         {{ else }}
                                             <!-- Only monthly price when toggle is disabled -->
-                                            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }}">{{ $tier.monthlyPrice }}</span>
+                                            {{ if $tier.monthlyPrice }}
+                                            <span class="text-4xl font-semibold tracking-tight text-gray-900">{{ $tier.monthlyPrice }}</span>
+                                            {{ end }}
                                         {{ end }}
                                         <!-- Interval -->
-                                        <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
+                                        {{ if $tier.interval }}
+                                        <span class="text-sm/6 font-semibold text-gray-500">{{ $tier.interval }}</span>
+                                        {{ end }}
                                     </p>
-                                    {{ if $tier.emphasized }}
+                                    {{ if and $tier.cta $tier.cta.url $tier.cta.text }}
                                         <a href="{{ $tier.cta.url }}"
-                                           class="mt-8 not-prose block rounded-md bg-{{ $tier.ctaBgColor }} px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} hover:bg-{{ $tier.ctaHoverBgColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
-                                    {{ else }}
-                                        <a href="{{ $tier.cta.url }}"
-                                           class="mt-8 not-prose block rounded-md px-3 py-2 text-center text-sm/6 font-semibold text-{{ $tier.ctaColor }} ring-1 ring-{{ $tier.ctaBorderColor }} ring-inset hover:ring-{{ $tier.ctaHoverBorderColor }} focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{ $tier.cta.text }}</a>
+                                           class="mt-8 not-prose block {{ if $tier.emphasized }}btn-primary{{ else }}btn-outline-dark{{ end }} text-center">{{ $tier.cta.text }}</a>
                                     {{ end }}
                                 </td>
+                                {{ end }}
                             {{ end }}
                         </tr>
 
@@ -260,13 +190,16 @@
                                     </th>
 
                                     {{ range $tierIndex, $tier := $tiersComparison }}
-                                        {{ $tierValue := index $feature.tiersComparison $tier.name }}
+                                        {{ $tierValue := "" }}
+                                        {{ if and $feature.tiersComparison (isset $feature.tiersComparison $tier.name) }}
+                                            {{ $tierValue = index $feature.tiersComparison $tier.name }}
+                                        {{ end }}
                                         <td class="px-6 py-4 xl:px-8">
                                             {{ if eq $tierValue true }}
-                                                {{ partial "icons/check" (printf "mx-auto size-5 text-%s" $checkColorComparison) }}
+                                                {{ partial "icons/check" "mx-auto size-5 text-primary" }}
                                             {{ else if eq $tierValue false }}
-                                                {{ partial "icons/minus" (printf "mx-auto size-5 text-%s" $dashColorComparison) }}
-                                            {{ else }}
+                                                {{ partial "icons/minus" "mx-auto size-5 text-gray-400" }}
+                                            {{ else if $tierValue }}
                                                 <div class="text-center text-sm/6 text-gray-500">{{ $tierValue }}</div>
                                             {{ end }}
                                         </td>

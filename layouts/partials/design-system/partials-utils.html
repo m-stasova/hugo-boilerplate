@@ -85,7 +85,7 @@
         
         <div class="mb-4">
           <h5 class="font-medium mb-2">Usage:</h5>
-          <pre class="text-sm overflow-x-auto bg-gray-100 p-3 rounded"><code>{{ `{{ partial "utils/related_content.html" (dict 
+          <pre class="text-sm overflow-x-auto bg-gray-100 p-3 rounded"><code>{{ `{{ partial "related_content.html" (dict
   "page" .
   "limit" 3
   "match_tags" true
@@ -275,7 +275,7 @@
   <!-- Add related content at the end -->
   <aside class="mt-12 border-t pt-8">
     <h3 class="text-xl font-bold mb-6">Related Articles</h3>
-    {{ partial "utils/related_content.html" (dict 
+    {{ partial "related_content.html" (dict
       "page" .
       "limit" 3
       "match_tags" true

@@ -91,6 +91,7 @@ def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id):
         flow_invoke_request = flowhunt.FlowInvokeRequest(
             variables={
                 "today": time.strftime("%Y-%m-%d"),
+                "v": "1"
             }, 
             human_input=flow_input
         )
@@ -149,17 +150,65 @@ def check_flow_results(api_instance, process_id, flow_id, workspace_id):
         print(f"Error checking flow results for process {process_id}: {str(e)}")
         return False, None
 
+def detect_csv_delimiter(file_path):
+    """
+    Detect delimiter in a CSV file based on the first line.
+    Checks for comma, semicolon, or tab and uses the most frequent one.
+
+    Args:
+        file_path (str): Path to the CSV file
+
+    Returns:
+        str: Detected delimiter (either ',', ';', or '\t')
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            first_line = f.readline().strip()
+
+            # Count occurrences of each potential delimiter
+            comma_count = first_line.count(',')
+            semicolon_count = first_line.count(';')
+            tab_count = first_line.count('\t')
+
+            # Find the most common delimiter
+            delimiter_counts = {
+                ',': comma_count,
+                ';': semicolon_count,
+                '\t': tab_count
+            }
+
+            max_delimiter = max(delimiter_counts, key=delimiter_counts.get)
+            max_count = delimiter_counts[max_delimiter]
+
+            # If none of the delimiters are found, default to semicolon
+            if max_count == 0:
+                print("No common delimiter found in the first line. Defaulting to semicolon.")
+                return ';'
+
+            delimiter_name = {',': 'comma', ';': 'semicolon', '\t': 'tab'}
+            print(f"Detected delimiter: '{max_delimiter}' ({delimiter_name.get(max_delimiter, 'unknown')})")
+            return max_delimiter
+    except Exception as e:
+        print(f"Error detecting CSV delimiter: {str(e)}")
+        print("Defaulting to semicolon delimiter")
+        return ';'
+
 def read_topics(input_file):
     """Read topics from CSV input file"""
     try:
+        # Increase CSV field size limit to handle large fields
+        csv.field_size_limit(1000000)  # Set to 1MB limit
+        
         topics = []
         file_extension = os.path.splitext(input_file)[1].lower()
         
         if file_extension == '.csv':
+            # Detect the delimiter in the CSV file
+            delimiter = detect_csv_delimiter(input_file)
+
             # Read CSV file with flow_input and filename columns
             with open(input_file, 'r', encoding='utf-8') as f:
-                reader = csv.DictReader(f)
-                
+                reader = csv.DictReader(f, delimiter=delimiter)
                 # Validate required columns
                 if 'flow_input' not in reader.fieldnames or 'filename' not in reader.fieldnames:
                     print("Error: CSV file must contain 'flow_input' and 'filename' columns")
