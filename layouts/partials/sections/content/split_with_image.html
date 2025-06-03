@@ -84,6 +84,8 @@ The system automatically scales based on your needs, so you never have to worry 
 {{ $featureHeadingColor := .featureHeadingColor | default "text-gray-900" }}
 {{ $iconColor := .iconColor | default "text-primary" }}
 {{ $features := .features | default (slice) }}
+{{ $contentAsHTML := .contentAsHTML | default false }}
+
 
 <div class="relative {{ $bgColor }} mb-2.5">
   <div class="mx-auto max-w-7xl lg:flex lg:justify-between lg:items-center lg:px-8 xl:justify-end">
@@ -109,7 +111,11 @@ The system automatically scales based on your needs, so you never have to worry 
         {{ end }}
         <div class="mt-10 max-w-xl text-base/7 {{ $contentColor }} lg:max-w-none">
           {{ if $markdownContent }}
-          {{ $markdownContent | markdownify }}
+            {{ if $contentAsHTML }}
+                {{ $markdownContent | safeHTML }}
+            {{ else }}
+                {{ $markdownContent | markdownify }}
+            {{ end }}
           {{ end }}
           {{ if $features }}
           <ul role="list" class="mt-8 pl-0 space-y-8 {{ $featureTextColor }}">
