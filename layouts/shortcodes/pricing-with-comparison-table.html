@@ -6,8 +6,6 @@
 {{ $taglineColorComparison := .Get "taglineColorComparison" | default $params.taglineColorComparison | default (.Get 4) | default "indigo-600" }}
 {{ $headingColorComparison := .Get "headingColorComparison" | default $params.headingColorComparison | default (.Get 5) | default "gray-900" }}
 {{ $descriptionColorComparison := .Get "descriptionColorComparison" | default $params.descriptionColorComparison | default (.Get 6) | default "gray-600" }}
-{{ $checkColorComparison := .Get "checkColorComparison" | default $params.checkColorComparison | default (.Get 7) | default "primary" }}
-{{ $dashColorComparison := .Get "dashColorComparison" | default $params.dashColorComparison | default (.Get 8) | default "gray-400" }}
 {{ $toggleTextColor := .Get "toggleTextColor" | default $params.toggleTextColor | default "gray-900" }}
 {{ $toggleActiveColor := .Get "toggleActiveColor" | default $params.toggleActiveColor | default "white" }}
 {{ $toggleActiveBgColor := .Get "toggleActiveBgColor" | default $params.toggleActiveBgColor | default "primary" }}
@@ -26,8 +24,6 @@
   "headingColorComparison" $headingColorComparison
   "descriptionColorComparison" $descriptionColorComparison
   "tiersComparison" $tiersComparison
-  "checkColorComparison" $checkColorComparison
-  "dashColorComparison" $dashColorComparison
   "featureCategories" $featureCategories
   "toggleTextColor" $toggleTextColor
   "toggleActiveColor" $toggleActiveColor
@@ -51,8 +47,6 @@
     taglineColorComparison="blue-600"
     headingColorComparison="gray-900"
     descriptionColorComparison="gray-600"
-    checkColorComparison="primary"
-    dashColorComparison="gray-400"
     toggleTextColor="gray-900"
     toggleActiveColor="white"
     toggleActiveBgColor="primary"
