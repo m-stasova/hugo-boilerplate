@@ -32,7 +32,7 @@ This component expects a page context (.) that has the following properties:
 {{ end }}
 
 {{ $page := .page | default . }}
-{{ $image := .image | default "/placeholder-image.jpg" }}
+{{ $image := .image }}
 {{ $title := .title }}
 
 {{/* Summary and description */}}
@@ -68,5 +68,12 @@ This component expects a page context (.) that has the following properties:
         <a href="{{ $permalink }}" class="mb-auto">
             <p class="text-sm leading-6 text-gray-600 font-normal line-clamp-3 overflow-hidden">{{ $description }}</p>
         </a>
+        {{ if .code }}
+            {{ with .code }}
+            <pre class="mt-4 bg-black text-white text-xs rounded p-4 overflow-x-auto whitespace-pre-wrap break-words" style="white-space: pre-wrap; word-break: break-word;">
+                <code>{{ . }}</code>
+            </pre>
+            {{ end }}
+        {{ end }}
     </div>
 </article>
