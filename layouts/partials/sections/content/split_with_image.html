@@ -104,7 +104,7 @@ The system automatically scales based on your needs, so you never have to worry 
         <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
         {{ end }}
         {{ if $heading}}
-        <h1 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h1>
+        <h2 class="mt-2 text-4xl font-semibold tracking-tight text-pretty {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
         {{ end }}
         {{ if $description }}
         <p class="mt-6 text-xl/8 {{ $descriptionColor }}">{{ partial "utils/linkbuilding" (dict "content" $description "page" .) | safeHTML }}</p>
