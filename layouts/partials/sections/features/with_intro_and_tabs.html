@@ -3,8 +3,8 @@
   
   Parameters:
   - backgroundColor: Background color class (default: "bg-white")
-  - heading: Main heading text (default: "Technical Specifications")
-  - description: Description text below the main heading (default: "The Organize modular system offers endless options for arranging your favorite and most used items. Keep everything at reach and in its place, while dressing up your workspace.")
+  - heading: Main heading text (default: "")
+  - description: Description text below the main heading (default: "")
   - page: Page context for linkbuilding (required)
   - tabs: Array of tab objects with the following structure:
     - id: Unique ID for the tab
@@ -17,8 +17,8 @@
 */}}
 
 {{ $backgroundColor := .backgroundColor | default "bg-white" }}
-{{ $heading := .heading | default "Technical Specifications" }}
-{{ $description := .description | default "The Organize modular system offers endless options for arranging your favorite and most used items. Keep everything at reach and in its place, while dressing up your workspace." }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
 {{ $page := .page }}
 {{ $uniqueID := printf "features-tabs-%d" (now.UnixNano) }}
 
@@ -38,7 +38,7 @@
             <div class="-mb-px flex justify-center space-x-10" aria-orientation="horizontal" role="tablist">
               {{ range $index, $tab := $tabs }}
                 <button id="{{ $uniqueID }}-tab-{{ $tab.id }}" 
-                  class="border-b-2 {{ if eq $index 0 }}border-indigo-500 text-indigo-600{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} py-6 text-base font-medium whitespace-nowrap" 
+                  class="border-b-2 {{ if eq $index 0 }}border-primary text-primary{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} py-6 text-base font-medium whitespace-nowrap" 
                   aria-controls="{{ $uniqueID }}-panel-{{ $tab.id }}" 
                   role="tab" 
                   type="button"
@@ -108,13 +108,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Update tab button styles
       document.querySelectorAll(`[data-tabs-group="${tabsGroup}"]`).forEach(btn => {
-        btn.classList.remove('border-indigo-500', 'text-indigo-600');
+        btn.classList.remove('border-primary', 'text-primary');
         btn.classList.add('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
       });
       
       // Style the active tab
       this.classList.remove('border-transparent', 'text-gray-500', 'hover:border-gray-300', 'hover:text-gray-700');
-      this.classList.add('border-indigo-500', 'text-indigo-600');
+      this.classList.add('border-primary', 'text-primary');
     });
   });
 });
