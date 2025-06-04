@@ -89,55 +89,8 @@
 {{ $taglineColor := .Get "taglineColor" | default "primary" }}
 {{ $linkText := .Get "linkText" | default "" }}
 {{ $linkUrl := .Get "linkUrl" | default "" }}
-{{ $defaultCards := slice
-  (dict
-    "title" "Lightning-fast builds"
-    "category" "Performance"
-    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
-    "imageAlt" "Performance dashboard"
-    "cardSize" "large"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Push to deploy"
-    "category" "Releases"
-    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
-    "imageAlt" "Releases panel"
-    "cardSize" "large"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Built for power users"
-    "category" "Speed"
-    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
-    "imageAlt" "Speed metrics"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Connect your favorite tools"
-    "category" "Integrations"
-    "description" "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
-    "imageAlt" "Integrations panel"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Globally distributed CDN"
-    "category" "Network"
-    "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
-    "imageAlt" "Network map"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-}}
 
-{{ $cards := $defaultCards }}
+{{ $cards := slice }}
 {{ with .Inner }}
   {{ if . }}
     {{ $cards = . | unmarshal }}

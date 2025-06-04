@@ -53,32 +53,7 @@
 {{ $taglineColor := .taglineColor | default "primary" }}
 {{ $backgroundColor := .backgroundColor | default "gray-50" }}
 
-{{ $cards := .cards | default (slice
-  (dict
-    "title" "Mobile friendly"
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-mobile-friendly.png"
-    "imageAlt" "Mobile friendly interface"
-  )
-  (dict
-    "title" "Performance"
-    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit maiores impedit."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-performance.png"
-    "imageAlt" "Performance metrics"
-  )
-  (dict
-    "title" "Security"
-    "description" "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-security.png"
-    "imageAlt" "Security shield"
-  )
-  (dict
-    "title" "Additional Features"
-    "description" "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget sem sodales gravida."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-03-api.png" 
-    "imageAlt" "API documentation"
-  )
-) }}
+{{ $cards := .cards | default (slice) }}
 
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
   <div class="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
