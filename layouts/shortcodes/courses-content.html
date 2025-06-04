@@ -1,0 +1,167 @@
+{{/*
+@shortcode: courses-content
+@description: Shortcode for displaying course content using the sections/courses/courses-content.html partial
+@params:
+  - title: Main section title (optional, defaults to page title)
+  - description: Section description text (optional, defaults to page description)
+  - ctaText: Text for the call-to-action button (optional)
+  - ctaUrl: URL for the call-to-action button (optional)
+  - bannerText: Text for the bottom banner (optional)
+  - comment: Additional comment for internal documentation (optional)
+  
+  Course data can be provided in three ways:
+  
+  1. JSON content between shortcode tags (recommended):
+  {{< courses-content ... >}}
+  {
+    "icons": [{"image": "/path/to/icon.svg"}, ...],
+    "sessions": [{...session object...}, {...}],
+    "offers": [{...offer object...}, {...}],
+    "features": [{...feature object...}, {...}]
+  }
+  {{< /courses-content >}}
+  
+  2. With course_data parameter (for Hugo templates):
+  course_data=(dict
+    "icons" (slice of icon objects)
+    "sessions" (slice of session objects)
+    "offers" (slice of offer objects)
+    "features" (slice of feature objects)
+  )
+  
+  3. Legacy parameters (deprecated):
+  - icons: Array of icon objects with name, image path and alt text (optional)
+  - sessions: Array of session objects with pricing information (optional)
+  - offers: Array of offer objects with promotional text (optional)
+  - courseFeatures/sessionFeatures: Array of course feature objects (optional)
+    Each feature object requires:
+      title: Feature title (e.g. "Introduction to Generative AI")
+      items: Array of strings with learning points
+    Note: Feature numbers are automatically generated from the array index.
+    
+@examples:
+  {{< courses-content >}}
+  {{< courses-content title="Custom Course Title" description="Custom description" >}}
+  {{< courses-content comment="This is used on the main courses page" >}}
+  
+  <!-- Basic usage -->
+  {{< courses-content 
+    title="AI Training"
+    description="Learn how to use AI effectively"
+    ctaText="Register Now"
+    ctaUrl="/signup/"
+    bannerText="Limited spots available!"
+  >}}
+  
+  <!-- Using JSON format (recommended) -->
+  {{< courses-content 
+    title="Advanced AI Course"
+    description="Master AI techniques"
+    ctaText="Register Now"
+    ctaUrl="/register/"
+  >}}
+  {
+    "icons": [
+      {"image": "/images/logos/openai-logo.svg"},
+      {"image": "/images/logos/gemini-logo.svg"}
+    ],
+    "sessions": [
+      {
+        "title": "Weekend Intensive",
+        "subtitle": "Online workshop",
+        "count": "2",
+        "countLabel": "days",
+        "smallGroupTitle": "Small group:",
+        "smallGroupPrice": "€600",
+        "largeGroupTitle": "Large group:",
+        "largeGroupPrice": "€900"
+      }
+    ],
+    "offers": [
+      {"text": "Early registration discount", "color": "bg-blue-600"}
+    ],
+    "features": [
+      {
+        "title": "AI Fundamentals",
+        "items": [
+          "Machine learning basics",
+          "Neural networks"
+        ]
+      }
+    ]
+  }
+  {{< /courses-content >}}
+  
+  <!-- Using course_data parameter with Hugo template syntax (alternative) -->
+  {{< courses-content 
+    title="Advanced AI Course"
+    description="Master AI techniques"
+    ctaText="Register Now"
+    ctaUrl="/register/"
+    course_data=(dict
+      "icons" (slice
+        (dict "image" "/images/logos/openai-logo.svg")
+        (dict "image" "/images/logos/gemini-logo.svg")
+      )
+      "sessions" (slice
+        (dict 
+          "title" "Weekend Intensive"
+          "subtitle" "Online workshop"
+          "count" "2"
+          "countLabel" "days"
+          "smallGroupTitle" "Small group:"
+          "smallGroupPrice" "€600"
+          "largeGroupTitle" "Large group:"
+          "largeGroupPrice" "€900"
+        )
+      )
+      "offers" (slice
+        (dict "text" "Early registration discount" "color" "bg-blue-600")
+      )
+      "features" (slice
+        (dict 
+          "title" "AI Fundamentals"
+          "items" (slice 
+            "Machine learning basics"
+            "Neural networks"
+          )
+        )
+      )
+    )
+  >}}
+*/}}
+
+{{ $title := .Get "title" | default .Page.Title }}
+{{ $description := .Get "description" | default .Page.Params.description }}
+{{ $ctaText := .Get "ctaText" | default nil }}
+{{ $ctaUrl := .Get "ctaUrl" | default nil }}
+{{ $bannerText := .Get "bannerText" | default nil }}
+{{ $comment := .Get "comment" | default "" }}
+
+{{ $course_data := .Get "course_data" | default dict }}
+
+{{ with .Inner }}
+  {{ if . }}
+    {{ $course_data = . | unmarshal }}
+  {{ end }}
+{{ end }}
+
+{{ $icons := cond (isset $course_data "icons") (index $course_data "icons") (.Get "icons") | default nil }}
+{{ $sessions := cond (isset $course_data "sessions") (index $course_data "sessions") (.Get "sessions") | default nil }}
+{{ $offers := cond (isset $course_data "offers") (index $course_data "offers") (.Get "offers") | default nil }}
+{{ $features := cond (isset $course_data "features") (index $course_data "features") (or (.Get "courseFeatures") (.Get "sessionFeatures")) | default nil }}
+
+<!--{{ printf "%s" $icons }}-->
+
+{{ partial "sections/courses/courses-content.html" (dict 
+    "title" $title
+    "description" $description
+    "icons" $icons
+    "sessions" $sessions
+    "offers" $offers
+    "ctaText" $ctaText
+    "ctaUrl" $ctaUrl
+    "sessionFeatures" $features
+    "bannerText" $bannerText
+    "comment" $comment
+) }}
