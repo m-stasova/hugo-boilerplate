@@ -3,7 +3,8 @@
   {{< features-with-intro-and-tabs 
     backgroundColor="bg-white"
     heading="Technical Specifications" 
-    description="The Organize modular system offers endless options for arranging your favorite and most used items." 
+    description="The Organize modular system offers endless options for arranging your favorite and most used items."
+    verticalAlign="center"
   >}}
     [
       {
@@ -33,6 +34,7 @@
   - backgroundColor: Background color class (default: "bg-white")
   - heading: Main heading text (default: "Technical Specifications")
   - description: Description text below the main heading
+  - verticalAlign: Controls the vertical alignment of content and image ("center" or "top", default: "top")
   
   Inner Content:
   JSON array of tab objects with the following structure:
@@ -48,6 +50,7 @@
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
 {{ $heading := .Get "heading" | default "" }}
 {{ $description := .Get "description" | default "" }}
+{{ $verticalAlign := .Get "verticalAlign" | default "top" }}
 
 {{ $defaultTabs := slice }}
 
@@ -62,5 +65,7 @@
   "backgroundColor" $backgroundColor
   "heading" $heading
   "description" $description
+  "verticalAlign" $verticalAlign
   "tabs" $tabs
+  "page" $.Page
 ) }}
