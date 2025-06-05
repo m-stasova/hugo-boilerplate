@@ -5,7 +5,8 @@
 {{ range $index, $part := first (sub (len $parts) 1) $parts }}
 {{ $path = printf "%s/%s" $path $part }}
 {{ with $.Site.GetPage $path }}
-{{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
+  {{ $title := replace .Title "-" " " }}
+  {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" $title "url" .RelPermalink) }}
 {{ end }}
 {{ end }}
 {{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
