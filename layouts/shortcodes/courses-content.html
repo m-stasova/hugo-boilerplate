@@ -1,167 +1,172 @@
 {{/*
 @shortcode: courses-content
-@description: Shortcode for displaying course content using the sections/courses/courses-content.html partial
+@description: Shortcode for displaying course content, pricing options, features, and promotional banners
 @params:
   - title: Main section title (optional, defaults to page title)
   - description: Section description text (optional, defaults to page description)
   - ctaText: Text for the call-to-action button (optional)
   - ctaUrl: URL for the call-to-action button (optional)
-  - bannerText: Text for the bottom banner (optional)
-  - comment: Additional comment for internal documentation (optional)
-  
-  Course data can be provided in three ways:
-  
-  1. JSON content between shortcode tags (recommended):
-  {{< courses-content ... >}}
+  - bannerText: Text for the bottom banner, supports HTML (optional)
+  - bannerImage: Path to banner image (optional)
+  - bannerImageAlt: Alt text for banner image (optional)
+  - sectionClass: CSS classes for the main section (optional)
+  - bgColor: Background color class (optional)
+  - padding: Padding classes (optional)
+
+  Course data should be provided as JSON content between shortcode tags:
   {
-    "icons": [{"image": "/path/to/icon.svg"}, ...],
-    "sessions": [{...session object...}, {...}],
-    "offers": [{...offer object...}, {...}],
-    "features": [{...feature object...}, {...}]
+    "icons": Array of icon objects with image path and alt text,
+    "sessions": Array of session objects with pricing information,
+    "labels": Array of label objects with promotional text,
+    "features": Array of feature objects with title and items array
   }
-  {{< /courses-content >}}
-  
-  2. With course_data parameter (for Hugo templates):
-  course_data=(dict
-    "icons" (slice of icon objects)
-    "sessions" (slice of session objects)
-    "offers" (slice of offer objects)
-    "features" (slice of feature objects)
-  )
-  
-  3. Legacy parameters (deprecated):
-  - icons: Array of icon objects with name, image path and alt text (optional)
-  - sessions: Array of session objects with pricing information (optional)
-  - offers: Array of offer objects with promotional text (optional)
-  - courseFeatures/sessionFeatures: Array of course feature objects (optional)
-    Each feature object requires:
-      title: Feature title (e.g. "Introduction to Generative AI")
-      items: Array of strings with learning points
-    Note: Feature numbers are automatically generated from the array index.
-    
-@examples:
-  {{< courses-content >}}
-  {{< courses-content title="Custom Course Title" description="Custom description" >}}
-  {{< courses-content comment="This is used on the main courses page" >}}
-  
-  <!-- Basic usage -->
+
+@example:
   {{< courses-content 
-    title="AI Training"
-    description="Learn how to use AI effectively"
-    ctaText="Register Now"
-    ctaUrl="/signup/"
-    bannerText="Limited spots available!"
-  >}}
-  
-  <!-- Using JSON format (recommended) -->
-  {{< courses-content 
-    title="Advanced AI Course"
-    description="Master AI techniques"
-    ctaText="Register Now"
-    ctaUrl="/register/"
-  >}}
-  {
+    title="Microsoft Copilot Training Course"
+    description="Ensuring teams get the most value from the integrated Microsoft Copilot is crucial any company using Microsoft products. Our mentored learning sessions help teams work smarter and use integrated generative AI tools to enhance everyday workflows."
+    ctaText="Book Now"
+    ctaUrl="/booking/"
+    bannerText="Showcase Your Expertise<br><b>With Our Certificate!</b>"
+    comment="Main AI training course details"
+    sectionClass="mx-auto max-w-7xl mb-0"
+    >}}
+    {
     "icons": [
-      {"image": "/images/logos/openai-logo.svg"},
-      {"image": "/images/logos/gemini-logo.svg"}
+        {"image": "/images/landing-pages/microsoft-copilot.svg"}
     ],
     "sessions": [
-      {
-        "title": "Weekend Intensive",
-        "subtitle": "Online workshop",
+        {
+        "title": "2 x 2.5 hour",
+        "subtitle": "online sessions",
         "count": "2",
-        "countLabel": "days",
-        "smallGroupTitle": "Small group:",
-        "smallGroupPrice": "€600",
-        "largeGroupTitle": "Large group:",
-        "largeGroupPrice": "€900"
-      }
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€900",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1100"
+        },
+        {
+        "title": "5 x 1 hour",
+        "subtitle": "online sessions",
+        "count": "5",
+        "countLabel": "sessions in bundle",
+        "smallGroupTitle": "1-6 people:",
+        "smallGroupPrice": "€1000",
+        "largeGroupTitle": "7-12 people:",
+        "largeGroupPrice": "€1200"
+        }
     ],
-    "offers": [
-      {"text": "Early registration discount", "color": "bg-blue-600"}
+    "labels": [
+        {"text": "10% Discount for further bookings over 5 sessions", "bgColor": "bg-green-600", "textColor": "text-white"}
     ],
     "features": [
-      {
-        "title": "AI Fundamentals",
+        {
+        "title": "Introduction to Microsoft Copilot for Companies",
         "items": [
-          "Machine learning basics",
-          "Neural networks"
+            "From AI to Generative AI",
+            "What is an LLM?",
+            "Tackling AI hallucination"
         ]
-      }
+        },
+        {
+        "title": "Practical Use Cases for M365 Applications",
+        "items": [
+            "AI-assisted writing in MS Word",
+            "Presentations with Copilot in MS PowerPoint",
+            "Email workflows in MS Outlook",
+        ]
+        }
     ]
-  }
-  {{< /courses-content >}}
-  
-  <!-- Using course_data parameter with Hugo template syntax (alternative) -->
-  {{< courses-content 
-    title="Advanced AI Course"
-    description="Master AI techniques"
-    ctaText="Register Now"
-    ctaUrl="/register/"
-    course_data=(dict
-      "icons" (slice
-        (dict "image" "/images/logos/openai-logo.svg")
-        (dict "image" "/images/logos/gemini-logo.svg")
-      )
-      "sessions" (slice
-        (dict 
-          "title" "Weekend Intensive"
-          "subtitle" "Online workshop"
-          "count" "2"
-          "countLabel" "days"
-          "smallGroupTitle" "Small group:"
-          "smallGroupPrice" "€600"
-          "largeGroupTitle" "Large group:"
-          "largeGroupPrice" "€900"
-        )
-      )
-      "offers" (slice
-        (dict "text" "Early registration discount" "color" "bg-blue-600")
-      )
-      "features" (slice
-        (dict 
-          "title" "AI Fundamentals"
-          "items" (slice 
-            "Machine learning basics"
-            "Neural networks"
-          )
-        )
-      )
-    )
-  >}}
+    }
+    {{< /courses-content >}}
 */}}
 
+{{/* Content variables */}}
 {{ $title := .Get "title" | default .Page.Title }}
 {{ $description := .Get "description" | default .Page.Params.description }}
 {{ $ctaText := .Get "ctaText" | default nil }}
 {{ $ctaUrl := .Get "ctaUrl" | default nil }}
-{{ $bannerText := .Get "bannerText" | default nil }}
 {{ $comment := .Get "comment" | default "" }}
 
-{{ $course_data := .Get "course_data" | default dict }}
+{{/* Layout & styling options */}}
+{{ $sectionClass := .Get "sectionClass" | default nil }}
+{{ $bgColor := .Get "bgColor" | default nil }}
+{{ $padding := .Get "padding" | default nil }}
+{{ $iconClass := .Get "iconClass" | default nil }}
+{{ $titleColor := .Get "titleColor" | default nil }}
+{{ $titleClass := .Get "titleClass" | default nil }}
+{{ $descriptionColor := .Get "descriptionColor" | default nil }}
+{{ $descriptionClass := .Get "descriptionClass" | default nil }}
 
+{{/* Session styling options */}}
+{{ $pricingContainerClass := .Get "pricingContainerClass" | default nil }}
+{{ $sessionCardClass := .Get "sessionCardClass" | default nil }}
+{{ $sessionHeaderClass := .Get "sessionHeaderClass" | default nil }}
+{{ $sessionNumberClass := .Get "sessionNumberClass" | default nil }}
+{{ $sessionTitleClass := .Get "sessionTitleClass" | default nil }}
+{{ $sessionContentClass := .Get "sessionContentClass" | default nil }}
+{{ $sessionListClass := .Get "sessionListClass" | default nil }}
+{{ $sessionFeaturesEnabled := .Get "sessionFeaturesEnabled" | default true }}
+
+{{/* Banner configuration - HTML is supported in text */}}
+{{ $bannerText := .Get "bannerText" | default nil }}
+{{ $bannerImage := .Get "bannerImage" | default nil }}
+{{ $bannerImageAlt := .Get "bannerImageAlt" | default nil }}
+{{ $bannerTextColor := .Get "bannerTextColor" | default nil }}
+{{ $bannerBackgroundColor := .Get "bannerBackgroundColor" | default nil }}
+
+{{/* Legacy session configuration */}}
+{{ $session1 := .Get "session1" | default nil }}
+{{ $session2 := .Get "session2" | default nil }}
+{{ $labels := .Get "labels" | default nil }}
+
+{{/* Parse course data from inner content */}}
+{{ $course_data := .Get "course_data" | default dict }}
 {{ with .Inner }}
   {{ if . }}
     {{ $course_data = . | unmarshal }}
   {{ end }}
 {{ end }}
 
+{{/* Get data from parsed content */}}
 {{ $icons := cond (isset $course_data "icons") (index $course_data "icons") (.Get "icons") | default nil }}
 {{ $sessions := cond (isset $course_data "sessions") (index $course_data "sessions") (.Get "sessions") | default nil }}
-{{ $offers := cond (isset $course_data "offers") (index $course_data "offers") (.Get "offers") | default nil }}
+{{ $labels := cond (isset $course_data "labels") (index $course_data "labels") $labels | default nil }}
 {{ $features := cond (isset $course_data "features") (index $course_data "features") (or (.Get "courseFeatures") (.Get "sessionFeatures")) | default nil }}
 
-<!--{{ printf "%s" $icons }}-->
-
+{{/* Render the courses content section using the partial */}}
 {{ partial "sections/courses/courses-content.html" (dict 
     "title" $title
     "description" $description
     "icons" $icons
     "sessions" $sessions
-    "offers" $offers
+    "labels" $labels
     "ctaText" $ctaText
     "ctaUrl" $ctaUrl
     "sessionFeatures" $features
     "bannerText" $bannerText
     "comment" $comment
+    "sectionClass" $sectionClass
+    "bgColor" $bgColor
+    "padding" $padding
+    "iconClass" $iconClass
+    "titleColor" $titleColor
+    "titleClass" $titleClass
+    "descriptionColor" $descriptionColor
+    "descriptionClass" $descriptionClass
+    "pricingContainerClass" $pricingContainerClass
+    "sessionCardClass" $sessionCardClass
+    "sessionHeaderClass" $sessionHeaderClass
+    "sessionNumberClass" $sessionNumberClass
+    "sessionTitleClass" $sessionTitleClass
+    "sessionContentClass" $sessionContentClass
+    "sessionListClass" $sessionListClass
+    "sessionFeaturesEnabled" $sessionFeaturesEnabled
+    "bannerImage" $bannerImage
+    "bannerImageAlt" $bannerImageAlt
+    "bannerTextColor" $bannerTextColor
+    "bannerBackgroundColor" $bannerBackgroundColor
+    "session1" $session1
+    "session2" $session2
 ) }}

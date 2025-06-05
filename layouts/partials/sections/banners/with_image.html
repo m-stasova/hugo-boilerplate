@@ -19,8 +19,8 @@
       "image" "/images/landing-pages/ai-training-sertificate.png"
       "image_alt" "Certificate of completion"
       "textColor" "text-gray-900"
-      "gradientFromColor" "from-[#ff80b5]"
-      "gradientToColor" "to-[#9089fc]"
+      "gradientFromColor" "from-[#1a1a1a]"
+      "gradientToColor" "to-[ #0f1f5c]"
       "id" "certificate-banner-123"
   ) }}
 @note: Make sure the image path is correct and accessible. By default, the banner uses a modern gradient background with blur effects. The banner uses Tailwind CSS 3 for responsive layout and includes rounded corners with padding.
@@ -28,30 +28,27 @@
 
 {{- $text := .text | default "" -}}
 {{- $backgroundColor := .backgroundColor | default "" -}}
-{{- $gradientFromColor := .gradientFromColor | default "from-[#ff80b5]" -}}
-{{- $gradientToColor := .gradientToColor | default "to-[#9089fc]" -}}
-{{- $textColor := .textColor | default "text-gray-900" -}}
+{{- $gradientFromColor := .gradientFromColor | default "from-[#1a1a1a]" -}}
+{{- $gradientToColor := .gradientToColor | default "to-[#0f1f5c]" -}}
+{{- $textColor := .textColor | default "text-white" -}}
 {{- $image := .image | default "/images/landing-pages/ai-training-sertificate.png" -}}
 {{- $imageAlt := .image_alt | default $text -}}
-{{- $bannerId := .id | default (printf "banner-%s-%d" (substr (md5 $text) 0 8) (now.Unix)) -}}
 
-<section class="relative isolate" id="{{ $bannerId }}">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row items-center relative p-6 rounded-lg {{ $backgroundColor }}">
-             <div class="absolute top-1/2 left-[max(-7rem,calc(50%-52rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
-                <div class="aspect-577/310 w-[36.0625rem] bg-gradient-to-r {{ $gradientFromColor }} {{ $gradientToColor }} opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)"></div>
-            </div>
-            <div class="absolute top-1/2 left-[max(45rem,calc(50%+8rem))] -z-10 -translate-y-1/2 transform-gpu blur-2xl" aria-hidden="true">
-                <div class="aspect-577/310 w-[36.0625rem] bg-gradient-to-r {{ $gradientFromColor }} {{ $gradientToColor }} opacity-30" style="clip-path: polygon(74.8% 41.9%, 97.2% 73.2%, 100% 34.9%, 92.5% 0.4%, 87.5% 0%, 75% 28.6%, 58.5% 54.6%, 50.1% 56.8%, 46.9% 44%, 48.3% 17.4%, 24.7% 53.9%, 0% 27.9%, 11.9% 74.2%, 24.9% 54.1%, 68.6% 100%, 74.8% 41.9%)"></div>
-            </div>
+<section class="relative isolate">
+    <div class="mx-auto max-w-7xl not-prose">
+        <div class="flex flex-col md:flex-row items-center p-6 rounded-lg {{ $backgroundColor }}">
             <div class="w-full md:w-1/4 mb-4 md:mb-0">
                 <div class="flex justify-center md:justify-start">
-                    <img src="{{ $image }}" alt="{{ $imageAlt }}" class="max-w-full h-auto">
+                    {{ partial "components/media/lazyimg.html" (dict 
+                        "src" $image
+                        "alt" $imageAlt
+                        "class" "max-w-full h-auto object-contain")
+                    }}
                 </div>
             </div>
             <div class="w-full md:w-3/4 md:pl-6">
                 <div class="{{ $textColor }}">
-                    <h2 class="text-2xl font-bold m-0">{{ $text }}</h2>
+                    <h2 class="text-2xl lg:text-4xl font-bold m-0">{{ $text | safeHTML }}</h2>
                 </div>
             </div>
         </div>
