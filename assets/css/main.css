@@ -54,12 +54,12 @@
   }
 
   .btn-text {
-    @apply text-sm font-semibold text-gray-900 hover:text-primary dark:text-white;
+    @apply text-sm font-semibold text-gray-900 hover:text-white/75 dark:text-white;
     /* Minimal text button – typically inline or tertiary CTA on light background */
   }
 
   .btn-text-dark {
-    @apply text-sm font-semibold text-white hover:text-primary-300;
+    @apply text-sm font-semibold text-white hover:text-white/75;
     /* Minimal text button for dark backgrounds */
   }
 
