@@ -68,11 +68,7 @@
     
     <!-- Apply Tailwind typography with custom processing for better heading styles -->
     <div class="mt-10 prose prose-lg prose-indigo max-w-none">
-      {{ $linkbuildingContent := partial "utils/linkbuilding" (dict "content" $content "page" $page) }}
-      <!-- Then apply all other custom styles -->
-      {{ $processedContent := $linkbuildingContent | markdownify | safeHTML }}
-      
-      {{ $processedContent }}
+      {{ $content }}
     </div>
   </div>
 </div>
