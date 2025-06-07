@@ -86,3 +86,8 @@ read_more_post: "Read more"
 no_posts_found: "No posts found"
 minutes_read: "min read"
 get_started: "Get started"
+
+# AI training courses translations
+courses.session: "Session"
+courses.you_will_learn: "You will learn:"
+courses.or: "or"
