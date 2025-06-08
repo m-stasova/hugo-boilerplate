@@ -41,7 +41,7 @@
 {{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
 {{ $contentColor := .Get "contentColor" | default "text-gray-700" }}
 
-{{ $content := .Inner | default "" }}
+{{ $content := .Inner | markdownify | default "" }}
 
 {{ partial "sections/content/centered.html" (dict
   "eyebrow" $eyebrow
