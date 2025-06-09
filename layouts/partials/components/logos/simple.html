@@ -49,37 +49,38 @@
 {{/* Logos */}}
 {{ $logoColor := .logoColor | default "gray-900" }}
 {{ $logos := .logos | default (slice) }}
+{{ if $logos }}
+  {{/* Heading and Description */}}
+  {{ $heading := .heading }}
+  {{ $headingColor := .headingColor | default "text-gray-900" }}
+  {{ $description := .description | default "" }}
+  {{ $descriptionColor := .descriptionColor | default $headingColor }}
 
-{{/* Heading and Description */}}
-{{ $heading := .heading }}
-{{ $headingColor := .headingColor | default "text-gray-900" }}
-{{ $description := .description | default "" }}
-{{ $descriptionColor := .descriptionColor | default $headingColor }}
-
-<div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    {{ if or $heading $description }}
-    <div class="text-center mb-8 sm:mb-12 {{ if $heading }}pt-4{{ end }}">
-      {{ if $heading }}<h2 class="text-3xl font-bold tracking-tight sm:text-4xl {{ $headingColor }}">{{ $heading }}</h2>{{ end }}
-      {{ if $description }}<p class="mt-4 text-lg {{ $descriptionColor }}">{{ $description | markdownify }}</p>{{ end }}
-    </div>
-    {{ end }}
-
-    <div class="mx-auto flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
-      {{ range $index, $logo := $logos }}
-        <div class="flex items-center justify-center">
-          {{ $class := "max-h-12 w-full object-contain" }}
-          {{ if $logo.url }}<a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">{{ end }}
-              {{ partial "components/media/lazyimg.html" (dict
-                "src" $logo.image
-                "alt" $logo.name
-                "class" $class
-                "loading" "lazy"
-                "decoding" "async"
-              ) }}
-          {{ if $logo.url }}</a>{{ end }}
-        </div>
+  <div class="{{ $bgColor }} {{ $padding }}">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      {{ if or $heading $description }}
+      <div class="text-center mb-8 sm:mb-12 {{ if $heading }}pt-4{{ end }}">
+        {{ if $heading }}<h2 class="text-3xl font-bold tracking-tight sm:text-4xl {{ $headingColor }}">{{ $heading }}</h2>{{ end }}
+        {{ if $description }}<p class="mt-4 text-lg {{ $descriptionColor }}">{{ $description | markdownify }}</p>{{ end }}
+      </div>
       {{ end }}
+
+      <div class="mx-auto flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
+        {{ range $index, $logo := $logos }}
+          <div class="flex items-center justify-center">
+            {{ $class := "max-h-12 w-full object-contain" }}
+            {{ if $logo.url }}<a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">{{ end }}
+                {{ partial "components/media/lazyimg.html" (dict
+                  "src" $logo.image
+                  "alt" $logo.name
+                  "class" $class
+                  "loading" "lazy"
+                  "decoding" "async"
+                ) }}
+            {{ if $logo.url }}</a>{{ end }}
+          </div>
+        {{ end }}
+      </div>
     </div>
   </div>
-</div>
+{{ end }}
