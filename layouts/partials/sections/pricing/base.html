@@ -116,6 +116,7 @@
 {{ $taglineColor := .taglineColor | default "primary" }}
 {{ $headingColor := .headingColor | default "black" }}
 {{ $descriptionColor := .descriptionColor | default "black" }}
+{{ $darkTheme := .darkTheme | default false }}
 
 {{ $tiers := .tiers }}
 
@@ -169,20 +170,19 @@
                     "id" $tier.id 
                     "classes" (printf "not-prose block rounded-md px-3 py-2 text-primary text-center text-[14px] font-semibold hover:no-underline ring-1 ring-%s ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" ($tier.ctaRingColor | default "gray-300"))
                     "url" $tier.cta.url
-                    "variant" "dark"
                 ) }}
               {{ end }}
             {{ end }}
           </div>
           <p class="mt-auto mb-6 flex items-baseline gap-y-2 h-16">
             {{ if $tier.priceBeforeText }}<span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }} ring-gray-200 mr-1 self-center">{{ $tier.priceBeforeText }}</span>{{ end }}
-            <span class="text-5xl font-semibold tracking-tight text-{{ $tier.priceColor }} mr-2">{{ $tier.price }}</span>
+            <span class="text-4xl font-semibold tracking-tight text-{{ $tier.priceColor }} mr-2">{{ $tier.price }}</span>
            <span class="text-sm/6 font-semibold text-{{ $tier.intervalColor }}">{{ $tier.interval }}</span>
           </p>
           <ul role="list" class="mt-2 mb-2 px-0 space-y-3 text-sm/6 text-{{ $tier.featureColor }} flex-grow min-h-[12rem]">
             {{ range $feature := $tier.features }}
             <li class="flex pl-0 gap-x-3 not-prose">
-                {{ partial "icons/check" "h-6 w-5 flex-none text-primary" }}
+                {{ partial "icons/check" "h-6 w-5 flex-none {{ if $darkTheme }}text-white{{ else }}text-primary{{ end }}" }}
                 {{ $feature }}
             </li>
             {{ end }}

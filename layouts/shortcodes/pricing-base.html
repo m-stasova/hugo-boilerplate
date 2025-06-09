@@ -11,6 +11,19 @@
 {{ $tiers := .Get "tiers" | default $params.tiers | default slice }}
 {{ $columns := .Get "columns" | default $params.columns | default 4 }}
 {{ $priceBeforeText := .Get "priceBeforeText" | default $params.priceBeforeText | default "" }}
+{{ $darkTheme := .Get "darkTheme" | default $params.darkTheme | default false }}
+
+{{ if not $tiers }}
+  {{ errorf "No tiers provided for pricing section. Please define 'tiers' parameter." }}
+{{ end }}
+
+{{ if eq $darkTheme true }}
+  {{ $backgroundColor = "bg-gray-900" }}
+  {{ $taglineColor = "text-white" }}
+  {{ $headingColor = "text-white" }}
+  {{ $descriptionColor = "text-gray-300" }}
+  {{ $checkIcon = "check-white" }}
+{{ end }}
 
 {{ partial "sections/pricing/base.html" (dict
   "tagline" $tagline
@@ -24,6 +37,7 @@
   "tiers" $tiers
   "columns" $columns
   "priceBeforeText" $priceBeforeText
+  "darkTheme" $darkTheme
 ) }}
 
 {{/*
