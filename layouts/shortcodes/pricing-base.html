@@ -10,6 +10,7 @@
 {{ $checkIcon := .Get "checkIcon" | default $params.checkIcon | default "" }}
 {{ $tiers := .Get "tiers" | default $params.tiers | default slice }}
 {{ $columns := .Get "columns" | default $params.columns | default 4 }}
+{{ $priceBeforeText := .Get "priceBeforeText" | default $params.priceBeforeText | default "" }}
 
 {{ partial "sections/pricing/base.html" (dict
   "tagline" $tagline
@@ -22,6 +23,7 @@
   "checkIcon" $checkIcon
   "tiers" $tiers
   "columns" $columns
+  "priceBeforeText" $priceBeforeText
 ) }}
 
 {{/*

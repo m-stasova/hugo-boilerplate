@@ -12,19 +12,25 @@
   {{ $tooltipPosition = "left-full top-1/2 transform -translate-y-1/2 ml-2" }}
 {{ end }}
 
-<div class="relative inline-flex sm:items-center sm:mr-2 md:items-start">
-  {{ .content }}
-  <span class="group relative inline-flex items-center justify-center" data-tooltip-wrapper>
-    {{ partial "icons/information-circle" "h-4 w-4 ml-2 text-gray-400 hover:text-gray-500 cursor-pointer tooltip-trigger" }}
-    <div
-      class="pointer-events-none absolute {{ $tooltipPosition }} z-10 w-64 rounded-md bg-gray-900 px-3 py-2 text-xs text-white font-normal opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 tooltip-content"
-      data-tooltip
-      role="tooltip"
-      aria-hidden="true"
-    >
-      {{ $text }}
+<div class="relative">
+  <div class="flex items-start gap-1 flex-wrap">
+    <div class="flex-auto leading-tight">
+      <span class="inline">
+        {{ .content }}
+      </span>
     </div>
-  </span>
+    <span class="relative flex-shrink-0 translate-y-[1px]" data-tooltip-wrapper>
+      {{ partial "icons/information-circle" "h-4 w-4 text-gray-400 hover:text-gray-500 cursor-pointer tooltip-trigger" }}
+      <div
+        class="pointer-events-none absolute {{ $tooltipPosition }} z-10 w-64 rounded-md bg-gray-900 px-3 py-2 text-xs text-white font-normal opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 tooltip-content"
+        data-tooltip
+        role="tooltip"
+        aria-hidden="true"
+      >
+        {{ $text }}
+      </div>
+    </span>
+  </div>
 </div>
 
 <script>
