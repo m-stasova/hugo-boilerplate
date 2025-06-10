@@ -42,7 +42,35 @@
     "width" "1200"
     "height" "800"
   )
+  "typewriter" (dict
+    "enabled" true
+    "words" 2
+    "speed" 100
+    "deleteSpeed" 50
+    "pause" 2000
+    "color" "text-indigo-600"
+  )
 ) }}`}}</code></pre>
+        </div>
+
+        <div class="bg-yellow-50 p-4 rounded border mb-4">
+          <h5 class="font-medium mb-2">🎥 Typewriter Effect (NEW):</h5>
+          <p class="text-sm text-yellow-800 mb-2">Add an animated typewriter effect to the last N words of your heading:</p>
+          <pre class="text-sm overflow-x-auto"><code>{{`"typewriter" (dict
+  "enabled" true      // Enable the effect
+  "words" 1          // Number of words to animate (default: 1)
+  "speed" 100        // Typing speed in ms (default: 100)
+  "deleteSpeed" 50   // Deleting speed in ms (default: 50)
+  "pause" 2000       // Pause between words in ms (default: 2000)
+  "color" "text-indigo-600" // Color class for animated words
+)`}}</code></pre>
+          <p class="text-sm text-yellow-800 mt-2"><strong>Shortcode Usage:</strong></p>
+          <pre class="text-sm overflow-x-auto"><code>{{`{{< hero-simple-centered 
+  heading="Transform your business today"
+  typewriterEnabled="true"
+  typewriterWords="2"
+  typewriterColor="text-blue-600"
+>}}`}}</code></pre>
         </div>
 
         <div class="bg-gray-50 p-4 rounded border">

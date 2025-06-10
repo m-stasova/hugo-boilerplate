@@ -7,11 +7,13 @@
     <p class="text-xl font-semibold ">{{ i18n "no_posts_found" }}</p>
   </div>
 {{ else }}
-  {{ $paginator := .Paginate (.Pages.ByDate) 60 }}
-  {{ $sortedPages := sort $paginator.Pages "Date" "desc" }}
+
+
+
+  {{ $paginator := .Paginate .Pages.ByDate.Reverse 60 }}
 
   <div class="wrapper grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
-    {{ range $sortedPages }}
+    {{ range $paginator.Pages }}
       <div>
         {{ partial "components/cards/post_card_with_image.html" (dict "page" . "cardHeight" 540) }}
       </div>
