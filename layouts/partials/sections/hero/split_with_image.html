@@ -16,6 +16,13 @@
   - tags: Array of tags (optional), will create tag links to /tags/[tag-name]
   - categories: Array of categories (optional), will create category links to /categories/[category-name]
   - image: Image URL string or object with url and alt properties (optional)
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
 @example:
   {{ partial "sections/hero/split_with_image.html" (dict 
       "logo" "/images/logo.svg"
@@ -34,6 +41,14 @@
       "tags" (slice "Analytics" "Data" "Business")
       "categories" (slice "Product")
       "image" (dict "url" "/images/hero.jpg" "alt" "Dashboard analytics screenshot")
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 150
+          "deleteSpeed" 75
+          "pause" 3000
+          "color" "text-blue-600"
+      )
   ) }}
 */}}
 

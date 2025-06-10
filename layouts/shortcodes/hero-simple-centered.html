@@ -16,6 +16,12 @@
     imageAlt="Image alt text"
     imageWidth="Image width"
     imageHeight="Image height"
+    typewriterEnabled="true/false"
+    typewriterWords="1"
+    typewriterSpeed="100"
+    typewriterDeleteSpeed="50"
+    typewriterPause="2000"
+    typewriterColor="text-indigo-600"
   >}}
   
   Parameters:
@@ -34,6 +40,12 @@
   - imageAlt: Alt text for the image
   - imageWidth: Image width (optional)
   - imageHeight: Image height (optional)
+  - typewriterEnabled: Enable/disable typewriter effect (true/false, default: false)
+  - typewriterWords: Number of words to animate from the end (default: 1)
+  - typewriterSpeed: Typing speed in milliseconds (default: 100)
+  - typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
+  - typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
+  - typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
 */ -}}
 
 {{/* Simple Centered Hero Shortcode */}}
@@ -50,6 +62,14 @@
 {{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $imageWidth := .Get "imageWidth" | default "" }}
 {{ $imageHeight := .Get "imageHeight" | default "" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
 
 {{ $announcement := "" }}
 
@@ -73,10 +93,20 @@
   "height" $imageHeight
 }}
 
+{{ $typewriter := dict 
+  "enabled" $typewriterEnabled
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
 {{ partial "sections/hero/simple_centered.html" (dict 
   "announcement" $announcement
   "heading" $heading
   "description" $description
   "cta" $cta
   "image" $image
+  "typewriter" $typewriter
 ) }}

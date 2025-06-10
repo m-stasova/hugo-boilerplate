@@ -15,6 +15,7 @@
     - description: Card description text
     - image: URL to card image
     - imageAlt: Alt text for the image
+    - url: URL to link the card to, making the entire card clickable (optional)
     - cardSize: Card size in the grid ("large" or "small", optional, default: "large")
       - large: Takes 3 columns (2 large cards per row)
       - small: Takes 2 columns (3 small cards per row)
@@ -32,6 +33,7 @@
               "description" "Comprehensive digital transformation services to modernize your business processes and technology stack."
               "image" "/images/services/digital-transformation.jpg"
               "imageAlt" "Digital transformation illustration"
+              "url" "/services/digital-transformation"
               "cardSize" "large"
               "categoryColor" "blue-600"
           )
@@ -94,6 +96,7 @@
     "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
     "imageAlt" "Performance dashboard"
+    "url" "/features/performance"
     "cardSize" "large"
     "categoryColor" "primary"
   )
@@ -112,6 +115,7 @@
     "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
     "imageAlt" "Speed metrics"
+    "url" "/features/power-users"
     "cardSize" "small"
     "categoryColor" "primary"
   )
@@ -130,6 +134,7 @@
     "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
     "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
     "imageAlt" "Network map"
+    "url" "/features/cdn"
     "cardSize" "small"
     "categoryColor" "primary"
   )
@@ -161,22 +166,41 @@
       {{ range $index, $card := $cards }}
         {{ $cardSize := $card.cardSize | default "large" }}
         {{ $colSpan := cond (eq $cardSize "small") "lg:col-span-2" "lg:col-span-3" }}
-        
+        {{ $url := $card.url | default "" }}
+
         <div class="relative {{ $colSpan }}">
           <div class="absolute inset-px rounded-lg bg-white"></div>
-          <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
-            {{ partial "components/media/lazyimg.html" (dict 
-              "src" $card.image
-              "alt" $card.imageAlt
-              "class" "h-80 object-cover object-left"
-            ) }}
-            <div class="p-10 pt-4">
-              <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
-              <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
-              <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+          {{ if $url }}
+            <a href="{{ $url }}" class="relative block h-full group">
+              <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+                {{ partial "components/media/lazyimg.html" (dict
+                  "src" $card.image
+                  "alt" $card.imageAlt
+                  "class" "h-80 object-cover object-left transition-transform group-hover:scale-105"
+                ) }}
+                <div class="p-10 pt-4">
+                  <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+                  <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 group-hover:underline">{{ $card.title }}</p>
+                  <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+                </div>
+              </div>
+              <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 group-hover:ring-2 group-hover:ring-{{ $card.categoryColor | default "primary" }}/30"></div>
+            </a>
+          {{ else }}
+            <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
+              {{ partial "components/media/lazyimg.html" (dict
+                "src" $card.image
+                "alt" $card.imageAlt
+                "class" "h-80 object-cover object-left"
+              ) }}
+              <div class="p-10 pt-4">
+                <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
+                <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
+                <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
+              </div>
             </div>
-          </div>
-          <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
+            <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
+          {{ end }}
         </div>
       {{ end }}
     </div>

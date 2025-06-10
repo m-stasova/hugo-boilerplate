@@ -1,0 +1,43 @@
+/* Typewriter effect styles */
+.typewriter-container {
+  position: relative;
+  display: inline-block;
+}
+
+.typewriter-text {
+  position: relative;
+  color: theme('colors.indigo.600');
+  font-weight: inherit;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  animation: typewriter-blink 1s infinite;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.typewriter-cursor.typing {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes typewriter-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Hide the cursor when the container is invisible */
+.typewriter-container.hidden .typewriter-cursor {
+  display: none;
+}
+
+/* Ensure smooth text transitions */
+.typewriter-text {
+  transition: color 0.2s ease;
+}
