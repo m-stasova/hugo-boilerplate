@@ -1,3 +1,50 @@
+{{/*
+@section: Split Hero with Code Example
+@description: A split hero section with text content on the left and a code example preview on the right, perfect for developer-focused products.
+@params:
+  - logo: URL to logo image (default: Tailwind CSS logo)
+  - badge: Object with badge information (optional)
+    - text: Badge text (default: "What's new")
+    - version: Version text (default: "Just shipped v0.1.0")
+  - heading: Main section heading (default: "Supercharge your web app")
+  - description: Description below the heading (default: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.")
+  - cta: Object with CTA buttons information (optional)
+    - primary: Primary CTA button (text, url)
+    - secondary: Secondary CTA button (text, url)
+  - code: Object with code example information (optional)
+    - activeFile: Name of the active file tab (default: "NotificationSetting.jsx")
+    - inactiveFile: Name of the inactive file tab (default: "App.jsx")
+    - content: The code content to display (default: "// Add your code example here")
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/split_with_code_example.html" (dict 
+      "heading" "Build faster with our SDK"
+      "description" "Our powerful SDK makes it easy to integrate advanced features into your application."
+      "cta" (dict 
+          "primary" (dict "text" "View Documentation" "url" "/docs") 
+          "secondary" (dict "text" "GitHub" "url" "https://github.com/example")
+      )
+      "code" (dict
+          "activeFile" "integration.js"
+          "inactiveFile" "config.js"
+          "content" "import { SDK } from '@company/sdk';\n\nconst client = new SDK({\n  apiKey: process.env.API_KEY\n});\n\nclient.connect();"
+      )
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 100
+          "deleteSpeed" 50
+          "pause" 2000
+          "color" "text-indigo-600"
+      )
+  ) }}
+*/}}
 {{/* Split Hero with Code Example */}}
 {{ $logo := .logo | default "https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" }}
 {{ $badge := .badge | default (dict

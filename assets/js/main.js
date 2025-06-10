@@ -6,3 +6,5 @@ import './lazy-videos.js';
 import './banner-dismiss.js';
 // Import cookie consent functionality
 import './cookie-consent.js';
+// Import typewriter effect functionality
+import './typewriter.js';
