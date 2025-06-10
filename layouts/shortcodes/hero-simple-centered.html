@@ -52,7 +52,7 @@
 {{ $heading := .Get "heading" | default (.Get 0) | default "" }}
 {{ $description := .Get "description" | default (.Get 1) | default "" }}
 {{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "" }}
-{{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "#" }}
+{{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "" }}
 {{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "" }}
 {{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
 {{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
