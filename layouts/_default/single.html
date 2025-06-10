@@ -4,10 +4,11 @@
 {{ partial "hero_default.html" . }}
 
 <!-- Main Content -->
-<div class="bg-white mt-16 mb-16 p-8 mx-auto max-w-8xl">
-  <div
-    class="mx-auto max-w-none prose prose-lg prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
-    {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+<div class="bg-white">
+  <div class="wrapper">
+    <div class="mx-auto max-w-none prose prose-lg prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
+      {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+    </div>
   </div>
 </div>
 

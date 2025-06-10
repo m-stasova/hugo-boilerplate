@@ -71,8 +71,8 @@
 {{ $labelColor := .labelColor | default "text-gray-600" }}
 
 <div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:max-w-none">
+  <div class="wrapper">
+  
       {{ if $showHeading }}
       <div class="text-center">
         {{ if $heading }}
@@ -97,6 +97,5 @@
         </div>
         {{ end }}
       </dl>
-    </div>
   </div>
 </div>
