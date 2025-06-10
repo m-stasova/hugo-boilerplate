@@ -53,7 +53,7 @@
 
 {{ if and $faqs (gt (len $faqs) 0) }}
 <div class="{{ $bgColor }}">
-  <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+  <div class="wrapper">
     <h2 class="text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
     <dl class="mt-20 divide-y {{ $dividerColor }}">
       {{ range $faqs }}

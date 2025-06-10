@@ -20,7 +20,7 @@
 {{- $items := .items -}}
 {{- $separator := .separator | default "/" -}}
 
-<nav class="flex gap-2 py-4" aria-label="Breadcrumbs">
+<nav class="wrapper flex gap-2 py-8" aria-label="Breadcrumbs">
   {{- range $index, $item := $items -}}
     {{- if $index -}}
       <p class="text-gray-400 select-none text-base tracking-widest text-pretty" aria-hidden="true">{{ $separator }}</p>
