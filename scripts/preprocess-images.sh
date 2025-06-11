@@ -90,10 +90,10 @@ process_image() {
         
         if [ "$is_webp" = true ]; then
             # For WebP, optimize without changing dimensions
-            magick "$source" -quality 98 "$optimized_original"
+            magick "$source" -quality 99 "$optimized_original"
         else
             # For other formats, optimize without changing dimensions
-            magick "$source" -quality 98 "$optimized_original"
+            magick "$source" -quality 99 "$optimized_original"
         fi
         
         # Check if the optimized image is larger than the original
