@@ -24,6 +24,7 @@ import argparse
 import yaml
 import gc
 import frontmatter
+from frontmatter import TOMLHandler # Changed import
 import markdown
 from bs4 import BeautifulSoup
 from tqdm import tqdm
@@ -72,7 +73,7 @@ def parse_args():
     parser.add_argument("--output-dir", type=str, default="data/related_content",
                         help="Output directory relative to Hugo root (default: data/related_content)")
     parser.add_argument("--exclude-sections", type=str, nargs="+", default=[],
-                        help="Sections or files to exclude")
+                        help="List of section (directory) names or specific file paths (relative to language content directory) to exclude. For example, 'author' will exclude all content under the 'author/' directory. 'path/to/file.md' will exclude that specific file.")
     parser.add_argument("--model", type=str, default=MODEL_NAME,
                         help=f"Model name to use (default: {MODEL_NAME})")
     parser.add_argument("--hugo-root", type=str, 
@@ -125,10 +126,26 @@ def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_s
                 # Extract relative path from content directory
                 rel_path = os.path.relpath(file_path, content_directory)
                 
-                # Skip excluded sections
-                if exclude_sections and any(section in rel_path for section in exclude_sections):
-                    continue
-                
+                # Skip excluded sections/files
+                if exclude_sections:
+                    skip_file = False
+                    for exclusion_item in exclude_sections:
+                        # Case 1: Exact match for a file path (e.g., "blog/specific-post.md")
+                        if rel_path == exclusion_item:
+                            skip_file = True
+                            break
+                        # Case 2: Path is within an excluded directory (e.g., exclusion_item is "author")
+                        # This checks if rel_path starts with "author/"
+                        # exclusion_item.rstrip(os.sep) handles if user inputs "author" or "author/"
+                        normalized_dir_pattern = exclusion_item.rstrip(os.sep) + os.sep
+                        if rel_path.startswith(normalized_dir_pattern):
+                            skip_file = True
+                            break
+                    if skip_file:
+                        # You can uncomment the line below for debugging to see what's being skipped
+                        # print(f"Skipping excluded item: {rel_path} due to rule: {exclusion_item}")
+                        continue
+
                 # Extract section from path
                 path_parts = rel_path.split(os.sep)
                 section = path_parts[0] if len(path_parts) > 1 else ""
@@ -137,10 +154,10 @@ def process_content_files(hugo_root=None, lang=None, content_dir=None, exclude_s
                 is_index = file.lower() == "_index.md"
                 
                 try:
-                    # Parse frontmatter and content
+                    # Parse frontmatter and content using TOMLHandler
                     with open(file_path, "r", encoding="utf-8") as f:
-                        post = frontmatter.load(f)
-                    
+                        post = frontmatter.load(f, handler=TOMLHandler())
+
                     # Extract slug - handle index files differently
                     if is_index:
                         # For _index.md files, use the directory path as the slug

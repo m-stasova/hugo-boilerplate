@@ -127,7 +127,7 @@ run_step() {
             ;;
         generate_related_content)
             echo -e "${BLUE}=== Step 4: Generating Related Content ===${NC}"
-            python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}"
+            python "${SCRIPT_DIR}/generate_related_content.py" --path "${HUGO_ROOT}/content" --hugo-root "${HUGO_ROOT}" --exclude-sections "author"
             echo -e "${GREEN}Related content generation completed!${NC}"
             ;;
         preprocess_images)

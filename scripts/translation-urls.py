@@ -18,8 +18,9 @@ Requirements:
 """
 
 import os
-import yaml
 import frontmatter
+from frontmatter import TOMLHandler # Add this import
+import yaml
 import argparse
 from pathlib import Path
 from collections import defaultdict
@@ -40,8 +41,8 @@ def get_url_from_file(file_path, lang, relative_path):
     """Extract URL from a markdown file, either from frontmatter or derive from path."""
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            post = frontmatter.load(f)
-        
+            post = frontmatter.load(f, handler=TOMLHandler()) # Use TOMLHandler
+
         # Check if URL is defined in frontmatter
         if 'url' in post.metadata:
             url = post.metadata['url']
