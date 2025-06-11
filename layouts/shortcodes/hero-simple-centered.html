@@ -1,5 +1,5 @@
 {{- /*
-  Usage in markdown:
+  Usage:
   {{< hero-simple-centered 
     heading="Heading text" 
     description="Description text" 
@@ -54,14 +54,16 @@
 {{ $primaryCTAText := .Get "primaryCTAText" | default (.Get 2) | default "" }}
 {{ $primaryCTAUrl := .Get "primaryCTAUrl" | default (.Get 3) | default "" }}
 {{ $secondaryCTAText := .Get "secondaryCTAText" | default (.Get 4) | default (i18n "learnMore") | default "" }}
-{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "#" }}
-{{ $announcementText := .Get "announcementText" | default (.Get 7) | default "Announcing our next round of funding." }}
-{{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "Read more" }}
-{{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "#" }}
+{{ $secondaryCTAUrl := .Get "secondaryCTAUrl" | default (.Get 5) | default "" }}
+{{ $announcementEnabled := (.Get "announcementEnabled") | default "true" | lower }}
+{{ $announcementText := .Get "announcementText" | default (.Get 7) | default "" }}
+{{ $announcementLinkText := .Get "announcementLinkText" | default (.Get 8) | default "" }}
+{{ $announcementLinkUrl := .Get "announcementLinkUrl" | default (.Get 9) | default "" }}
 {{ $imageSrc := .Get "imageSrc" | default "" }}
 {{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $imageWidth := .Get "imageWidth" | default "" }}
 {{ $imageHeight := .Get "imageHeight" | default "" }}
+{{ $theme := .Get "theme" | default "light" }}
 
 {{/* Typewriter parameters */}}
 {{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
@@ -71,14 +73,13 @@
 {{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
 {{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
 
-{{ $announcement := "" }}
-
-{{ if $announcementText}}
-{{ $announcement := dict 
-  "text" $announcementText
-  "linkText" $announcementLinkText
-  "linkUrl" $announcementLinkUrl
-}}
+{{ $announcement := dict }}
+{{ if and (eq $announcementEnabled "true") $announcementText }}
+  {{ $announcement = dict 
+    "text" $announcementText
+    "linkText" $announcementLinkText
+    "linkUrl" $announcementLinkUrl
+  }}
 {{ end }}
 
 {{ $cta := dict 
@@ -109,4 +110,5 @@
   "cta" $cta
   "image" $image
   "typewriter" $typewriter
+  "theme" $theme
 ) }}

@@ -36,8 +36,8 @@
 */}}
 
 {{/* Configurable variables */}}
-{{ $bgColor := .bgColor | default "bg-gray-50" }}
-{{ $padding := .padding | default "px-6 py-32 lg:px-8" }}
+{{ $bgColor := .bgColor | default "" }}
+{{ $padding := .padding | default "" }}
 
 {{/* Heading section */}}
 {{ $eyebrow := .eyebrow | default "" }}
@@ -52,8 +52,8 @@
 {{ $content := .content | default "" }}
 {{ $page := .page }}
 
-<div class="{{ $bgColor }} {{ $padding }} rounded-xl mx-6 sm:mx-8 lg:mx-auto lg:max-w-7xl">
-  <div class="mx-auto max-w-3xl text-base/7 {{ $contentColor }}">
+<div class="{{ $bgColor }} {{ $padding }} rounded-xl wrapper">
+  <div class="text-base/7 {{ $contentColor }}">
     {{ if $eyebrow }}
     <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
     {{ end }}

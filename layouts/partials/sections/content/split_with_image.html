@@ -88,7 +88,7 @@ The system automatically scales based on your needs, so you never have to worry 
 
 
 <div class="relative {{ $bgColor }} mb-2.5">
-  <div class="mx-auto max-w-7xl lg:flex lg:justify-between lg:items-center lg:px-8 xl:justify-end">
+  <div class="wrapper lg:flex lg:justify-between lg:items-center xl:justify-end">
     <div class="lg:flex lg:w-1/2 lg:items-center lg:shrink lg:grow-0 xl:relative xl:inset-y-0 xl:right-0 xl:w-1/2">
       <div class="relative flex items-center justify-center w-full overflow-hidden">
         {{ partial "components/media/lazyimg.html" (dict
@@ -98,7 +98,7 @@ The system automatically scales based on your needs, so you never have to worry 
         ) }}
       </div>
     </div>
-    <div class="px-6 lg:contents">
+    <div class="lg:contents">
       <div class="mx-auto max-w-2xl pt-16 pb-24 sm:pt-20 sm:pb-32 lg:mr-0 lg:ml-8 lg:w-full lg:max-w-lg lg:flex-none lg:pt-32 xl:w-1/2">
         {{ if $eyebrow }}
         <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>

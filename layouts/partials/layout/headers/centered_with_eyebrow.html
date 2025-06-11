@@ -24,7 +24,7 @@
 
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
-{{ $padding := .padding | default "px-6 py-24 sm:py-32 lg:px-8" }}
+{{ $padding := .padding | default "" }}
 
 {{/* Eyebrow */}}
 {{ $eyebrow := .eyebrow }}
@@ -37,10 +37,10 @@
 {{ $descriptionColor := .descriptionColor | default "text-gray-500" }}
 
 {{/* Max width */}}
-{{ $maxWidth := .maxWidth | default "max-w-4xl" }}
+{{ $maxWidth := .maxWidth | default "" }}
 
 <div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto {{ $maxWidth }} text-center">
+  <div class="wrapper py-24 text-center">
     {{ if $eyebrow }}
     <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
     {{ end }}

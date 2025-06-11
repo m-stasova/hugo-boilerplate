@@ -7,9 +7,8 @@
 {{ end }}
 
 <!-- Main Content -->
-<div class="bg-white px-6 py-3 lg:px-8 mx-auto max-w-7xl">
-  <div
-    class="mx-auto max-w-none prose prose-lg prose-primary prose-headings:font-semibold prose-a:no-underline prose-img:rounded-xl">
+<div class="bg-white dark:bg-gray-900">
+  <div>
     {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
   </div>
 </div>

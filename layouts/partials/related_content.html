@@ -33,14 +33,15 @@
       
       {{ if gt (len $relatedPages) 0 }}
         <div class="bg-white py-16">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="wrapper">
               <div class="text-center mb-8"></div>
               <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mb-4">
                 {{ i18n "wantMore" | default "Want more?" }}
               </h2>
           </div>
           
-          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="wrapper">
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {{ $validPages := 0 }}
             {{ range first 3 $relatedPages }}
               {{ if . }}
@@ -55,8 +56,10 @@
                 .text-center.mb-8 { display: none; }
               </style>
             {{ end }}
+            </div>
           </div>
         </div>
+          
         {{ end }}
   {{ end }}
 {{ end }}

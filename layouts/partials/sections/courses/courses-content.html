@@ -232,10 +232,10 @@
 
         <!-- Call to Action Button -->
         {{ if $ctaText }}
-            {{ partial "components/buttons/primary.html" (dict 
+            {{ partial "components/buttons/buttons.html" (dict 
                 "text" $ctaText 
                 "url" $ctaUrl 
-                "classes" "w-full py-3 text-center text-base"
+                "variants" "primary"
             ) }}
         {{ end }}
     </div>
