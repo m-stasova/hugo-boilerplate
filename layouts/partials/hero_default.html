@@ -1,8 +1,8 @@
-
 <!-- Hero Section with Split Image -->
 {{ $eyebrow := .Params.eyebrow | default "" }}
 {{ $title := .Params.title | default .Title | default "" }}
 {{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
+{{ $typewriter := .Params.typewriter | default dict }}
 
 {{ $image := .Params.image }}
 {{ if not $image }}
@@ -19,6 +19,7 @@
     "image" $image
     "videoTitle" (.Params.youtubeTitle | default .Params.title)
     "videoID" .Params.youtubeVideoID
+    "typewriter" $typewriter
     ) }}
 {{ else if and .Params.workspaceId .Params.chatbotId }}
     {{ partial "sections/hero/split_with_chatbot.html" (dict
@@ -31,18 +32,21 @@
     "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL)
     "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL)
     )
+    "typewriter" $typewriter
     ) }}
-{{ else if $image }}
+{{ else if $image }} {{/* Use the fetched image URL */}}
     {{ partial "sections/hero/split_with_image.html" (dict
     "heading" $title
     "description" (markdownify $shortDescription)
     "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
     "image" $image
+    "typewriter" $typewriter
     ) }}
 {{ else }}
     {{ partial "layout/headers/centered_with_eyebrow.html" (dict
     "heading" $title
     "description" (markdownify $shortDescription)
     "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
+    "typewriter" $typewriter
     ) }}
 {{ end }}
