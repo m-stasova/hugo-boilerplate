@@ -8,7 +8,7 @@
   - id: Image ID (optional)
   - width: Image width (optional)
   - height: Image height (optional)
-  - maxWidth: Maximum image width for loading (optional, default: 1024)
+  - maxWidth: Maximum image width for loading (optional)
 @example:
   {{ partial "components/media/lazyimg.html" (dict 
       "src" "/images/blog/featured-image.jpg" 
@@ -67,25 +67,20 @@
 
     <!-- Generate dynamic sizes attribute based on available widths -->
     {{ $sizesAttr := "" }}
-
-    <!-- Sort available widths in ascending order to create breakpoints -->
     {{ $sortedWidths := sort $availableWidths }}
 
-    <!-- For each available width, create a corresponding breakpoint -->
-    {{ $breakpoint := 0 }}
-    {{ range $index, $width := $sortedWidths }}
-      {{ $breakpoint = mul $width 1 | int }} <!-- 1:1 ratio of image width to viewport width -->
-      
-      {{ if eq $index 0 }}
-        <!-- First breakpoint -->
-        {{ $sizesAttr = printf "(max-width: %dpx) %dpx" $breakpoint $width }}
-      {{ else if lt $index (sub (len $sortedWidths) 1) }}
-        <!-- Middle breakpoints -->
-        {{ $sizesAttr = printf "%s, (max-width: %dpx) %dpx" $sizesAttr $breakpoint $width }}
-      {{ else }}
-        <!-- Last breakpoint (default) - use the exact maxWidth specified -->
-        {{ $sizesAttr = printf "%s, %dpx" $sizesAttr $maxWidth }}
+    {{ range $index, $w := $sortedWidths }}
+      {{ if $sizesAttr }}
+        {{ $sizesAttr = printf "%s, " $sizesAttr }}
       {{ end }}
+      {{ $sizesAttr = printf "%s(max-width: %dpx) %dpx" $sizesAttr $w $w }}
+    {{ end }}
+
+    <!-- Append the default slot width for viewports larger than the largest $w in $sortedWidths -->
+    {{ if $sizesAttr }}
+      {{ $sizesAttr = printf "%s, %dpx" $sizesAttr $maxWidth }}
+    {{ else }}
+      {{ $sizesAttr = printf "%dpx" $maxWidth }}
     {{ end }}
 
     <!-- Extract paths for processed images -->
@@ -93,13 +88,13 @@
     {{ $extension := path.Ext $filename }}
     {{ $basename := replace $filename $extension "" }}
     {{ $dirPath := path.Dir $src }}
-    
+
     <!-- Extract the relative path inside /images/ directory -->
     {{ $relativePath := $dirPath }}
     {{ if hasPrefix $dirPath "/images/" }}
       {{ $relativePath = substr $dirPath 8 }}
     {{ end }}
-    
+
     <!-- Create processed directory path that mirrors original structure -->
     {{ $processedDirPath := path.Join "/images/processed" $relativePath }}
     {{ if not (eq $processedDirPath "/images/processed") }}
@@ -107,19 +102,7 @@
     {{ else }}
       {{ $processedDirPath = "/images/processed/" }}
     {{ end }}
-    
-    {{ $relativePath := $dirPath }}
-    {{ if hasPrefix $dirPath "/images/" }}
-      {{ $relativePath = substr $dirPath 8 }}
-    {{ end }}
-    
-    {{ $processedDirPath := path.Join "/images/processed" $relativePath }}
-    {{ if not (eq $processedDirPath "/images/processed") }}
-      {{ $processedDirPath = printf "%s/" $processedDirPath }}
-    {{ else }}
-      {{ $processedDirPath = "/images/processed/" }}
-    {{ end }}
-    
+
     <!-- Check if optimized version of original image exists in processed folder -->
     {{ $optimizedOriginalPath := printf "%s%s%s" $processedDirPath $basename $extension }}
     {{ $hasOptimizedOriginal := fileExists (printf "static%s" $optimizedOriginalPath) }}
@@ -158,7 +141,7 @@
     {{ $availableSrcWidths := slice }}
     {{ $availableWebpWidths := slice }}
     
-    <!-- Process each available width -->
+    <!-- Process each available width for -width suffixed versions -->
     {{ range $availableWidths }}
       {{ $currentWidth := . }}
       
@@ -166,20 +149,46 @@
       {{ $currentSrcPath := printf "%s%s-%d%s" $processedDirPath $basename $currentWidth $extension }}
       {{ $currentWebpPath := printf "%s%s-%d.webp" $processedDirPath $basename $currentWidth }}
       
-      <!-- Check if preprocessed images exist -->
-      {{ $useSrc := fileExists (printf "static%s" $currentSrcPath) }}
-      {{ $useWebp := fileExists (printf "static%s" $currentWebpPath) }}
-      
-      <!-- Add to available widths if exists -->
-      {{ if $useSrc }}
+      <!-- Check if preprocessed images exist and add to available widths lists -->
+      {{ if fileExists (printf "static%s" $currentSrcPath) }}
         {{ $availableSrcWidths = $availableSrcWidths | append (dict "width" $currentWidth "path" $currentSrcPath) }}
       {{ end }}
       
-      {{ if $useWebp }}
+      {{ if fileExists (printf "static%s" $currentWebpPath) }}
         {{ $availableWebpWidths = $availableWebpWidths | append (dict "width" $currentWidth "path" $currentWebpPath) }}
       {{ end }}
     {{ end }}
-    
+
+    <!-- Add the main optimized original image ($optimizedOriginalPath) to srcsets -->
+    {{ $mainImageWidthDesc := $maxWidth }}
+    {{ if $hasOptimizedOriginal }}
+      {{ $pathToAdd := $optimizedOriginalPath }}
+      {{ $isWebP := strings.HasSuffix $pathToAdd ".webp" }}
+
+      {{ $found := false }} {{ range $availableSrcWidths }}{{ if eq .path $pathToAdd }}{{ $found = true }}{{ end }}{{ end }}
+      {{ if not $found }}
+        {{ $availableSrcWidths = $availableSrcWidths | append (dict "width" $mainImageWidthDesc "path" $pathToAdd) }}
+      {{ end }}
+
+      {{ if $isWebP }}
+        {{ $foundWebP := false }} {{ range $availableWebpWidths }}{{ if eq .path $pathToAdd }}{{ $foundWebP = true }}{{ end }}{{ end }}
+        {{ if not $foundWebP }}
+          {{ $availableWebpWidths = $availableWebpWidths | append (dict "width" $mainImageWidthDesc "path" $pathToAdd) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    <!-- Add $originalWebpPath (e.g. /images/processed/basename.webp) if it exists and is different -->
+    {{ if $useOriginalWebp }}
+      {{ $pathToAdd := $originalWebpPath }}
+      {{ if ne $pathToAdd $optimizedOriginalPath }} {{/* Avoid double-adding if already handled by $optimizedOriginalPath */}}
+          {{ $foundWebP := false }} {{ range $availableWebpWidths }}{{ if eq .path $pathToAdd }}{{ $foundWebP = true }}{{ end }}{{ end }}
+          {{ if not $foundWebP }}
+            {{ $availableWebpWidths = $availableWebpWidths | append (dict "width" $mainImageWidthDesc "path" $pathToAdd) }}
+          {{ end }}
+      {{ end }}
+    {{ end }}
+
     <!-- Sort available widths in ASCENDING order (smallest first) for srcset -->
     {{ $availableSrcWidths = sort $availableSrcWidths "width" "asc" }}
     {{ $availableWebpWidths = sort $availableWebpWidths "width" "asc" }}
@@ -202,28 +211,43 @@
       {{ end }}
     {{ end }}
     
-    <!-- If no processed images exist, use original -->
+    <!-- If no processed images exist, use original (or fallbackSrc) -->
     {{ if not $origSrcset }}
-      {{ $origSrcset = printf "%s %dw" $src 768 }} <!-- Assign a large width to original image -->
+      {{ $origSrcset = printf "%s %dw" $fallbackSrc $maxWidth }} <!-- Use $fallbackSrc and $maxWidth -->
     {{ end }}
     
     <!-- Calculate explicit sizes attribute to force browser to use the correct size -->
     {{ $explicitSizes := printf "%dpx" $maxWidth }}
-    
+
+    {{/* Determine MIME type based on file extension */}}
+    {{ $fileExt := strings.ToLower (path.Ext $src) }}
+    {{ $mimeType := "image/octet-stream" }} {{/* Default fallback */}}
+    {{ if eq $fileExt ".jpeg" }}
+      {{ $mimeType = "image/jpeg" }}
+    {{ else if eq $fileExt ".jpg" }}
+      {{ $mimeType = "image/jpeg" }}
+    {{ else if eq $fileExt ".png" }}
+      {{ $mimeType = "image/png" }}
+    {{ else if eq $fileExt ".webp" }}
+      {{ $mimeType = "image/webp" }}
+    {{ else if eq $fileExt ".gif" }}
+      {{ $mimeType = "image/gif" }}
+    {{ end }}
+
     <picture class="lazy-picture {{ with $classPicture }}{{ . }}{{ end }}">
       <!-- WebP sources with lazy loading -->
       {{ if $webpSrcset }}
-      <source 
-        type="image/webp" 
+      <source
+        type="image/webp"
         srcset="{{ $webpSrcset }}"
         sizes="{{ $sizesAttr }}"
         data-original-src="{{ $src }}"
       >
       {{ end }}
-      
+
       <!-- Original format sources with lazy loading -->
-      <source 
-        type="{{ cond (or (strings.HasSuffix $src ".jpg") (strings.HasSuffix $src ".jpeg")) "image/jpeg" (cond (strings.HasSuffix $src ".png") "image/png" "image/webp") }}"
+      <source
+        type="{{ $mimeType }}"
         srcset="{{ $origSrcset }}"
         sizes="{{ $sizesAttr }}"
         data-original-src="{{ $src }}"
