@@ -10,6 +10,20 @@
 {{ $checkIcon := .Get "checkIcon" | default $params.checkIcon | default "" }}
 {{ $tiers := .Get "tiers" | default $params.tiers | default slice }}
 {{ $columns := .Get "columns" | default $params.columns | default 4 }}
+{{ $priceBeforeText := .Get "priceBeforeText" | default $params.priceBeforeText | default "" }}
+{{ $darkTheme := .Get "darkTheme" | default $params.darkTheme | default false }}
+
+{{ if not $tiers }}
+  {{ errorf "No tiers provided for pricing section. Please define 'tiers' parameter." }}
+{{ end }}
+
+{{ if eq $darkTheme true }}
+  {{ $backgroundColor = "bg-gray-900" }}
+  {{ $taglineColor = "text-white" }}
+  {{ $headingColor = "text-white" }}
+  {{ $descriptionColor = "text-gray-300" }}
+  {{ $checkIcon = "check-white" }}
+{{ end }}
 
 {{ partial "sections/pricing/base.html" (dict
   "tagline" $tagline
@@ -22,6 +36,8 @@
   "checkIcon" $checkIcon
   "tiers" $tiers
   "columns" $columns
+  "priceBeforeText" $priceBeforeText
+  "darkTheme" $darkTheme
 ) }}
 
 {{/*
@@ -92,7 +108,7 @@
     popular: true
     popularText: "Most popular"
     popularBgColor: "indigo-600/10"
-    popularTextColor: "indigo-600"
+    popularTextColor: "primary"
     features:
       - "10 projects"
       - "Up to 5,000 subscribers"

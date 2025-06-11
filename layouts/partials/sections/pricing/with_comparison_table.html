@@ -72,7 +72,7 @@
 {{ $featureCategories := .featureCategories }}
 
 {{ if (gt (len $tiersComparison) 0) }}
-    <div id="comparison-table" class="bg-{{ $backgroundColorComparison }} py-12 hidden md:block">
+    <div id="comparison-table" class="bg-{{ $backgroundColorComparison }} py-20 hidden md:block">
         <div class="wrapper">
             <div class="text-center">
                 {{ if $headingComparison }}
@@ -115,7 +115,7 @@
                             </div>
                         {{ end }}
                     {{ end }}
-                    <table class="w-full table-fixed border-separate border-spacing-x-8 text-left">
+                    <table class="w-full table-fixed border-separate border-spacing-x-8 text-left overflow-hidden">
                         <colgroup>
                             <col class="w-1/4">
                             {{ range $tiersComparison }}
@@ -138,8 +138,8 @@
                             {{ range $tier := $tiersComparison }}
                                 {{ $hasFunctionality := or (or $tier.monthlyPrice $tier.annualPrice) (and $tier.cta $tier.cta.url $tier.cta.text) }}
                                 {{ if $hasFunctionality }}
-                                <td class="px-6 pt-2 xl:px-8">
-                                    <p class="mt-6 flex items-baseline gap-x-1">
+                                <td class="not-prose px-6 pt-0 xl:px-8">
+                                    <p class="mt-0 flex items-baseline gap-x-1">
                                         {{ if $togglePrice }}
                                             <!-- Monthly price (default visible) -->
                                             {{ if $tier.monthlyPrice }}
@@ -157,12 +157,25 @@
                                         {{ end }}
                                         <!-- Interval -->
                                         {{ if $tier.interval }}
-                                        <span class="text-sm/6 font-semibold text-gray-500">{{ $tier.interval }}</span>
+                                        <span class="text-sm/6 font-semibold text-gray-900">{{ $tier.interval }}</span>
                                         {{ end }}
                                     </p>
                                     {{ if and $tier.cta $tier.cta.url $tier.cta.text }}
-                                        <a href="{{ $tier.cta.url }}"
-                                           class="mt-8 not-prose block {{ if $tier.emphasized }}btn-primary{{ else }}btn-outline-dark{{ end }} text-center">{{ $tier.cta.text }}</a>
+                                        {{ if $tier.emphasized }}
+                                        {{ partial "components/buttons/buttons.html" (dict
+                                            "text" $tier.cta.text
+                                            "url" $tier.cta.url
+                                            "variant" "primary"
+                                            "classes" "mt-8 not-prose block text-center"
+                                        )}}
+                                        {{ else }}
+                                        {{ partial "components/buttons/buttons.html" (dict
+                                            "text" $tier.cta.text
+                                            "url" $tier.cta.url
+                                            "variant" "secondary"
+                                            "classes" (printf "mt-8 not-prose block rounded-md px-3 py-2 text-primary text-center text-[14px] font-semibold hover:no-underline ring-1 ring-%s ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" ($tier.ctaRingColor | default "gray-300"))
+                                        ) }}
+                                        {{ end }}
                                     {{ end }}
                                 </td>
                                 {{ end }}

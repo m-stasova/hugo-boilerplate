@@ -52,7 +52,7 @@
 {{ $faqs := .faqs | default .items }}
 
 {{ if and $faqs (gt (len $faqs) 0) }}
-<div class="{{ $bgColor }}">
+<div class="{{ $bgColor }} py-20">
   <div class="wrapper">
     <h2 class="text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-5xl">{{ $heading }}</h2>
     <dl class="mt-20 divide-y {{ $dividerColor }}">
