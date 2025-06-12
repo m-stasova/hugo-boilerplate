@@ -494,6 +494,13 @@ To print debug messages during development, you can use the `{{ printf }}` funct
 {{ warnf "DEBUG get-language-url: jsonify langData: %s" (jsonify $langData) }}
 ```
 
+
+## Init project:
+- checkout from git
+- init git submodules `git submodule update --init --recursive`
+- install dependencies `npm install`
+
+
 ### Common Issues
 
 1. **PostCSS Processing Errors**: Ensure you have the correct PostCSS configuration in your project root.
