@@ -386,6 +386,47 @@ answer = "Comprehensive answer to the question that provides valuable informatio
 Main content about the term goes here...
 ```
 
+## Automatic Linkbuilding
+
+The theme provides an automatic linkbuilding feature that scans your content and replaces specified keywords with links. This is configured via YAML files in the `data/linkbuilding/` directory, with a separate file for each language (e.g., `en.yaml`, `de.yaml`).
+
+### Configuration File Structure
+
+Each language-specific YAML file should contain a list of `keywords`. Each keyword entry defines the term to be linked, the target URL, and other options.
+
+Here's an example from `data/linkbuilding/en.yaml`:
+
+```yaml
+keywords:
+  - keyword: "mcp"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp server"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp servers"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+```
+
+### Keyword Entry Fields:
+
+-   `keyword`: (String) The actual word or phrase in your content that you want to turn into a link. The matching is case-insensitive by default.
+-   `url`: (String) The destination URL for the link. This should typically be a site-relative path (e.g., `/services/your-service/`).
+-   `exact`: (Boolean, optional, defaults to `false`) 
+    -   If `false` (default): The keyword will be matched even if it's part of a larger word (e.g., if keyword is "log", "logging" would also be matched). The matching is case-insensitive.
+    -   If `true`: The keyword will only be matched if it appears as an exact word (bounded by spaces or punctuation). The matching is case-sensitive.
+-   `priority`: (Integer, optional, defaults to `1`) Used to determine which rule applies if multiple keywords could match the same text. Higher numbers usually mean higher priority, but the exact logic depends on the implementation in the `linkbuilding.html` partial. Currently, the partial processes keywords in the order they appear in the YAML file, and the first match for a given piece of text is used. The `priority` field itself is not directly used by the current version of the `linkbuilding.html` partial to reorder or select rules beyond their sequence in the file.
+-   `title`: (String, optional, defaults to the `keyword` value) The text to be used for the `title` attribute of the generated `<a>` HTML tag. This is often used for tooltips or to provide more context to search engines.
+
+To add new linkbuilding rules, simply edit the appropriate `data/linkbuilding/<lang>.yaml` file and add new entries to the `keywords` list following this structure.
+
 ## Using Theme Components
 
 ### Shortcodes
