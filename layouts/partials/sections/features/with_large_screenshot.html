@@ -1,52 +1,16 @@
 {{/* Feature Section with Large Screenshot */}}
-{{ $tagline := .tagline | default "Everything you need" }}
-{{ $heading := .heading | default "No server? No problem." }}
-{{ $description := .description | default "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis." }}
-{{ $screenshot := .screenshot | default (dict
-  "url" "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
-  "alt" "App screenshot"
-  "width" "2432"
-  "height" "1442"
-) }}
-{{ $features := .features | default (slice
-  (dict 
-    "icon" "arrow-right-end-on-rectangle"
-    "title" "Push to deploy."
-    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna."
-  )
-  (dict 
-    "icon" "lock-closed"
-    "title" "SSL certificates."
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-  )
-  (dict 
-    "icon" "arrow-right-end-on-rectangle"
-    "title" "Simple queues."
-    "description" "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus."
-  )
-  (dict 
-    "icon" "arrow-right-end-on-rectangle"
-    "title" "Advanced security."
-    "description" "Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna."
-  )
-  (dict 
-    "icon" "check"
-    "title" "Powerful API."
-    "description" "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo."
-  )
-  (dict 
-    "icon" "circle-stack"
-    "title" "Database backups."
-    "description" "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus."
-  )
-) }}
+{{ $tagline := .tagline | default "" }}
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $screenshot := .screenshot | default (dict) }}
+{{ $features := .features | default (slice) }}
 
 {{ $page := .page }}
 
 <div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl sm:text-center">
-      <h2 class="text-base/7 font-semibold text-indigo-600">{{ $tagline }}</h2>
+      <h2 class="text-base/7 font-semibold text-primary">{{ $tagline }}</h2>
       <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl sm:text-balance">{{ $heading }}</p>
       <p class="mt-6 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" $page) | safeHTML }}</p>
     </div>
@@ -58,7 +22,7 @@
         "alt" $screenshot.alt
         "width" $screenshot.width
         "height" $screenshot.height
-        "class" "mb-[-12%] rounded-xl ring-1 shadow-2xl ring-gray-900/10"
+        "class" $screenshot.classes
       ) }}
       <div class="relative" aria-hidden="true">
         <div class="absolute -inset-x-20 bottom-0 bg-linear-to-t from-white pt-[7%]"></div>
@@ -72,7 +36,7 @@
       <div class="relative pl-9">
         <dt class="font-semibold text-gray-900">
           {{ if .icon }}
-          <div class="absolute left-1 top-1 size-5 text-indigo-600">
+          <div class="absolute left-1 top-1 size-5 text-primary">
             {{ partial "components/media/icon.html" (dict "icon" .icon) }}
           </div>
           {{ end }}
