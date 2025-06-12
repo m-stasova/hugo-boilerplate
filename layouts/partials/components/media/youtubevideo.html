@@ -32,21 +32,13 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "name": {{ $title | jsonify }},
-  "description": {{ $description | jsonify }},
+  "name": {{ $title }},
+  "description": {{ $description }},
   "thumbnailUrl": "https://img.youtube.com/vi/{{ $videoID }}/maxresdefault.jpg",
-  "uploadDate": {{ $uploadDate | jsonify }},
-  "duration": {{ $duration | jsonify }},
+  "uploadDate": {{ $uploadDate }},
+  "duration": {{ $duration }},
   "contentUrl": "https://www.youtube.com/watch?v={{ $videoID }}",
-  "embedUrl": "https://www.youtube.com/embed/{{ $videoID }}",
-  "publisher": {
-    "@type": "Organization",
-    "name": {{ .Site.Title | default "Website" | jsonify }},
-    "logo": {
-      "@type": "ImageObject",
-      "url": {{ .Site.Params.logo | default "" | jsonify }}
-    }
-  }
+  "embedUrl": "https://www.youtube.com/embed/{{ $videoID }}"
 }
 </script>
 
