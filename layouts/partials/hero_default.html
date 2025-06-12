@@ -43,7 +43,7 @@
     "typewriter" $typewriter
     ) }}
 {{ else }}
-    {{ partial "layout/headers/centered_with_eyebrow.html" (dict
+    {{ partial "sections/hero/simple_centered.html" (dict
     "heading" $title
     "description" (markdownify $shortDescription)
     "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
