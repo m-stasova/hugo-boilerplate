@@ -7,6 +7,7 @@
   - description: Description text below the main heading (default: "")
   - page: Page context for linkbuilding (required)
   - verticalAlign: Controls the vertical alignment of content and image ("center" or "top", default: "top")
+  - activeTab: ID of the tab that should be active by default (default: first tab)
   - tabs: Array of tab objects with the following structure:
     - id: Unique ID for the tab
     - title: Tab title
@@ -23,8 +24,18 @@
 {{ $page := .page }}
 {{ $verticalAlign := .verticalAlign | default "top" }}
 {{ $uniqueID := printf "features-tabs-%d" (now.UnixNano) }}
+{{ $activeTab := .activeTab }}
 
 {{ $tabs := .tabs | default (slice) }}
+
+{{ $defaultActiveTabId := "" }}
+{{ if $tabs }}
+  {{ if $activeTab }}
+    {{ $defaultActiveTabId = $activeTab }}
+  {{ else }}
+    {{ $defaultActiveTabId = (index $tabs 0).id }}
+  {{ end }}
+{{ end }}
 
 <div class="{{ $backgroundColor }}">
   <section aria-labelledby="{{ $uniqueID }}-heading" class="mx-auto max-w-7xl py-32 sm:px-2 lg:px-8">
@@ -40,7 +51,7 @@
             <div class="-mb-px flex justify-center space-x-10" aria-orientation="horizontal" role="tablist">
               {{ range $index, $tab := $tabs }}
                 <button id="{{ $uniqueID }}-tab-{{ $tab.id }}" 
-                  class="border-b-2 {{ if eq $index 0 }}border-primary text-primary{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} py-6 text-base font-medium whitespace-nowrap" 
+                  class="border-b-2 {{ if eq $tab.id $defaultActiveTabId }}border-primary text-primary{{ else }}border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700{{ end }} py-6 text-base font-medium whitespace-nowrap" 
                   aria-controls="{{ $uniqueID }}-panel-{{ $tab.id }}" 
                   role="tab" 
                   type="button"
@@ -55,7 +66,7 @@
 
         {{ range $index, $tab := $tabs }}
           <div id="{{ $uniqueID }}-panel-{{ $tab.id }}" 
-            class="text-lg space-y-16 pt-10 lg:pt-16 {{ if ne $index 0 }}hidden{{ end }}" 
+            class="text-lg space-y-16 pt-10 lg:pt-16 {{ if ne $tab.id $defaultActiveTabId }}hidden{{ end }}" 
             aria-labelledby="{{ $uniqueID }}-tab-{{ $tab.id }}" 
             role="tabpanel" 
             tabindex="0">
