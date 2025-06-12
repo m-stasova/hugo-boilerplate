@@ -1,12 +1,13 @@
 {{ define "main" }}
 {{ partial "breadcrumbs_default.html" . }}
 
-<!-- Hero Section -->
-{{ partial "hero_default.html" (dict
-  "title" .Title
-  "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "category_browse_content") .Title) "page" .))
-  "eyebrow" (i18n "category_eyebrow")
-) }}
+{{ $partialParams := dict
+"title" .Title
+"description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "category_browse_content") .Title) "page" .))
+"eyebrow" (i18n "category_eyebrow")
+}}
+
+{{ partial "hero_default.html" (dict "Params" $partialParams "Title" .Title "Page" .) }}
 
 <!-- Category Posts List -->
 <div class="bg-white py-12">

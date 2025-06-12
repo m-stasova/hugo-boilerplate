@@ -1,12 +1,15 @@
 {{ define "main" }}
 {{ partial "breadcrumbs_default.html" . }}
 
-<!-- Hero Section -->
-{{ partial "hero_default.html" (dict
-  "title" .Title
-  "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "tag_browse_content") .Title) "page" .))
-  "eyebrow" (i18n "tag_eyebrow")
-) }}
+{{ $partialParams := dict
+"title" .Title
+"description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "tag_browse_content") .Title) "page" .))
+"eyebrow" (i18n "tag_eyebrow")
+}}
+
+{{ partial "hero_default.html" (dict "Params" $partialParams "Title" .Title "Page" .) }}
+
+
 
 <!-- Tag Posts List -->
 <div class="bg-white py-12">
