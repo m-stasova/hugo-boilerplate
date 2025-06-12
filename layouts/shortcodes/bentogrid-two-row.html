@@ -17,7 +17,8 @@
         "imageAlt": "Performance dashboard showing fast build times",
         "url": "/features/performance",
         "cardSize": "large",
-        "categoryColor": "primary"
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Push to deploy",
@@ -26,7 +27,8 @@
         "image": "/images/bento-releases.jpg",
         "imageAlt": "Code deployment interface",
         "cardSize": "large",
-        "categoryColor": "primary"
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Built for power users",
@@ -36,7 +38,8 @@
         "imageAlt": "Speed metrics dashboard",
         "url": "/features/power-users",
         "cardSize": "small",
-        "categoryColor": "primary"
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Connect your favorite tools",
@@ -45,7 +48,8 @@
         "image": "/images/bento-integrations.jpg",
         "imageAlt": "Integration options panel",
         "cardSize": "small",
-        "categoryColor": "primary"
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Globally distributed CDN",
@@ -54,7 +58,8 @@
         "image": "/images/bento-network.jpg",
         "imageAlt": "Global network distribution map",
         "cardSize": "small",
-        "categoryColor": "primary"
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       }
     ]
   {{< /bentogrid-two-row >}}
@@ -92,6 +97,7 @@
 {{ $taglineColor := .Get "taglineColor" | default "primary" }}
 {{ $linkText := .Get "linkText" | default "" }}
 {{ $linkUrl := .Get "linkUrl" | default "" }}
+{{ $cardImageClasses := .Get "cardImageClasses" | default "h-80 object-cover object-left" }}
 
 {{ $cards := slice }}
 {{ with .Inner }}

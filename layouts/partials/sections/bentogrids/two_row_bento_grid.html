@@ -36,6 +36,7 @@
               "url" "/services/digital-transformation"
               "cardSize" "large"
               "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
               "title" "Cloud Infrastructure" 
@@ -45,6 +46,7 @@
               "imageAlt" "Cloud infrastructure diagram"
               "cardSize" "large"
               "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
               "title" "Data Analytics" 
@@ -54,6 +56,7 @@
               "imageAlt" "Data analytics dashboard"
               "cardSize" "small"
               "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
               "title" "API Integration" 
@@ -63,6 +66,7 @@
               "imageAlt" "API integration flowchart"
               "cardSize" "small"
               "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
               "title" "Cybersecurity" 
@@ -72,6 +76,7 @@
               "imageAlt" "Cybersecurity shield icon"
               "cardSize" "small"
               "categoryColor" "blue-600"
+              "cardImageClasses" "h-80 object-cover object-left"
           )
       )
   ) }}
@@ -89,56 +94,7 @@
 
 {{/* Default cards if none provided */}}
 
-{{ $cards := .cards | default (slice
-  (dict
-    "title" "Lightning-fast builds"
-    "category" "Performance"
-    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
-    "imageAlt" "Performance dashboard"
-    "url" "/features/performance"
-    "cardSize" "large"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Push to deploy"
-    "category" "Releases"
-    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
-    "imageAlt" "Releases panel"
-    "cardSize" "large"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Built for power users"
-    "category" "Speed"
-    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
-    "imageAlt" "Speed metrics"
-    "url" "/features/power-users"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Connect your favorite tools"
-    "category" "Integrations"
-    "description" "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
-    "imageAlt" "Integrations panel"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-  (dict
-    "title" "Globally distributed CDN"
-    "category" "Network"
-    "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
-    "imageAlt" "Network map"
-    "url" "/features/cdn"
-    "cardSize" "small"
-    "categoryColor" "primary"
-  )
-) }}
+{{ $cards := .cards | default (slice) }}
 
 <div class="bg-{{ $backgroundColor }} py-24 sm:py-32">
   <div class="wrapper">
@@ -167,22 +123,26 @@
         {{ $cardSize := $card.cardSize | default "large" }}
         {{ $colSpan := cond (eq $cardSize "small") "lg:col-span-2" "lg:col-span-3" }}
         {{ $url := $card.url | default "" }}
-
+        {{ $cardImageClasses := $card.cardImageClasses | default "h-80 object-cover object-left" }}
         <div class="relative {{ $colSpan }}">
           <div class="absolute inset-px rounded-lg bg-white"></div>
           {{ if $url }}
+            {{ $cardImageClasses = $card.cardImageClasses | default "h-80 object-cover object-left transition-transform group-hover:scale-105" }}
+
             <a href="{{ $url }}" class="relative block h-full group">
               <div class="relative flex h-full flex-col overflow-hidden rounded-[calc(var(--radius-lg)+1px)]">
                 {{ partial "components/media/lazyimg.html" (dict
                   "src" $card.image
                   "alt" $card.imageAlt
-                  "class" "h-80 object-cover object-left transition-transform group-hover:scale-105"
+                  "class" $card.cardImageClasses
                 ) }}
+                {{ if or $card.category $card.title $card.description }}
                 <div class="p-10 pt-4">
                   <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
                   <p class="mt-2 text-lg font-medium tracking-tight text-gray-950 group-hover:underline">{{ $card.title }}</p>
                   <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
                 </div>
+                {{ end }}
               </div>
               <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5 group-hover:ring-2 group-hover:ring-{{ $card.categoryColor | default "primary" }}/30"></div>
             </a>
@@ -191,13 +151,15 @@
               {{ partial "components/media/lazyimg.html" (dict
                 "src" $card.image
                 "alt" $card.imageAlt
-                "class" "h-80 object-cover object-left"
+                "class" $cardImageClasses
               ) }}
+              {{ if or $card.category $card.title $card.description }}
               <div class="p-10 pt-4">
                 <h3 class="text-sm/4 font-semibold text-{{ $card.categoryColor }}">{{ $card.category }}</h3>
                 <p class="mt-2 text-lg font-medium tracking-tight text-gray-950">{{ $card.title }}</p>
                 <p class="mt-2 max-w-lg text-sm/6 text-gray-600">{{ $card.description }}</p>
               </div>
+              {{ end }}
             </div>
             <div class="pointer-events-none absolute inset-px rounded-lg ring-1 shadow-sm ring-black/5"></div>
           {{ end }}
