@@ -499,7 +499,8 @@ To print debug messages during development, you can use the `{{ printf }}` funct
 - checkout from git
 - init git submodules `git submodule update --init --recursive`
 - install dependencies `npm install`
-
+- build css `npm run build:css`
+- start server `hugo server --gc`
 
 ### Common Issues
 
