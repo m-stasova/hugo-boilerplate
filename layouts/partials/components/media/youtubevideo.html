@@ -86,7 +86,8 @@
     const qualities = [
       { name: 'maxresdefault', minWidth: 1280, minHeight: 720 },
       { name: 'sddefault', minWidth: 640, minHeight: 480 },
-      { name: 'hqdefault', minWidth: 480, minHeight: 360 }
+      { name: 'hqdefault', minWidth: 480, minHeight: 360 },
+      { name: 'mqdefault', minWidth: 320, minHeight: 180 }
     ];
     
     // Start with the highest quality and work down
@@ -103,9 +104,23 @@
     const testImg = new Image();
     
     testImg.onload = function() {
+
+      // For maxresdefault, some videos return a 120x90 or 320x180 placeholder
+      // Special handling for maxresdefault if dimensions are too small
+      if (quality.name === 'maxresdefault' && (testImg.width < quality.minWidth || testImg.height < quality.minHeight)) {
+        tryNextQuality(img, videoId, qualities, index + 1);
+        return;
+      }
+
+      // YouTube sometimes returns valid thumbnails with slightly different dimensions than expected
+      // Allow a margin of error (e.g., 90% of expected dimensions)
+      const marginFactor = 0.9;
+      const isAcceptableSize = testImg.width >= quality.minWidth * marginFactor &&
+                             testImg.height >= quality.minHeight * marginFactor;
+
       // Check if the image meets the minimum dimensions
       // This helps filter out placeholder images
-      if (testImg.width >= quality.minWidth && testImg.height >= quality.minHeight) {
+      if (isAcceptableSize) {
         // This quality is good, use it
         img.src = testUrl;
       } else {

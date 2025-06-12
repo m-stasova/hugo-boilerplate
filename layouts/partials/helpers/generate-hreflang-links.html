@@ -103,7 +103,7 @@
           
           {{ if $shouldIncludeLink }}
             {{ $hreflang := .Language.Params.bcp47Lang | default .Language.Lang }}
-            {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang $langURL }}
+            {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $langURL)  }}
             {{ $links = $links | append $link }}
           {{ end }}
       {{ end }}
@@ -178,7 +178,7 @@
   {{ end }}
 {{ end }}
 
-{{ $xDefaultLink := printf `<link rel="alternate" hreflang="x-default" href="%s">` $xDefaultURL }}
+{{ $xDefaultLink := printf `<link rel="alternate" hreflang="x-default" href="%s">` (lower $xDefaultURL) }}
 {{ $links = $links | append $xDefaultLink }}
 
 <!-- Output all links -->
