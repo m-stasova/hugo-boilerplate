@@ -15,6 +15,7 @@
   - Params.price (optional): Price of the product (if applicable) in EUR
   - imageBgColor: Background color for the image section (optional, default: rgb(249 250 251)
   - cardHeight: Height of the card in pixels (optional, default: 300)
+  - showImages: Whether to display images (optional, default: true)
 @example:
 {{ partial "components/cards/post_card_with_image.html" (dict "cardHeight" 500 "page" .) }}
 @note: This component is similar to post_card.html but always includes an image. It will use a placeholder image if none is specified.
@@ -28,6 +29,10 @@
 {{ $imageSectionHeight := div (mul $cardHeight 45) 100 }} {{/* 45% of cardHeight */}}
 {{ $image := $page.Params.image | default "/placeholder-image.jpg" }}
 {{ $title := $page.Title }}
+{{ $showImages := true }}
+{{ if (isset . "showImages") }}
+  {{ $showImages = .showImages }}
+{{ end }}
 
 {{/* Summary and description */}}
 {{ $description := or $page.Params.description $page.Description }}
@@ -60,7 +65,7 @@
 ) }}
 
 <article class="group relative rounded-lg flex flex-col overflow-hidden" style="height: {{ $cardHeight }}px;">
-    {{ if $image }}
+    {{ if and $image $showImages }}
     <div class="flex-none flex items-center justify-center mb-8 overflow-hidden border border-opacity/black-10% rounded-lg min-h-[16.875rem]"
         style="height: {{ $imageSectionHeight }}px; background-color: {{ $imageBgColor }};">
         <a href="{{ $permalink }}" class="w-full h-full flex items-center justify-center">
