@@ -130,7 +130,7 @@
               {{ partial "components/media/lazyimg.html" (dict 
                 "src" $feature.imageUrl
                 "alt" $feature.imageAlt
-                "class" "aspect-5/2 w-full rounded-lg bg-gray-100 object-cover"
+                "class" "aspect-5/2 w-full rounded-lg object-cover"
               ) }}
             </div>
           {{ else }}
@@ -141,9 +141,7 @@
                 <ul class="mt-4 pl-0 space-y-2">
                   {{ range $feature.listItems }}
                     <li class="flex items-start pl-0">
-                      <svg class="h-4 w-4 text-primary mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                      </svg>
+                      {{ partial "icons/check" "w-4 h-4 text-primary mt-0.5 mr-2 flex-shrink-0" }}
                       <span class="{{ $textClasses }} text-gray-600">{{ . }}</span>
                     </li>
                   {{ end }}
@@ -170,7 +168,7 @@
               {{ partial "components/media/lazyimg.html" (dict 
                 "src" $feature.imageUrl
                 "alt" $feature.imageAlt
-                "class" "aspect-5/2 w-full rounded-lg bg-gray-100 object-cover"
+                "class" "aspect-5/2 w-full rounded-lg object-cover"
               ) }}
             </div>
           {{ end }}

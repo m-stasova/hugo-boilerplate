@@ -13,6 +13,7 @@
 {{ if .Get "screenshot_height" }}
 {{ $screenshot = $screenshot | merge (dict "height" (.Get "screenshot_height" )) }}
 {{ end }}
+{{ $screenshot = $screenshot | merge (dict "classes" (.Get "screenshot_classes" | default "mb-[-12%] rounded-xl ring-1 shadow-2xl ring-gray-900/10")) }}
 {{ end }}
 
 {{ $features := slice }}
