@@ -40,7 +40,7 @@
         {{ if $categories }}
         <div class="flex flex-wrap gap-2">
             {{ range $categories }}
-            <a href="{{ print "/categories/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-primary-dark hover:bg-indigo-100">
+            <a href="{{ print "/categories/" (. | urlize) | relLangURL }}/" class="inline-flex items-center rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-primary-dark hover:bg-indigo-100">
             {{ . }}
             </a>
             {{ end }}
@@ -50,7 +50,7 @@
         {{ if $tags }}
         <div class="flex flex-wrap gap-2">
             {{ range $tags }}
-            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 hover:bg-gray-200">
+            <a href="{{ print "/tags/" (. | urlize) | relLangURL }}/" class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-800 hover:bg-gray-200">
             {{ . }}
             </a>
             {{ end }}

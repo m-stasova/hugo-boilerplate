@@ -21,23 +21,23 @@
 ) }}
 {{ end }}
 
+
 <!-- Author Section -->
 {{ if .Params.author }}
-{{ $authors := site.Data.authors }}
-{{ $authorKey := .Params.author }}
-{{ if and $authors $authorKey (index $authors $authorKey) }}
-{{ $author := index $authors $authorKey }}
-  {{ partial "sections/testimonials/with_large_avatar.html" (dict 
+  {{ $authors := site.Data.authors }}
+  {{ $authorKey := .Params.author }}
+  {{ if and $authors $authorKey (index $authors $authorKey) }}
+    {{ $author := index $authors $authorKey }}
+    {{ partial "sections/testimonials/with_large_avatar.html" (dict
     "personName" $author.name
     "personRole" $author.role
     "personImage" $author.image
     "personImageAlt" $author.name
     "quote" $author.description
     ) }}
-  {{ partial "schemaorg/author.html" . }}
+    {{ partial "schemaorg/author.html" . }}
+  {{ end }}
 {{ end }}
-{{ end }}
-
 
 {{ partial "cta.html" . }}
 
