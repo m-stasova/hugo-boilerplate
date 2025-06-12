@@ -2,8 +2,8 @@
 {{ partial "breadcrumbs_default.html" . }}
 
 <!-- Hero Section -->
-{{ partial "layout/headers/centered_with_eyebrow.html" (dict 
-  "heading" .Title
+{{ partial "hero_default.html" (dict
+  "title" .Title
   "description" (partial "utils/linkbuilding" (dict "content" (printf (i18n "category_browse_content") .Title) "page" .))
   "eyebrow" (i18n "category_eyebrow")
 ) }}
