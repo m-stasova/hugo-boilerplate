@@ -54,7 +54,7 @@
         {{ $hreflang := $langData.params.bcp47Lang | default $code }}
         
         <!-- Create hreflang link -->
-        {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang $href }}
+        {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $href) }}
         {{ $links = $links | append $link }}
       {{ end }}
     {{ end }}
@@ -65,13 +65,13 @@
   <!-- Add links for existing translations -->
   {{ range $currentPage.Translations }}
     {{ $hreflang := .Language.Params.bcp47Lang | default .Language.Lang }}
-    {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang .Permalink }}
+    {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower .Permalink) }}
     {{ $links = $links | append $link }}
   {{ end }}
 
   <!-- Add link for current page -->
   {{ $currentHreflang := $currentPage.Language.Params.bcp47Lang | default $currentPage.Language.Lang }}
-  {{ $currentLink := printf `<link rel="alternate" hreflang="%s" href="%s">` $currentHreflang $currentPage.Permalink }}
+  {{ $currentLink := printf `<link rel="alternate" hreflang="%s" href="%s">` $currentHreflang (lower $currentPage.Permalink) }}
   {{ $links = $links | append $currentLink }}
 
   <!-- Add links for languages without translations (construct URLs) -->
