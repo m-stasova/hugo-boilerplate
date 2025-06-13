@@ -6,8 +6,12 @@
 
 .typewriter-text {
   position: relative;
-  color: theme('colors.indigo.600');
+  /* color: theme('colors.indigo.600'); */ /* Replaced by gradient */
   font-weight: inherit;
+  background-image: linear-gradient(to right, theme('colors.indigo.600'), theme('colors.purple.600'), theme('colors.pink.500')); /* Example gradient */
+  -webkit-background-clip: text; /* For Safari/Chrome */
+  background-clip: text;
+  color: transparent;
 }
 
 .typewriter-cursor {
