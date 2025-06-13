@@ -66,6 +66,8 @@ Example from _index.md:
 {{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
 {{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
 {{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+{{ $typewriterWordAlternatives := .Get "typewriterWordAlternatives" | default "" }} {{/* Comma-separated words to alternate with */}}
+
 
 {{ $typewriter := dict
 "enabled" (eq $typewriterEnabled "true")
@@ -74,6 +76,7 @@ Example from _index.md:
 "deleteSpeed" $typewriterDeleteSpeed
 "pause" $typewriterPause
 "color" $typewriterColor
+"wordAlternatives" $typewriterWordAlternatives
 }}
 
 {{ $partialParams := dict

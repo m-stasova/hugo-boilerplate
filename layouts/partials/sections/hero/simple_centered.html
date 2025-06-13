@@ -76,6 +76,7 @@
 {{ $typewriter := merge (dict "deleteSpeed" 50) $typewriter }}
 {{ $typewriter := merge (dict "pause" 2000) $typewriter }}
 {{ $typewriter := merge (dict "color" "text-indigo-600") $typewriter }}
+{{ $typewriter := merge (dict "wordAlternatives" "") $typewriter }}{{/* comma separated words to alternate with */}}
 
 <div class="{{ $darkClass }}">
   <div class="section-bg-light dark:section-bg-dark">
@@ -97,7 +98,7 @@
             {{ end }}
 
             {{ if $heading }}
-              <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>
+              <h1 class="text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-word-alternatives="{{$typewriter.wordAlternatives}}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>
             {{ end }}
             {{ if $description }}
               <p class="mt-8 text-lg font-medium text-pretty text-body sm:text-xl/8">{{ $description }}</p>

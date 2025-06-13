@@ -10,6 +10,7 @@
 {{ $typewriter := merge (dict "deleteSpeed" 50) $typewriter }}
 {{ $typewriter := merge (dict "pause" 2000) $typewriter }}
 {{ $typewriter := merge (dict "color" "text-indigo-600") $typewriter }}
+{{ $typewriter := merge (dict "wordAlternatives" "") $typewriter }}{{/* comma separated words to alternate with */}}
 
 <div class="">
     {{ if .logo }}
@@ -30,7 +31,7 @@
         {{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
         <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ .eyebrow }}</p>
     {{ end }}
-    {{ if $heading }}<h1 class="mt-12 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>{{ end }}
+    {{ if $heading }}<h1 class="mt-12 text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:mt-10 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-word-alternatives="{{$typewriter.wordAlternatives}}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>{{ end }}
     {{ if $description }}
     <p class="mt-8 text-lg text-pretty text-gray-500 sm:text-xl/8">{{ $description }}</p>
     {{ end }}
