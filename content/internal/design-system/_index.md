@@ -2,7 +2,7 @@
 title = 'Design System'
 description = 'Internal documentation of FlowHunt visual style'
 layout = 'design-system'
-draft = false
+draft = true
 private = true
 sitemap_exclude = true
 outputs = ['HTML']
