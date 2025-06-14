@@ -57,12 +57,22 @@ keywords:
 {{ $linkbuildingData := index $page.Site.Data.linkbuilding $lang }}
 {{ $keywords := $linkbuildingData.keywords | default slice }}
 
-{{/* Initialize scratch for tracking link counts */}}
-{{ $scratch := newScratch }}
-{{ $scratch.Set "totalLinksInPage" 0 }}
-{{ $scratch.Set "keywordCounts" dict }}
-{{ $scratch.Set "urlCounts" dict }}
-{{ $scratch.Set "keywordUrlCounts" dict }}
+{{/* Initialize page scratch for tracking link counts per page */}}
+{{ $pageKey := $page.RelPermalink | urlize }}
+{{ $scratch := $page.Scratch }}
+
+{{/* Initialize counters for this page if not already set */}}
+{{ $totalLinksKey := printf "linkbuilding_totalLinks_%s" $pageKey }}
+{{ $keywordCountsKey := printf "linkbuilding_keywordCounts_%s" $pageKey }}
+{{ $urlCountsKey := printf "linkbuilding_urlCounts_%s" $pageKey }}
+{{ $keywordUrlCountsKey := printf "linkbuilding_keywordUrlCounts_%s" $pageKey }}
+
+{{ if not ($scratch.Get $totalLinksKey) }}
+  {{ $scratch.Set $totalLinksKey 0 }}
+  {{ $scratch.Set $keywordCountsKey dict }}
+  {{ $scratch.Set $urlCountsKey dict }}
+  {{ $scratch.Set $keywordUrlCountsKey dict }}
+{{ end }}
 
 {{/* Get current page URL for comparison */}}
 {{ $currentPageURL := $page.RelPermalink }}
@@ -87,14 +97,14 @@ keywords:
     {{/* Skip if target URL is same as current page */}}
     {{ if ne $url $currentPageURL }}
       {{/* Get current counts */}}
-      {{ $totalLinks := $scratch.Get "totalLinksInPage" }}
-      {{ $keywordCounts := $scratch.Get "keywordCounts" }}
-      {{ $urlCounts := $scratch.Get "urlCounts" }}
-      {{ $keywordUrlCounts := $scratch.Get "keywordUrlCounts" }}
+      {{ $totalLinks := $scratch.Get $totalLinksKey }}
+      {{ $keywordCounts := $scratch.Get $keywordCountsKey }}
+      {{ $urlCounts := $scratch.Get $urlCountsKey }}
+      {{ $keywordUrlCounts := $scratch.Get $keywordUrlCountsKey }}
 
       {{ $keywordCount := index $keywordCounts $keyword | default 0 }}
       {{ $urlCount := index $urlCounts $url | default 0 }}
-      {{ $keywordUrlKey := printf "%s-%s" $keyword $url }}
+      {{ $keywordUrlKey := printf "%s|%s" ($keyword | lower | urlize) ($url | urlize) }}
       {{ $keywordUrlCount := index $keywordUrlCounts $keywordUrlKey | default 0 }}
 
       {{/* Check if we can add more links */}}
@@ -134,13 +144,13 @@ keywords:
               {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}
 
             {{/* Update counters */}}
-            {{ $scratch.Set "totalLinksInPage" (add $totalLinks 1) }}
+            {{ $scratch.Set $totalLinksKey (add $totalLinks 1) }}
             {{ $keywordCounts = merge $keywordCounts (dict $keyword (add $keywordCount 1)) }}
-            {{ $scratch.Set "keywordCounts" $keywordCounts }}
+            {{ $scratch.Set $keywordCountsKey $keywordCounts }}
             {{ $urlCounts = merge $urlCounts (dict $url (add $urlCount 1)) }}
-            {{ $scratch.Set "urlCounts" $urlCounts }}
+            {{ $scratch.Set $urlCountsKey $urlCounts }}
             {{ $keywordUrlCounts = merge $keywordUrlCounts (dict $keywordUrlKey (add $keywordUrlCount 1)) }}
-            {{ $scratch.Set "keywordUrlCounts" $keywordUrlCounts }}
+            {{ $scratch.Set $keywordUrlCountsKey $keywordUrlCounts }}
           {{ end }}
         {{ end }}
       {{ end }}
