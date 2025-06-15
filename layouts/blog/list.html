@@ -8,9 +8,7 @@
   </div>
 {{ else }}
 
-
-
-  {{ $paginator := .Paginate .Pages.ByTitle 60 }}
+  {{ $paginator := .Paginate .Pages.ByDate.Reverse 60 }}
 
   <div class="wrapper grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
     {{ range $paginator.Pages }}

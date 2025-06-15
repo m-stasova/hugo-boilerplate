@@ -112,36 +112,48 @@ keywords:
 
         {{/* Escape keyword for regex */}}
         {{ $escapedKeyword := replaceRE `([.*+?^${}()|[\]\\])` `\$1` $keyword }}
-        {{ $pattern := $escapedKeyword }}
-        {{ if $exact }}
-          {{ $pattern = printf `\b%s\b` $escapedKeyword }}
+        {{/* Always use word boundaries to match whole words only */}}
+        {{ $pattern := printf `\b%s\b` $escapedKeyword }}
+
+        {{/* Create case-sensitive or case-insensitive pattern based on exact flag */}}
+        {{ $regexPattern := $pattern }}
+        {{ if not $exact }}
+          {{ $regexPattern = printf `(?i)%s` $pattern }}
         {{ end }}
 
-        {{/* Case insensitive pattern */}}
-        {{ $regexPattern := printf `(?i)%s` $pattern }}          {{/* Check if keyword exists in content */}}
-          {{ if findRE $regexPattern $processedContent 1 }}
+        {{/* Check if keyword exists in content */}}
+        {{ if findRE $regexPattern $processedContent 1 }}
 
-            {{/* Check if it's not already inside a link */}}
-            {{ $keywordInLinkPattern := printf `(?i)<a\b[^>]*>[^<]*%s[^<]*</a>` $pattern }}
-            {{ $keywordAlreadyLinked := findRE $keywordInLinkPattern $processedContent 1 }}
+          {{/* Check if it's not already inside a link - respect case sensitivity */}}
+          {{ $keywordInLinkPattern := printf `<a\b[^>]*>[^<]*%s[^<]*</a>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInLinkPattern = printf `(?i)%s` $keywordInLinkPattern }}
+          {{ end }}
+          {{ $keywordAlreadyLinked := findRE $keywordInLinkPattern $processedContent 1 }}
 
-            {{/* Check if it's not inside heading tags */}}
-            {{ $keywordInHeadingPattern := printf `(?i)<h[1-6]\b[^>]*>[^<]*%s[^<]*</h[1-6]>` $pattern }}
-            {{ $keywordInHeading := findRE $keywordInHeadingPattern $processedContent 1 }}
+          {{/* Check if it's not inside heading tags - respect case sensitivity */}}
+          {{ $keywordInHeadingPattern := printf `<h[1-6]\b[^>]*>[^<]*%s[^<]*</h[1-6]>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInHeadingPattern = printf `(?i)%s` $keywordInHeadingPattern }}
+          {{ end }}
+          {{ $keywordInHeading := findRE $keywordInHeadingPattern $processedContent 1 }}
 
-            {{/* Check if keyword is inside any HTML tag attributes */}}
-            {{ $keywordInTagPattern := printf `(?i)<[^>]*%s[^>]*>` $pattern }}
-            {{ $keywordInTag := findRE $keywordInTagPattern $processedContent 1 }}
+          {{/* Check if keyword is inside any HTML tag attributes - respect case sensitivity */}}
+          {{ $keywordInTagPattern := printf `<[^>]*%s[^>]*>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInTagPattern = printf `(?i)%s` $keywordInTagPattern }}
+          {{ end }}
+          {{ $keywordInTag := findRE $keywordInTagPattern $processedContent 1 }}
 
-            {{ if not (or $keywordAlreadyLinked $keywordInHeading $keywordInTag) }}
-              {{/* Find the actual matched text to preserve original case */}}
-              {{ $matchedText := index (findRE $regexPattern $processedContent 1) 0 }}
-              
-              {{/* Create the replacement link using the matched text with underlined class */}}
-              {{ $linkHtml := printf `<a href="%s" title="%s" class="underline">%s</a>` $url $escapedTitle $matchedText }}
+          {{ if not (or $keywordAlreadyLinked $keywordInHeading $keywordInTag) }}
+            {{/* Find the actual matched text to preserve original case */}}
+            {{ $matchedText := index (findRE $regexPattern $processedContent 1) 0 }}
+            
+            {{/* Create the replacement link using the matched text with underlined class */}}
+            {{ $linkHtml := printf `<a href="%s" title="%s" class="underline">%s</a>` $url $escapedTitle $matchedText }}
 
-              {{/* Replace only the first occurrence that matches exactly */}}
-              {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}
+            {{/* Replace only the first occurrence that matches exactly */}}
+            {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}
 
             {{/* Update counters */}}
             {{ $scratch.Set $totalLinksKey (add $totalLinks 1) }}
