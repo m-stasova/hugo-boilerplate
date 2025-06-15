@@ -17,13 +17,12 @@
   {{ $filePath = $currentPage.File.Path }}
 {{ end }}
 
-{{ $useAllLanguagesData := isset site.Data "all_languages" }}
 {{ $pagePath := strings.TrimPrefix (print "/" $currentPage.Language.Lang "/") $currentPage.RelPermalink }}
 
 <!-- Check if current page has a meaningful path (not just root) -->
 {{ $currentPageHasPath := and (ne $pagePath "") (ne $pagePath "/") }}
 
-{{ if $useAllLanguagesData }}
+{{ if isset site.Data "all_languages" }}
   <!-- Use unified language data when available -->
   {{ with site.Data }}
     {{ range $code, $langData := .all_languages.languages }}
@@ -54,7 +53,7 @@
         {{ $hreflang := $langData.params.bcp47Lang | default $code }}
         
         <!-- Create hreflang link -->
-        {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $href) }}
+        {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s%s">` $hreflang $langData.baseDomainName (lower $href) }}
         {{ $links = $links | append $link }}
       {{ end }}
     {{ end }}
@@ -103,7 +102,7 @@
           
           {{ if $shouldIncludeLink }}
             {{ $hreflang := .Language.Params.bcp47Lang | default .Language.Lang }}
-            {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s">` $hreflang (lower $langURL)  }}
+            {{ $link := printf `<link rel="alternate" hreflang="%s" href="%s%s">` $hreflang .Language.Params.baseDomainName (lower $langURL)  }}
             {{ $links = $links | append $link }}
           {{ end }}
       {{ end }}
@@ -114,7 +113,7 @@
 {{ $xDefaultURL := $currentPage.Permalink }}
 {{ $found := false }}
 
-{{ if $useAllLanguagesData }}
+{{ if isset site.Data "all_languages" }}
   <!-- Use all_languages data to find default language -->
   {{ with site.Data }}
     {{ $defaultLangData := index .all_languages.languages $defaultLang }}
@@ -178,7 +177,7 @@
   {{ end }}
 {{ end }}
 
-{{ $xDefaultLink := printf `<link rel="alternate" hreflang="x-default" href="%s">` (lower $xDefaultURL) }}
+{{ $xDefaultLink := printf `<link rel="alternate" hreflang="x-default" href="%s%s">` (or (and (isset site.Data "all_languages") (index site.Data.all_languages.languages $defaultLang).baseDomainName) "") (lower $xDefaultURL) }}
 {{ $links = $links | append $xDefaultLink }}
 
 <!-- Output all links -->
