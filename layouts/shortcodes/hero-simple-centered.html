@@ -18,6 +18,7 @@
     imageHeight="Image height"
     typewriterEnabled="true/false"
     typewriterWords="1"
+    typewriterWordAlternatives=""
     typewriterSpeed="100"
     typewriterDeleteSpeed="50"
     typewriterPause="2000"
@@ -46,6 +47,7 @@
   - typewriterDeleteSpeed: Deleting speed in milliseconds (default: 50)
   - typewriterPause: Pause duration between word cycles in milliseconds (default: 2000)
   - typewriterColor: Tailwind CSS color class for animated text (default: "text-indigo-600")
+  - typewriterWordAlternatives: Comma-separated list of alternative words for typewriter effect (optional)
 */ -}}
 
 {{/* Simple Centered Hero Shortcode */}}
@@ -72,6 +74,7 @@
 {{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
 {{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
 {{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
+{{ $typewriterWordAlternatives := .Get "typewriterWordAlternatives" | default "" }}
 
 {{ $announcement := dict }}
 {{ if and (eq $announcementEnabled "true") $announcementText }}
@@ -101,6 +104,7 @@
   "deleteSpeed" $typewriterDeleteSpeed
   "pause" $typewriterPause
   "color" $typewriterColor
+  "wordAlternatives" $typewriterWordAlternatives
 }}
 
 {{ partial "sections/hero/simple_centered.html" (dict 
