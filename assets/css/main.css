@@ -27,7 +27,7 @@
   }
 
   .text-body {
-    @apply text-gray-600 dark:text-gray-300;
+    @apply text-gray-600 dark:text-white;
     /* Body text – medium gray in light mode, light gray in dark mode */
   }
 
@@ -74,6 +74,11 @@
   
   .wrapper {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+   /* Eliminate focus outline for iframes */
+  iframe {
+    outline: none !important;
   }
 }
 
