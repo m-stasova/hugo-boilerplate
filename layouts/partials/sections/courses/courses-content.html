@@ -89,7 +89,6 @@
 */}}
 
 {{/* Configurable variables */}}
-{{ $sectionClass := .sectionClass | default "mx-auto max-w-7xl mb-20" }}
 {{ $bgColor := .bgColor | default "bg-gray-50" }}
 {{ $padding := .padding | default "px-6 py-16 lg:px-8" }}
 
@@ -122,7 +121,8 @@
 {{ $bannerTextColor := .bannerTextColor | default "text-white" }}
 {{ $bannerBackgroundColor := .bannerBackgroundColor | default "bg-gradient-to-l from-[#1a1a1a] to-[#0f1f5c] bg-opacity-10" }}
 
-<section class="{{ $sectionClass }} {{ $bgColor }} {{ $padding }} rounded-2xl mx-6 sm:mx-8">
+<section class="bg-white">
+    <div class="wrapper bg-gray-50 py-16 lg:py-20 rounded-2xl">
     <!-- Icons Section - Technology Partners -->
     {{ if $icons}}
     <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 lg:gap-20 mb-20">
@@ -277,4 +277,5 @@
         ) }}
     </div>
     {{ end }}
+    </div>
 </section>
