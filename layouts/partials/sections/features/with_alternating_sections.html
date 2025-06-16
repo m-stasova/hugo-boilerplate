@@ -13,9 +13,17 @@
     - ctaText: Optional CTA button text for this feature
     - ctaUrl: Optional CTA button URL for this feature
     - ctaStyle: Optional CTA button style class (default: "bg-primary hover:bg-primary-dark text-white")
+    - ctaTarget: Optional CTA button target attribute (default: "_self")
+    - ctaRel: Optional CTA button rel attribute
+    - ctaId: Optional CTA button id attribute
+    - ctaAriaLabel: Optional CTA button aria-label (defaults to button text)
     - secondaryCta: Optional secondary CTA button text for this feature
     - secondaryCtaUrl: Optional secondary CTA button URL for this feature
     - secondaryCtaStyle: Optional secondary CTA button style class (default: "border border-gray-300 text-gray-700 hover:bg-gray-50")
+    - secondaryCtaTarget: Optional secondary CTA button target attribute (default: "_self")
+    - secondaryCtaRel: Optional secondary CTA button rel attribute
+    - secondaryCtaId: Optional secondary CTA button id attribute
+    - secondaryCtaAriaLabel: Optional secondary CTA button aria-label (defaults to button text)
     - imageUrl: URL to feature image
     - imageAlt: Alt text for feature image
     - imagePosition: Position of the image ("left" or "right")
@@ -80,7 +88,7 @@
 ) }}
 
 <div class="{{ $backgroundColor }}">
-  <div class="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
+  <div class="wrapper py-24 sm:py-32">
     <div class="mx-auto max-w-3xl text-center">
       {{ if $heading }}
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ $heading }}</h2>
@@ -95,7 +103,7 @@
         <div class="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8">
           {{ if eq $feature.imagePosition "right" }}
             <div class="mt-6 {{ $textColClasses }} lg:col-start-1 lg:row-start-1 lg:mt-0">
-              <h3 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h3>
+              <h2 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h2>
               <p class="mt-2 {{ $textClasses }} text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $feature.description "page" $page) | safeHTML }}</p>
               {{ if $feature.listItems }}
                 <ul class="mt-4 pl-0 space-y-2">
@@ -112,16 +120,28 @@
               {{ if or $feature.ctaText $feature.secondaryCta }}
                 <div class="mt-6 flex flex-col sm:flex-row gap-3">
                   {{ if $feature.ctaText }}
-                    {{ $ctaStyle := $feature.ctaStyle | default "bg-primary hover:bg-primary-dark text-white" }}
-                    <a href="{{ $feature.ctaUrl }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md {{ $ctaStyle }} transition-colors duration-200">
-                      {{ $feature.ctaText }}
-                    </a>
+                    {{ partial "components/buttons/buttons.html" (dict 
+                      "text" $feature.ctaText
+                      "url" $feature.ctaUrl
+                      "variant" "primary"
+                      "classes" $feature.ctaStyle
+                      "target" $feature.ctaTarget
+                      "rel" $feature.ctaRel
+                      "id" $feature.ctaId
+                      "ariaLabel" $feature.ctaAriaLabel
+                    ) }}
                   {{ end }}
                   {{ if $feature.secondaryCta }}
-                    {{ $secondaryCtaStyle := $feature.secondaryCtaStyle | default "border border-gray-300 text-gray-700 hover:bg-gray-50" }}
-                    <a href="{{ $feature.secondaryCtaUrl }}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md {{ $secondaryCtaStyle }} transition-colors duration-200">
-                      {{ $feature.secondaryCta }}
-                    </a>
+                    {{ partial "components/buttons/buttons.html" (dict 
+                      "text" $feature.secondaryCta
+                      "url" $feature.secondaryCtaUrl
+                      "variant" "secondary"
+                      "classes" $feature.secondaryCtaStyle
+                      "target" $feature.secondaryCtaTarget
+                      "rel" $feature.secondaryCtaRel
+                      "id" $feature.secondaryCtaId
+                      "ariaLabel" $feature.secondaryCtaAriaLabel
+                    ) }}
                   {{ end }}
                 </div>
               {{ end }}
@@ -135,7 +155,7 @@
             </div>
           {{ else }}
             <div class="mt-6 {{ $textColClasses }} {{ $textColStartClasses }} lg:row-start-1 lg:mt-0">
-              <h3 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h3>
+              <h2 class="{{ $headingClasses }} font-medium text-gray-900">{{ $feature.title }}</h2>
               <p class="mt-2 {{ $textClasses }} text-gray-500">{{ partial "utils/linkbuilding" (dict "content" $feature.description "page" $page) | safeHTML }}</p>
               {{ if $feature.listItems }}
                 <ul class="mt-4 pl-0 space-y-2">
@@ -150,16 +170,28 @@
               {{ if or $feature.ctaText $feature.secondaryCta }}
                 <div class="mt-6 flex flex-col sm:flex-row gap-3">
                   {{ if $feature.ctaText }}
-                    {{ $ctaStyle := $feature.ctaStyle | default "bg-primary hover:bg-primary-dark text-white" }}
-                    <a href="{{ $feature.ctaUrl }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md {{ $ctaStyle }} transition-colors duration-200">
-                      {{ $feature.ctaText }}
-                    </a>
+                    {{ partial "components/buttons/buttons.html" (dict 
+                      "text" $feature.ctaText
+                      "url" $feature.ctaUrl
+                      "variant" "primary"
+                      "classes" $feature.ctaStyle
+                      "target" $feature.ctaTarget
+                      "rel" $feature.ctaRel
+                      "id" $feature.ctaId
+                      "ariaLabel" $feature.ctaAriaLabel
+                    ) }}
                   {{ end }}
                   {{ if $feature.secondaryCta }}
-                    {{ $secondaryCtaStyle := $feature.secondaryCtaStyle | default "border border-gray-300 text-gray-700 hover:bg-gray-50" }}
-                    <a href="{{ $feature.secondaryCtaUrl }}" class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md {{ $secondaryCtaStyle }} transition-colors duration-200">
-                      {{ $feature.secondaryCta }}
-                    </a>
+                    {{ partial "components/buttons/buttons.html" (dict 
+                      "text" $feature.secondaryCta
+                      "url" $feature.secondaryCtaUrl
+                      "variant" "secondary"
+                      "classes" $feature.secondaryCtaStyle
+                      "target" $feature.secondaryCtaTarget
+                      "rel" $feature.secondaryCtaRel
+                      "id" $feature.secondaryCtaId
+                      "ariaLabel" $feature.secondaryCtaAriaLabel
+                    ) }}
                   {{ end }}
                 </div>
               {{ end }}

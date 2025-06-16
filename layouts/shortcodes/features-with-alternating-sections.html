@@ -14,10 +14,18 @@
     - listItems: Optional array of list items for this feature
     - ctaText: Optional CTA button text for this feature
     - ctaUrl: Optional CTA button URL for this feature
-    - ctaStyle: Optional CTA button style class (default: "bg-indigo-600 hover:bg-indigo-700 text-white")
+    - ctaStyle: Optional additional classes for the primary button
+    - ctaTarget: Optional CTA button target attribute (default: "_self")
+    - ctaRel: Optional CTA button rel attribute
+    - ctaId: Optional CTA button id attribute
+    - ctaAriaLabel: Optional CTA button aria-label (defaults to button text)
     - secondaryCta: Optional secondary CTA button text for this feature
     - secondaryCtaUrl: Optional secondary CTA button URL for this feature
-    - secondaryCtaStyle: Optional secondary CTA button style class (default: "border border-gray-300 text-gray-700 hover:bg-gray-50")
+    - secondaryCtaStyle: Optional additional classes for the secondary button
+    - secondaryCtaTarget: Optional secondary CTA button target attribute (default: "_self")
+    - secondaryCtaRel: Optional secondary CTA button rel attribute
+    - secondaryCtaId: Optional secondary CTA button id attribute
+    - secondaryCtaAriaLabel: Optional secondary CTA button aria-label (defaults to button text)
     - imageUrl: URL to feature image
     - imageAlt: Alt text for feature image
     - imagePosition: Position of the image ("left" or "right")
@@ -35,6 +43,8 @@
         "listItems": ["4K Ultra HD resolution", "Low-light performance", "Auto-focus technology"],
         "ctaText": "Learn More",
         "ctaUrl": "/features/sensors",
+        "ctaTarget": "_blank",
+        "ctaRel": "noopener",
         "imageUrl": "/images/features/advanced-sensor.jpg",
         "imageAlt": "Close-up of the advanced sensor technology inside the camera",
         "imagePosition": "right"
@@ -47,6 +57,8 @@
         "ctaUrl": "/specifications",
         "secondaryCta": "Get Quote",
         "secondaryCtaUrl": "/quote",
+        "secondaryCtaTarget": "_blank",
+        "secondaryCtaRel": "noopener noreferrer",
         "imageUrl": "/images/features/weather-resistant.jpg",
         "imageAlt": "Camera being tested under simulated rain conditions",
         "imagePosition": "left"
@@ -55,6 +67,11 @@
   {{< /features-with-alternating-sections >}}
   
   If no inner content is provided, default features will be used.
+  
+  To add buttons to the features:
+  1. Add "ctaText" and "ctaUrl" properties for the primary button
+  2. Add "secondaryCta" and "secondaryCtaUrl" for the secondary button
+  3. Buttons will only appear when these properties are specified
 */}}
 
 {{ $backgroundColor := .Get "backgroundColor" | default "bg-white" }}
@@ -66,14 +83,14 @@
   (dict 
     "title" ""
     "description" ""
-    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-07-detail-01.jpg"
+    "imageUrl" ""
     "imageAlt" ""
     "imagePosition" "right"
   )
   (dict 
     "title" ""
     "description" ""
-    "imageUrl" "https://tailwindcss.com/plus-assets/img/ecommerce-images/product-feature-07-detail-02.jpg"
+    "imageUrl" ""
     "imageAlt" ""
     "imagePosition" "left"
   )
