@@ -95,6 +95,9 @@
                 "src" .image 
                 "alt" (.alt) 
                 "class" (print $iconClass " object-contain")
+                "loading" "lazy"
+                "decoding" "async"
+                "maxWidth" 300
             ) }}
         </div>
         {{ end }}

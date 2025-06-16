@@ -130,6 +130,7 @@
             "src" .image 
             "alt" .imageAlt
             "class" "absolute inset-0 -z-10 size-full object-cover"
+            "maxWidth" 300
           ) }}
         {{ end }}
         <div class="absolute inset-0 -z-10 {{ $gradientOverlay }}"></div>
@@ -148,6 +149,7 @@
                   "src" .authorImage 
                   "alt" .authorName
                   "class" "size-6 flex-none rounded-full {{ $authorImageBg }}"
+                  "maxWidth" 400
                 ) }}
               {{ end }}
               <span class="{{ $authorColor }}">{{ .authorName }}</span>

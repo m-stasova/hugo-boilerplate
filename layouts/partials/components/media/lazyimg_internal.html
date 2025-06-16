@@ -65,6 +65,15 @@
       {{ end }}
     {{ end }}
 
+    <!-- Filter available widths to only include sizes up to the optimal width -->
+    {{ $filteredWidths := slice }}
+    {{ range $availableWidths }}
+      {{ if le . $optimalWidth }}
+        {{ $filteredWidths = $filteredWidths | append . }}
+      {{ end }}
+    {{ end }}
+    {{ $availableWidths = $filteredWidths }}
+
     <!-- Generate dynamic sizes attribute based on available widths -->
     {{ $sizesAttr := "" }}
     {{ $sortedWidths := sort $availableWidths }}
@@ -78,9 +87,9 @@
 
     <!-- Append the default slot width for viewports larger than the largest $w in $sortedWidths -->
     {{ if $sizesAttr }}
-      {{ $sizesAttr = printf "%s, %dpx" $sizesAttr $maxWidth }}
+      {{ $sizesAttr = printf "%s, %dpx" $sizesAttr $optimalWidth }}
     {{ else }}
-      {{ $sizesAttr = printf "%dpx" $maxWidth }}
+      {{ $sizesAttr = printf "%dpx" $optimalWidth }}
     {{ end }}
 
     <!-- Extract paths for processed images -->
@@ -122,19 +131,18 @@
     {{ $useOriginalWebp := fileExists (printf "static%s" $originalWebpPath) }}
     
     <!-- Use original if maxWidth is greater than available processed sizes -->
-    {{ $useOriginal := ge $maxWidth (slice 150 300 1024 ) }}
-    {{ if $useOriginal }}
-      {{ $useOriginal = false }}
-      {{ $largestProcessed := 0 }}
-      {{ range $availableWidths }}
-        {{ $currentWidth := . }}
-        {{ $processedPath := printf "%s%s-%d%s" $processedDirPath $basename $currentWidth $extension }}
-        {{ if and (fileExists (printf "static%s" $processedPath)) (gt $currentWidth $largestProcessed) }}
-          {{ $largestProcessed = $currentWidth }}
-        {{ end }}
+    {{ $useOriginal := false }}
+    {{ $largestProcessed := 0 }}
+    {{ range $availableWidths }}
+      {{ $currentWidth := . }}
+      {{ $processedPath := printf "%s%s-%d%s" $processedDirPath $basename $currentWidth $extension }}
+      {{ if and (fileExists (printf "static%s" $processedPath)) (gt $currentWidth $largestProcessed) }}
+        {{ $largestProcessed = $currentWidth }}
       {{ end }}
-      <!-- If maxWidth is larger than largest processed image, use original -->
-      {{ $useOriginal = gt $maxWidth $largestProcessed }}
+    {{ end }}
+    <!-- Only use original if maxWidth is larger than largest available processed image AND it doesn't exceed optimal width -->
+    {{ if and (gt $maxWidth $largestProcessed) (le $maxWidth $optimalWidth) }}
+      {{ $useOriginal = true }}
     {{ end }}
     
     <!-- Collect available widths into maps for processed images -->
@@ -159,9 +167,9 @@
       {{ end }}
     {{ end }}
 
-    <!-- Add the main optimized original image ($optimizedOriginalPath) to srcsets -->
+    <!-- Add the main optimized original image ($optimizedOriginalPath) to srcsets only if within optimal width -->
     {{ $mainImageWidthDesc := $maxWidth }}
-    {{ if $hasOptimizedOriginal }}
+    {{ if and $hasOptimizedOriginal (le $maxWidth $optimalWidth) }}
       {{ $pathToAdd := $optimizedOriginalPath }}
       {{ $isWebP := strings.HasSuffix $pathToAdd ".webp" }}
 
@@ -178,8 +186,8 @@
       {{ end }}
     {{ end }}
 
-    <!-- Add $originalWebpPath (e.g. /images/processed/basename.webp) if it exists and is different -->
-    {{ if $useOriginalWebp }}
+    <!-- Add $originalWebpPath (e.g. /images/processed/basename.webp) if it exists and is different and within optimal width -->
+    {{ if and $useOriginalWebp (le $maxWidth $optimalWidth) }}
       {{ $pathToAdd := $originalWebpPath }}
       {{ if ne $pathToAdd $optimizedOriginalPath }} {{/* Avoid double-adding if already handled by $optimizedOriginalPath */}}
           {{ $foundWebP := false }} {{ range $availableWebpWidths }}{{ if eq .path $pathToAdd }}{{ $foundWebP = true }}{{ end }}{{ end }}
@@ -211,13 +219,33 @@
       {{ end }}
     {{ end }}
     
-    <!-- If no processed images exist, use original (or fallbackSrc) -->
+    <!-- If no processed images exist, use original (or fallbackSrc) only if within optimal width -->
     {{ if not $origSrcset }}
-      {{ $origSrcset = printf "%s %dw" $fallbackSrc $maxWidth }} <!-- Use $fallbackSrc and $maxWidth -->
+      {{ if le $maxWidth $optimalWidth }}
+        {{ $origSrcset = printf "%s %dw" $fallbackSrc $maxWidth }} <!-- Use $fallbackSrc and $maxWidth -->
+      {{ else }}
+        <!-- Use the largest available width as fallback -->
+        {{ $largestAvailable := 0 }}
+        {{ range $availableWidths }}
+          {{ if gt . $largestAvailable }}
+            {{ $largestAvailable = . }}
+          {{ end }}
+        {{ end }}
+        {{ if gt $largestAvailable 0 }}
+          {{ $fallbackPath := printf "%s%s-%d%s" $processedDirPath $basename $largestAvailable $extension }}
+          {{ if fileExists (printf "static%s" $fallbackPath) }}
+            {{ $origSrcset = printf "%s %dw" $fallbackPath $largestAvailable }}
+          {{ else }}
+            {{ $origSrcset = printf "%s %dw" $fallbackSrc $largestAvailable }}
+          {{ end }}
+        {{ else }}
+          {{ $origSrcset = printf "%s %dw" $fallbackSrc $maxWidth }}
+        {{ end }}
+      {{ end }}
     {{ end }}
     
     <!-- Calculate explicit sizes attribute to force browser to use the correct size -->
-    {{ $explicitSizes := printf "%dpx" $maxWidth }}
+    {{ $explicitSizes := printf "%dpx" $optimalWidth }}
 
     {{/* Determine MIME type based on file extension */}}
     {{ $fileExt := strings.ToLower (path.Ext $src) }}

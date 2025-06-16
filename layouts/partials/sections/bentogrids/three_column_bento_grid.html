@@ -75,7 +75,7 @@
           {{ end }}
             {{ if and $card.image (eq $imagePosition "top") }}
             <div class="@container flex items-center justify-center px-8 pt-8 sm:px-10 sm:pt-10">
-              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") ) }}
+              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") "maxWidth" 300 ) }}
             </div>
             {{ end }}
             
@@ -92,7 +92,7 @@
 
             {{ if and $card.image (eq $imagePosition "bottom") }}
             <div class="@container flex items-center justify-center px-8 sm:px-10 pb-8 pt-2">
-              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") ) }}
+              {{ partial "components/media/lazyimg.html" (dict "src" $card.image "alt" ($card.imageAlt | default "") "maxWidth" 300 ) }}
             </div>
             {{ end }}
             
