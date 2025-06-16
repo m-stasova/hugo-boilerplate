@@ -143,12 +143,11 @@ process_image() {
             echo "  Creating WebP version"
             magick "$source" -quality "$QUALITY_WEBP" "$webp_target"
             
-            # Check if the processed image is larger than the original
+            # Log the WebP file size but keep it even if larger
             local processed_size=$(get_file_size "$webp_target")
             echo "    WebP version size: $processed_size bytes"
             if [ "$processed_size" -gt "$original_size" ]; then
-                echo "  Warning: WebP version is larger than original, removing"
-                rm "$webp_target"
+                echo "  Note: WebP version is larger than original, but keeping it for browser compatibility"
             fi
         fi
 
