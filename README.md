@@ -293,7 +293,7 @@ Define your site's navigation in `menus.toml` (if using split configuration) or 
   [[languages.en.menu.main]]
     identifier = "blog"
     name = "Blog"
-    url = "/blog/"
+    
     weight = 2
 ```
 
