@@ -8,8 +8,6 @@
   </div>
 {{ else }}
 
-
-
   {{ $paginator := .Paginate .Pages.ByTitle 60 }}
 
   <div class="wrapper grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-3">
@@ -32,5 +30,7 @@
       "page" .
   ) }}
 {{ end }}
+
+{{ partial "cta.html" . }}
 
 {{ end }}

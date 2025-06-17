@@ -73,15 +73,17 @@
                   </h3>
                   <p class="mt-2 text-sm text-gray-500 line-clamp-3">{{ .Params.shortDescription }}</p>
                   <div class="mt-4 flex flex-wrap gap-2">
-                    {{ range first 3 .Params.tags }}
-                      <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
-                        {{ . }}
-                      </span>
-                    {{ end }}
-                    {{ if gt (len .Params.tags) 3 }}
-                      <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
-                        +{{ sub (len .Params.tags) 3 }}
-                      </span>
+                    {{ with .Params.tags }}
+                      {{ range first 3 . }}
+                        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+                          {{ . }}
+                        </span>
+                      {{ end }}
+                      {{ if gt (len .) 3 }}
+                        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+                          +{{ sub (len .) 3 }}
+                        </span>
+                      {{ end }}
                     {{ end }}
                   </div>
                 </li>
