@@ -86,7 +86,7 @@
       {{ end }}
       
       <!-- If no translation exists and it's not the current page language -->
-      {{ if and (not $hasTranslation) (ne $langCode $currentPage.Language.Lang) }}
+      {{ if (not $hasTranslation) }}
           {{ $langBaseURL := .Permalink }}
           {{ $langBaseWithoutSlash := strings.TrimSuffix "/" $langBaseURL }}
           {{ $langURL := print $langBaseWithoutSlash "/" $pagePath }}
@@ -154,7 +154,7 @@
   {{ end }}
 
   <!-- If no default language translation and current page isn't default language, construct URL -->
-  {{ if and (not $found) (ne $currentPage.Language.Lang $defaultLang) }}
+  {{ if (not $found) }}
       {{ range site.Home.AllTranslations }}
           {{ if eq .Language.Lang $defaultLang }}
               {{ $defaultBaseURL := .Permalink }}
