@@ -1,5 +1,6 @@
 <!-- Hero Section with Split Image -->
 {{ $eyebrow := .Params.eyebrow | default "" }}
+{{ $tags := .Params.tags | default (slice) }}
 {{ $title := .Params.title | default .Title | default "" }}
 {{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
 {{ $typewriter := .Params.typewriter | default dict }}
@@ -20,6 +21,10 @@
     "videoTitle" (.Params.youtubeTitle | default .Params.title)
     "videoID" .Params.youtubeVideoID
     "typewriter" $typewriter
+    "tags" $tags
+    "cta" (dict
+        "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL)
+        "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL))
     ) }}
 {{ else if and .Params.workspaceId .Params.chatbotId }}
     {{ partial "sections/hero/split_with_chatbot.html" (dict
@@ -28,6 +33,7 @@
     "eyebrow" .Params.eyebrow
     "chatbotId" .Params.chatbotId
     "workspaceId" .Params.workspaceId
+    "tags" $tags
     "cta" (dict
     "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL)
     "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL)
@@ -40,6 +46,7 @@
     "description" (markdownify $shortDescription)
     "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
     "image" $image
+    "tags" $tags
     "typewriter" $typewriter
     ) }}
 {{ else }}
@@ -48,5 +55,9 @@
     "description" (markdownify $shortDescription)
     "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
     "typewriter" $typewriter
+    "tags" $tags
+    "cta" (dict
+    "primary" (dict "text" .Params.ctaPrimaryText "url" .Params.ctaPrimaryURL)
+    "secondary" (dict "text" .Params.ctaSecondaryText "url" .Params.ctaSecondaryURL))
     ) }}
 {{ end }}
