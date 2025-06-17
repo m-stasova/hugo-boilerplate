@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class', // important so that dark: utilities work on the .dark class
+
   content: [
     './layouts/**/*.html',
     './content/**/*.{html,md}',
