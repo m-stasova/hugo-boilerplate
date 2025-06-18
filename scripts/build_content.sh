@@ -100,6 +100,11 @@ run_step() {
             python "${SCRIPT_DIR}/offload_replicate_images.py"
             echo -e "${GREEN}Offloading images completed!${NC}"
             ;;
+        find_duplicate_images)
+            echo -e "${BLUE}=== Step 2.5: Finding Duplicate Images ===${NC}"
+            python "${SCRIPT_DIR}/find_duplicate_images.py"
+            echo -e "${GREEN}Duplicate image search completed!${NC}"
+            ;;
         translate)
             echo -e "${BLUE}=== Step 3: Translating Missing Content with FlowHunt API ===${NC}"
             echo -e "${YELLOW}Running FlowHunt translation script...${NC}"
@@ -145,7 +150,7 @@ run_step() {
 
 # If no steps specified, run all steps
 if [ ${#STEPS_TO_RUN[@]} -eq 0 ]; then
-    STEPS_TO_RUN=(sync_translations validate_content offload_images translate sync_content_attributes validate_content_post generate_translation_urls generate_related_content preprocess_images)
+    STEPS_TO_RUN=(sync_translations validate_content offload_images find_duplicate_images translate sync_content_attributes validate_content_post generate_translation_urls generate_related_content preprocess_images)
 fi
 
 for step in "${STEPS_TO_RUN[@]}"; do

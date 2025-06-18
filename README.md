@@ -3,11 +3,19 @@
 A clean and minimal Hugo theme designed for QualityUnit websites with a focus on performance, SEO, and responsive design. 
 This theme includes Tailwind CSS integration, comprehensive SEO features, responsive image processing, and multilingual support out of the box.
 
+
+## Projects running this theme
+- [AiMingle](https://www.aimingle.cz/) - https://github.com/QualityUnit/aimingle-hugo
+- [FlowHunt](https://www.flowhunt.io/) - https://github.com/QualityUnit/flowhunt-hugo
+- [Post Affiliate Pro](https://www.postaffiliatepro.com/) - https://github.com/QualityUnit/postaffiliatepro-hugo
+- [UrlsLab](https://www.urlslab.com/) - https://github.com/QualityUnit/urlslab-hugo
+- [PhotomaticAI](https://www.photomaticai.com/) - https://github.com/QualityUnit/photomaticai-hugo/
+- [Wachman](https://www.wachman.eu) - https://github.com/vzeman/wachman
+
 ## Notes For developers
 - Many partials and shortcodes are not correct, we need to fix them.
 - If shortcode or partial is used already in any project, always make sure your changes are compatible with old data, new parameters needs to be optional
 - Make sure all texts can be translated, add texts to translation files in theme
-- complex structures you want to pass to shortcode can be done through frontmatter section and in shortcode use reference to variable in frontmatter section
 
 ## Features
 

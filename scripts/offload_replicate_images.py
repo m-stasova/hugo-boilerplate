@@ -47,7 +47,8 @@ def find_title_near_line(lines, idx):
             return match.group(1)
     return 'untitled'
 
-def process_image_url(url, out_dir, out_filename):
+def process_image_url(url, out_dir, title, md_stem, idx=None):
+    # 1. Determine extension
     ext = os.path.splitext(urlparse(url).path)[1]
     if not ext:
         try:
@@ -60,9 +61,29 @@ def process_image_url(url, out_dir, out_filename):
         except Exception as e:
             print(f"!!! ERROR getting extension for image {url}: {e}")
             ext = '.jpg'
-        out_filename = os.path.splitext(out_filename)[0] + ext
-    if not out_filename.endswith(ext):
-        out_filename += ext
+
+    # 2. Try to use filename from URL if it's unique
+    out_filename = None
+    url_filename_str = os.path.basename(urlparse(url).path)
+    if url_filename_str:
+        # Sanitize filename from URL
+        base, _ = os.path.splitext(url_filename_str)
+        safe_base = re.sub(r'[^a-zA-Z0-9_-]', '_', base)
+        candidate_filename = f"{safe_base}{ext}"
+        if not (out_dir / candidate_filename).exists():
+            out_filename = candidate_filename
+
+    # 3. If filename from URL is not used, create a fallback name using page context
+    if not out_filename:
+        safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', title)
+        if idx is not None:
+            out_filename = f"{md_stem}_{safe_title}_{idx}{ext}"
+        else:
+            out_filename = f"{md_stem}_{safe_title}{ext}"
+    #if filename contains more dash symbols, replace them with one ... e.g. --- > -
+    out_filename = re.sub(r'-+', '-', out_filename)
+
+    # 4. Download image if it doesn't exist
     out_path = out_dir / out_filename
     if not out_path.exists():
         try:
@@ -110,11 +131,9 @@ def process_md_file(md_path):
                     url = data[attr]
                     orig_title = data.get('title') or attr
                     base_title = orig_title if orig_title and orig_title.strip() else attr
-                    safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
                     out_dir = STATIC_IMAGES_DIR / rel_folder
                     out_dir.mkdir(parents=True, exist_ok=True)
-                    out_filename = f"{md_stem}_{safe_title}"
-                    out_filename_result = process_image_url(url, out_dir, out_filename)
+                    out_filename_result = process_image_url(url, out_dir, base_title, md_stem)
                     if out_filename_result:
                         local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
                         data[attr] = local_url
@@ -129,11 +148,9 @@ def process_md_file(md_path):
                                 url = entry[img_key]
                                 entry_title = entry.get('title') or img_key
                                 base_title = entry_title if entry_title and entry_title.strip() else img_key
-                                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
                                 out_dir = STATIC_IMAGES_DIR / rel_folder
                                 out_dir.mkdir(parents=True, exist_ok=True)
-                                out_filename = f"{md_stem}_{safe_title}_{idx_entry}"
-                                out_filename_result = process_image_url(url, out_dir, out_filename)
+                                out_filename_result = process_image_url(url, out_dir, base_title, md_stem, idx=idx_entry)
                                 if out_filename_result:
                                     local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
                                     entry[img_key] = local_url
@@ -145,11 +162,9 @@ def process_md_file(md_path):
                             url = entry[img_key]
                             entry_title = entry.get('title') or img_key
                             base_title = entry_title if entry_title and entry_title.strip() else img_key
-                            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', base_title)
                             out_dir = STATIC_IMAGES_DIR / rel_folder
                             out_dir.mkdir(parents=True, exist_ok=True)
-                            out_filename = f"{md_stem}_{safe_title}"
-                            out_filename_result = process_image_url(url, out_dir, out_filename)
+                            out_filename_result = process_image_url(url, out_dir, base_title, md_stem)
                             if out_filename_result:
                                 local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
                                 entry[img_key] = local_url
@@ -165,40 +180,33 @@ def process_md_file(md_path):
     lines = body.splitlines()
     for idx, line in enumerate(lines):
         # Markdown image syntax
-        for match in IMG_PATTERN.finditer(line):
+        modified_line = line
+        for match_idx, match in enumerate(IMG_PATTERN.finditer(line)):
             alt_text = match.group(1)  # Get alt text inside []
             url = match.group(2)
             explicit_title = match.group(3)  # Title after URL in quotes
-            
+
             if not url_matches_prefix(url):
                 continue
-                
+
             # Priority: 1. Explicit title in quotes, 2. Alt text, 3. Title from nearby TOML
             title = explicit_title or alt_text or find_title_near_line(lines, idx)
             if not title or title.strip() == '':
                 title = 'untitled'
-                
-            ext = os.path.splitext(urlparse(url).path)[1]
+
             out_dir = STATIC_IMAGES_DIR / rel_folder
             out_dir.mkdir(parents=True, exist_ok=True)
-            safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', title)
-            out_filename = f"{md_stem}_{safe_title}{ext}"
-            out_path = out_dir / out_filename
-            if not out_path.exists():
-                try:
-                    resp = requests.get(url)
-                    resp.raise_for_status()
-                    with open(out_path, 'wb') as imgf:
-                        imgf.write(resp.content)
-                except Exception as e:
-                    print(f"!!! ERROR downloading image from {url}: {e}")
-                    continue
-            local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-            new_img_md = f'![{alt_text}]({local_url} "{title}")'
-            line = line.replace(match.group(0), new_img_md)
-            body_changed = True
-            changed = True
-            
+
+            out_filename_result = process_image_url(url, out_dir, title, md_stem, idx=f"md{idx}_{match_idx}")
+
+            if out_filename_result:
+                local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                new_img_md = f'![{alt_text}]({local_url} "{title}")'
+                modified_line = modified_line.replace(match.group(0), new_img_md)
+                body_changed = True
+                changed = True
+        line = modified_line
+
         # Shortcode lazyimg src attribute (single line)
         lazyimg_match = re.search(r'\{\{<\s*lazyimg[^\n]*src="([^"]+)"', line)
         if lazyimg_match:
@@ -207,79 +215,50 @@ def process_md_file(md_path):
                 # Extract alt attribute if it exists in the shortcode
                 alt_match = re.search(r'alt="([^"]+)"', line)
                 alt_text = alt_match.group(1) if alt_match else f"lazyimg_{idx}"
-                
-                ext = os.path.splitext(urlparse(url).path)[1]
-                if not ext:
-                    try:
-                        resp = requests.head(url, allow_redirects=True)
-                        content_type = resp.headers.get('Content-Type', '')
-                        if 'image/' in content_type:
-                            ext = '.' + content_type.split('image/')[1].split(';')[0].strip().split('+')[0]
-                        else:
-                            ext = '.jpg'  # fallback
-                    except Exception as e:
-                        print(f"!!! ERROR getting extension for image {url}: {e}")
-                        ext = '.jpg'
                 out_dir = STATIC_IMAGES_DIR / rel_folder
                 out_dir.mkdir(parents=True, exist_ok=True)
-                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', alt_text)
-                out_filename = f"{md_stem}_{safe_title}{ext}"
-                out_path = out_dir / out_filename
-                if not out_path.exists():
-                    try:
-                        resp = requests.get(url)
-                        resp.raise_for_status()
-                        with open(out_path, 'wb') as imgf:
-                            imgf.write(resp.content)
-                    except Exception as e:
-                        print(f"!!! ERROR downloading image from {url}: {e}")
-                        continue
-                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                line = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', line)
-                body_changed = True
-                changed = True
+                out_filename_result = process_image_url(url, out_dir, alt_text, md_stem, idx=f"lazy{idx}")
+
+                if out_filename_result:
+                    local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                    line = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', line)
+                    body_changed = True
+                    changed = True
         lines[idx] = line
-        
+
     # Handle multi-line lazyimg shortcodes
     full_content = '\n'.join(lines)
     multi_lazyimg_pattern = re.compile(r'\{\{<\s*lazyimg\s+[^>]*?src="([^"]+)"[^>]*?>}}', re.DOTALL)
-    for match in multi_lazyimg_pattern.finditer(full_content):
+
+    # Use a list to build replacements to avoid issues with replacing content that is being iterated over
+    replacements = []
+    for match_idx, match in enumerate(multi_lazyimg_pattern.finditer(full_content)):
         url = match.group(1)
         if url_matches_prefix(url):
             try:
-                # Extract alt attribute if it exists in the shortcode
                 shortcode = match.group(0)
                 alt_match = re.search(r'alt="([^"]+)"', shortcode)
                 alt_text = alt_match.group(1) if alt_match else "lazyimg_multi"
-                
-                ext = os.path.splitext(urlparse(url).path)[1]
                 out_dir = STATIC_IMAGES_DIR / rel_folder
                 out_dir.mkdir(parents=True, exist_ok=True)
-                safe_title = re.sub(r'[^a-zA-Z0-9_-]', '_', alt_text)
-                out_filename = f"{md_stem}_{safe_title}{ext}"
-                out_path = out_dir / out_filename
-                if not out_path.exists():
-                    try:
-                        resp = requests.get(url)
-                        resp.raise_for_status()
-                        with open(out_path, 'wb') as imgf:
-                            imgf.write(resp.content)
-                    except Exception as e:
-                        print(f"!!! ERROR downloading image from {url}: {e}")
-                        continue
-                local_url = f"/images/{rel_folder}/{out_filename}".replace('\\', '/')
-                # Replace just the src attribute value
-                new_shortcode = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', shortcode)
-                full_content = full_content.replace(shortcode, new_shortcode)
-                body_changed = True
-                changed = True
+                out_filename_result = process_image_url(url, out_dir, alt_text, md_stem, idx=f"multilazy{match_idx}")
+
+                if out_filename_result:
+                    local_url = f"/images/{rel_folder}/{out_filename_result}".replace('\\', '/')
+                    new_shortcode = re.sub(r'(src=")([^"]+)(")', f'\\1{local_url}\\3', shortcode)
+                    replacements.append((shortcode, new_shortcode))
+                    body_changed = True
+                    changed = True
             except Exception as e:
                 print(f"!!! ERROR processing multi-line lazyimg for {url}: {e}")
                 continue
 
+    for old, new in replacements:
+        full_content = full_content.replace(old, new)
+
     if body_changed:
         body = full_content
-        
+
     if changed:
         # Write both TOML and body together, always
         with open(md_path, 'w', encoding='utf-8') as f:
