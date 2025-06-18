@@ -150,7 +150,7 @@ keywords:
             {{ $matchedText := index (findRE $regexPattern $processedContent 1) 0 }}
             
             {{/* Create the replacement link using the matched text with underlined class */}}
-            {{ $linkHtml := printf `<a href="%s" title="%s" class="underline">%s</a>` $url $escapedTitle $matchedText }}
+            {{ $linkHtml := printf `<a href="%s" title="%s"  class="">%s</a>` $url $escapedTitle $matchedText }}
 
             {{/* Replace only the first occurrence that matches exactly */}}
             {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}

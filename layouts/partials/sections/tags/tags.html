@@ -3,7 +3,7 @@
 {{ if $tags }}
 <div class="pt-4 pb-4 gap-3 px-2 flex flex-wrap">
 
-    {{ $maxTags := .maxTags | default 5 }}
+    {{ $maxTags := .maxTags | default 4 }}
     {{ $tagsCount := len $tags }}
     {{ range $i, $tag := $tags }}
     {{ if lt $i $maxTags }}
