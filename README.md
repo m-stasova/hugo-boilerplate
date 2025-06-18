@@ -510,6 +510,21 @@ To print debug messages during development, you can use the `{{ printf }}` funct
 - build css `npm run build:css`
 - start server `hugo server --gc`
 
+
+## Generating new content using FlowHunt Flows
+1. copy csv file with columns: flow_input, filename to e.g. scripts directory in theme
+2. go to scripts directory `cd themes/boilerplate/scripts`
+3. activate python environment:
+```bash
+source .venv/bin/activate
+```
+3. run the script to generate content:
+```bash
+python generate_content.py --input_file mcp_servers_smart_filtered.csv --flow_id 53849f45-6749-42cd-a27c-29562a25998f --output_dir ../../../content/en/mcp-servers 
+```
+IMPORTANT: you need in .env file a FlowHunt API key set as `FLOWHUNT_API_KEY=your_api_key_here`, API key needs to be from same workspace as the flow you are using to generate content.
+
+
 ### Common Issues
 
 1. **PostCSS Processing Errors**: Ensure you have the correct PostCSS configuration in your project root.
