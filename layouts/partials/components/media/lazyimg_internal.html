@@ -74,9 +74,18 @@
     <!-- 1 & 2. Get original image dimensions -->
     {{ $originalImagePath := printf "static%s" $src }}
     {{ $originalWidth := 0 }}
+
+    <!-- Check file extension before using imageConfig -->
+    {{ $fileExtLower := strings.ToLower (path.Ext $src) }}
     {{ if fileExists $originalImagePath }}
-      {{ with (imageConfig $originalImagePath) }}
-        {{ $originalWidth = .Width }}
+      {{ if eq $fileExtLower ".avif" }}
+        <!-- Skip imageConfig for AVIF files as Hugo doesn't support them -->
+        {{ $originalWidth = 1500 }} <!-- Default width for AVIF files -->
+      {{ else }}
+        <!-- Use imageConfig for supported formats -->
+        {{ with (imageConfig $originalImagePath) }}
+          {{ $originalWidth = .Width }}
+        {{ end }}
       {{ end }}
     {{ end }}
 
@@ -278,6 +287,7 @@
     {{ else if eq $fileExt ".png" }}{{ $mimeType = "image/png" }}
     {{ else if eq $fileExt ".webp" }}{{ $mimeType = "image/webp" }}
     {{ else if eq $fileExt ".gif" }}{{ $mimeType = "image/gif" }}
+    {{ else if eq $fileExt ".avif" }}{{ $mimeType = "image/avif" }}
     {{ end }}
 
     {{ $pictureFinalClass := "lazy-picture" }}
