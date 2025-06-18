@@ -41,8 +41,11 @@ def find_image_files(directory):
     supported_extensions = ("*.jpg", "*.jpeg", "*.png", "*.gif", "*.bmp", "*.webp")
     image_paths = []
     for ext in supported_extensions:
-        image_paths.extend(Path(directory).rglob(ext))
-    print(f"Found {len(image_paths)} images in '{directory}'.")
+        all_files = list(Path(directory).rglob(ext))
+        # Filter out images in /processed/ folders
+        filtered_files = [p for p in all_files if "/processed/" not in str(p) and "\\processed\\" not in str(p)]
+        image_paths.extend(filtered_files)
+    print(f"Found {len(image_paths)} images in '{directory}' (excluding /processed/ folder).")
     return image_paths
 
 def load_model():
