@@ -1,7 +1,7 @@
 {{ $tags := .tags | default (slice) }}
 
 {{ if $tags }}
-<div class="pt-4 pb-4 gap-2">
+<div class="pt-4 pb-4 gap-3 px-2 flex flex-wrap">
 
     {{ $maxTags := .maxTags | default 5 }}
     {{ $tagsCount := len $tags }}
