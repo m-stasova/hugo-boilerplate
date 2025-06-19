@@ -44,7 +44,7 @@
 
 <div class="relative isolate overflow-hidden {{ $bgColor }} {{ $padding }}">
   {{ if $showBgImage }}
-  {{ partial "components/media/lazyimg.html" (dict "src" $bgImage "alt" $bgImageAlt "class" "absolute inset-0 -z-10 size-full object-cover object-right md:object-center") }}
+  {{ partial "components/media/lazyimg.html" (dict "src" $bgImage "alt" $bgImageAlt "maxWidth" 800 "class" "absolute inset-0 -z-10 size-full object-cover object-right md:object-center") }}
   {{ end }}
   
   <!-- Decorative blobs -->

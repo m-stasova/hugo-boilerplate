@@ -18,7 +18,7 @@ Usage:
 {{ $description := (.Get "description") | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
 {{ $primaryCtaText := (.Get "primaryCtaText") | default "Get started" }}
 {{ $primaryCtaUrl := (.Get "primaryCtaUrl") | default "#" }}
-{{ $secondaryCtaText := (.Get "secondaryCtaText") | default "Learn more" }}
+{{ $secondaryCtaText := (.Get "secondaryCtaText") | default (i18n "learnMore") | default "Learn more" }}
 {{ $secondaryCtaUrl := (.Get "secondaryCtaUrl") | default "#" }}
 {{ $gradientStartColor := (.Get "gradientStartColor") | default "#7775D6" }}
 {{ $gradientEndColor := (.Get "gradientEndColor") | default "#E935C1" }}

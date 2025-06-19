@@ -14,10 +14,10 @@
   - gradientEndColor: Ending color for the background gradient (optional, default: "#E935C1")
   - gradientId: Unique ID for the gradient definition (optional, default: auto-generated)
 @example:
-  {{ partial "sections/cta/simple_centered_on_dark.html" (dict 
-      "heading" "Transform your workflow today" 
+  {{ partial "sections/cta/simple_centered_on_dark.html" (dict
+      "heading" "Transform your workflow today"
       "description" "Our intuitive platform helps teams collaborate more effectively and deliver better results."
-      "primaryCta" (dict "text" "Start free trial" "url" "/signup") 
+      "primaryCta" (dict "text" "Start free trial" "url" "/signup")
       "secondaryCta" (dict "text" "Learn more" "url" "/features")
       "gradientStartColor" "#4F46E5"
       "gradientEndColor" "#7C3AED"
@@ -25,38 +25,42 @@
 @note: This section creates visual impact with a dark background and gradient effect that draws attention to the call-to-action content.
 */}}
 
-{{ $heading := .heading | default "Boost your productivity. Start using our app today." }}
-{{ $description := .description | default "Incididunt sint fugiat pariatur cupidatat consectetur sit cillum anim id veniam aliqua proident excepteur commodo do ea." }}
-{{ $primaryCta := .primaryCta | default (dict 
-  "text" "Get started"
+{{ $heading := .heading | default "" }}
+{{ $description := .description | default "" }}
+{{ $primaryCta := .primaryCta | default (dict
+  "text" (i18n "get_started")
   "url" "#"
 ) }}
-{{ $secondaryCta := .secondaryCta | default (dict 
-  "text" "Learn more"
+{{ $secondaryCta := .secondaryCta | default (dict
+  "text" ((i18n "learnMore") | default "")
   "url" "#"
 ) }}
 {{ $gradientStartColor := .gradientStartColor | default "#7775D6" }}
 {{ $gradientEndColor := .gradientEndColor | default "#E935C1" }}
 {{ $gradientId := .gradientId | default "8d958450-c69f-4251-94bc-4e091a323369" }}
 
-<div class="relative isolate overflow-hidden bg-gray-900 rounded-xl mx-6 my-8 sm:mx-8 lg:mx-auto lg:max-w-7xl">
+<div class="wrapper">
+  <div class="relative isolate overflow-hidden bg-gray-900 rounded-xl my-16">
   <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">{{ $heading }}</h2>
       <p class="mx-auto mt-6 max-w-xl text-lg/8 text-pretty text-gray-300">{{ $description }}</p>
       <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="{{ $primaryCta.url }}" class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">{{ $primaryCta.text }}</a>
-        <a href="{{ $secondaryCta.url }}" class="text-sm/6 font-semibold text-white">{{ $secondaryCta.text }} <span aria-hidden="true">→</span></a>
+        {{ partial "components/buttons/buttons.html" (dict
+          "text" $primaryCta.text
+          "url" $primaryCta.url
+          "variant" "primary"
+        ) }}
+        {{ partial "components/buttons/buttons.html" (dict
+          "text" $secondaryCta.text
+          "url" $secondaryCta.url
+          "variant" "text"
+          "classes" "text-white"
+          "showArrow" true
+        ) }}
       </div>
     </div>
   </div>
-  <svg viewBox="0 0 1024 1024" class="absolute top-1/2 left-1/2 -z-10 size-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]" aria-hidden="true">
-    <circle cx="512" cy="512" r="512" fill="url(#{{ $gradientId }})" fill-opacity="0.7" />
-    <defs>
-      <radialGradient id="{{ $gradientId }}">
-        <stop stop-color="{{ $gradientStartColor }}" />
-        <stop offset="1" stop-color="{{ $gradientEndColor }}" />
-      </radialGradient>
-    </defs>
-  </svg>
+  <div class="absolute top-1/2 left-1/2 -z-10 size-[64rem] -translate-x-1/2 translate-y-0 rounded-full opacity-70 [mask-image:radial-gradient(closest-side,white,transparent)]" style="background: radial-gradient(circle, {{ $gradientStartColor }} 0%, {{ $gradientEndColor }} 100%)" aria-hidden="true"></div>
+</div>
 </div>

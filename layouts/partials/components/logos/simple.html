@@ -2,73 +2,103 @@
 @component: Simple Logos
 @description: Displays a simple grid of client/partner logos.
 @params:
-  - bgColor: Background color class (optional, default: "bg-white")
-  - padding: Padding classes (optional, default: "py-24 sm:py-32")
-  - logoColor: Color of the logos (optional, default: "gray-900")
-  - logos: Array of logo objects, each with:
+  - theme: "light" (default) or "dark" — adds class="dark" for section
+  - heading: Section heading text (optional)
+  - description: Section description text (optional)
+  - logos: Can be one of:
+      1. Array of logo objects directly (from inner content)
+      2. String reference to front matter section containing logo array
+    Each logo object should have:
     - name: Company/brand name
     - image: URL to the logo image
     - url: Link to company homepage (optional)
-    - width: Logo width
-    - height: Logo height
 @example:
   {{ partial "components/logos/simple.html" (dict 
-      "bgColor" "bg-gray-50"
-      "padding" "py-16 sm:py-24"
-      "logos" (slice 
-        (dict 
+      "theme" "dark"
+      "heading" "Our Trusted Partners"
+      "description" "We work with these amazing companies to deliver value"
+      "logos" (slice
+        (dict
           "name" "Company A" 
           "image" "/images/logos/company-a.svg"
           "url" "https://example-a.com"
-          "width" "158"
-          "height" "48"
         )
         (dict 
           "name" "Company B" 
           "image" "/images/logos/company-b.svg"
-          "width" "158"
-          "height" "48"
         )
       )
   ) }}
-@note: The component will use default placeholder logos if none are provided, making it easy to implement in development.
+@note: The component will use default partner logos if none are provided, making it easy to implement in development.
 */}}
 
-{{/* Configurable variables */}}
-{{ $bgColor := .bgColor | default "bg-white" }}
-{{ $padding := .padding | default "py-24 sm:py-32" }}
+{{/* Theme setup */}}
+{{ $theme := .theme | default "light" }}
+{{ $isDark := eq $theme "dark" }}
+{{ $darkClass := cond $isDark "dark" "" }}
 
 {{/* Logos */}}
-{{ $logoColor := .logoColor | default "gray-900" }}
-{{ $logos := .logos | default (slice) }}
+{{ $defaultLogos := slice 
+  (dict
+    "name" "LiveAgent"
+    "image" "/images/logos/liveagent_logo_v2.svg"
+    "url" "https://www.liveagent.com/"
+  )
+  (dict
+    "name" "PostAffiliatePro"
+    "image" "/images/logos/pap-logo_v2.svg"
+    "url" "https://www.postaffiliatepro.com/"
+  )
+  (dict
+    "name" "HZ-Containers"
+    "image" "/images/logos/hz_logo_v2.svg"
+    "url" "https://www.hz-containers.com/"
+  )
+  (dict
+    "name" "VGD"
+    "image" "/images/logos/vgd_logo_v2.svg"
+    "url" "https://be.vgd.eu/en/services/audit"
+  )
+  (dict
+    "name" "KPMG"
+    "image" "/images/logos/kpmg_logo_v2.svg"
+    "url" "https://kpmg.com/sk/sk/home.html"
+  )
+}}
+{{ $logos := .logos | default $defaultLogos }}
 
-<div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 justify-center">
-    <div class="mx-auto grid max-w-lg grid-cols-4 items-center justify-items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-      {{ range $index, $logo := $logos }}
-        <div class="col-span-1 flex items-center justify-center">
-          {{ $class := "max-h-12 w-full object-contain" }}
-          {{ if $logo.url }}
-            <a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">
-              {{ partial "components/media/lazyimg.html" (dict 
-                "src" $logo.image 
-                "alt" $logo.name 
-                "class" $class
-                "loading" "lazy" 
-                "decoding" "async"
-              ) }}
-            </a>
-          {{ else }}
-            {{ partial "components/media/lazyimg.html" (dict 
-              "src" $logo.image 
-              "alt" $logo.name 
-              "class" $class
-              "loading" "lazy" 
-              "decoding" "async"
-            ) }}
+{{ if $logos }}
+  {{/* Heading and Description */}}
+  {{ $heading := .heading }}
+  {{ $description := .description | default "" }}
+
+  <div class="{{ $darkClass }}">
+    <div class="section-bg-light dark:section-bg-dark dark:my-12 dark:lg:mb-24 py-12 lg:py-24">
+      <div class="wrapper">
+        {{ if or $heading $description }}
+        <div class="text-center mb-8 sm:mb-12 {{ if $heading }}pt-4{{ end }}">
+          {{ if $heading }}<h2 class="text-heading text-3xl font-bold tracking-tight sm:text-4xl">{{ $heading }}</h2>{{ end }}
+          {{ if $description }}<p class="mt-4 text-lg text-body">{{ $description | markdownify }}</p>{{ end }}
+        </div>
+        {{ end }}
+
+        <div class="mx-auto flex flex-wrap justify-center items-center gap-8 sm:gap-12 md:gap-16">
+          {{ range $index, $logo := $logos }}
+            <div class="flex items-center justify-center">
+              {{ $class := "block max-h-12 h-8 lg:h-10 w-full object-contain" }}
+              {{ if $logo.url }}<a href="{{ $logo.url }}" target="_blank" rel="noopener noreferrer" title="{{ $logo.name }}">{{ end }}
+                  {{ partial "components/media/lazyimg.html" (dict
+                    "src" $logo.image
+                    "alt" $logo.name
+                    "class" $class
+                    "loading" "lazy"
+                    "decoding" "async"
+                  ) }}
+              {{ if $logo.url }}</a>{{ end }}
+            </div>
           {{ end }}
         </div>
-      {{ end }}
+      </div>
     </div>
   </div>
-</div>
+{{ end }}

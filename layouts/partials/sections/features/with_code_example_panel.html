@@ -5,6 +5,8 @@
   - tagline: Short text displayed above main heading (optional, default: "Deploy faster")
   - heading: Main section heading (optional, default: "A better workflow")
   - description: Section description text (optional, default: "Lorem ipsum, dolor sit amet...")
+  - ctaText: Call to action button text (optional)
+  - ctaUrl: Call to action button URL (optional)
   - features: Array of feature objects (optional, includes defaults)
     - icon: SVG path data for the feature icon
     - title: Feature title
@@ -25,12 +27,12 @@
       "description" "Our robust API makes integration straightforward for developers of all skill levels."
       "features" (slice
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z\" clip-rule=\"evenodd\" />"
+              "icon" "cloud"
               "title" "Cloud Integration"
               "description" "Connect directly with your existing cloud infrastructure for seamless data flow."
           )
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z\" clip-rule=\"evenodd\" />"
+              "icon" "lock-closed"
               "title" "Advanced Security"
               "description" "Enterprise-grade security with OAuth2 authentication and role-based access control."
           )
@@ -41,31 +43,9 @@
               (dict "name" "api-example.js" "active" true)
               (dict "name" "response.json" "active" false)
           )
-          "content" "// Initialize the API client
-const client = new ApiClient({
-  apiKey: 'YOUR_API_KEY',
-  version: 'v2'
-});
+          "content" "// Example API call"
 
-// Make a request
-client.getData({
-  endpoint: '/users',
-  params: {
-    limit: 10,
-    include: ['profile', 'settings']
-  }
-})
-.then(response => {
-  console.log('Success:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error);
-});"
-      )
-      "panelColor" "blue-600"
-      "panelLightColor" "blue-200"
-      "page" .
-  ) }}
+      )}}
 @note: The code example panel supports syntax highlighting and can display multiple files as tabs, with one active file shown. This section is ideal for showcasing API features, SDK implementations, or code-related functionality.
 */}}
 
@@ -74,6 +54,8 @@ client.getData({
 {{ $wrapCode := .wrapCode | default true }}
 {{ $heading := .heading | default "A better workflow" }}
 {{ $description := .description | default "" }}
+{{ $ctaText := .ctaText | default "" }}
+{{ $ctaUrl := .ctaUrl | default "" }}
 {{ $features := .features | default (slice) }}
 {{ $code := .code | default (dict
   "activeFile" "example.js"
@@ -133,6 +115,14 @@ client.getData({
           </div>
           <div class="pointer-events-none absolute inset-0 ring-1 ring-black/10 ring-inset sm:rounded-3xl" aria-hidden="true"></div>
         </div>
+        {{ if and $ctaText $ctaUrl }}
+        <div class="mt-6 text-center">
+          <a href="{{ $ctaUrl }}" class="text-base/7 font-semibold leading-7 text-indigo-600 hover:text-indigo-500 inline-flex items-center">
+            <span>{{ $ctaText }}</span>
+            <span class="ml-2">{{ partial "icons/arrow-small-right" "w-7 h-7 text-indigo-600" }}</span>
+          </a>
+        </div>
+        {{ end }}
       </div>
     </div>
   </div>

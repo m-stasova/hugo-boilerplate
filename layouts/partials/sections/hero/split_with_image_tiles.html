@@ -1,3 +1,46 @@
+{{/*
+@section: Split Hero with Image Tiles
+@description: A hero section with text content on the left and a tiled image layout on the right, featuring multiple images in an artistic arrangement.
+@params:
+  - heading: Main section heading (default: "We're changing the way people connect")
+  - description: Description below the heading (default: "Anim aute id magna aliqua ad ad non deserunt sunt...")
+  - primaryCtaText: Text for the primary CTA button (optional)
+  - primaryCtaUrl: URL for the primary CTA button (default: "#")
+  - secondaryCtaText: Text for the secondary CTA button (optional)
+  - secondaryCtaUrl: URL for the secondary CTA button (default: "#")
+  - images: Array of image objects with url and alt properties (optional, uses default Unsplash images)
+  - typewriter: Object with typewriter effect configuration (optional)
+    - enabled: Boolean to enable/disable the effect (default: false)
+    - words: Number of words to animate (default: 1)
+    - speed: Typing speed in ms (default: 100)
+    - deleteSpeed: Deleting speed in ms (default: 50)
+    - pause: Pause duration in ms (default: 2000)
+    - color: Color class for animated text (default: "text-indigo-600")
+@example:
+  {{ partial "sections/hero/split_with_image_tiles.html" (dict 
+      "heading" "Connect with your community"
+      "description" "Build meaningful relationships and grow your network with our innovative platform."
+      "primaryCtaText" "Get started"
+      "primaryCtaUrl" "/signup"
+      "secondaryCtaText" "Learn more"
+      "secondaryCtaUrl" "/features"
+      "images" (slice
+          (dict "url" "/images/community-1.jpg" "alt" "Community gathering")
+          (dict "url" "/images/community-2.jpg" "alt" "People networking")
+          (dict "url" "/images/community-3.jpg" "alt" "Team collaboration")
+          (dict "url" "/images/community-4.jpg" "alt" "Group discussion")
+          (dict "url" "/images/community-5.jpg" "alt" "Social interaction")
+      )
+      "typewriter" (dict
+          "enabled" true
+          "words" 2
+          "speed" 120
+          "deleteSpeed" 60
+          "pause" 2500
+          "color" "text-indigo-600"
+      )
+  ) }}
+*/}}
 {{/* Split Hero with Image Tiles */}}
 {{ $heading := .heading | default "We're changing the way people connect" }}
 {{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt." }}
@@ -12,6 +55,14 @@
   (dict "url" "https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80" "alt" "Business meeting")
   (dict "url" "https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" "alt" "Person working on computer")
 ) }}
+{{ $typewriter := .typewriter | default dict }}
+{{ $typewriter := merge (dict "enabled" false) $typewriter }}
+{{ $typewriter := merge (dict "words" 1) $typewriter }}
+{{ $typewriter := merge (dict "speed" 100) $typewriter }}
+{{ $typewriter := merge (dict "deleteSpeed" 50) $typewriter }}
+{{ $typewriter := merge (dict "pause" 2000) $typewriter }}
+{{ $typewriter := merge (dict "color" "text-indigo-600") $typewriter }}
+{{ $typewriter := merge (dict "wordAlternatives" "") $typewriter }}{{/* comma separated words to alternate with */}}
 
 <div class="relative isolate">
   <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]" aria-hidden="true">
@@ -32,7 +83,7 @@
     <div class="mx-auto max-w-7xl px-6 pt-36 pb-32 sm:pt-60 lg:px-8 lg:pt-10">
       <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
         <div class="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
-          <h1 class="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl">{{ $heading }}</h1>
+          <h1 class="text-5xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-7xl"{{ if $typewriter.enabled }} data-typewriter data-typewriter-words="{{ $typewriter.words }}" data-typewriter-word-alternatives="{{$typewriter.wordAlternatives}}" data-typewriter-speed="{{ $typewriter.speed }}" data-typewriter-delete-speed="{{ $typewriter.deleteSpeed }}" data-typewriter-pause="{{ $typewriter.pause }}" data-typewriter-color="{{ $typewriter.color }}"{{ end }}>{{ $heading }}</h1>
           <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none">{{ $description }}</p>
           {{ if or $primaryCtaText $secondaryCtaText }}
           <div class="mt-10 flex items-center gap-x-6">

@@ -17,6 +17,14 @@ attributes_to_sync = [
     'ai-image-generator',
     'effects',
     'models',
+    'characterImages',
+    'originalCharacterImage',
+    'monthlyPrice',
+    'annualPrice',
+    'ctaHoverBorderColor',
+    'ctaBorderColor',
+    'featureCategories.features.tiersComparison',
+    'tiersComparison'
 ]
 
 #unset_attributes = [ 'cards' ]

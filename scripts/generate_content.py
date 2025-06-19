@@ -2,20 +2,28 @@
 """
 generate_content.py
 
-This script generates content for each topic provided in an input file using FlowHunt API.
+This script generates content for each topic provided in a CSV input file using FlowHunt API.
 
 Usage:
-    python generate_content.py --input_file topics.txt --flow_id FLOW_ID --output_dir generated_content
+    python generate_content.py --input_file topics.csv --flow_id FLOW_ID --output_dir generated_content
 
 Prerequisites:
     - Python 3.6 or higher
     - FlowHunt API key (set in .env file or as environment variable FLOWHUNT_API_KEY)
     - Required packages: flowhunt, tqdm, python-dotenv
 
+CSV Input Format:
+    The input CSV file should have the following columns:
+    - flow_input: Text used to create request in FlowHunt
+    - filename: Filename to write in output directory
+
 Examples:
     # Basic usage
-    python generate_content.py --input_file topics.txt --flow_id "flow-id" --output_dir output
-    python generate_content.py --input_file glossaries.txt --flow_id 8eeb2771-10c0-4165-a16b-37fe81707659 --output_dir ../../../content/en/glossary
+    python generate_content.py --input_file topics.csv --flow_id "flow-id" --output_dir output
+    python generate_content.py --input_file glossaries.csv --flow_id 8eeb2771-10c0-4165-a16b-37fe81707659 --output_dir ../../../content/en/glossary
+    
+    # Prevent overwriting existing files
+    python generate_content.py --input_file topics.csv --flow_id "flow-id" --output_dir output --no-overwrite
 """
 
 import os
@@ -23,6 +31,7 @@ import sys
 import argparse
 import time
 import json
+import csv
 from pathlib import Path
 from tqdm import tqdm
 from dotenv import load_dotenv
@@ -64,16 +73,17 @@ def initialize_api_client():
     configuration.api_key['APIKeyHeader'] = api_key
     return flowhunt.ApiClient(configuration)
 
-def invoke_flow_for_content(api_instance, topic, flow_id, workspace_id):
+def invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id, filename):
     """
-    Invoke a FlowHunt flow to generate content for a topic
+    Invoke a FlowHunt flow to generate content for a flow input
     
     Args:
         api_instance: FlowHunt API instance
-        topic (str): Topic to generate content for
+        flow_input (str): Input text to generate content for
         flow_id (str): FlowHunt flow ID
         workspace_id (str): FlowHunt workspace ID
-        
+        filename (str): Filename to be passed to the flow
+
     Returns:
         str: Process ID or None if failed
     """
@@ -82,8 +92,10 @@ def invoke_flow_for_content(api_instance, topic, flow_id, workspace_id):
         flow_invoke_request = flowhunt.FlowInvokeRequest(
             variables={
                 "today": time.strftime("%Y-%m-%d"),
+                "v": "1",
+                "filename": filename,
             }, 
-            human_input=topic
+            human_input=flow_input
         )
         
         # Invoke the flow
@@ -96,7 +108,7 @@ def invoke_flow_for_content(api_instance, topic, flow_id, workspace_id):
         return response.id
         
     except Exception as e:
-        print(f"Error invoking flow for topic '{topic}': {str(e)}")
+        print(f"Error invoking flow for input '{flow_input}': {str(e)}")
         return None
 
 def check_flow_results(api_instance, process_id, flow_id, workspace_id):
@@ -140,40 +152,164 @@ def check_flow_results(api_instance, process_id, flow_id, workspace_id):
         print(f"Error checking flow results for process {process_id}: {str(e)}")
         return False, None
 
-def read_topics(input_file):
-    """Read topics from input file"""
+def detect_csv_delimiter(file_path):
+    """
+    Detect delimiter in a CSV file based on the first line.
+    Checks for comma, semicolon, or tab and uses the most frequent one.
+
+    Args:
+        file_path (str): Path to the CSV file
+
+    Returns:
+        str: Detected delimiter (either ',', ';', or '\t')
+    """
     try:
-        with open(input_file, 'r', encoding='utf-8') as f:
-            return [line.strip() for line in f if line.strip()]
+        with open(file_path, 'r', encoding='utf-8') as f:
+            first_line = f.readline().strip()
+
+            # Count occurrences of each potential delimiter
+            comma_count = first_line.count(',')
+            semicolon_count = first_line.count(';')
+            tab_count = first_line.count('\t')
+
+            # Find the most common delimiter
+            delimiter_counts = {
+                ',': comma_count,
+                ';': semicolon_count,
+                '\t': tab_count
+            }
+
+            max_delimiter = max(delimiter_counts, key=delimiter_counts.get)
+            max_count = delimiter_counts[max_delimiter]
+
+            # If none of the delimiters are found, default to semicolon
+            if max_count == 0:
+                print("No common delimiter found in the first line. Defaulting to semicolon.")
+                return ';'
+
+            delimiter_name = {',': 'comma', ';': 'semicolon', '\t': 'tab'}
+            print(f"Detected delimiter: '{max_delimiter}' ({delimiter_name.get(max_delimiter, 'unknown')})")
+            return max_delimiter
+    except Exception as e:
+        print(f"Error detecting CSV delimiter: {str(e)}")
+        print("Defaulting to semicolon delimiter")
+        return ';'
+
+def read_topics(input_file):
+    """Read topics from CSV input file"""
+    try:
+        # Increase CSV field size limit to handle large fields
+        csv.field_size_limit(1000000)  # Set to 1MB limit
+        
+        topics = []
+        file_extension = os.path.splitext(input_file)[1].lower()
+        
+        if file_extension == '.csv':
+            # Detect the delimiter in the CSV file
+            delimiter = detect_csv_delimiter(input_file)
+
+            # Read CSV file with flow_input and filename columns
+            with open(input_file, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f, delimiter=delimiter)
+                # Validate required columns
+                if 'flow_input' not in reader.fieldnames or 'filename' not in reader.fieldnames:
+                    print("Error: CSV file must contain 'flow_input' and 'filename' columns")
+                    sys.exit(1)
+                
+                for row in reader:
+                    flow_input = row['flow_input'].strip()
+                    filename = row['filename'].strip()
+                    
+                    if flow_input and filename:
+                        topics.append({
+                            'flow_input': flow_input,
+                            'filename': filename
+                        })
+        else:
+            # Legacy support for text files (backwards compatibility)
+            with open(input_file, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        # For text files, create filename from topic
+                        safe_filename = "".join(x for x in line if x.isalnum() or x in (' ', '-', '_')).strip()[:50]
+                        safe_filename = safe_filename.replace(' ', '_') + '.md'
+                        topics.append({
+                            'flow_input': line,
+                            'filename': safe_filename
+                        })
+        
+        return topics
     except Exception as e:
         print(f"Error reading input file: {str(e)}")
         sys.exit(1)
 
-def save_content(content, topic, output_dir):
+def save_content(content, filename, output_dir, allow_overwrite=True):
     """Save generated content to a file"""
     try:
         # Create output directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)
         
-        # Create a safe filename from the topic
-        safe_filename = "".join(x for x in topic if x.isalnum() or x in (' ', '-', '_')).strip()[:50]
-        safe_filename = safe_filename.replace(' ', '_') + '.md'
+        output_path = os.path.join(output_dir, filename)
         
-        output_path = os.path.join(output_dir, safe_filename)
+        # Create subdirectories if they exist in the filename path
+        file_dir = os.path.dirname(output_path)
+        if file_dir and file_dir != output_dir:
+            os.makedirs(file_dir, exist_ok=True)
+        
+        # Check if file exists and overwrite is not allowed
+        if not allow_overwrite and os.path.exists(output_path):
+            print(f"File {output_path} already exists and overwrite is disabled. Skipping.")
+            return None
         
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(content)
             
         return output_path
     except Exception as e:
-        print(f"Error saving content for topic '{topic}': {str(e)}")
+        print(f"Error saving content to '{filename}': {str(e)}")
         return None
 
-def process_topics(topics, flow_id, workspace_id, output_dir):
+def process_topics(topics, flow_id, workspace_id, output_dir, allow_overwrite=True):
     """Process topics using FlowHunt API"""
     if not topics:
         print("No topics to process")
         return
+    
+    skipped_count = 0
+    original_count = len(topics)
+    
+    # Filter out existing files if overwrite is not allowed
+    if not allow_overwrite:
+        existing_files = []
+        topics_to_process = []
+        
+        for topic in topics:
+            output_path = os.path.join(output_dir, topic['filename'])
+            if os.path.exists(output_path):
+                existing_files.append(topic['filename'])
+                print(f"Skipping '{topic['flow_input']}' - file '{topic['filename']}' already exists")
+            else:
+                topics_to_process.append(topic)
+        
+        skipped_count = len(existing_files)
+        
+        if existing_files:
+            print(f"\nSkipped {len(existing_files)} files that already exist:")
+            for filename in existing_files:
+                print(f"  - {filename}")
+            print()
+        
+        topics = topics_to_process
+        
+        if not topics:
+            print("No new topics to process - all files already exist")
+            print(f"\nContent Generation Summary:")
+            print(f"Topics skipped (files already exist): {skipped_count}")
+            print(f"Topics completed successfully: 0")
+            print(f"Topics failed: 0")
+            print(f"Total topics in input: {original_count}")
+            return
     
     print(f"Processing {len(topics)} topics")
     check_interval = 10
@@ -181,7 +317,7 @@ def process_topics(topics, flow_id, workspace_id, output_dir):
     with initialize_api_client() as api_client:
         api_instance = flowhunt.FlowsApi(api_client)
         
-        # Dictionary to track tasks: {process_id: topic}
+        # Dictionary to track tasks: {process_id: topic_data}
         pending_tasks = {}
         completed_tasks = []
         failed_tasks = []
@@ -190,11 +326,14 @@ def process_topics(topics, flow_id, workspace_id, output_dir):
         progress_bar = tqdm(total=len(topics), desc="Scheduling content generation")
         
         for topic in topics:
-            topic = topic.strip()
-            if not topic:
-                continue
-            process_id = invoke_flow_for_content(api_instance, topic, flow_id, workspace_id)
+            flow_input = topic['flow_input'].strip()
+            filename = topic['filename'].strip()
             
+            if not flow_input or not filename:
+                continue
+                
+            process_id = invoke_flow_for_content(api_instance, flow_input, flow_id, workspace_id, filename)
+
             if process_id:
                 pending_tasks[process_id] = topic
             else:
@@ -213,7 +352,7 @@ def process_topics(topics, flow_id, workspace_id, output_dir):
             completed_in_batch = 0
             
             for process_id in process_ids:
-                topic = pending_tasks[process_id]
+                topic_data = pending_tasks[process_id]
                 is_ready, content = check_flow_results(api_instance, process_id, flow_id, workspace_id)
                 
                 if is_ready:
@@ -221,15 +360,15 @@ def process_topics(topics, flow_id, workspace_id, output_dir):
                     completed_in_batch += 1
                     
                     if content:
-                        output_path = save_content(content, topic, output_dir)
+                        output_path = save_content(content, topic_data['filename'], output_dir, allow_overwrite)
                         if output_path:
-                            completed_tasks.append(topic)
-                            print(f"\nGenerated content for '{topic}' saved to: {output_path}")
+                            completed_tasks.append(topic_data)
+                            print(f"\nGenerated content for '{topic_data['flow_input']}' saved to: {output_path}")
                         else:
-                            failed_tasks.append(topic)
+                            failed_tasks.append(topic_data)
                     else:
-                        failed_tasks.append(topic)
-                        print(f"\nFailed to generate content for '{topic}'")
+                        failed_tasks.append(topic_data)
+                        print(f"\nFailed to generate content for '{topic_data['flow_input']}'")
             
             progress_bar.update(completed_in_batch)
             
@@ -240,8 +379,11 @@ def process_topics(topics, flow_id, workspace_id, output_dir):
     
     # Print summary
     print("\nContent Generation Summary:")
+    if skipped_count > 0:
+        print(f"Topics skipped (files already exist): {skipped_count}")
     print(f"Topics completed successfully: {len(completed_tasks)}")
     print(f"Topics failed: {len(failed_tasks)}")
+    print(f"Total topics in input: {original_count}")
     print(f"Total topics processed: {len(completed_tasks) + len(failed_tasks)}")
 
 def main():
@@ -254,7 +396,7 @@ def main():
     parser.add_argument(
         "--input_file",
         required=True,
-        help="Path to input file containing topics (one per line)"
+        help="Path to CSV input file containing flow_input and filename columns"
     )
     parser.add_argument(
         "--flow_id",
@@ -265,6 +407,11 @@ def main():
         "--output_dir",
         required=True,  
         help="Directory where generated content will be saved"
+    )
+    parser.add_argument(
+        "--no-overwrite",
+        action="store_true",
+        help="Prevent overwriting existing files (default: allow overwrite)"
     )
     
     args = parser.parse_args()
@@ -282,7 +429,7 @@ def main():
     print(f"Found {len(topics)} topics in {args.input_file}")
     
     # Process topics
-    process_topics(topics, args.flow_id, workspace_id, args.output_dir)
+    process_topics(topics, args.flow_id, workspace_id, args.output_dir, allow_overwrite=not args.no_overwrite)
     
     print("\nContent generation completed!")
 

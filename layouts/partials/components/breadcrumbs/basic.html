@@ -15,36 +15,18 @@
     )
     "separator" ">"
   ) }}
-@note: The component includes structured Schema.org BreadcrumbList data to improve SEO.
 */}}
 
 {{- $items := .items -}}
 {{- $separator := .separator | default "/" -}}
 
-<nav class="flex gap-2 py-4" aria-label="Breadcrumbs">
+<nav class="wrapper flex gap-2 py-8" aria-label="Breadcrumbs">
   {{- range $index, $item := $items -}}
     {{- if $index -}}
-      <p class="text-gray-400 select-none font-mono text-[0.8125rem]/6 font-medium tracking-widest text-pretty uppercase" aria-hidden="true">{{ $separator }}</p>
+      <p class="text-gray-400 select-none text-base tracking-widest text-pretty" aria-hidden="true">{{ $separator }}</p>
     {{- end -}}
-    <a class="hover:text-gray-950 font-mono text-[0.8125rem]/6 font-medium tracking-widest text-pretty uppercase text-gray-600" href="{{ $item.url }}">{{ $item.title }}</a>
+    <a class="hover:text-gray-950 text-base tracking-widest text-pretty text-gray-600" href="{{ $item.url }}">{{ $item.title }}</a>
   {{- end -}}
 </nav>
 
-<!-- Schema.org BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {{- range $index, $item := $items -}}
-    {{- if $index -}},{{- end -}}
-    {
-      "@type": "ListItem",
-      "position": {{ add $index 1 }},
-      "name": "{{ $item.title }}",
-      "item": "{{ $item.url | absURL }}"
-    }
-    {{- end -}}
-  ]
-}
-</script>
+{{ partial "schemaorg/breadcrumbs.html" (dict "items" $items) }}

@@ -5,7 +5,7 @@
   - bgColor: Background color class (optional, default: "bg-gray-900")
   - padding: Padding classes (optional, default: "px-6 py-32 lg:px-8")
   - eyebrow: Small text displayed above heading (optional, default: "Introducing")
-  - eyebrowColor: Color class for eyebrow text (optional, default: "text-indigo-400")
+  - eyebrowColor: Color class for eyebrow text (optional, default: "text-primary")
   - heading: Main section heading (optional, default: "JavaScript for beginners")
   - headingColor: Color class for heading (optional, default: "text-white")
   - description: Section description text (optional, has default)
@@ -46,12 +46,12 @@
       "description" "A comprehensive guide to creating responsive, accessible, and performant web applications using modern JavaScript frameworks."
       "features" (slice
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z\" clip-rule=\"evenodd\" />" 
+              "icon" "map" 
               "title" "Component Architecture" 
               "description" "Learn how to structure your application using reusable, maintainable components."
           )
           (dict 
-              "icon" "<path fill-rule=\"evenodd\" d=\"M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z\" clip-rule=\"evenodd\" />" 
+              "icon" "lock-closed" 
               "title" "State Management" 
               "description" "Master techniques for managing application state in complex user interfaces."
           )
@@ -69,7 +69,7 @@
 
 {{/* Heading section */}}
 {{ $eyebrow := .eyebrow | default "Introducing" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-400" }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 {{ $heading := .heading | default "JavaScript for beginners" }}
 {{ $headingColor := .headingColor | default "text-white" }}
 {{ $description := .description | default "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien." }}

@@ -7,6 +7,7 @@
   - cardBgColor: Card background color class (optional, default: "bg-white")
   - cardRingColor: Card border color class (optional, default: "ring-gray-900/5")
   - cardShadow: Card shadow class (optional, default: "shadow-lg")
+  - captionFixedBottom: Whether to fix the caption at the bottom of the card (optional, default: true)
   - showHeading: Whether to display the heading section (optional, default: true)
   - headingTag: Small text displayed above the main heading (optional, default: "Testimonials")
   - headingTagColor: Color class for the heading tag (optional, default: "text-indigo-600")
@@ -61,6 +62,7 @@
 {{ $cardBgColor := .cardBgColor | default "bg-white" }}
 {{ $cardRingColor := .cardRingColor | default "ring-gray-900/5" }}
 {{ $cardShadow := .cardShadow | default "shadow-lg" }}
+{{ $captionFixedBottom := true }}
 
 {{/* Heading */}}
 {{ $showHeading := .showHeading | default true }}
@@ -154,11 +156,11 @@
           </figure>
         {{ else }}
           <!-- Regular testimonial -->
-          <figure class="rounded-2xl {{ $cardBgColor }} p-6 ring-1 {{ $cardShadow }} {{ $cardRingColor }}">
+          <figure class="rounded-2xl {{ $cardBgColor }} p-6 ring-1 {{ $cardShadow }} {{ $cardRingColor }} relative min-h-[340px]">
             <blockquote class="text-gray-900">
               <p>"{{ $testimonial.quote }}"</p>
             </blockquote>
-            <figcaption class="mt-6 flex items-center gap-x-4">
+            <figcaption class="flex items-center gap-x-4 border-t border-gray-900/10 pt-4 absolute left-0 right-0 bottom-0 p-6 m-0">
               {{ if $testimonial.personImage }}
                 {{ partial "components/media/lazyimg.html" (dict "src" $testimonial.personImage "alt" $testimonial.personName "class" "size-10 rounded-full bg-gray-50") }}
               {{ end }}

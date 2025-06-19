@@ -5,18 +5,11 @@
 <meta name="robots" content="noindex, nofollow">
 {{ end }}
 
-<!-- Preconnect to important domains -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 {{ with .Permalink }}<link rel="canonical" href="{{ . }}">{{ end }}
-{{ range .Site.Home.AllTranslations }}
-<link rel="alternate" hreflang="{{ .Language.Params.bcp47Lang | default .Language.Lang }}" href="{{ .Permalink }}">
-{{ end }}
-<link rel="alternate" hreflang="x-default" href="{{ (index .Site.Home.AllTranslations 0).Permalink }}">
+
+<!-- Generate hreflang alternate links -->
+{{ partial "helpers/generate-hreflang-links.html" (dict "currentPage" . "defaultLang" "en") | safeHTML }}
 {{ partial "social-meta.html" . | safeHTML }}
 {{ partialCached "head/variables.html" . }}
 {{ partialCached "head/css.html" . }}

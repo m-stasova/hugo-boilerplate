@@ -6,10 +6,10 @@
   - padding: Padding classes (optional, default: "px-6 py-24 sm:py-32 lg:px-8")
   - showEyebrow: Boolean to show/hide eyebrow text (optional, default: true)
   - eyebrow: Eyebrow text (optional, default: "Get the help you need")
-  - eyebrowColor: Eyebrow text color (optional, default: "text-indigo-600")
-  - heading: Header headline text (optional, default: "Support center")
+  - eyebrowColor: Eyebrow text color (optional, default: "text-primary")
+  - heading: Header headline text
   - headingColor: Heading text color (optional, default: "text-gray-900")
-  - description: Descriptive text below heading (optional, default: provided default text)
+  - description: Descriptive text below heading
   - descriptionColor: Description text color (optional, default: "text-gray-500")
   - maxWidth: Max width class for content container (optional, default: "max-w-2xl")
 @example:
@@ -24,27 +24,29 @@
 
 {{/* Configurable variables */}}
 {{ $bgColor := .bgColor | default "bg-white" }}
-{{ $padding := .padding | default "px-6 py-24 sm:py-32 lg:px-8" }}
+{{ $padding := .padding | default "" }}
 
 {{/* Eyebrow */}}
-{{ $eyebrow := .eyebrow | default "" }}
-{{ $eyebrowColor := .eyebrowColor | default "text-indigo-600" }}
+{{ $eyebrow := .eyebrow }}
+{{ $eyebrowColor := .eyebrowColor | default "text-primary" }}
 
 {{/* Heading */}}
-{{ $heading := .heading | default "Support center" }}
+{{ $heading := .heading | default "" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
-{{ $description := .description | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat." }}
+{{ $description := .description | default "" }}
 {{ $descriptionColor := .descriptionColor | default "text-gray-500" }}
 
 {{/* Max width */}}
-{{ $maxWidth := .maxWidth | default "max-w-2xl" }}
+{{ $maxWidth := .maxWidth | default "" }}
 
 <div class="{{ $bgColor }} {{ $padding }}">
-  <div class="mx-auto {{ $maxWidth }} text-center">
+  <div class="wrapper py-24 text-center">
     {{ if $eyebrow }}
     <p class="text-base/7 font-semibold {{ $eyebrowColor }}">{{ $eyebrow }}</p>
     {{ end }}
-    <h2 class="mt-2 text-5xl font-semibold tracking-tight {{ $headingColor }} sm:text-7xl">{{ $heading }}</h2>
+    <h2 class="mt-2 text-4xl font-semibold tracking-tight {{ $headingColor }} sm:text-7xl">{{ $heading }}</h2>
+    {{ if $description }}
     <p class="mt-8 text-lg font-medium text-pretty {{ $descriptionColor }} sm:text-xl/8">{{ $description | safeHTML }}</p>
+    {{ end }}
   </div>
 </div>

@@ -29,7 +29,7 @@
   "url" "#"
 ) }}
 {{ $secondaryCta := .secondaryCta | default (dict 
-  "text" "Learn more"
+  "text" ((i18n "learnMore") | default "Learn more")
   "url" "#"
 ) }}
 {{ $primaryCtaColor := .primaryCtaColor | default "indigo-600" }}

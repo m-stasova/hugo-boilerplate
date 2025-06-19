@@ -1,0 +1,29 @@
+{{ $tags := .tags | default (slice) }}
+
+{{ if $tags }}
+<div class="pt-4 pb-4 gap-3 px-2 flex flex-wrap">
+
+    {{ $maxTags := .maxTags | default 4 }}
+    {{ $tagsCount := len $tags }}
+    {{ range $i, $tag := $tags }}
+    {{ if lt $i $maxTags }}
+    <a href="{{ print "/tags/" ($tag | urlize) | relLangURL }}/">
+    {{ partial "components/label/label.html" (dict
+    "text" $tag
+    "bgColor" "bg-amber-100"
+    "textColor" "text-amber-800"
+    "icon" "tag" ) }}
+    </a>
+    {{ end }}
+    {{ end }}
+    {{ if gt $tagsCount $maxTags }}
+    <a href="{{ print "/tags/" | relLangURL }}">
+    {{ partial "components/label/label.html" (dict
+    "text" (printf "+%d more" (sub $tagsCount $maxTags))
+    "bgColor" "bg-amber-100"
+    "textColor" "text-amber-800"
+    "icon" "" ) }}
+    </a>
+    {{ end }}
+</div>
+{{ end }}

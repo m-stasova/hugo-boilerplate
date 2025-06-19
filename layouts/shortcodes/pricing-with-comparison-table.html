@@ -1,17 +1,19 @@
 {{ $params := .Page.Params }}
-{{ $taglineComparison := .Get "taglineComparison" | default $params.taglineComparison | default (.Get 0) | default "" }}
-{{ $headingComparison := .Get "headingComparison" | default $params.headingComparison | default (.Get 1) | default "Compare plans" }}
-{{ $descriptionComparison := .Get "descriptionComparison" | default $params.descriptionComparison | default (.Get 2) | default "Check out our plan comparisons and select the best one for you" }}
+{{ $taglineComparison := .Get "taglineComparison" | default $params.taglineComparison | default (.Get 0) | default nil }}
+{{ $headingComparison := .Get "headingComparison" | default $params.headingComparison | default (.Get 1) | default (i18n "pricing_comparison_title") }}
+{{ $descriptionComparison := .Get "descriptionComparison" | default $params.descriptionComparison | default (.Get 2) | default (i18n "pricing_comparison_description") }}
 {{ $backgroundColorComparison := .Get "backgroundColorComparison" | default $params.backgroundColor | default (.Get 3) | default "white" }}
 {{ $taglineColorComparison := .Get "taglineColorComparison" | default $params.taglineColorComparison | default (.Get 4) | default "indigo-600" }}
 {{ $headingColorComparison := .Get "headingColorComparison" | default $params.headingColorComparison | default (.Get 5) | default "gray-900" }}
 {{ $descriptionColorComparison := .Get "descriptionColorComparison" | default $params.descriptionColorComparison | default (.Get 6) | default "gray-600" }}
-{{ $checkColorComparison := .Get "checkColorComparison" | default $params.checkColorComparison | default (.Get 7) | default "primary" }}
-{{ $dashColorComparison := .Get "dashColorComparison" | default $params.dashColorComparison | default (.Get 8) | default "gray-400" }}
+{{ $toggleTextColor := .Get "toggleTextColor" | default $params.toggleTextColor | default "gray-500" }}
+{{ $toggleActiveColor := .Get "toggleActiveColor" | default $params.toggleActiveColor | default "white" }}
+{{ $toggleActiveBgColor := .Get "toggleActiveBgColor" | default $params.toggleActiveBgColor | default "primary" }}
+{{ $toggleBorderColor := .Get "toggleBorderColor" | default $params.toggleBorderColor | default "primary" }}
 {{ $togglePrice := .Get "togglePrice" | default $params.togglePrice | default true }}
-{{ $tiersComparison := .Get "tiersComparison" | default $params.tiersComparison | default "" }}
+{{ $tiersComparison := .Get "tiersComparison" | default $params.tiersComparison | default slice }}
 
-{{ $featureCategories := .Get "featureCategories" | default $params.featureCategories | default "" }}
+{{ $featureCategories := .Get "featureCategories" | default $params.featureCategories | default slice}}
 
 {{ partial "sections/pricing/with_comparison_table.html" (dict
   "taglineComparison" $taglineComparison
@@ -22,9 +24,11 @@
   "headingColorComparison" $headingColorComparison
   "descriptionColorComparison" $descriptionColorComparison
   "tiersComparison" $tiersComparison
-  "checkColorComparison" $checkColorComparison
-  "dashColorComparison" $dashColorComparison
   "featureCategories" $featureCategories
+  "toggleTextColor" $toggleTextColor
+  "toggleActiveColor" $toggleActiveColor
+  "toggleActiveBgColor" $toggleActiveBgColor
+  "toggleBorderColor" $toggleBorderColor
   "togglePrice" $togglePrice
 ) }}
 
@@ -43,8 +47,10 @@
     taglineColorComparison="blue-600"
     headingColorComparison="gray-900"
     descriptionColorComparison="gray-600"
-    checkColorComparison="primary"
-    dashColorComparison="gray-400"
+    toggleTextColor="gray-900"
+    toggleActiveColor="white"
+    toggleActiveBgColor="primary"
+    toggleBorderColor="primary"
     togglePrice=true
     tiersComparison="custom_tiers_variable" 
     featureCategories="custom_features_variable"

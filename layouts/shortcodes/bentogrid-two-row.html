@@ -1,12 +1,12 @@
 {{/* 
-  Two Row Bento Grid Shortcode
+  Dynamic Bento Grid Shortcode
   
   Usage:
   {{< bentogrid-two-row 
       tagline="Build faster" 
       heading="Everything you need for your project" 
       backgroundColor="gray-50"
-      taglineColor="indigo-600"
+      taglineColor="primary"
   >}}
     [
       {
@@ -15,8 +15,10 @@
         "description": "Our platform offers incredibly fast build times to improve your development workflow.",
         "image": "/images/bento-performance.jpg",
         "imageAlt": "Performance dashboard showing fast build times",
-        "position": "large-top-left",
-        "categoryColor": "indigo-600"
+        "url": "/features/performance",
+        "cardSize": "large",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Push to deploy",
@@ -24,8 +26,9 @@
         "description": "Deploy with a simple git push. Your changes go live instantly with zero downtime.",
         "image": "/images/bento-releases.jpg",
         "imageAlt": "Code deployment interface",
-        "position": "large-top-right",
-        "categoryColor": "indigo-600"
+        "cardSize": "large",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Built for power users",
@@ -33,8 +36,10 @@
         "description": "Advanced tools and features for developers who need more control and flexibility.",
         "image": "/images/bento-speed.jpg",
         "imageAlt": "Speed metrics dashboard",
-        "position": "small-bottom-left",
-        "categoryColor": "indigo-600"
+        "url": "/features/power-users",
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Connect your favorite tools",
@@ -42,8 +47,9 @@
         "description": "Seamlessly integrate with your existing workflow and favorite development tools.",
         "image": "/images/bento-integrations.jpg",
         "imageAlt": "Integration options panel",
-        "position": "small-bottom-middle",
-        "categoryColor": "indigo-600"
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       },
       {
         "title": "Globally distributed CDN",
@@ -51,8 +57,9 @@
         "description": "Ultra-fast content delivery through our worldwide edge network.",
         "image": "/images/bento-network.jpg",
         "imageAlt": "Global network distribution map",
-        "position": "small-bottom-right",
-        "categoryColor": "indigo-600"
+        "cardSize": "small",
+        "categoryColor": "primary",
+        "cardImageClasses": "h-80 object-cover object-left"
       }
     ]
   {{< /bentogrid-two-row >}}
@@ -60,8 +67,11 @@
   Parameters:
   - tagline: Small text displayed above the main heading (default: "Deploy faster")
   - heading: Main heading text (default: "Everything you need to deploy your app")
+  - description: Description text that appears below the heading
   - backgroundColor: Background color class (default: "white")
-  - taglineColor: Color class for the tagline (default: "indigo-600")
+  - taglineColor: Color class for the tagline (default: "primary")
+  - linkText: Text for the optional link below the description (default: "")
+  - linkUrl: URL for the optional link below the description (default: "")
   
   Inner Content (optional JSON array):
   - Array of card objects with the following properties:
@@ -70,66 +80,26 @@
     - description: Card description
     - image: URL to the image for the card
     - imageAlt: Alt text for the image
-    - position: Position in the grid ("large-top-left", "large-top-right", "small-bottom-left", "small-bottom-middle", "small-bottom-right")
-    - categoryColor: Color class for the category label (default: "indigo-600")
+    - url: URL to link the card to, making the entire card clickable (optional)
+    - cardSize: Card size in the grid ("large" or "small", default: "large")
+      - large: Takes 3 columns (2 large cards per row)
+      - small: Takes 2 columns (3 small cards per row)
+    - categoryColor: Color class for the category label (default: "primary")
   
   If inner content is not provided, default cards will be used.
+  Note: This shortcode now uses a dynamic layout that can handle multiple rows and mixed card sizes.
 */}}
 
-{{ $tagline := .Get "tagline" | default "Deploy faster" }}
-{{ $heading := .Get "heading" | default "Everything you need to deploy your app" }}
+{{ $tagline := .Get "tagline" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
 {{ $backgroundColor := .Get "backgroundColor" | default "white" }}
-{{ $taglineColor := .Get "taglineColor" | default "indigo-600" }}
+{{ $taglineColor := .Get "taglineColor" | default "primary" }}
+{{ $linkText := .Get "linkText" | default "" }}
+{{ $linkUrl := .Get "linkUrl" | default "" }}
+{{ $cardImageClasses := .Get "cardImageClasses" | default "h-80 object-cover object-left" }}
 
-{{ $defaultCards := slice
-  (dict
-    "title" "Lightning-fast builds"
-    "category" "Performance"
-    "description" "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida justo et nulla efficitur, maximus egestas sem pellentesque."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-performance.png"
-    "imageAlt" "Performance dashboard"
-    "position" "large-top-left"
-    "categoryColor" "indigo-600"
-  )
-  (dict
-    "title" "Push to deploy"
-    "category" "Releases"
-    "description" "Curabitur auctor, ex quis auctor venenatis, eros arcu rhoncus massa, laoreet dapibus ex elit vitae odio."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-releases.png"
-    "imageAlt" "Releases panel"
-    "position" "large-top-right"
-    "categoryColor" "indigo-600"
-  )
-  (dict
-    "title" "Built for power users"
-    "category" "Speed"
-    "description" "Sed congue eros non finibus molestie. Vestibulum euismod augue."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-speed.png"
-    "imageAlt" "Speed metrics"
-    "position" "small-bottom-left"
-    "categoryColor" "indigo-600"
-  )
-  (dict
-    "title" "Connect your favorite tools"
-    "category" "Integrations"
-    "description" "Maecenas at augue sed elit dictum vulputate, in nisi aliquam maximus arcu."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-integrations.png"
-    "imageAlt" "Integrations panel"
-    "position" "small-bottom-middle"
-    "categoryColor" "indigo-600"
-  )
-  (dict
-    "title" "Globally distributed CDN"
-    "category" "Network"
-    "description" "Aenean vulputate justo commodo auctor vehicula in malesuada semper."
-    "image" "https://tailwindcss.com/plus-assets/img/component-images/bento-01-network.png"
-    "imageAlt" "Network map"
-    "position" "small-bottom-right"
-    "categoryColor" "indigo-600"
-  )
-}}
-
-{{ $cards := $defaultCards }}
+{{ $cards := slice }}
 {{ with .Inner }}
   {{ if . }}
     {{ $cards = . | unmarshal }}
@@ -139,6 +109,9 @@
 {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
   "tagline" $tagline
   "heading" $heading
+  "description" $description
+  "linkText" $linkText
+  "linkUrl" $linkUrl
   "backgroundColor" $backgroundColor
   "taglineColor" $taglineColor
   "cards" $cards

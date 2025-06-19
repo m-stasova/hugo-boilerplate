@@ -10,27 +10,24 @@
   {{ $cookieConsent := resources.Get "js/cookie-consent.js" | resources.Minify | resources.Fingerprint }}
   <script src="{{ $cookieConsent.RelPermalink }}" defer></script>
 </head>
-<body>
-  <!-- Initialize linkbuilding tracking for all pages -->
-  {{ .Scratch.Set "processedLinks" slice }}
+<body class="antialiased bg-white">
+<!-- Initialize linkbuilding tracking for all pages -->
+{{ .Scratch.Set "processedLinks" slice }}
   
-  <header>
-    {{ partialCached "header.html" . }}
-  </header>
-  <main class="container mx-auto px-4 py-8 pb-16">
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+{{ partialCached "header.html" . }}
+<main class="w-full">
+  {{ block "main" . }}{{ end }}
+</main>
+ 
+{{ partial "footer.html" . }}
   
-  <!-- Cookie Consent Banner -->
-  {{ partialCached "sections/banners/cookie_consent_floating_at_bottom" (dict 
-    "title" "Cookie Consent"
-    "message" "We use cookies to enhance your browsing experience and analyze our traffic."
-    "acceptAllText" "Accept All"
-    "acceptNecessaryText" "Necessary Only"
-    "settingsText" "Settings"
-  ) }}
+<!-- Cookie Consent Banner -->
+{{ partialCached "sections/banners/cookie_consent_floating_at_bottom" (dict 
+  "title" "Cookie Consent"
+  "message" "We use cookies to enhance your browsing experience and analyze our traffic."
+  "acceptAllText" "Accept All"
+  "acceptNecessaryText" "Necessary Only"
+  "settingsText" "Settings"
+) }}
 </body>
 </html>

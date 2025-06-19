@@ -2,7 +2,7 @@
 {{ $bgColor := .bgColor | default "bg-white" }}
 
 {{/* Heading section */}}
-{{ $heading := .heading | default "Frequently asked questions" }}
+{{ $heading := .heading | default (i18n "faq_heading") | default "Frequently asked questions" }}
 {{ $headingColor := .headingColor | default "text-gray-900" }}
 {{ $supportingText := .supportingText | default "Can't find the answer you're looking for? Reach out to our <a href=\"#\" class=\"font-semibold text-indigo-600 hover:text-indigo-500\">customer support</a> team." }}
 {{ $supportingTextColor := .supportingTextColor | default "text-gray-600" }}

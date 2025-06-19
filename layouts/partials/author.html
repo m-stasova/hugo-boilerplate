@@ -1,0 +1,30 @@
+{{/* Author Partial */}}
+{{ $authorKey := .authorKey }}
+{{ $authorData := false }}
+
+{{/* First try to get author from content file */}}
+{{ $authorPath := printf "author/%s" $authorKey }}
+{{ with site.GetPage $authorPath }}
+  {{ $authorData = dict
+    "name" .Title
+    "role" .Params.role
+    "image" .Params.image
+    "description" .Params.description
+  }}
+{{ else }}
+  {{/* Fallback to data file if content page doesn't exist */}}
+  {{ if and site.Data.authors $authorKey (index site.Data.authors $authorKey) }}
+    {{ $authorData = index site.Data.authors $authorKey }}
+  {{ end }}
+{{ end }}
+
+{{ if $authorData }}
+  {{ partial "sections/testimonials/with_large_avatar.html" (dict
+    "personName" $authorData.name
+    "personRole" $authorData.role
+    "personImage" $authorData.image
+    "personImageAlt" $authorData.name
+    "quote" $authorData.description
+  ) }}
+  {{ partial "schemaorg/author.html" . }}
+{{ end }}

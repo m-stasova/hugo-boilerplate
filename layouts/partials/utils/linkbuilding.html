@@ -2,114 +2,172 @@
 @component: Linkbuilding
 @description: Processes HTML content to add links based on keywords defined in data/linkbuilding/[lang].yaml.
 @params:
-  - content: The HTML content to process (when passing directly)
-  - or a dict with:
+  a dict with:
     - content: The HTML content to process
     - page: The page context for tracking processed links
 @example:
-  {{ $processedContent := partial "utils/linkbuilding.html" .Content }}
-  
-  or with page context tracking:
-  
-  {{ $processedContent := partial "utils/linkbuilding.html" (dict "content" .Content "page" .) }}
+  {{ $processedContent := partial "utils/linkbuilding" (dict "content" .Content "page" .) }}
+
 @note: This utility enhances content by adding contextual links based on defined keywords. It prevents duplicate links and ensures proper HTML structure.
+
+@configuration: Settings can be configured in config/_default/params.toml under [params.linkbuilding]:
+  maxSameKeywordReplacementsInPage = 5       # Maximum times the same keyword can be linked per page
+  maxSameUrlReplacementsInPage = 3            # Maximum times the same URL can be linked per page
+  maxKeywordUrlReplacementsInPage = 1         # Maximum times the same keyword-URL combination can be linked per page
+  charactersPerLinkInParagraphDensity = 5     # Maximum characters per link density to prevent too many links in short text
+  maxAutomaticLinksInPage = 50                # Maximum total automatic links per page
+  maxAutomaticLinksInParagraph = 5           # Maximum automatic links per paragraph
+  minParagraphLength = 30                     # Minimum paragraph length to process
+
+Example structure of /data/linkbuilding/[lang].yaml:
+keywords:
+  - keyword: "mcp"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp server"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp servers"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+
 */}}
 
-{{ $content := . }}
-{{ $page := false }}
+{{ $content := .content }}
+{{ $page := .page }}
 
-{{ if reflect.IsMap . }}
-  {{ $content = .content }}
-  {{ $page = .page }}
-{{ end }}
+{{/* Read linkbuilding settings from params.toml with fallback to defaults */}}
+{{ $linkbuildingParams := $page.Site.Params.linkbuilding | default dict }}
+{{ $maxSameKeywordReplacementsInPage := $linkbuildingParams.maxSameKeywordReplacementsInPage | default 50 }}
+{{ $maxSameUrlReplacementsInPage := $linkbuildingParams.maxSameUrlReplacementsInPage | default 3 }}
+{{ $maxKeywordUrlReplacementsInPage := $linkbuildingParams.maxKeywordUrlReplacementsInPage | default 1 }}
+{{ $charactersPerLinkInParagraphDensity := $linkbuildingParams.charactersPerLinkInParagraphDensity | default 5 }}
+{{ $maxAutomaticLinksInPage := $linkbuildingParams.maxAutomaticLinksInPage | default 50 }}
+{{ $maxAutomaticLinksInParagraph := $linkbuildingParams.maxAutomaticLinksInParagraph | default 50 }}
+{{ $minParagraphLength := $linkbuildingParams.minParagraphLength | default 30 }}
 
-{{ $lang := site.Language.Lang | default "en" }}
-{{ $dataFile := printf "linkbuilding/%s.yaml" $lang }}
+{{/* Load linkbuilding data for current language */}}
+{{ $lang := $page.Lang | default "en" }}
+{{ $linkbuildingData := index $page.Site.Data.linkbuilding $lang }}
+{{ $keywords := $linkbuildingData.keywords | default slice }}
 
-{{ with site.Data }}
-  {{ with index . "linkbuilding" }}
-    {{ with index . $lang }}
-      {{ with .keywords }}
-        {{ range . }}
-          {{ $keyword := .keyword }}
-          {{ $url := .url }}
-          {{ $exact := default false .exact }}
-          {{ $priority := default 1 .priority }}
-          {{ $title := default $keyword .title }}
-          
-          {{ $pattern := "" }}
-          {{ if $exact }}
-            {{ $pattern = printf `\b%s\b` $keyword }}
-          {{ else }}
-            {{ $pattern = printf `(?i)\b%s\b` $keyword }}
+{{/* Initialize page scratch for tracking link counts per page */}}
+{{ $pageKey := $page.RelPermalink | urlize }}
+{{ $scratch := $page.Scratch }}
+
+{{/* Initialize counters for this page if not already set */}}
+{{ $totalLinksKey := printf "linkbuilding_totalLinks_%s" $pageKey }}
+{{ $keywordCountsKey := printf "linkbuilding_keywordCounts_%s" $pageKey }}
+{{ $urlCountsKey := printf "linkbuilding_urlCounts_%s" $pageKey }}
+{{ $keywordUrlCountsKey := printf "linkbuilding_keywordUrlCounts_%s" $pageKey }}
+
+{{ $scratch.Set $totalLinksKey 0 }}
+{{ $scratch.Set $keywordCountsKey dict }}
+{{ $scratch.Set $urlCountsKey dict }}
+{{ $scratch.Set $keywordUrlCountsKey dict }}
+
+{{/* Get current page URL for comparison */}}
+{{ $currentPageURL := $page.RelPermalink }}
+
+{{/* Sort keywords by priority (higher priority first) and then by length (longer first) */}}
+{{ $sortedKeywords := sort $keywords "priority" "desc" }}
+
+{{/* Process content if we have keywords */}}
+{{ if $keywords }}
+  {{ $processedContent := $content }}
+
+  {{/* Process each keyword */}}
+  {{ range $sortedKeywords }}
+    {{ $keyword := .keyword }}
+    {{ $url := .url }}
+    {{ $exact := .exact | default false }}
+    {{ $title := .title | default "" }}
+
+    {{/* Escape title for HTML attribute */}}
+    {{ $escapedTitle := $title | htmlEscape }}
+
+    {{/* Skip if target URL is same as current page */}}
+    {{ if ne $url $currentPageURL }}
+      {{/* Get current counts */}}
+      {{ $totalLinks := $scratch.Get $totalLinksKey }}
+      {{ $keywordCounts := $scratch.Get $keywordCountsKey }}
+      {{ $urlCounts := $scratch.Get $urlCountsKey }}
+      {{ $keywordUrlCounts := $scratch.Get $keywordUrlCountsKey }}
+
+      {{ $keywordCount := index $keywordCounts $keyword | default 0 }}
+      {{ $urlCount := index $urlCounts $url | default 0 }}
+      {{ $keywordUrlKey := printf "%s|%s" ($keyword | lower | urlize) ($url | urlize) }}
+      {{ $keywordUrlCount := index $keywordUrlCounts $keywordUrlKey | default 0 }}
+
+      {{/* Check if we can add more links */}}
+      {{ if and (lt $totalLinks $maxAutomaticLinksInPage) (lt $keywordCount $maxSameKeywordReplacementsInPage) (lt $urlCount $maxSameUrlReplacementsInPage) (lt $keywordUrlCount $maxKeywordUrlReplacementsInPage) }}
+
+        {{/* Escape keyword for regex */}}
+        {{ $escapedKeyword := replaceRE `([.*+?^${}()|[\]\\])` `\$1` $keyword }}
+        {{/* Always use word boundaries to match whole words only */}}
+        {{ $pattern := printf `\b%s\b` $escapedKeyword }}
+
+        {{/* Create case-sensitive or case-insensitive pattern based on exact flag */}}
+        {{ $regexPattern := $pattern }}
+        {{ if not $exact }}
+          {{ $regexPattern = printf `(?i)%s` $pattern }}
+        {{ end }}
+
+        {{/* Check if keyword exists in content */}}
+        {{ if findRE $regexPattern $processedContent 1 }}
+
+          {{/* Check if it's not already inside a link - respect case sensitivity */}}
+          {{ $keywordInLinkPattern := printf `<a\b[^>]*>[^<]*%s[^<]*</a>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInLinkPattern = printf `(?i)%s` $keywordInLinkPattern }}
           {{ end }}
-          
-          {{/* Skip if the keyword is already part of an HTML tag or link */}}
-          {{ $skipPattern := printf `<[^>]*%s[^>]*>` $keyword }}
-          {{ $hasTag := findRE $skipPattern $content }}
-          
-          {{/* Check if we should process this keyword-URL combination */}}
-          {{ $shouldProcess := true }}
-          
-          {{ if $page }}
-            {{ $linkKey := printf "%s-%s" $keyword $url }}
-            {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
-            
-            {{ range $processedLinks }}
-              {{ if eq . $linkKey }}
-                {{ $shouldProcess = false }}
-              {{ end }}
-            {{ end }}
-          {{ else }}
-            {{/* If no page context, check if link already exists in content */}}
-            {{ $linkPattern := printf `<a href="%s"[^>]*>[^<]*</a>` $url }}
-            {{ $hasLink := findRE $linkPattern $content }}
-            {{ if $hasLink }}
-              {{ $shouldProcess = false }}
-            {{ end }}
+          {{ $keywordAlreadyLinked := findRE $keywordInLinkPattern $processedContent 1 }}
+
+          {{/* Check if it's not inside heading tags - respect case sensitivity */}}
+          {{ $keywordInHeadingPattern := printf `<h[1-6]\b[^>]*>[^<]*%s[^<]*</h[1-6]>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInHeadingPattern = printf `(?i)%s` $keywordInHeadingPattern }}
           {{ end }}
-          
-          {{/* Process only if conditions are met */}}
-          {{ if and (not $hasTag) $shouldProcess }}
-            {{/* Find paragraphs or text blocks that contain the keyword */}}
-            {{ $paragraphPattern := printf `(?i)([^<>]*\b%s\b[^<>]*)` $keyword }}
-            {{ $paragraphs := findRE $paragraphPattern $content }}
-            
-            {{ range $paragraphs }}
-              {{ $paragraph := . }}
-              {{/* Only replace if paragraph is at least 30 characters long */}}
-              {{ if gt (len $paragraph) 30 }}
-                {{/* Find the actual matched keyword with its original case */}}
-                {{ $keywordPattern := printf `(?i)\b%s\b` $keyword }}
-                {{ $matches := findRE $keywordPattern $paragraph 1 }}
-                
-                {{ if $matches }}
-                  {{ $matchedKeyword := index $matches 0 }}
-                  {{ $replacement := printf `<a href="%s" title="%s" class="text-indigo-600 font-medium hover:text-indigo-500 transition-colors duration-150 ease-in-out underline decoration-1 underline-offset-2 hover:decoration-2">%s</a>` $url $title $matchedKeyword }}
-                  
-                  {{ $newParagraph := replaceRE $keywordPattern $replacement $paragraph 1 }}
-                  {{ if ne $newParagraph $paragraph }}
-                    {{ $content = replace $content $paragraph $newParagraph }}
-                    
-                    {{/* Track this keyword-URL combination if we have page context */}}
-                    {{ if $page }}
-                      {{ $linkKey := printf "%s-%s" $keyword $url }}
-                      {{ $processedLinks := $page.Scratch.Get "processedLinks" }}
-                      {{ $newProcessed := $processedLinks | append $linkKey }}
-                      {{ $page.Scratch.Set "processedLinks" $newProcessed }}
-                    {{ end }}
-                    
-                    {{/* Break after first replacement to avoid multiple replacements */}}
-                    {{ break }}
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
+          {{ $keywordInHeading := findRE $keywordInHeadingPattern $processedContent 1 }}
+
+          {{/* Check if keyword is inside any HTML tag attributes - respect case sensitivity */}}
+          {{ $keywordInTagPattern := printf `<[^>]*%s[^>]*>` $pattern }}
+          {{ if not $exact }}
+            {{ $keywordInTagPattern = printf `(?i)%s` $keywordInTagPattern }}
+          {{ end }}
+          {{ $keywordInTag := findRE $keywordInTagPattern $processedContent 1 }}
+
+          {{ if not (or $keywordAlreadyLinked $keywordInHeading $keywordInTag) }}
+            {{/* Find the actual matched text to preserve original case */}}
+            {{ $matchedText := index (findRE $regexPattern $processedContent 1) 0 }}
+
+            {{/* Create the replacement link using the matched text with underlined class */}}
+            {{ $linkHtml := printf `<a href="%s" title="%s"  class="link-building-link">%s</a>` $url $escapedTitle $matchedText }}
+
+            {{/* Replace only the first occurrence that matches exactly */}}
+            {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}
+
+            {{/* Update counters */}}
+            {{ $scratch.Set $totalLinksKey (add $totalLinks 1) }}
+            {{ $keywordCounts = merge $keywordCounts (dict $keyword (add $keywordCount 1)) }}
+            {{ $scratch.Set $keywordCountsKey $keywordCounts }}
+            {{ $urlCounts = merge $urlCounts (dict $url (add $urlCount 1)) }}
+            {{ $scratch.Set $urlCountsKey $urlCounts }}
+            {{ $keywordUrlCounts = merge $keywordUrlCounts (dict $keywordUrlKey (add $keywordUrlCount 1)) }}
+            {{ $scratch.Set $keywordUrlCountsKey $keywordUrlCounts }}
           {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
+
+  {{ $content = $processedContent }}
 {{ end }}
 
 {{ return $content }}

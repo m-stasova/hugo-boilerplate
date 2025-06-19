@@ -3,11 +3,19 @@
 A clean and minimal Hugo theme designed for QualityUnit websites with a focus on performance, SEO, and responsive design. 
 This theme includes Tailwind CSS integration, comprehensive SEO features, responsive image processing, and multilingual support out of the box.
 
+
+## Projects running this theme
+- [AiMingle](https://www.aimingle.cz/) - https://github.com/QualityUnit/aimingle-hugo
+- [FlowHunt](https://www.flowhunt.io/) - https://github.com/QualityUnit/flowhunt-hugo
+- [Post Affiliate Pro](https://www.postaffiliatepro.com/) - https://github.com/QualityUnit/postaffiliatepro-hugo
+- [UrlsLab](https://www.urlslab.com/) - https://github.com/QualityUnit/urlslab-hugo
+- [PhotomaticAI](https://www.photomaticai.com/) - https://github.com/QualityUnit/photomaticai-hugo/
+- [Wachman](https://www.wachman.eu) - https://github.com/vzeman/wachman
+
 ## Notes For developers
 - Many partials and shortcodes are not correct, we need to fix them.
 - If shortcode or partial is used already in any project, always make sure your changes are compatible with old data, new parameters needs to be optional
 - Make sure all texts can be translated, add texts to translation files in theme
-- complex structures you want to pass to shortcode can be done through frontmatter section and in shortcode use reference to variable in frontmatter section
 
 ## Features
 
@@ -25,6 +33,61 @@ This theme includes Tailwind CSS integration, comprehensive SEO features, respon
   - Feature sections
   - Review components
   - Banners and CTAs
+
+## Content Preparation Scripts
+
+The theme includes a comprehensive set of scripts in the `scripts/` directory that prepare your content for optimal performance and SEO.
+
+### Main Script: build_content.sh
+
+This is the primary script that coordinates the entire content preparation process:
+
+```bash
+# Run from the Hugo site root
+./themes/boilerplate/scripts/build_content.sh
+```
+
+#### What build_content.sh Does:
+
+1. **Sets up environment**: Creates a Python virtual environment and installs required dependencies
+2. **Syncs translations**: Ensures translation keys are consistent across language files
+3. **Validates content**: Checks content structure and formatting
+4. **Offloads images**: Downloads and stores images from external sources if needed
+5. **Translates missing content**: Uses the FlowHunt API to translate missing content files
+6. **Synchronizes attributes**: Ensures content attributes are consistent across translations
+7. **Re-validates content**: Checks content structure again after translation
+8. **Generates related content**: Creates YAML files for internal linking
+9. **Preprocesses images**: Optimizes images for web delivery (WebP conversion, responsive sizes)
+
+#### Running Specific Steps:
+
+You can run specific parts of the build process using the `--step` flag:
+
+```bash
+# Run only image preprocessing
+./themes/boilerplate/scripts/build_content.sh --step preprocess_images
+
+# Run multiple steps
+./themes/boilerplate/scripts/build_content.sh --step sync_translations,validate_content
+```
+
+Available steps:
+- `sync_translations`: Synchronize translation keys across files
+- `validate_content`: Validate content files before processing
+- `offload_images`: Download images from external services
+- `translate`: Translate missing content with FlowHunt API
+- `sync_content_attributes`: Ensure content attribute consistency
+- `validate_content_post`: Validate content after translation
+- `generate_related_content`: Create related content data
+- `preprocess_images`: Optimize images for web delivery
+
+#### Requirements:
+
+- Python 3.8+ with pip
+- FlowHunt API key (for translation functionality)
+- Image processing tools (handled by the script)
+
+The script will prompt for a FlowHunt API key if not already configured.
 
 ## Installation
 
@@ -238,7 +301,7 @@ Define your site's navigation in `menus.toml` (if using split configuration) or 
   [[languages.en.menu.main]]
     identifier = "blog"
     name = "Blog"
-    url = "/blog/"
+    
     weight = 2
 ```
 
@@ -331,6 +394,47 @@ answer = "Comprehensive answer to the question that provides valuable informatio
 Main content about the term goes here...
 ```
 
+## Automatic Linkbuilding
+
+The theme provides an automatic linkbuilding feature that scans your content and replaces specified keywords with links. This is configured via YAML files in the `data/linkbuilding/` directory, with a separate file for each language (e.g., `en.yaml`, `de.yaml`).
+
+### Configuration File Structure
+
+Each language-specific YAML file should contain a list of `keywords`. Each keyword entry defines the term to be linked, the target URL, and other options.
+
+Here's an example from `data/linkbuilding/en.yaml`:
+
+```yaml
+keywords:
+  - keyword: "mcp"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp server"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+  - keyword: "mcp servers"
+    url: "/services/mcp-server-development/"
+    exact: false
+    priority: 1
+    title: "We can develop and host your own MCP server"
+```
+
+### Keyword Entry Fields:
+
+-   `keyword`: (String) The actual word or phrase in your content that you want to turn into a link. The matching is case-insensitive by default.
+-   `url`: (String) The destination URL for the link. This should typically be a site-relative path (e.g., `/services/your-service/`).
+-   `exact`: (Boolean, optional, defaults to `false`) 
+    -   If `false` (default): The keyword will be matched even if it's part of a larger word (e.g., if keyword is "log", "logging" would also be matched). The matching is case-insensitive.
+    -   If `true`: The keyword will only be matched if it appears as an exact word (bounded by spaces or punctuation). The matching is case-sensitive.
+-   `priority`: (Integer, optional, defaults to `1`) Used to determine which rule applies if multiple keywords could match the same text. Higher numbers usually mean higher priority, but the exact logic depends on the implementation in the `linkbuilding.html` partial. Currently, the partial processes keywords in the order they appear in the YAML file, and the first match for a given piece of text is used. The `priority` field itself is not directly used by the current version of the `linkbuilding.html` partial to reorder or select rules beyond their sequence in the file.
+-   `title`: (String, optional, defaults to the `keyword` value) The text to be used for the `title` attribute of the generated `<a>` HTML tag. This is often used for tooltips or to provide more context to search engines.
+
+To add new linkbuilding rules, simply edit the appropriate `data/linkbuilding/<lang>.yaml` file and add new entries to the `keywords` list following this structure.
+
 ## Using Theme Components
 
 ### Shortcodes
@@ -389,6 +493,37 @@ Dont forget future date is not built by default, if you want to build future pos
 ```bash
 hugo server --buildFuture
 ```
+
+
+### Printing DEBUG messages during development
+To print debug messages during development, you can use the `{{ printf }}` function in your templates:
+
+```go
+{{ warnf "DEBUG get-language-url: jsonify langData: %s" (jsonify $langData) }}
+```
+
+
+## Init project:
+- checkout from git
+- init git submodules `git submodule update --init --recursive`
+- install dependencies `npm install`
+- build css `npm run build:css`
+- start server `hugo server --gc`
+
+
+## Generating new content using FlowHunt Flows
+1. copy csv file with columns: flow_input, filename to e.g. scripts directory in theme
+2. go to scripts directory `cd themes/boilerplate/scripts`
+3. activate python environment:
+```bash
+source .venv/bin/activate
+```
+3. run the script to generate content:
+```bash
+python generate_content.py --input_file mcp_servers_smart_filtered.csv --flow_id 53849f45-6749-42cd-a27c-29562a25998f --output_dir ../../../content/en/mcp-servers 
+```
+IMPORTANT: you need in .env file a FlowHunt API key set as `FLOWHUNT_API_KEY=your_api_key_here`, API key needs to be from same workspace as the flow you are using to generate content.
+
 
 ### Common Issues
 

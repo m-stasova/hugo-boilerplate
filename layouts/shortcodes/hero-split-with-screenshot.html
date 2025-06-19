@@ -6,7 +6,13 @@ Example Usage:
   buttonText="Click Here" 
   buttonLink="/example-link" 
   imagePath="/path-to-image.jpg" 
-  altText="Descriptive Alt Text" 
+  altText="Descriptive Alt Text"
+  typewriterEnabled="true"
+  typewriterWords="2"
+  typewriterSpeed="120"
+  typewriterDeleteSpeed="60"
+  typewriterPause="2500"
+  typewriterColor="text-blue-600"
 >}}
 
 Description:
@@ -19,6 +25,12 @@ Parameters:
 - `buttonLink` (string): The URL the button links to when clicked.
 - `imagePath` (string): The file path or URL of the image to be displayed.
 - `altText` (string): The alt text for the image, used for accessibility and SEO.
+- `typewriterEnabled` (string): Enable/disable typewriter effect (true/false, default: false)
+- `typewriterWords` (number): Number of words to animate from the end (default: 1)
+- `typewriterSpeed` (number): Typing speed in milliseconds (default: 100)
+- `typewriterDeleteSpeed` (number): Deleting speed in milliseconds (default: 50)
+- `typewriterPause` (number): Pause duration between word cycles in milliseconds (default: 2000)
+- `typewriterColor` (string): Tailwind CSS color class for animated text (default: "text-indigo-600")
 
 */}}
 
@@ -28,12 +40,20 @@ Parameters:
 {{ $description := .Get "subtitle" | default "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat." }}
 {{ $primaryCtaText := .Get "primaryCtaText" | default "Get started" }}
 {{ $primaryCtaUrl := .Get "primaryCtaUrl" | default "#" }}
-{{ $secondaryCtaText := .Get "secondaryCtaText" | default "Learn more" }}
+{{ $secondaryCtaText := .Get "secondaryCtaText" | default (i18n "learnMore") | default "Learn more" }}
 {{ $secondaryCtaUrl := .Get "secondaryCtaUrl" | default "#" }}
 {{ $screenshotUrl := .Get "imagePath" | default "https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png" }}
 {{ $screenshotAlt := .Get "altText" | default "App screenshot" }}
 {{ $badgeText := .Get "badgeText" | default "What's new" }}
 {{ $badgeVersion := .Get "badgeVersion" | default "Just shipped v1.0" }}
+
+{{/* Typewriter parameters */}}
+{{ $typewriterEnabled := .Get "typewriterEnabled" | default false }}
+{{ $typewriterWords := .Get "typewriterWords" | default 1 }}
+{{ $typewriterSpeed := .Get "typewriterSpeed" | default 100 }}
+{{ $typewriterDeleteSpeed := .Get "typewriterDeleteSpeed" | default 50 }}
+{{ $typewriterPause := .Get "typewriterPause" | default 2000 }}
+{{ $typewriterColor := .Get "typewriterColor" | default "text-indigo-600" }}
 
 {{ $badge := dict
   "text" $badgeText
@@ -52,6 +72,15 @@ Parameters:
   "height" "1442"
 }}
 
+{{ $typewriter := dict
+  "enabled" (eq $typewriterEnabled "true")
+  "words" $typewriterWords
+  "speed" $typewriterSpeed
+  "deleteSpeed" $typewriterDeleteSpeed
+  "pause" $typewriterPause
+  "color" $typewriterColor
+}}
+
 {{ partial "sections/hero/split_with_screenshot.html" (dict 
   "logo" $logo
   "heading" $heading
@@ -59,4 +88,5 @@ Parameters:
   "cta" $cta
   "badge" $badge
   "screenshot" $screenshot
+  "typewriter" $typewriter
 ) }}

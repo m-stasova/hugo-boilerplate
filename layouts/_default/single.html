@@ -1,56 +1,14 @@
 {{ define "main" }}
 
-{{ $image := .Params.image }}
-{{ if not $image }}
-  {{ if .Params.youtubeVideoID }}
-    {{ $image = printf "https://img.youtube.com/vi/%s/hqdefault.jpg" .Params.youtubeVideoID }}
-  {{ end }}
-{{ end }}
-
-
-<!-- Breadcrumbs -->
-{{ $breadcrumbItems := slice (dict "title" (i18n "home_title") "url" .Site.Home.RelPermalink) }}
-{{ $path := "" }}
-{{ $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" }}
-{{ range $index, $part := first (sub (len $parts) 1) $parts }}
-  {{ $path = printf "%s/%s" $path $part }}
-  {{ with $.Site.GetPage $path }}
-    {{ $breadcrumbItems = $breadcrumbItems | append (dict "title" .Title "url" .RelPermalink) }}
-  {{ end }}
-{{ end }}
-{{ partial "components/breadcrumbs/basic" (dict "items" $breadcrumbItems) }}
-
-<!-- Hero Section with Split Image -->
-{{ $shortDescription := .Params.shortDescription | default .Params.description | default "" }}
-{{ if .Params.youtubeVideoID }}
-  {{ partial "sections/hero/split_with_youtube_video.html" (dict 
-  "heading" .Params.title
-  "description" (markdownify $shortDescription)
-  "eyebrow" .Params.eyebrow
-  "image" $image
-  "videoTitle" (.Params.youtubeTitle | default .Params.title)
-  "videoID" .Params.youtubeVideoID
-  ) }}
-{{ else if $image }}
-  {{ partial "sections/hero/split_with_image.html" (dict 
-    "heading" .Params.title
-    "description" (markdownify $shortDescription)
-    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
-    "image" $image
-  ) }}
-{{ else }}
-  {{ partial "layout/headers/centered_with_eyebrow.html" (dict 
-    "heading" .Params.title
-    "description" (markdownify $shortDescription)
-    "eyebrow"  (.Params.eyebrow | default (i18n "eyebrow") | default "")
-  ) }}
-{{ end }}
+{{ partial "breadcrumbs_default.html" . }}
+{{ partial "hero_default.html" . }}
 
 <!-- Main Content -->
-<div class="bg-white px-6 py-32 lg:px-8 mx-auto max-w-7xl">
-  <div
-    class="mx-auto prose prose-lg prose-indigo prose-headings:font-semibold prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl">
-    {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+<div class="bg-white">
+  <div class="wrapper">
+    <div class="mx-auto max-w-none prose prose-lg prose-img:rounded-xl">
+      {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
+    </div>
   </div>
 </div>
 
@@ -63,30 +21,14 @@
 ) }}
 {{ end }}
 
-<!-- CTA Section -->
-{{ $ctaHeading := .Params.ctaHeading | default (i18n "cta_default_heading") }}
-{{ $ctaDescription := .Params.ctaDescription | default (i18n "cta_default_description") }}
-{{ $ctaPrimaryText := .Params.ctaPrimaryText | default (i18n "cta_default_primary_text") }}
-{{ $ctaPrimaryURL := .Params.ctaPrimaryURL | default "https://app.flowhunt.io/photoai/" }}
-{{ $ctaSecondaryText := .Params.ctaSecondaryText | default (i18n "cta_default_secondary_text") }}
-{{ $ctaSecondaryURL := .Params.ctaSecondaryURL | default "https://www.flowhunt.io/about-us/#contact-us" }}
-{{ $showCTA := .Params.showCTA | default true }}
 
-{{ if $showCTA }}
-{{ partial "sections/cta/simple_centered_on_dark.html" (dict
-"heading" $ctaHeading
-"description" $ctaDescription
-"primaryCta" (dict
-"text" $ctaPrimaryText
-"url" $ctaPrimaryURL
-)
-"secondaryCta" (dict
-"text" $ctaSecondaryText
-"url" $ctaSecondaryURL
-)
-) }}
+<!-- Author Section -->
+{{ if .Params.author }}
+  {{ partial "author.html" (dict "authorKey" .Params.author "page" .) }}
 {{ end }}
 
-{{ partial "utils/related_content.html" . }}
+{{ partial "cta.html" . }}
+
+{{ partial "related_content.html" . }}
 
 {{ end }}

@@ -7,7 +7,7 @@
     image="https://example.com/image.jpg" 
     imageAlt="Descriptive alt text for the image" 
     bgColor="bg-gray-100" 
-    eyebrowColor="text-blue-500" 
+    eyebrowColor="text-primary"
     headingColor="text-black" 
     descriptionColor="text-gray-600" 
     contentColor="text-gray-800" 
@@ -26,15 +26,26 @@
   9. descriptionColor: Text color class for the description text
   10. contentColor: Text color class for the main content
   11. imageBgColor: Background color class for the image container
+  12. features: Optional array of feature objects to display in the content section
 */ -}}
 
 {{/* Split with Image Content Shortcode */}}
-{{ $eyebrow := .Get "eyebrow" | default "Deploy faster" }}
-{{ $heading := .Get "heading" | default "A better workflow" }}
-{{ $image := .Get "image" | default "https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=2560&h=3413&&q=80" }}
-{{ $imageAlt := .Get "imageAlt" | default "Featured image" }}
+{{ $eyebrow := .Get "eyebrow" | default "" }}
+{{ $heading := .Get "heading" | default "" }}
+{{ $description := .Get "description" | default "" }}
+{{ $featuresParam := .Get "features" }}
+{{ $features := slice }}
+{{ if $featuresParam }}
+  {{ if eq $featuresParam "features" }}
+    {{ $features = .Page.Params.features }}
+  {{ else }}
+    {{ $features = $featuresParam }}
+  {{ end }}
+{{ end }}
+{{ $image := .Get "image" | default "" }}
+{{ $imageAlt := .Get "imageAlt" | default "" }}
 {{ $bgColor := .Get "bgColor" | default "bg-white" }}
-{{ $eyebrowColor := .Get "eyebrowColor" | default "text-indigo-600" }}
+{{ $eyebrowColor := .Get "eyebrowColor" | default "text-primary" }}
 {{ $headingColor := .Get "headingColor" | default "text-gray-900" }}
 {{ $descriptionColor := .Get "descriptionColor" | default "text-gray-700" }}
 {{ $contentColor := .Get "contentColor" | default "text-gray-700" }}
@@ -49,6 +60,7 @@
 {{ partial "sections/content/split_with_image.html" (dict 
   "eyebrow" $eyebrow
   "heading" $heading
+  "description" $description
   "image" $image
   "imageAlt" $imageAlt
   "bgColor" $bgColor
@@ -57,5 +69,6 @@
   "descriptionColor" $descriptionColor
   "contentColor" $contentColor
   "imageBgColor" $imageBgColor
-  "markdownContent" (.Get "markdownContent")
+  "markdownContent" (.Inner )
+  "features" $features
 ) }}

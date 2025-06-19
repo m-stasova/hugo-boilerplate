@@ -67,73 +67,124 @@ document.addEventListener('DOMContentLoaded', function() {
       lazyLoadSVGs();
     }
   }
-
-  // Initialize lazy loading for images
+// Initialize lazy loading for images
   function initLazyImages() {
     const lazyImages = document.querySelectorAll('img.lazy-image[data-src]');
-    
+
     if ('IntersectionObserver' in window) {
       const imageObserver = new IntersectionObserver(function(entries, observer) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             const image = entry.target;
             if (image.dataset.src) {
-              image.src = image.dataset.src;
-              image.removeAttribute('data-src');
-              
-              // Add loaded class when image is loaded
-              image.onload = function() {
-                image.classList.add('loaded');
-                const picture = image.closest('picture');
-                if (picture) {
-                  picture.classList.add('loaded');
-                }
-              };
+              const picture = image.closest('picture');
+
+              // Process source tags first
+              if (picture) {
+                const sources = picture.querySelectorAll('source[data-srcset]');
+
+                // Process all source elements first
+                Promise.all(Array.from(sources).map(function(source) {
+                  return new Promise(function(resolve) {
+                    source.srcset = source.dataset.srcset;
+                    source.removeAttribute('data-srcset');
+                    // Use setTimeout to ensure the browser has time to process the source
+                    setTimeout(resolve, 10);
+                  });
+                })).then(function() {
+                  // Only after all sources are processed, set the img src
+                  image.src = image.dataset.src;
+                  image.removeAttribute('data-src');
+
+                  // Add loaded class when image is loaded
+                  image.onload = function() {
+                    image.classList.add('loaded');
+                    if (picture) {
+                      picture.classList.add('loaded');
+                    }
+                  };
+                });
+              } else {
+                // No picture parent, process the image normally
+                image.src = image.dataset.src;
+                image.removeAttribute('data-src');
+
+                // Add loaded class when image is loaded
+                image.onload = function() {
+                  image.classList.add('loaded');
+                };
+              }
             }
             imageObserver.unobserve(image);
           }
         });
       });
-      
+
       lazyImages.forEach(function(image) {
         imageObserver.observe(image);
       });
     } else {
       // Fallback for browsers that don't support IntersectionObserver
       let lazyImageTimeout;
-      
+
       function lazyLoadImages() {
         if (lazyImageTimeout) {
           clearTimeout(lazyImageTimeout);
         }
-        
+
         lazyImageTimeout = setTimeout(function() {
           const scrollTop = window.pageYOffset;
-          
+
           lazyImages.forEach(function(image) {
             if (image.offsetTop < (window.innerHeight + scrollTop)) {
               if (image.dataset.src) {
-                image.src = image.dataset.src;
-                image.removeAttribute('data-src');
-                
-                // Add loaded class when image is loaded
-                image.onload = function() {
-                  image.classList.add('loaded');
-                  const picture = image.closest('picture');
-                  if (picture) {
-                    picture.classList.add('loaded');
-                  }
-                };
+                const picture = image.closest('picture');
+
+                // Process source tags first
+                if (picture) {
+                  const sources = picture.querySelectorAll('source[data-srcset]');
+
+                  // Process all source elements first
+                  Promise.all(Array.from(sources).map(function(source) {
+                    return new Promise(function(resolve) {
+                      source.srcset = source.dataset.srcset;
+                      source.removeAttribute('data-srcset');
+                      // Use setTimeout to ensure the browser has time to process the source
+                      setTimeout(resolve, 10);
+                    });
+                  })).then(function() {
+                    // Only after all sources are processed, set the img src
+                    image.src = image.dataset.src;
+                    image.removeAttribute('data-src');
+
+                    // Add loaded class when image is loaded
+                    image.onload = function() {
+                      image.classList.add('loaded');
+                      if (picture) {
+                        picture.classList.add('loaded');
+                      }
+                    };
+                  });
+                } else {
+                  // No picture parent, process the image normally
+                  image.src = image.dataset.src;
+                  image.removeAttribute('data-src');
+
+                  // Add loaded class when image is loaded
+                  image.onload = function() {
+                    image.classList.add('loaded');
+                  };
+                }
               }
             }
           });
         }, 20);
       }
-      
+
       document.addEventListener('scroll', lazyLoadImages);
       window.addEventListener('resize', lazyLoadImages);
       window.addEventListener('orientationChange', lazyLoadImages);
-      
+
       // Initial load
       lazyLoadImages();
     }
