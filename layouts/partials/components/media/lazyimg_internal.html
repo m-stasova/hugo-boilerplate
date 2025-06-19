@@ -296,24 +296,24 @@
       class="{{ $pictureFinalClass }}"{{ if $maxWidth }}
       data-maxWidth="{{ $maxWidth }}"{{ end }}
     >
-      {{ if $webpSrcset }}
+      {{ if and $webpSrcset (ne $fileExt ".webp") }}
       <source
         type="image/webp"
-        srcset="{{ $webpSrcset }}"
+        data-srcset="{{ $webpSrcset }}"
         sizes="{{ $sizesAttr }}"
         data-original-src="{{ $src }}"
       >
       {{ end }}
       <source
         type="{{ $mimeType }}"
-        srcset="{{ $origSrcset }}"
+        data-srcset="{{ $origSrcset }}"
         sizes="{{ $sizesAttr }}"
         data-original-src="{{ $src }}"
       >
       {{ $imgClassFallback := "lazy-image" }}
       {{ if $class }}{{ $imgClassFallback = printf "%s %s" $imgClassFallback $class }}{{ end }}
       <img
-        src="{{ $fallbackSrc }}"
+        data-src="{{ $fallbackSrc }}"
         alt="{{ $alt }}"
         class="{{ $imgClassFallback }}"{{ if $id }}
         id="{{ $id }}"{{ end }}{{ if $width }}
