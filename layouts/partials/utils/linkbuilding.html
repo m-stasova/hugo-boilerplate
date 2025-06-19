@@ -67,12 +67,10 @@ keywords:
 {{ $urlCountsKey := printf "linkbuilding_urlCounts_%s" $pageKey }}
 {{ $keywordUrlCountsKey := printf "linkbuilding_keywordUrlCounts_%s" $pageKey }}
 
-{{ if not ($scratch.Get $totalLinksKey) }}
-  {{ $scratch.Set $totalLinksKey 0 }}
-  {{ $scratch.Set $keywordCountsKey dict }}
-  {{ $scratch.Set $urlCountsKey dict }}
-  {{ $scratch.Set $keywordUrlCountsKey dict }}
-{{ end }}
+{{ $scratch.Set $totalLinksKey 0 }}
+{{ $scratch.Set $keywordCountsKey dict }}
+{{ $scratch.Set $urlCountsKey dict }}
+{{ $scratch.Set $keywordUrlCountsKey dict }}
 
 {{/* Get current page URL for comparison */}}
 {{ $currentPageURL := $page.RelPermalink }}
@@ -148,9 +146,9 @@ keywords:
           {{ if not (or $keywordAlreadyLinked $keywordInHeading $keywordInTag) }}
             {{/* Find the actual matched text to preserve original case */}}
             {{ $matchedText := index (findRE $regexPattern $processedContent 1) 0 }}
-            
+
             {{/* Create the replacement link using the matched text with underlined class */}}
-            {{ $linkHtml := printf `<a href="%s" title="%s"  class="">%s</a>` $url $escapedTitle $matchedText }}
+            {{ $linkHtml := printf `<a href="%s" title="%s"  class="link-building-link">%s</a>` $url $escapedTitle $matchedText }}
 
             {{/* Replace only the first occurrence that matches exactly */}}
             {{ $processedContent = replaceRE $regexPattern $linkHtml $processedContent 1 }}

@@ -45,7 +45,7 @@
 
   /* Primary button on light backgrounds – white text, primary background */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-white bg-primary hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary btn-transition;
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-md text-white bg-primary hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary btn-transition;
   }
 
   /* Primary button on dark backgrounds – slightly lighter background for contrast */
@@ -65,16 +65,25 @@
 
   /* Minimal text button – typically inline or tertiary CTA on light background */
   .btn-text {
-    @apply text-sm font-semibold text-gray-900 hover:text-gray-800 btn-transition;
+    @apply text-sm font-semibold text-gray-900 hover:text-gray-600 btn-transition;
   }
   /* Minimal text button for dark backgrounds */
   .btn-text-dark {
     @apply text-sm font-semibold text-white hover:text-primary-500 btn-transition;
   }
-  
+
+  /* Button arrow animation */
+  .btn-arrow {
+    @apply font-semibold inline-block transition-transform duration-300;
+  }
+
+  .link-building-link {
+    @apply underline hover:text-primary;
+  }
   .wrapper {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
 
    /* Eliminate focus outline for iframes */
   iframe {

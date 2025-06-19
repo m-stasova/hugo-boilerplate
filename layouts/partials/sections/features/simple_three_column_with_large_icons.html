@@ -13,27 +13,27 @@
     - link: Object with text and url properties for the "Learn more" link (optional)
   - page: Page context for linkbuilding function (required)
 @example:
-  {{ partial "sections/features/simple_three_column_with_large_icons.html" (dict 
+  {{ partial "sections/features/simple_three_column_with_large_icons.html" (dict
       "eyebrow" "FEATURES"
       "heading" "Key Features"
       "description" "Our platform offers powerful features to streamline your workflow and boost productivity."
       "bgColor" "bg-gray-50"
       "features" (slice
-          (dict 
+          (dict
               "icon" "map"
-              "title" "Easy Integration" 
+              "title" "Easy Integration"
               "description" "Seamlessly integrate with your existing tools and workflows with our simple API."
               "link" (dict "text" "View API docs" "url" "/docs/api")
           )
           (dict
               "icon" "chart-bar"
-              "title" "Built-in Analytics" 
+              "title" "Built-in Analytics"
               "description" "Get real-time insights with comprehensive dashboards and reporting tools."
               "link" (dict "text" "See examples" "url" "/features/analytics")
           )
-          (dict 
+          (dict
               "icon" "shield-check"
-              "title" "Advanced Security" 
+              "title" "Advanced Security"
               "description" "Enterprise-grade security with role-based permissions and data encryption."
               "link" (dict "text" "Learn about security" "url" "/security")
           )
@@ -84,7 +84,12 @@
               <p>{{ partial "utils/linkbuilding" (dict "content" .description "page" $page) | safeHTML }}</p>
               {{ if .link }}
               <p class="mt-4">
-                <a href="{{ .link.url }}" class="text-sm/6 font-semibold text-primary-400">{{ .link.text }} <span aria-hidden="true">→</span></a>
+                {{ partial "components/buttons/buttons.html" (dict
+                  "text" .link.text
+                  "url" .link.url
+                  "variant" "text"
+                  "showArrow" true
+                ) }}
               </p>
               {{ end }}
             </dd>

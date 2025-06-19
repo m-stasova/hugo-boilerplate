@@ -59,10 +59,18 @@
         {{ if or $showPrimaryCta $showSecondaryCta }}
             <div class="my-10 flex items-center gap-x-6">
                 {{ if $showPrimaryCta }}
-                    <a href="{{ $cta.primary.url }}" class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-primary-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">{{ $cta.primary.text }}</a>
+                    {{ partial "components/buttons/buttons.html" (dict
+                        "text" $cta.primary.text
+                        "url" $cta.primary.url
+                        "variant" "primary"
+                    ) }}
                 {{ end }}
                 {{ if $showSecondaryCta }}
-                    <a href="{{ $cta.secondary.url }}" class="text-sm/6 font-semibold text-gray-900">{{ $cta.secondary.text }} <span aria-hidden="true">→</span></a>
+                    {{ partial "components/buttons/buttons.html" (dict
+                        "text" $cta.secondary.text
+                        "url" $cta.secondary.url
+                        "variant" "text"
+                    ) }}
                 {{ end }}
             </div>
         {{ end }}

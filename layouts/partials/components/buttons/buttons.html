@@ -10,11 +10,13 @@
   - rel: Link rel attribute (optional)
   - id: HTML id attribute (optional)
   - ariaLabel: ARIA label (optional; defaults to button text)
+  - showArrow: Boolean to show an arrow after the text (optional, default: false)
 @example:
   {{ partial "components/button.html" (dict
       "text" "Get started"
       "url" "/signup"
       "variant" "primary"
+      "showArrow" true
   ) }}
 */}}
 
@@ -26,6 +28,7 @@
 {{ $rel := .rel | default "" }}
 {{ $id := .id | default "" }}
 {{ $ariaLabel := .ariaLabel | default $text }}
+{{ $showArrow := .showArrow | default false }}
 
 {{ $variantClass := "" }}
 {{ if eq $variant "primary" }}
@@ -41,12 +44,12 @@
 {{ if and $text $url }}
   <a
     href="{{ if not (or (hasPrefix $url "http") (hasPrefix $url "#")) }}{{ $url | relLangURL }}{{ else }}{{ $url }}{{ end }}"
-    class="{{ $variantClass }} {{ $classes }}"
+    class="{{ $variantClass }} {{ $classes }} not-prose group"
     aria-label="{{ $ariaLabel }}"
     target="{{ $target }}"
     {{ with $id }}id="{{ . }}"{{ end }}
     {{ with $rel }}rel="{{ . }}"{{ end }}
   >
-    {{ $text }}
+    {{ $text }}{{ if $showArrow }} <span aria-hidden="true" class="btn-arrow">&rarr;</span>{{ end }}
   </a>
 {{ end }}
