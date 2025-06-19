@@ -1,0 +1,364 @@
+{{/* Search Field Partial */}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.6.2/fuse.min.js" integrity="sha512-Nqw1tH3mpavka9cQCc5zWWEZNfIPdOYyQFjlV1NvflEtQ0/XI6ZQ+H/D3YgJdqSUJlMLAPRj/oXlaHCFbFCjoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="search-container">
+    <div class="search-field">
+        <input type="text" id="popup-search-input" class="search-input" placeholder="Search..." aria-label="Search">
+        <button type="button" class="search-button" aria-label="Submit search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </div>
+    <div id="search-results-popup" class="search-results-popup" style="display: none;">
+        <div class="search-results-content">
+            <div id="popup-search-results"></div>
+            <div class="search-loading" style="display: none;">Loading...</div>
+            <div class="search-view-all" style="display: none;">
+                <a href="/search" id="view-all-results">View all results</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-field {
+    display: flex;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    background-color: white;
+}
+
+.search-input {
+    flex-grow: 1;
+    border: none;
+    padding: 0.5rem 1rem;
+    outline: none;
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+    color: #4a5568;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    color: #2d3748;
+}
+
+.search-results-popup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 50;
+    margin-top: 0.5rem;
+}
+
+.search-results-content {
+    padding: 1rem;
+}
+
+.search-result-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.search-result-snippet {
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.search-result-item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.search-result-item a:hover .search-result-title {
+    color: #4299e1;
+}
+
+.search-loading {
+    text-align: center;
+    padding: 0.5rem;
+    color: #4a5568;
+}
+
+.search-view-all {
+    text-align: center;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.search-view-all a {
+    color: #4299e1;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.search-view-all a:hover {
+    text-decoration: underline;
+}
+
+mark {
+    background-color: #fef08a;
+    padding: 0.1em 0;
+}
+
+.dark .search-field {
+    background-color: #1a202c;
+    border-color: #4a5568;
+}
+
+.dark .search-input {
+    background-color: #1a202c;
+    color: white;
+}
+
+.dark .search-button {
+    color: #e2e8f0;
+}
+
+.dark .search-results-popup {
+    background-color: #1a202c;
+    border-color: #4a5568;
+}
+
+.dark .search-result-item {
+    border-color: #4a5568;
+}
+
+.dark .search-result-title {
+    color: #e2e8f0;
+}
+
+.dark .search-result-snippet {
+    color: #a0aec0;
+}
+
+.dark .search-result-item a:hover .search-result-title {
+    color: #63b3ed;
+}
+
+.dark .search-view-all {
+    border-color: #4a5568;
+}
+
+.dark .search-view-all a {
+    color: #63b3ed;
+}
+
+.dark mark {
+    background-color: #744210;
+    color: #fef08a;
+}
+
+@media (max-width: 640px) {
+    .search-results-popup {
+        width: calc(100vw - 2rem);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Make sure the required libraries are available
+    if (typeof Fuse === 'undefined') {
+        console.warn('Fuse.js is not loaded. Search functionality will be limited.');
+    }
+
+    if (typeof Mark === 'undefined') {
+        console.warn('Mark.js is not loaded. Highlighting will be disabled.');
+    }
+
+    const searchInput = document.getElementById('popup-search-input');
+    const searchResultsPopup = document.getElementById('search-results-popup');
+    const searchResults = document.getElementById('popup-search-results');
+    const loadingIndicator = document.querySelector('.search-loading');
+    const viewAllSection = document.querySelector('.search-view-all');
+    const viewAllLink = document.getElementById('view-all-results');
+
+    let fuseInstance = null;
+    let debounceTimer;
+    let searchData = null;
+
+    // Close popup when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.search-container')) {
+            searchResultsPopup.style.display = 'none';
+        }
+    });
+
+    // Initialize search only when user interacts with the search input
+    searchInput.addEventListener('focus', initializeSearch);
+
+    searchInput.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        const query = this.value.trim();
+
+        if (query.length < 2) {
+            searchResultsPopup.style.display = 'none';
+            return;
+        }
+
+        debounceTimer = setTimeout(() => performSearch(query), 300);
+    });
+
+    function initializeSearch() {
+        // Check if Fuse is available
+        if (typeof Fuse === 'undefined') {
+            searchResults.innerHTML = '<p>Search functionality is not available. Please try again later.</p>';
+            searchResultsPopup.style.display = 'block';
+            return;
+        }
+
+        // Only load data if it hasn't been loaded yet
+        if (searchData === null) {
+            if (fuseInstance === null) {
+                loadingIndicator.style.display = 'block';
+                searchResultsPopup.style.display = 'block';
+                searchResults.innerHTML = '';
+
+                fetch('/index.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!data || data.length === 0) {
+                            console.error('Search index is empty');
+                            throw new Error('Search index is empty');
+                        }
+
+                        searchData = data;
+                        fuseInstance = new Fuse(data, {
+                            keys: ['title', 'content', 'tags'],
+                            includeScore: true,
+                            includeMatches: true,
+                            minMatchCharLength: 2,
+                            threshold: 0.4
+                        });
+
+                        // If there's text in the search box already, perform search
+                        const query = searchInput.value.trim();
+                        if (query.length >= 2) {
+                            performSearch(query);
+                        } else {
+                            loadingIndicator.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Search Error:', error);
+                        loadingIndicator.style.display = 'none';
+                        searchResults.innerHTML = '<p>Error loading search results.</p>';
+                    });
+            }
+        }
+    }
+
+    function performSearch(query) {
+        if (!fuseInstance) {
+            searchResults.innerHTML = '<p>Search is still initializing. Please try again.</p>';
+            return;
+        }
+
+        try {
+            const results = fuseInstance.search(query);
+            loadingIndicator.style.display = 'none';
+            searchResultsPopup.style.display = 'block';
+
+            // Update "View all" link with the current search query
+            viewAllLink.href = `/search?q=${encodeURIComponent(query)}`;
+
+            if (results.length > 0) {
+                // Show only the first 5 results in the popup
+                const displayResults = results.slice(0, 5);
+                let html = '';
+
+                displayResults.forEach(({ item, matches }) => {
+                    let snippet = 'No content preview available';
+
+                    // Check if content exists before trying to access it
+                    if (item && item.content && typeof item.content === 'string' && item.content.trim() !== '') {
+                        snippet = item.content.substring(0, 80) + '...';
+
+                        if (matches && Array.isArray(matches)) {
+                            const contentMatch = matches.find(m => m && m.key === 'content' && Array.isArray(m.indices) && m.indices.length > 0);
+
+                            if (contentMatch && contentMatch.indices && contentMatch.indices.length > 0) {
+                                const start = Math.max(0, contentMatch.indices[0][0] - 20);
+                                const end = Math.min(item.content.length, contentMatch.indices[0][1] + 20);
+                                snippet = '...' + item.content.substring(start, end) + '...';
+                            }
+                        }
+                    }
+
+                    const title = item.title || 'Untitled';
+                    const permalink = item.permalink || '#';
+
+                    html += `
+                    <div class="search-result-item">
+                        <a href="${permalink}">
+                            <div class="search-result-title">${title}</div>
+                            <div class="search-result-snippet">${snippet}</div>
+                        </a>
+                    </div>`;
+                });
+
+                searchResults.innerHTML = html;
+                viewAllSection.style.display = results.length > 5 ? 'block' : 'none';
+
+                // Highlight the search query in the results
+                if (typeof Mark !== 'undefined') {
+                    const mark = new Mark(searchResults);
+                    mark.mark(query);
+                }
+            } else {
+                searchResults.innerHTML = '<p>No results found.</p>';
+                viewAllSection.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Search execution error:', error);
+            searchResults.innerHTML = '<p>Error performing search.</p>';
+        }
+    }
+});
+</script>
