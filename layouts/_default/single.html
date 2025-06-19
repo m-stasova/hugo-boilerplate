@@ -4,9 +4,9 @@
 {{ partial "hero_default.html" . }}
 
 <!-- Main Content -->
-<div class="bg-white dark:bg-gray-900">
+<div class="bg-white">
   <div class="wrapper">
-    <div class="mx-auto max-w-none prose prose-lg prose-a:underline hover:prose-a:text-primary prose-img:rounded-xl">
+    <div class="mx-auto max-w-none prose prose-lg prose-img:rounded-xl">
       {{ .Content | partial "utils/linkbuilding" (dict "content" .Content "page" .) | safeHTML }}
     </div>
   </div>
