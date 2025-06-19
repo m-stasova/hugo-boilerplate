@@ -21,14 +21,14 @@
       - small: Takes 2 columns (3 small cards per row)
     - categoryColor: Color class for the category text (optional, default: "primary")
 @example:
-  {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict 
-      "tagline" "Our Services" 
+  {{ partial "sections/bentogrids/two_row_bento_grid.html" (dict
+      "tagline" "Our Services"
       "heading" "Solutions tailored to your business needs"
       "description" "Explore our range of services designed to help you succeed in the digital age."
       "backgroundColor" "gray-50"
       "cards" (slice
           (dict
-              "title" "Digital Transformation" 
+              "title" "Digital Transformation"
               "category" "Strategy"
               "description" "Comprehensive digital transformation services to modernize your business processes and technology stack."
               "image" "/images/services/digital-transformation.jpg"
@@ -39,7 +39,7 @@
               "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
-              "title" "Cloud Infrastructure" 
+              "title" "Cloud Infrastructure"
               "category" "Technology"
               "description" "Secure, scalable cloud solutions designed to optimize performance and reduce operational costs."
               "image" "/images/services/cloud-infrastructure.jpg"
@@ -49,7 +49,7 @@
               "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
-              "title" "Data Analytics" 
+              "title" "Data Analytics"
               "category" "Insights"
               "description" "Turn your data into actionable business insights with our advanced analytics solutions."
               "image" "/images/services/data-analytics.jpg"
@@ -59,7 +59,7 @@
               "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
-              "title" "API Integration" 
+              "title" "API Integration"
               "category" "Connectivity"
               "description" "Seamlessly connect your systems and applications with our API integration services."
               "image" "/images/services/api-integration.jpg"
@@ -69,7 +69,7 @@
               "cardImageClasses" "h-80 object-cover object-left"
           )
           (dict
-              "title" "Cybersecurity" 
+              "title" "Cybersecurity"
               "category" "Security"
               "description" "Protect your business with enterprise-grade security solutions and best practices."
               "image" "/images/services/cybersecurity.jpg"
@@ -101,20 +101,22 @@
     {{ if $tagline }}
       <h2 class="text-base/7 font-semibold text-{{ $taglineColor }} mb-4">{{ $tagline }}</h2>
     {{ end }}
-    
+
     {{ if $heading }}
       <p class="max-w-lg text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl">{{ $heading }}</p>
     {{ end }}
-    
+
     {{ if $description }}
       <p class="mt-1 text-lg/8 text-gray-600">{{ partial "utils/linkbuilding" (dict "content" $description "page" .Page) | safeHTML }}</p>
     {{ end }}
-    
+
     {{ if $linkUrl }}
       <div class="mt-1">
-        <a href="{{ $linkUrl }}" class="inline-block rounded-md bg-{{ $taglineColor }} px-4 py-2 text-sm/6 font-semibold text-white hover:bg-{{ $taglineColor }}-700 focus:outline-none focus:ring-2 focus:ring-{{ $taglineColor }}-500 focus:ring-offset-2">
-          {{ $linkText }}
-        </a>
+        {{ partial "components/buttons/buttons.html" (dict
+          "text" $linkText
+          "url" $linkUrl
+          "variant" "primary"
+        ) }}
       </div>
     {{ end }}
     
