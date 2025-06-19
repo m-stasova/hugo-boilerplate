@@ -15,9 +15,8 @@
   - controls: Show video controls (optional, "true" or "false", default: "true")
   - poster: Poster image URL for HTML5 video (optional)
 @examples:
-  {{< lazyvideo "https://www.youtube.com/watch?v=dQw4w9WgXcQ" >}}
+  {{< lazyvideo src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" title="Demo Video" >}}
   {{< lazyvideo src="https://example.com/video.mp4" title="Demo Video" autoplay="true" loop="true" muted="true" >}}
-  {{< lazyvideo "https://www.flowhunt.io/video.mp4" class="rounded-lg shadow-md" poster="/images/poster.jpg" >}}
 */}}
 
 {{ $src := .Get 0 | default (.Get "src") }}
